@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		AD10D4BA2C3D1034008481FF /* TDDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10D4B92C3D1034008481FF /* TDDApp.swift */; };
-		AD10D4BC2C3D1034008481FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10D4BB2C3D1034008481FF /* ContentView.swift */; };
 		AD10D4BE2C3D1035008481FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD10D4BD2C3D1035008481FF /* Assets.xcassets */; };
 		AD10D4C12C3D1035008481FF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD10D4C02C3D1035008481FF /* Preview Assets.xcassets */; };
 		AD10D4D02C3D1340008481FF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AD10D4CF2C3D1340008481FF /* Alamofire */; };
+		AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBAC2C3ED76B00785252 /* AuthenticationView.swift */; };
+		AD10DBAF2C3ED77400785252 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBAE2C3ED77400785252 /* AuthenticationViewModel.swift */; };
+		AD10DBB22C3FB5FF00785252 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBB12C3FB5FF00785252 /* CalendarView.swift */; };
 		ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */; };
 		ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */; };
 /* End PBXBuildFile section */
@@ -32,9 +34,12 @@
 /* Begin PBXFileReference section */
 		AD10D4B62C3D1034008481FF /* TDD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TDD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD10D4B92C3D1034008481FF /* TDDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDDApp.swift; sourceTree = "<group>"; };
-		AD10D4BB2C3D1034008481FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AD10D4BD2C3D1035008481FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD10D4C02C3D1035008481FF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AD10DBAC2C3ED76B00785252 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		AD10DBAE2C3ED77400785252 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		AD10DBB12C3FB5FF00785252 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		AD10DBB32C3FC61300785252 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,6 +75,7 @@
 		AD10D4B82C3D1034008481FF /* TDD */ = {
 			isa = PBXGroup;
 			children = (
+				AD10DBB32C3FC61300785252 /* Info.plist */,
 				AD10D4B92C3D1034008481FF /* TDDApp.swift */,
 				AD10D4D32C3D2390008481FF /* View */,
 				AD10D4BD2C3D1035008481FF /* Assets.xcassets */,
@@ -89,16 +95,34 @@
 		AD10D4D32C3D2390008481FF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AD10DBB02C3FB57A00785252 /* Calendar */,
+				AD10DBAB2C3ED6D800785252 /* Authentication */,
 				ADF2AB7B2C3E993D00B5AD60 /* Login */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		AD10DBAB2C3ED6D800785252 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				AD10DBAC2C3ED76B00785252 /* AuthenticationView.swift */,
+				AD10DBAE2C3ED77400785252 /* AuthenticationViewModel.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		AD10DBB02C3FB57A00785252 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				AD10DBB12C3FB5FF00785252 /* CalendarView.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		ADF2AB7B2C3E993D00B5AD60 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */,
-				AD10D4BB2C3D1034008481FF /* ContentView.swift */,
 				ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */,
 			);
 			path = Login;
@@ -181,10 +205,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD10D4BC2C3D1034008481FF /* ContentView.swift in Sources */,
+				AD10DBAF2C3ED77400785252 /* AuthenticationViewModel.swift in Sources */,
+				AD10DBB22C3FB5FF00785252 /* CalendarView.swift in Sources */,
 				ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */,
 				AD10D4BA2C3D1034008481FF /* TDDApp.swift in Sources */,
 				ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */,
+				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +347,7 @@
 				DEVELOPMENT_TEAM = 63K349422G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TDD/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -350,6 +377,7 @@
 				DEVELOPMENT_TEAM = 63K349422G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TDD/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

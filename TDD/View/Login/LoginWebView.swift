@@ -6,27 +6,17 @@
 //
 
 import SwiftUI
-import WebKit
+import SafariServices
 
-struct LoginWebView: UIViewRepresentable {
-    var urlToLoad: String
+struct LoginWebView: UIViewControllerRepresentable {
+    let urlToLoad: URL
     
-    func makeUIView(context: Context) -> WKWebView {
-        guard let url = URL(string: urlToLoad) else {
-            return WKWebView()
-        }
-        
-        let webView = WKWebView()
-        webView.load(URLRequest(url: url))
-        
-        return webView
+    func makeUIViewController(context: UIViewControllerRepresentableContext<LoginWebView>) -> SFSafariViewController {
+        return SFSafariViewController(url: urlToLoad)
     }
     
-    func updateUIView(_ uiView: WKWebView, context: Context) {
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         
     }
 }
 
-#Preview {
-    LoginWebView(urlToLoad: "https://www.naver.com")
-}
