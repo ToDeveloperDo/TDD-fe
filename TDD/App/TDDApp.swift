@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct TDDApp: App {
+    @StateObject var container: DIContainer = .init(services: Services())
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            AuthenticationView(viewModel: AuthenticationViewModel())
+                .environmentObject(container)
         }
     }
 }

@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var isPresent: Bool = false
-    @State private var authToken: String? = nil
+    @EnvironmentObject private var viewModel: AuthenticationViewModel
     
     var body: some View {
         VStack {
             Spacer()
             
             Button(action: {
-                isPresent.toggle()
+                viewModel.isPresent.toggle()
             }, label: {
                 HStack {
                     Image("ic_gitgub")
@@ -37,27 +36,13 @@ struct LoginView: View {
                 }
             })
         }
-        .sheet(isPresented: $isPresent) {
+        .sheet(isPresented: $viewModel.isPresent) {
             LoginWebView(urlToLoad: URL(string: "https://api.todeveloperdo.shop/git/login")!)
                 .ignoresSafeArea()
-        }
-        .onAppear {
-            NotificationCenter.default.addObserver(forName: Notification.Name("GitHubLogin"), object: nil, queue: .main) { notification in
-                if let url = notification.object as? URL {
-                    if let token = extractToken(from: url) {
-                        self.authToken = token
-                        self.isPresent = false
-                        print("Received JWT token: \(token)")
-                    }
-                }
-            }
-        }
+        }        
     }
     
-    private func extractToken(from url: URL) -> String? {
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        return components?.queryItems?.first(where: { $0.name == "token"})?.value
-    }
+    
 }
 
 #Preview {
