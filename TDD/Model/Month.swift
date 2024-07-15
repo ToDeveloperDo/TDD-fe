@@ -9,7 +9,21 @@ import Foundation
 
 struct Month: Identifiable {
     var id = UUID().uuidString
-    var day: Int
-    var date: Date
-    var todo: [String]?
+    var days: [Day]
+    var selectedDay: Day
 }
+
+struct Day: Identifiable {
+    var id = UUID().uuidString
+    var days: Int
+    var date: Date
+    var todos: [Todo]
+}
+
+struct Todo {
+    var todoListId: Int
+    var content: String
+    var memo: String
+    var tag: String
+}
+

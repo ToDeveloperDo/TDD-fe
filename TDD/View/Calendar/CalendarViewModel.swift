@@ -8,33 +8,54 @@
 import Foundation
 
 final class CalendarViewModel: ObservableObject {
-    @Published var selectedDay: Month?
-    @Published var months: [[Month]] = [[], [], []]
-    @Published var selection: Int = 1
+    @Published var months: [Month]
+    @Published var selection: Int
     
-    let dayOfWeek: [String] = Calendar.current.veryShortWeekdaySymbols
-    
+    let dayOfWeek: [String] = Calendar.current.veryShortWeekdaySymbols    
+        
+    init(months: [Month] = [],
+         selection: Int = 12) {
+        self.months = months
+        self.selection = selection
+        self.fetchMonths()
+    }
+
+}
+
+extension CalendarViewModel {
     func fetchMonths() {
-        months[0] = Date().createPreviousMonth()
-        months[1] = Date().createMonth()
-        months[2] = Date().createNextMonth()
-        selectedDay = months[1].filter { $0.date == Calendar.current.startOfDay(for: Date()) }.first!
-            
+        let calendar = Calendar.current
+        let currentMonth = Date().startOfMonth
+        
+        for offset in -12...12 {
+            if let date = calendar.date(byAdding: .month, value: offset, to: currentMonth) {
+                months.append(date.createMonth(date))
+            }
+        }
+        
+        selection = 12
     }
     
     func paginateMonth() {
-        guard let date = months[selection].first?.date else { return }
+        let calendar = Calendar.current
+        let currentMonthIndex = selection
         
-        if selection == 0 {
-            months.insert(date.createPreviousMonth(), at: 0)
-            months.removeLast()
-            selection = 1
+        if currentMonthIndex == 0 {
+            if let firstMonthDate = months.first?.days.first?.date {
+                let newMonthDate = calendar.date(byAdding: .month, value: -1, to: firstMonthDate.startOfMonth)!
+                months.insert(newMonthDate.createMonth(newMonthDate), at: 0)
+                months.removeLast()
+                selection = 1
+            }
         }
         
-        if selection == 2 {
-            months.append(date.createNextMonth())
-            months.removeFirst()
-            selection = 1
+        if currentMonthIndex == months.count - 1 {
+            if let lastMonthDate = months.last?.days.first?.date {
+                let newMonthDate = calendar.date(byAdding: .month, value: 1, to: lastMonthDate.startOfMonth)!
+                months.append(newMonthDate.createMonth(newMonthDate))
+                months.removeFirst()
+                selection = months.count - 2
+            }
         }
     }
 }

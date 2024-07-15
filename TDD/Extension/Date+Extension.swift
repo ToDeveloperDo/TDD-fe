@@ -34,6 +34,12 @@ extension Date {
         return calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? Date()
     }
     
+    var startOfYear: Date {
+        let calendar = Calendar.current
+        
+        return calendar.date(from: calendar.dateComponents([.year], from: self)) ?? Date()
+    }
+    
     var startOfWeeks: CGFloat {
         guard let range = Calendar.current.range(of: .weekOfMonth, in: .month, for: self) else { return 0 }
         
@@ -46,41 +52,57 @@ extension Date {
         return CGFloat(range.count)
     }
     
-    func createMonth(_ date: Date = Date()) -> [Month] {
+    func createMonth(_ date: Date = Date()) -> Month {
         let calendar = Calendar.current
         
-        guard let startDate = calendar.date(from: calendar.dateComponents([.year, .month], from: date)) else { return [] }
-        
-        guard let range = calendar.range(of: .day, in: .month, for: startDate) else { return [] }
-        
-        var days = range.compactMap { day -> Month in
-            let date = calendar.date(byAdding: .day, value: day-1, to: startDate)!
-            return Month(day: calendar.component(.day, from: date), date: date)
+        guard let startDate = calendar.date(from: calendar.dateComponents([.year, .month], from: date)) else {
+            return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: []))
         }
+        
+        guard let range = calendar.range(of: .day, in: .month, for: startDate) else { 
+            return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: []))
+        }
+        
+        var days = range.compactMap { day -> Day in
+            let date = calendar.date(byAdding: .day, value: day-1, to: startDate)!
+            return Day(days: calendar.component(.day, from: date), date: date, todos: [.init(todoListId: 1, content: "잠가지", memo: "뭐야", tag: "이건")])
+        }
+        
+        let currentDate = Date()
+        let currentStartOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate))
+        
+        var selectedDay: Day
+        
+        if currentStartOfMonth == startDate {
+            selectedDay = days.first(where: { $0.date == currentDate.startOfDay}) ?? .init(days: -1, date: Date(), todos: [])
+        } else {
+            selectedDay = days.first ?? .init(days: -1, date: Date(), todos: [])
+        }
+        
         
         let firstWeekday = calendar.component(.weekday, from: days.first?.date ?? Date())
         
         for _ in 0..<(firstWeekday - calendar.firstWeekday) {
-            days.insert(Month(day: -1, date: date), at: 0)
+            days.insert(Day(days: -1, date: date, todos: []), at: 0)
         }
         
-        return days
+        return Month(days: days, selectedDay: selectedDay)
     }
     
-    func createPreviousMonth() -> [Month] {
+    func createPreviousMonth() -> Month {
         let calendar = Calendar.current
         let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? Date()
         
-        guard let startDate = calendar.date(byAdding: .month, value: -1, to: startOfMonth) else { return [] }
+        guard let startDate = calendar.date(byAdding: .month, value: -1, to: startOfMonth) else { return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: [])) }
         
         return createMonth(startDate)
     }
     
-    func createNextMonth() -> [Month] {
+    func createNextMonth() -> Month {
         let calendar = Calendar.current
         let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? Date()
         
-        guard let startDate = calendar.date(byAdding: .month, value: +1, to: startOfMonth) else { return [] }
+        guard let startDate = calendar.date(byAdding: .month, value: +1, to: startOfMonth) else { return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: [])) }
         
         return createMonth(startDate)
     }

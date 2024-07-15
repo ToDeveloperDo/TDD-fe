@@ -14,26 +14,30 @@ struct CalendarView: View {
     private let calendarHeight: CGFloat = UIScreen.main.bounds.height/3
     
     var body: some View {
-        VStack {
-            calendarHeader
-            ScrollView {
-                VStack {
-                    calendarBody
-                    todoListView
+        ZStack {
+            VStack {
+                calendarHeader
+                ScrollView {
+                    VStack {
+                        calendarBody
+                        todoListView
+                    }
                 }
-                .onAppear { viewModel.fetchMonths() }
             }
+            plusBtnView
         }
     }
     
     private var calendarHeader: some View {
         VStack(alignment: .center) {
-            if let date = viewModel.months[1].first?.date {
-                Text(date.format("YYYY MMMM"))
-                    .font(.footnote)
-                    .fontWeight(.semibold)
-                Text(date.format("MMMM"))
+            if let date = viewModel.months[viewModel.selection].days.first?.date {
+                if date.startOfYear != Date.now.startOfYear {
+                    Text(date.format("YYYY년 MMMM"))
                     .font(.title.bold())
+                } else {
+                    Text(date.format("MMMM"))
+                        .font(.title.bold())
+                }
             }
             
             LazyVGrid(columns: columns) {
@@ -47,66 +51,89 @@ struct CalendarView: View {
     private var calendarBody: some View {
         TabView(selection: $viewModel.selection) {
             ForEach(viewModel.months.indices, id: \.self) { index in
-                let month = viewModel.months[index]
+                let month = viewModel.months[index].days
                 DateGrid(month)
                     .tag(index)
                     .onDisappear {
                         viewModel.paginateMonth()
                     }
                     .onAppear {
-                        viewModel.selection = 0
-                        viewModel.selection = 1
+                        viewModel.paginateMonth()
                     }
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .frame(height: calendarHeight)
+        
     }
     
     private var todoListView: some View {
         VStack {
-            if viewModel.selectedDay?.todo == nil {
-                Text("없다")
+            if viewModel.months[viewModel.selection].selectedDay.todos.isEmpty {
+                Text("\(viewModel.months[viewModel.selection].selectedDay.date)\nTodo 없음")
             } else {
-                Text("있다.")
+                Text("\(viewModel.months[viewModel.selection].selectedDay.todos.first?.memo ?? "")\nTodo 있음")
             }
         }
     }
     
+    private var plusBtnView: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button(action: {
+                    
+                }, label: {
+                    Image(systemName: "plus.circle.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .foregroundStyle(.blue)                        
+                })
+            }
+        }
+        .padding(.horizontal, 10)
+    }
+    
     @ViewBuilder
-    private func DateGrid(_ month: [Month]) -> some View {
+    private func DateGrid(_ month: [Day]) -> some View {
         LazyVGrid(columns: columns, spacing: 0) {
             ForEach(month) { value in
                 DateCell(value: value)
                     .onTapGesture {
-                        viewModel.selectedDay = value
+                        viewModel.months[viewModel.selection].selectedDay = value
                     }
             }
         }
     }   
     
     @ViewBuilder
-    private func DateCell(value: Month) -> some View {
+    private func DateCell(value: Day) -> some View {
         VStack(spacing: 0) {
-            if value.day != -1 {
+            if value.days != -1 {
                 VStack {
-                    Text("\(value.day)")
-                        .fontWeight(value.date.isToday ? .bold : .semibold)
+                    Text("\(value.days)")
+                        .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(value.date.isToday ? .blue : .gray.opacity(0.8))
-                        .background(value.date.isToday ? .black : .white)
+                        .frame(width: 36)
+                    ForEach(0..<value.todos.count) { i in
+                        Circle().frame(width: 4)
+                    }
                 }
                 .padding(10)
                 .overlay {
+                    if value.date == viewModel.months[viewModel.selection].selectedDay.date {
                         Circle()
                             .foregroundStyle(.blue.opacity(0.2))
-                            .opacity(value.date.isSameDay(viewModel.selectedDay?.date ?? Date()) ? 1 : 0)
+                    } else if value.date == Date.now.startOfDay {
+                        Circle()
+                            .foregroundStyle(.red.opacity(0.2))
+                    }
                 }
             }
         }
         .frame(height: calendarHeight/value.date.numberOfWeeks)
     }
-    
-    
 }
 
 #Preview {
