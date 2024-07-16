@@ -16,6 +16,7 @@ struct CalendarView: View {
     @FocusState private var focusField: Field?
     @State private var showTextField: Bool = false
     @State private var keyboardHeight: CGFloat = 0
+    @State private var textFieldOffset: CGFloat = 0
     
     private let columns = Array(repeating: GridItem(.flexible()), count: 7)
     private let calendarHeight: CGFloat = UIScreen.main.bounds.height/3
@@ -31,32 +32,55 @@ struct CalendarView: View {
                     }
                 }
             }
+            .onTapGesture {
+                showTextField = false
+                focusField = nil
+            }
             plusBtnView
             if showTextField {
                 VStack {
-                    TextField("제목", text: $viewModel.title)
-                        .focused($focusField, equals: .title)
-                        .submitLabel(.next)
-                    
-                    TextField("내용", text: $viewModel.memo)
-                        .focused($focusField, equals: .meme)
-                        .submitLabel(.done)
-                }
-                .background(Color.gray)
-                .background(
-                    GeometryReader { geometry in
-                        Color.clear
-                            .preference(key: TextFieldOffsetKey.self, value: geometry.frame(in: .global).origin.y)
+                    Spacer()
+                    VStack {
+                        TextField("제목", text: $viewModel.title)
+                            .focused($focusField, equals: .title)
+                            .submitLabel(.next)
+                        
+                        TextField("내용", text: $viewModel.memo)
+                            .focused($focusField, equals: .meme)
+                            .submitLabel(.done)
                     }
-                )
-                .offset(y: keyboardHeight)
+                    .padding(.all, 20)
+                    .background(Color.gray)
+                    .cornerRadius(10)
+                    .background(
+                        GeometryReader { geometry in
+                            Color.clear
+                                .preference(key: TextFieldOffsetKey.self, value: geometry.frame(in: .global).origin.y)
+                        }
+                    )
+                }
+                .offset(y: -keyboardHeight)
+                .animation(.spring(), value: keyboardHeight)
+                .ignoresSafeArea()
             }
             
         }
-        .ignoresSafeArea(.keyboard)
-        .onTapGesture {
-            showTextField = false
+        .onSubmit {
+            switch focusField {
+            case .title:
+                focusField = .meme
+            case .meme:
+                showTextField = false
+                //TODO: - api
+            case nil:
+                showTextField = false
+            }
         }
+        .ignoresSafeArea(.keyboard)
+        .onPreferenceChange(TextFieldOffsetKey.self, perform: { value in
+            self.textFieldOffset = value
+            
+        })
         .onAppear {
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
                 if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
