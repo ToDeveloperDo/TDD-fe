@@ -11,7 +11,10 @@ final class CalendarViewModel: ObservableObject {
     @Published var months: [Month]
     @Published var selection: Int
     
-    let dayOfWeek: [String] = Calendar.current.veryShortWeekdaySymbols    
+    @Published var title: String = ""
+    @Published var memo: String = ""
+    
+    let dayOfWeek: [String] = Calendar.current.veryShortWeekdaySymbols
         
     init(months: [Month] = [],
          selection: Int = 12) {

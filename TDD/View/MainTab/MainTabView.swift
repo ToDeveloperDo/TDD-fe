@@ -21,7 +21,7 @@ struct MainTabView: View {
                         case .myInfo:
                             MyInfoView()
                         case .todo:
-                            UnKnownView()
+                            ContentView()
                         }
                     }
                     .tabItem {

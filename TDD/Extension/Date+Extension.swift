@@ -65,7 +65,7 @@ extension Date {
         
         var days = range.compactMap { day -> Day in
             let date = calendar.date(byAdding: .day, value: day-1, to: startDate)!
-            return Day(days: calendar.component(.day, from: date), date: date, todos: [.init(todoListId: 1, content: "잠가지", memo: "뭐야", tag: "이건")])
+            return Day(days: calendar.component(.day, from: date), date: date, todos: [])
         }
         
         let currentDate = Date()

@@ -8,7 +8,14 @@
 import SwiftUI
 
 struct CalendarView: View {
+    enum Field: Hashable {
+        case title, meme
+    }
+    
     @StateObject var viewModel: CalendarViewModel
+    @FocusState private var focusField: Field?
+    @State private var showTextField: Bool = false
+    @State private var keyboardHeight: CGFloat = 0
     
     private let columns = Array(repeating: GridItem(.flexible()), count: 7)
     private let calendarHeight: CGFloat = UIScreen.main.bounds.height/3
@@ -25,19 +32,48 @@ struct CalendarView: View {
                 }
             }
             plusBtnView
+            if showTextField {
+                VStack {
+                    TextField("제목", text: $viewModel.title)
+                        .focused($focusField, equals: .title)
+                        .submitLabel(.next)
+                    
+                    TextField("내용", text: $viewModel.memo)
+                        .focused($focusField, equals: .meme)
+                        .submitLabel(.done)
+                }
+                .background(Color.gray)
+                .background(
+                    GeometryReader { geometry in
+                        Color.clear
+                            .preference(key: TextFieldOffsetKey.self, value: geometry.frame(in: .global).origin.y)
+                    }
+                )
+                .offset(y: keyboardHeight)
+            }
+            
+        }
+        .ignoresSafeArea(.keyboard)
+        .onTapGesture {
+            showTextField = false
+        }
+        .onAppear {
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
+                if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                    keyboardHeight = keyboardFrame.height
+                }
+            }
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (_) in
+                keyboardHeight = 0
+            }
         }
     }
     
     private var calendarHeader: some View {
         VStack(alignment: .center) {
             if let date = viewModel.months[viewModel.selection].days.first?.date {
-                if date.startOfYear != Date.now.startOfYear {
-                    Text(date.format("YYYY년 MMMM"))
+                Text(date.format("YYYY년 MMMM"))
                     .font(.title.bold())
-                } else {
-                    Text(date.format("MMMM"))
-                        .font(.title.bold())
-                }
             }
             
             LazyVGrid(columns: columns) {
@@ -83,7 +119,8 @@ struct CalendarView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    
+                    showTextField = true
+                    focusField = .title
                 }, label: {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
@@ -111,13 +148,15 @@ struct CalendarView: View {
     private func DateCell(value: Day) -> some View {
         VStack(spacing: 0) {
             if value.days != -1 {
-                VStack {
+                VStack(spacing: 0) {
                     Text("\(value.days)")
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(value.date.isToday ? .blue : .gray.opacity(0.8))
                         .frame(width: 36)
-                    ForEach(0..<value.todos.count) { i in
-                        Circle().frame(width: 4)
+                    HStack {
+                        ForEach(0..<3) { i in
+                            Circle().frame(width: 4).foregroundStyle(.red)
+                        }
                     }
                 }
                 .padding(10)
