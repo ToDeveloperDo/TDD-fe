@@ -32,6 +32,11 @@
 		AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE042C479AF300DE940B /* APIEventLogger.swift */; };
 		AD46DE072C47A38000DE940B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE062C47A38000DE940B /* API.swift */; };
 		AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE082C47AFAF00DE940B /* AuthInterceptor.swift */; };
+		AD67DF322C47EF7D008971DB /* CreateRepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF312C47EF7D008971DB /* CreateRepoView.swift */; };
+		AD67DF342C47EF88008971DB /* CreateRepoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF332C47EF88008971DB /* CreateRepoViewModel.swift */; };
+		AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF362C47F3BA008971DB /* NavigationDestination.swift */; };
+		AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF382C47F400008971DB /* NavigationRouter.swift */; };
+		AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */; };
 		ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */; };
 		ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */; };
 /* End PBXBuildFile section */
@@ -76,6 +81,11 @@
 		AD46DE042C479AF300DE940B /* APIEventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEventLogger.swift; sourceTree = "<group>"; };
 		AD46DE062C47A38000DE940B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		AD46DE082C47AFAF00DE940B /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		AD67DF312C47EF7D008971DB /* CreateRepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepoView.swift; sourceTree = "<group>"; };
+		AD67DF332C47EF88008971DB /* CreateRepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepoViewModel.swift; sourceTree = "<group>"; };
+		AD67DF362C47F3BA008971DB /* NavigationDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestination.swift; sourceTree = "<group>"; };
+		AD67DF382C47F400008971DB /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
+		AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObjectSettable.swift; sourceTree = "<group>"; };
 		ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,6 +146,7 @@
 		AD10D4D32C3D2390008481FF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AD67DF302C47EF67008971DB /* CreateRepo */,
 				AD10DBAB2C3ED6D800785252 /* Authentication */,
 				ADF2AB7B2C3E993D00B5AD60 /* Login */,
 				AD10DBBC2C401EFA00785252 /* MainTab */,
@@ -175,6 +186,8 @@
 		AD10DBB52C400DE500785252 /* Dependency */ = {
 			isa = PBXGroup;
 			children = (
+				AD67DF3A2C47F435008971DB /* Protocol */,
+				AD67DF352C47F386008971DB /* Navigation */,
 				AD10DBBA2C401A9B00785252 /* DIContainer.swift */,
 			);
 			path = Dependency;
@@ -285,6 +298,32 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		AD67DF302C47EF67008971DB /* CreateRepo */ = {
+			isa = PBXGroup;
+			children = (
+				AD67DF312C47EF7D008971DB /* CreateRepoView.swift */,
+				AD67DF332C47EF88008971DB /* CreateRepoViewModel.swift */,
+			);
+			path = CreateRepo;
+			sourceTree = "<group>";
+		};
+		AD67DF352C47F386008971DB /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				AD67DF362C47F3BA008971DB /* NavigationDestination.swift */,
+				AD67DF382C47F400008971DB /* NavigationRouter.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		AD67DF3A2C47F435008971DB /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		ADF2AB7B2C3E993D00B5AD60 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,6 +417,7 @@
 				AD10DBAF2C3ED77400785252 /* AuthenticationViewModel.swift in Sources */,
 				AD10DBB22C3FB5FF00785252 /* CalendarView.swift in Sources */,
 				AD10DBCB2C40C4C600785252 /* CalendarViewModel.swift in Sources */,
+				AD67DF342C47EF88008971DB /* CreateRepoViewModel.swift in Sources */,
 				AD46DDF82C47906E00DE940B /* TargetType.swift in Sources */,
 				AD10DBC92C40234000785252 /* UnKnownView.swift in Sources */,
 				AD10DBC72C40232400785252 /* MyInfoView.swift in Sources */,
@@ -385,17 +425,21 @@
 				ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */,
 				AD10DBC32C401F7A00785252 /* MainTabType.swift in Sources */,
 				AD10DBD02C40D3DB00785252 /* Month.swift in Sources */,
+				AD67DF322C47EF7D008971DB /* CreateRepoView.swift in Sources */,
 				AD10DBB92C400F6F00785252 /* Services.swift in Sources */,
 				AD46DE012C4795BC00DE940B /* CreateTodoRequest.swift in Sources */,
 				AD46DDFA2C4792C500DE940B /* HTTPHeaderField.swift in Sources */,
+				AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */,
 				AD10DBBB2C401A9B00785252 /* DIContainer.swift in Sources */,
 				AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */,
 				AD10D4BA2C3D1034008481FF /* TDDApp.swift in Sources */,
 				AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */,
 				AD46DE032C47981E00DE940B /* TodoAPI.swift in Sources */,
+				AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */,
 				AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */,
 				ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */,
 				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,
+				AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

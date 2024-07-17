@@ -91,14 +91,16 @@ struct CalendarView: View {
                     .focused($focusField, equals: .meme)
                     .submitLabel(.done)
                 HStack {
-                    Image(.icCalendar)
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(Color.red)
-                    
-                    Text("\(viewModel.months[viewModel.selection].selectedDay.date.format("yyyy년 MM월 dd일 EEEE"))")
-                    
+                    Label {
+                        Text("\(viewModel.months[viewModel.selection].selectedDay.date.format("yyyy년 MM월 dd일 EEEE"))")
+                    } icon: {
+                        Image(.icCalendar)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20)
+                            .foregroundStyle(Color.red)
+                    }
+                                        
                     Spacer()
                     
                     Button(action: {

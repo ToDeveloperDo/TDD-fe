@@ -16,3 +16,6 @@ final class Services: ServiceType {
 }
 
 
+final class StubService: ServiceType {
+    
+}
