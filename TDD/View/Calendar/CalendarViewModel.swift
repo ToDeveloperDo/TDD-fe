@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import Combine
 
 final class CalendarViewModel: ObservableObject {
     @Published var months: [Month]
     @Published var selection: Int
-    
+    @Published var showTextField: Bool = false
     @Published var title: String = ""
     @Published var memo: String = ""
+    
+    private var subscriptions = Set<AnyCancellable>()
     
     let dayOfWeek: [String] = Calendar.current.veryShortWeekdaySymbols
         
@@ -60,5 +63,18 @@ extension CalendarViewModel {
                 selection = months.count - 2
             }
         }
+    }
+    
+    func createTodo() {
+        let request = CreateTodoRequest(content: title, memo: memo, tag: "아", deadline: months[selection].selectedDay.date.format("yyyy-MM-dd"))
+        TodoAPI.createTodo(request: request)
+            .sink { completion in
+                self.showTextField = false
+            } receiveValue: { out in
+                self.showTextField = false
+                print(out)
+            }
+            .store(in: &subscriptions)
+
     }
 }

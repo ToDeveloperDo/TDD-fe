@@ -13,8 +13,7 @@ struct CalendarView: View {
     }
     
     @StateObject var viewModel: CalendarViewModel
-    @FocusState private var focusField: Field?
-    @State private var showTextField: Bool = false
+    @FocusState private var focusField: Field?    
     @State private var keyboardHeight: CGFloat = 0
     @State private var textFieldOffset: CGFloat = 0
     
@@ -32,48 +31,35 @@ struct CalendarView: View {
                     }
                 }
             }
+            .overlay {
+                if viewModel.showTextField {
+                    Color.gray.opacity(0.5)
+                        .ignoresSafeArea()
+                }
+            }
             .onTapGesture {
-                showTextField = false
+                viewModel.showTextField = false
                 focusField = nil
             }
             plusBtnView
-            if showTextField {
-                VStack {
-                    Spacer()
-                    VStack {
-                        TextField("제목", text: $viewModel.title)
-                            .focused($focusField, equals: .title)
-                            .submitLabel(.next)
-                        
-                        TextField("내용", text: $viewModel.memo)
-                            .focused($focusField, equals: .meme)
-                            .submitLabel(.done)
-                    }
-                    .padding(.all, 20)
-                    .background(Color.gray)
-                    .cornerRadius(10)
-                    .background(
-                        GeometryReader { geometry in
-                            Color.clear
-                                .preference(key: TextFieldOffsetKey.self, value: geometry.frame(in: .global).origin.y)
-                        }
-                    )
-                }
-                .offset(y: -keyboardHeight)
+            
+            if viewModel.showTextField {
+                todoInputView
+                .offset(y: -keyboardHeight+10)
                 .animation(.spring(), value: keyboardHeight)
                 .ignoresSafeArea()
             }
-            
         }
+        .background(Color.mainbg)
         .onSubmit {
             switch focusField {
             case .title:
                 focusField = .meme
             case .meme:
-                showTextField = false
-                //TODO: - api
+                viewModel.showTextField = false
+                viewModel.createTodo()
             case nil:
-                showTextField = false
+                viewModel.showTextField = false
             }
         }
         .ignoresSafeArea(.keyboard)
@@ -90,6 +76,54 @@ struct CalendarView: View {
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (_) in
                 keyboardHeight = 0
             }
+        }
+    }
+    
+    private var todoInputView: some View {
+        VStack {
+            Spacer()
+            VStack {
+                TextField("제목", text: $viewModel.title)
+                    .focused($focusField, equals: .title)
+                    .submitLabel(.next)
+                
+                TextField("내용", text: $viewModel.memo)
+                    .focused($focusField, equals: .meme)
+                    .submitLabel(.done)
+                HStack {
+                    Image(.icCalendar)
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(Color.red)
+                    
+                    Text("\(viewModel.months[viewModel.selection].selectedDay.date.format("yyyy년 MM월 dd일 EEEE"))")
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        viewModel.createTodo()
+                    }, label: {
+                        Image(.icUparrow)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .padding(5)
+                            .background(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .foregroundStyle(Color.red)
+                            )
+                    })
+                }
+            }
+            .padding(.all, 20)
+            .background(Color.fixWh)
+            .cornerRadius(10)
+            .background(
+                GeometryReader { geometry in
+                    Color.clear
+                        .preference(key: TextFieldOffsetKey.self, value: geometry.frame(in: .global).origin.y)
+                }
+            )
         }
     }
     
@@ -143,7 +177,7 @@ struct CalendarView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    showTextField = true
+                    viewModel.showTextField = true
                     focusField = .title
                 }, label: {
                     Image(systemName: "plus.circle.fill")

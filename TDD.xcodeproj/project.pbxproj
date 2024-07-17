@@ -23,6 +23,15 @@
 		AD10DBCB2C40C4C600785252 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCA2C40C4C600785252 /* CalendarViewModel.swift */; };
 		AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCD2C40CA0E00785252 /* Date+Extension.swift */; };
 		AD10DBD02C40D3DB00785252 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCF2C40D3DB00785252 /* Month.swift */; };
+		AD46DDF22C47762A00DE940B /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD46DDF12C47762A00DE940B /* Color.xcassets */; };
+		AD46DDF82C47906E00DE940B /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DDF72C47906E00DE940B /* TargetType.swift */; };
+		AD46DDFA2C4792C500DE940B /* HTTPHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DDF92C4792C500DE940B /* HTTPHeaderField.swift */; };
+		AD46DDFE2C47954000DE940B /* TodoAPITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DDFD2C47954000DE940B /* TodoAPITarget.swift */; };
+		AD46DE012C4795BC00DE940B /* CreateTodoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE002C4795BC00DE940B /* CreateTodoRequest.swift */; };
+		AD46DE032C47981E00DE940B /* TodoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE022C47981E00DE940B /* TodoAPI.swift */; };
+		AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE042C479AF300DE940B /* APIEventLogger.swift */; };
+		AD46DE072C47A38000DE940B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE062C47A38000DE940B /* API.swift */; };
+		AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE082C47AFAF00DE940B /* AuthInterceptor.swift */; };
 		ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */; };
 		ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +67,15 @@
 		AD10DBCA2C40C4C600785252 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		AD10DBCD2C40CA0E00785252 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		AD10DBCF2C40D3DB00785252 /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
+		AD46DDF12C47762A00DE940B /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		AD46DDF72C47906E00DE940B /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		AD46DDF92C4792C500DE940B /* HTTPHeaderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaderField.swift; sourceTree = "<group>"; };
+		AD46DDFD2C47954000DE940B /* TodoAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAPITarget.swift; sourceTree = "<group>"; };
+		AD46DE002C4795BC00DE940B /* CreateTodoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTodoRequest.swift; sourceTree = "<group>"; };
+		AD46DE022C47981E00DE940B /* TodoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAPI.swift; sourceTree = "<group>"; };
+		AD46DE042C479AF300DE940B /* APIEventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEventLogger.swift; sourceTree = "<group>"; };
+		AD46DE062C47A38000DE940B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		AD46DE082C47AFAF00DE940B /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,7 +118,8 @@
 				AD10D4D32C3D2390008481FF /* View */,
 				AD10DBB42C400C9700785252 /* Model */,
 				AD10DBB72C400F4300785252 /* Service */,
-				AD10D4BD2C3D1035008481FF /* Assets.xcassets */,
+				AD46DDF32C47834500DE940B /* Network */,
+				AD46DDF02C47760400DE940B /* Resource */,
 				AD10D4BF2C3D1035008481FF /* Preview Content */,
 			);
 			path = TDD;
@@ -210,6 +229,62 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		AD46DDF02C47760400DE940B /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				AD10D4BD2C3D1035008481FF /* Assets.xcassets */,
+				AD46DDF12C47762A00DE940B /* Color.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		AD46DDF32C47834500DE940B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				AD46DDF62C47904200DE940B /* Base */,
+				AD46DDFB2C4794EC00DE940B /* APIs */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		AD46DDF62C47904200DE940B /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				AD46DDF72C47906E00DE940B /* TargetType.swift */,
+				AD46DDF92C4792C500DE940B /* HTTPHeaderField.swift */,
+				AD46DE042C479AF300DE940B /* APIEventLogger.swift */,
+				AD46DE062C47A38000DE940B /* API.swift */,
+				AD46DE082C47AFAF00DE940B /* AuthInterceptor.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		AD46DDFB2C4794EC00DE940B /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				AD46DDFC2C47952900DE940B /* Todo */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		AD46DDFC2C47952900DE940B /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+				AD46DE022C47981E00DE940B /* TodoAPI.swift */,
+				AD46DDFD2C47954000DE940B /* TodoAPITarget.swift */,
+				AD46DDFF2C47958400DE940B /* Models */,
+			);
+			path = Todo;
+			sourceTree = "<group>";
+		};
+		AD46DDFF2C47958400DE940B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AD46DE002C4795BC00DE940B /* CreateTodoRequest.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		ADF2AB7B2C3E993D00B5AD60 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +362,7 @@
 			files = (
 				AD10D4C12C3D1035008481FF /* Preview Assets.xcassets in Resources */,
 				AD10D4BE2C3D1035008481FF /* Assets.xcassets in Resources */,
+				AD46DDF22C47762A00DE940B /* Color.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,18 +373,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD46DE072C47A38000DE940B /* API.swift in Sources */,
 				AD10DBBE2C401F2700785252 /* MainTabView.swift in Sources */,
 				AD10DBAF2C3ED77400785252 /* AuthenticationViewModel.swift in Sources */,
 				AD10DBB22C3FB5FF00785252 /* CalendarView.swift in Sources */,
 				AD10DBCB2C40C4C600785252 /* CalendarViewModel.swift in Sources */,
+				AD46DDF82C47906E00DE940B /* TargetType.swift in Sources */,
 				AD10DBC92C40234000785252 /* UnKnownView.swift in Sources */,
 				AD10DBC72C40232400785252 /* MyInfoView.swift in Sources */,
+				AD46DDFE2C47954000DE940B /* TodoAPITarget.swift in Sources */,
 				ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */,
 				AD10DBC32C401F7A00785252 /* MainTabType.swift in Sources */,
 				AD10DBD02C40D3DB00785252 /* Month.swift in Sources */,
 				AD10DBB92C400F6F00785252 /* Services.swift in Sources */,
+				AD46DE012C4795BC00DE940B /* CreateTodoRequest.swift in Sources */,
+				AD46DDFA2C4792C500DE940B /* HTTPHeaderField.swift in Sources */,
 				AD10DBBB2C401A9B00785252 /* DIContainer.swift in Sources */,
+				AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */,
 				AD10D4BA2C3D1034008481FF /* TDDApp.swift in Sources */,
+				AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */,
+				AD46DE032C47981E00DE940B /* TodoAPI.swift in Sources */,
 				AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */,
 				ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */,
 				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,

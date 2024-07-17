@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var text: String = ""
     @State private var showTextField: Bool = false
+    @State private var keyboardHeight: CGFloat = 0
+    
     @FocusState private var isTextFieldFocused: Bool
 
     var body: some View {
@@ -56,8 +58,6 @@ struct ContentView: View {
             // 필요시 추가 로직 작성
         }
     }
-    
-    @State private var keyboardHeight: CGFloat = 0
 }
 
 struct TextFieldOffsetKey: PreferenceKey {
