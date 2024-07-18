@@ -37,6 +37,8 @@
 		AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF362C47F3BA008971DB /* NavigationDestination.swift */; };
 		AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF382C47F400008971DB /* NavigationRouter.swift */; };
 		AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */; };
+		ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */; };
+		ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */; };
 		ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */; };
 		ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */; };
 /* End PBXBuildFile section */
@@ -86,6 +88,8 @@
 		AD67DF362C47F3BA008971DB /* NavigationDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestination.swift; sourceTree = "<group>"; };
 		AD67DF382C47F400008971DB /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObjectSettable.swift; sourceTree = "<group>"; };
+		ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
+		ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoutingView.swift; sourceTree = "<group>"; };
 		ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +127,7 @@
 			children = (
 				AD10DBB32C3FC61300785252 /* Info.plist */,
 				AD10DBB62C400E9700785252 /* App */,
+				ADEA4B5F2C48A8C500C10B9C /* General */,
 				AD10DBCC2C40C9DC00785252 /* Extension */,
 				AD10DBB52C400DE500785252 /* Dependency */,
 				AD10D4D32C3D2390008481FF /* View */,
@@ -214,6 +219,7 @@
 			children = (
 				AD10DBBD2C401F2700785252 /* MainTabView.swift */,
 				AD10DBC22C401F7A00785252 /* MainTabType.swift */,
+				ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */,
 			);
 			path = MainTab;
 			sourceTree = "<group>";
@@ -324,6 +330,22 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		ADEA4B5F2C48A8C500C10B9C /* General */ = {
+			isa = PBXGroup;
+			children = (
+				ADEA4B602C48A8E300C10B9C /* View */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		ADEA4B602C48A8E300C10B9C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		ADF2AB7B2C3E993D00B5AD60 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD46DE072C47A38000DE940B /* API.swift in Sources */,
+				ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */,
 				AD10DBBE2C401F2700785252 /* MainTabView.swift in Sources */,
 				AD10DBAF2C3ED77400785252 /* AuthenticationViewModel.swift in Sources */,
 				AD10DBB22C3FB5FF00785252 /* CalendarView.swift in Sources */,
@@ -436,6 +459,7 @@
 				AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */,
 				AD46DE032C47981E00DE940B /* TodoAPI.swift in Sources */,
 				AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */,
+				ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */,
 				AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */,
 				ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */,
 				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,

@@ -12,13 +12,19 @@ final class CreateRepoViewModel: ObservableObject {
     @Published var description: String
     @Published var isPrivate: Bool
     
+    private var container: DIContainer
+    
     init(name: String = "",
          description: String = "",
-         isPrivate: Bool = true) {
+         isPrivate: Bool = true,
+         container: DIContainer) {
         self.name = name
         self.description = description
         self.isPrivate = isPrivate
+        self.container = container
     }
     
-    
+    func createRepo() {
+        container.navigationRouter.pop()
+    }
 }

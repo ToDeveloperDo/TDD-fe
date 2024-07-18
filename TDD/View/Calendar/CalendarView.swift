@@ -79,61 +79,12 @@ struct CalendarView: View {
         }
     }
     
-    private var todoInputView: some View {
-        VStack {
-            Spacer()
-            VStack {
-                TextField("제목", text: $viewModel.title)
-                    .focused($focusField, equals: .title)
-                    .submitLabel(.next)
-                
-                TextField("내용", text: $viewModel.memo)
-                    .focused($focusField, equals: .meme)
-                    .submitLabel(.done)
-                HStack {
-                    Label {
-                        Text("\(viewModel.months[viewModel.selection].selectedDay.date.format("yyyy년 MM월 dd일 EEEE"))")
-                    } icon: {
-                        Image(.icCalendar)
-                            .resizable()
-                            .renderingMode(.template)
-                            .frame(width: 20, height: 20)
-                            .foregroundStyle(Color.red)
-                    }
-                                        
-                    Spacer()
-                    
-                    Button(action: {
-                        viewModel.createTodo()
-                    }, label: {
-                        Image(.icUparrow)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .padding(5)
-                            .background(
-                                RoundedRectangle(cornerRadius: 25)
-                                    .foregroundStyle(Color.red)
-                            )
-                    })
-                }
-            }
-            .padding(.all, 20)
-            .background(Color.fixWh)
-            .cornerRadius(10)
-            .background(
-                GeometryReader { geometry in
-                    Color.clear
-                        .preference(key: TextFieldOffsetKey.self, value: geometry.frame(in: .global).origin.y)
-                }
-            )
-        }
-    }
-    
     private var calendarHeader: some View {
         VStack(alignment: .center) {
             if let date = viewModel.months[viewModel.selection].days.first?.date {
                 Text(date.format("YYYY년 MMMM"))
-                    .font(.title.bold())
+                    .font(.title2.bold())
+                    .foregroundStyle(Color.text)
             }
             
             LazyVGrid(columns: columns) {
@@ -232,6 +183,56 @@ struct CalendarView: View {
             }
         }
         .frame(height: calendarHeight/value.date.numberOfWeeks)
+    }
+    
+    private var todoInputView: some View {
+        VStack {
+            Spacer()
+            VStack {
+                TextField("제목", text: $viewModel.title)
+                    .focused($focusField, equals: .title)
+                    .submitLabel(.next)
+                
+                TextField("내용", text: $viewModel.memo)
+                    .focused($focusField, equals: .meme)
+                    .submitLabel(.done)
+                HStack {
+                    Label {
+                        Text("\(viewModel.months[viewModel.selection].selectedDay.date.format("yyyy년 MM월 dd일 EEEE"))")
+                    } icon: {
+                        Image(.icCalendar)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20)
+                            .foregroundStyle(Color.red)
+                    }
+                                        
+                    Spacer()
+                    
+                    Button(action: {
+                        viewModel.createTodo()
+                    }, label: {
+                        Image(.icUparrow)
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .padding(5)
+                            .background(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .foregroundStyle(Color.red)
+                            )
+                    })
+                }
+            }
+            .padding(.all, 20)
+            .background(Color.fixWh)
+            .cornerRadius(10)
+            .background(
+                GeometryReader { geometry in
+                    Color.clear
+                        .preference(key: TextFieldOffsetKey.self, value: geometry.frame(in: .global).origin.y)
+                }
+            )
+        }
     }
 }
 

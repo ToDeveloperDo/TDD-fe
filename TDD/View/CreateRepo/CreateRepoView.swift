@@ -16,8 +16,10 @@ struct CreateRepoView: View {
             Rectangle().frame(height: 1)
             textFieldView
             radioBtnView
+            createBtnView
             Spacer()
         }
+        .navigationBarBackButtonHidden()
     }
     
     private var headerView: some View {
@@ -60,6 +62,7 @@ struct CreateRepoView: View {
             
             TextField("", text: $viewModel.description)
                 .textFieldStyle(.roundedBorder)
+            
         }
         .padding(.horizontal, 20)
     }
@@ -67,16 +70,22 @@ struct CreateRepoView: View {
     private var radioBtnView: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
-                Button(action: {
-                    
-                }, label: {
-                    Circle()
-                        .stroke()
-                        .foregroundStyle(Color.fixBk)
-                        .frame(width: 23)
-                })
+                Circle()
+                    .stroke()
+                    .foregroundStyle(Color.text)
+                    .frame(width: 23)
+                    .overlay {
+                        if !viewModel.isPrivate {
+                            Circle()
+                                .stroke(lineWidth: 5)
+                                .foregroundStyle(Color.blue)
+                                .frame(width: 19)
+                        }
+                    }
                 
                 Image(.icGitRepo)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.text)
                 
                 VStack(alignment: .leading) {
                     Text("Public")
@@ -86,33 +95,76 @@ struct CreateRepoView: View {
                         .foregroundStyle(.gray)
                 }
             }
+            .onTapGesture {
+                viewModel.isPrivate = false
+            }
             
             HStack {
-                Button(action: {
-                    
-                }, label: {
-                    Circle()
-                        .stroke()
-                        .foregroundStyle(Color.fixBk)
-                        .frame(width: 23)
-                })
+                Circle()
+                    .stroke()
+                    .foregroundStyle(Color.text)
+                    .frame(width: 23)
+                    .overlay {
+                        if viewModel.isPrivate {
+                            Circle()
+                                .stroke(lineWidth: 5)
+                                .foregroundStyle(Color.blue)
+                                .frame(width: 19)
+                        }
+                    }
                 
                 Image(.icGitRock)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.text)
                 
                 VStack(alignment: .leading) {
                     Text("Private")
                         .font(.headline)
-                    Text("다른 사람들이 볼 수 없습니다.")
+                    Text("다른 사람들이 이 저장소를 볼 수 없습니다.")
                         .font(.caption)
                         .foregroundStyle(.gray)
                 }
             }
+            .onTapGesture {
+                viewModel.isPrivate = true
+            }  
         }
         .padding(.top, 25)
         .padding(.horizontal, 20)
     }
+    
+    private var createBtnView: some View {
+        HStack {
+            Spacer()
+            Button(action: {
+                viewModel.createRepo()
+            }, label: {
+                Label(
+                    title: { 
+                        Text("Repository 생성")
+                            .font(.body)
+                            .foregroundStyle(Color.reverseText)
+                    },icon: {
+                        Image(.icGitgub)
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.reverseText)
+                    }
+                )
+                .padding(.vertical, 8)
+                .padding(.horizontal, 20)
+                .background {
+                    RoundedRectangle(cornerRadius: 6)
+                        .foregroundStyle(Color.text)
+                }
+            })
+            Spacer()
+        }
+        .padding(.top, 40)
+    }
 }
 
 #Preview {
-    CreateRepoView(viewModel: .init())
+    NavigationStack {
+        CreateRepoView(viewModel: CreateRepoViewModel(container: .init(services: StubService())) )
+    }
 }

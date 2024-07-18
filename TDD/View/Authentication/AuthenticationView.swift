@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AuthenticationView: View {
     @StateObject var viewModel: AuthenticationViewModel
+    @EnvironmentObject var container: DIContainer
     
     var body: some View {
         Group {
@@ -19,7 +20,7 @@ struct AuthenticationView: View {
                         viewModel.check()
                     }
             case .authenticated:
-                MainTabView()
+                MainTabView(viewModel: .init(container: container))
             }
         }
         .environmentObject(viewModel)
@@ -28,4 +29,5 @@ struct AuthenticationView: View {
 
 #Preview {
     AuthenticationView(viewModel: AuthenticationViewModel())
+        .environmentObject(DIContainer(services: StubService()))
 }
