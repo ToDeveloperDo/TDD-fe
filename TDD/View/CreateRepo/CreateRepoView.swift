@@ -20,6 +20,22 @@ struct CreateRepoView: View {
             Spacer()
         }
         .navigationBarBackButtonHidden()
+        .alert(isPresented: $viewModel.isPresentAlert) {
+            switch viewModel.alert {
+            case .create:
+                return Alert(title: Text("\(viewModel.name)"),
+                             message: Text("Repository를 생성하시겠습니까?"),
+                             primaryButton: .cancel(Text("취소"), action: {}),
+                             secondaryButton: .default(Text("확인")) {
+                    //TODO: - 레포 생성 API 호출
+                })
+            case .inputError:
+                return Alert(title: Text("입력 오류"),
+                             message: Text("Repository Name을 입력해야 합니다."),
+                             dismissButton: .cancel(Text("확이"), action: {}))
+            }
+        }
+       
     }
     
     private var headerView: some View {
@@ -137,7 +153,10 @@ struct CreateRepoView: View {
         HStack {
             Spacer()
             Button(action: {
-                viewModel.createRepo()
+                viewModel.isPresentAlert = true
+                if viewModel.name == "" {
+                    viewModel.alert = .inputError
+                }
             }, label: {
                 Label(
                     title: { 

@@ -74,7 +74,7 @@ extension Date {
         var selectedDay: Day
         
         if currentStartOfMonth == startDate {
-            selectedDay = days.first(where: { $0.date == currentDate.startOfDay}) ?? .init(days: -1, date: Date(), todos: [])
+            selectedDay = days.first(where: { $0.date.startOfDay == currentDate.startOfDay}) ?? .init(days: -1, date: Date(), todos: [])
         } else {
             selectedDay = days.first ?? .init(days: -1, date: Date(), todos: [])
         }

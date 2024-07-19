@@ -15,7 +15,6 @@ struct CalendarView: View {
     @StateObject var viewModel: CalendarViewModel
     @FocusState private var focusField: Field?    
     @State private var keyboardHeight: CGFloat = 0
-    @State private var textFieldOffset: CGFloat = 0
     
     private let columns = Array(repeating: GridItem(.flexible()), count: 7)
     private let calendarHeight: CGFloat = UIScreen.main.bounds.height/3
@@ -45,9 +44,8 @@ struct CalendarView: View {
             
             if viewModel.showTextField {
                 todoInputView
-                .offset(y: -keyboardHeight+10)
-                .animation(.spring(), value: keyboardHeight)
-                .ignoresSafeArea()
+                    .animation(.linear, value: keyboardHeight)
+                    .ignoresSafeArea()
             }
         }
         .background(Color.mainbg)
@@ -63,10 +61,6 @@ struct CalendarView: View {
             }
         }
         .ignoresSafeArea(.keyboard)
-        .onPreferenceChange(TextFieldOffsetKey.self, perform: { value in
-            self.textFieldOffset = value
-            
-        })
         .onAppear {
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (notification) in
                 if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
@@ -115,13 +109,21 @@ struct CalendarView: View {
     }
     
     private var todoListView: some View {
-        VStack {
+        VStack(alignment: .leading) {
             if viewModel.months[viewModel.selection].selectedDay.todos.isEmpty {
-                Text("\(viewModel.months[viewModel.selection].selectedDay.date)\nTodo 없음")
+                Text("\(viewModel.months[viewModel.selection].selectedDay)")
             } else {
-                Text("\(viewModel.months[viewModel.selection].selectedDay.todos.first?.memo ?? "")\nTodo 있음")
+                Text("\(viewModel.months[viewModel.selection].selectedDay.date.format("M월 d일"))")
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+                Text("\(viewModel.months[viewModel.selection].selectedDay)")
+                List(viewModel.months[viewModel.selection].selectedDay.todos, id: \.self) { todo in
+                    Text("\(todo.memo)")
+                }
+                .listStyle(.grouped)
             }
         }
+        .background(Color.fixWh).clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     private var plusBtnView: some View {
@@ -164,9 +166,16 @@ struct CalendarView: View {
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(value.date.isToday ? .blue : .gray.opacity(0.8))
                         .frame(width: 36)
-                    HStack {
-                        ForEach(0..<3) { i in
-                            Circle().frame(width: 4).foregroundStyle(.red)
+                    HStack(spacing: 2) {
+                        if value.todos.count > 3 {
+                            Text("+\(value.todos.count)")
+                                .font(.system(size: 8))
+                        } else {
+                            ForEach(0..<value.todos.count) { _ in
+                                Circle()
+                                    .frame(height: 3)
+
+                            }
                         }
                     }
                 }
@@ -224,14 +233,9 @@ struct CalendarView: View {
                 }
             }
             .padding(.all, 20)
+            .padding(.bottom, viewModel.showTextField ?  keyboardHeight-10 : 0)
             .background(Color.fixWh)
             .cornerRadius(10)
-            .background(
-                GeometryReader { geometry in
-                    Color.clear
-                        .preference(key: TextFieldOffsetKey.self, value: geometry.frame(in: .global).origin.y)
-                }
-            )
         }
     }
 }

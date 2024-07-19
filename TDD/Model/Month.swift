@@ -20,7 +20,7 @@ struct Day: Identifiable {
     var todos: [Todo]
 }
 
-struct Todo {
+struct Todo: Hashable {
     var todoListId: Int
     var content: String
     var memo: String

@@ -40,6 +40,8 @@ extension CalendarViewModel {
         }
         
         selection = 12
+        
+        months[selection].days[19].todos = [.init(todoListId: 1, content: "dk", memo: "dk", tag: "kd"),.init(todoListId: 1, content: "dk", memo: "dk", tag: "kd"),.init(todoListId: 1, content: "dk", memo: "dk", tag: "kd")]
     }
     
     func paginateMonth() {
