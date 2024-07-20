@@ -27,6 +27,7 @@ struct CreateRepoView: View {
                              message: Text("Repository를 생성하시겠습니까?"),
                              primaryButton: .cancel(Text("취소"), action: {}),
                              secondaryButton: .default(Text("확인")) {
+                    viewModel.createRepo()
                     //TODO: - 레포 생성 API 호출
                 })
             case .inputError:
@@ -156,6 +157,8 @@ struct CreateRepoView: View {
                 viewModel.isPresentAlert = true
                 if viewModel.name == "" {
                     viewModel.alert = .inputError
+                } else {
+                    viewModel.alert = .create
                 }
             }, label: {
                 Label(
