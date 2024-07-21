@@ -56,11 +56,11 @@ extension Date {
         let calendar = Calendar.current
         
         guard let startDate = calendar.date(from: calendar.dateComponents([.year, .month], from: date)) else {
-            return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: []))
+            return Month(days: [], selectedDayIndex: -1)
         }
         
         guard let range = calendar.range(of: .day, in: .month, for: startDate) else { 
-            return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: []))
+            return Month(days: [], selectedDayIndex: -1)
         }
         
         var days = range.compactMap { day -> Day in
@@ -71,12 +71,12 @@ extension Date {
         let currentDate = Date()
         let currentStartOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate))
         
-        var selectedDay: Day
+        var selectedDay: Int
         
         if currentStartOfMonth == startDate {
-            selectedDay = days.first(where: { $0.date.startOfDay == currentDate.startOfDay}) ?? .init(days: -1, date: Date(), todos: [])
+            selectedDay = days.firstIndex(where: { $0.date.isToday }) ?? -1
         } else {
-            selectedDay = days.first ?? .init(days: -1, date: Date(), todos: [])
+            selectedDay = 1
         }
         
         
@@ -86,24 +86,24 @@ extension Date {
             days.insert(Day(days: -1, date: date, todos: []), at: 0)
         }
         
-        return Month(days: days, selectedDay: selectedDay)
+        return Month(days: days, selectedDayIndex: selectedDay)
     }
     
-    func createPreviousMonth() -> Month {
-        let calendar = Calendar.current
-        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? Date()
-        
-        guard let startDate = calendar.date(byAdding: .month, value: -1, to: startOfMonth) else { return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: [])) }
-        
-        return createMonth(startDate)
-    }
-    
-    func createNextMonth() -> Month {
-        let calendar = Calendar.current
-        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? Date()
-        
-        guard let startDate = calendar.date(byAdding: .month, value: +1, to: startOfMonth) else { return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: [])) }
-        
-        return createMonth(startDate)
-    }
+//    func createPreviousMonth() -> Month {
+//        let calendar = Calendar.current
+//        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? Date()
+//        
+//        guard let startDate = calendar.date(byAdding: .month, value: -1, to: startOfMonth) else { return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: [])) }
+//        
+//        return createMonth(startDate)
+//    }
+//    
+//    func createNextMonth() -> Month {
+//        let calendar = Calendar.current
+//        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? Date()
+//        
+//        guard let startDate = calendar.date(byAdding: .month, value: +1, to: startOfMonth) else { return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: [])) }
+//        
+//        return createMonth(startDate)
+//    }
 }

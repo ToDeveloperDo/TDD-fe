@@ -9,20 +9,18 @@ import Foundation
 import Combine
 
 final class CalendarViewModel: ObservableObject {
-    @Published var months: [Month]
-    @Published var selection: Int
+    @Published var months: [Month] = []
+    @Published var selection: Int = 12
     @Published var showTextField: Bool = false
     @Published var title: String = ""
     @Published var memo: String = ""
+    @Published var selectedDay: Day?
     
     private var subscriptions = Set<AnyCancellable>()
     
     let dayOfWeek: [String] = Calendar.current.veryShortWeekdaySymbols
-        
-    init(months: [Month] = [],
-         selection: Int = 12) {
-        self.months = months
-        self.selection = selection
+    
+    init() {        
         self.fetchMonths()
     }
 
@@ -38,8 +36,14 @@ extension CalendarViewModel {
                 months.append(date.createMonth(date))
             }
         }
-        months[selection].days[20].todos = [.init(todoListId: 1, content: "dk", memo: "dk", tag: "kd"),.init(todoListId: 1, content: "dk", memo: "dk", tag: "kd"),.init(todoListId: 1, content: "dk", memo: "dk", tag: "kd")]
+        months[selection].days[21].todos = [
+                   .init(todoListId: 1, content: "dk", memo: "dk", tag: "kd"),
+                   .init(todoListId: 1, content: "dk", memo: "dk", tag: "kd"),
+                   .init(todoListId: 1, content: "dk", memo: "dk", tag: "kd")
+               ]
         selection = 12
+        
+        selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
     func paginateMonth() {
@@ -63,10 +67,11 @@ extension CalendarViewModel {
                 selection = months.count - 2
             }
         }
+        selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
     func createTodo() {
-        let request = CreateTodoRequest(content: title, memo: memo, tag: "아", deadline: months[selection].selectedDay.date.format("yyyy-MM-dd"))
+        let request = CreateTodoRequest(content: title, memo: memo, tag: "아", deadline: selectedDay?.date.format("yyyy-MM-dd") ?? "")
         TodoAPI.createTodo(request: request)
             .sink { completion in
                 self.showTextField = false

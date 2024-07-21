@@ -10,7 +10,7 @@ import Foundation
 struct Month: Identifiable {
     var id = UUID().uuidString
     var days: [Day]
-    var selectedDay: Day
+    var selectedDayIndex: Int
 }
 
 struct Day: Identifiable {
@@ -20,7 +20,8 @@ struct Day: Identifiable {
     var todos: [Todo]
 }
 
-struct Todo: Hashable {
+struct Todo: Identifiable, Hashable {
+    var id = UUID().uuidString
     var todoListId: Int
     var content: String
     var memo: String

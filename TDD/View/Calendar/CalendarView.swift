@@ -17,29 +17,25 @@ struct CalendarView: View {
     @State private var keyboardHeight: CGFloat = 0
     
     private let columns = Array(repeating: GridItem(.flexible()), count: 7)
-    private let calendarHeight: CGFloat = UIScreen.main.bounds.height/3
+    private let calendarHeight: CGFloat = UIScreen.main.bounds.height/4
     
     var body: some View {
         ZStack {
             VStack {
                 calendarHeader
-                ScrollView {
-                    VStack {
-                        calendarBody
-                        todoListView
-                    }
-                }
+                calendarBody
+                todoListView
             }
             .overlay {
                 if viewModel.showTextField {
                     Color.gray.opacity(0.5)
                         .ignoresSafeArea()
+                        .onTapGesture {
+                            viewModel.showTextField = false
+                            focusField = nil
+                        }
                 }
-            }
-            .onTapGesture {
-                viewModel.showTextField = false
-                focusField = nil
-            }
+            }            
             plusBtnView
             
             if viewModel.showTextField {
@@ -77,15 +73,18 @@ struct CalendarView: View {
         VStack(alignment: .center) {
             if let date = viewModel.months[viewModel.selection].days.first?.date {
                 Text(date.format("YYYY년 MMMM"))
-                    .font(.title2.bold())
+                    .font(.title3.bold())
                     .foregroundStyle(Color.text)
             }
             
             LazyVGrid(columns: columns) {
                 ForEach(viewModel.dayOfWeek, id: \.self) { day in
                     Text("\(day)")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.text)
                 }
             }
+            .padding(.top, 10)
         }
     }
     
@@ -106,24 +105,6 @@ struct CalendarView: View {
         .tabViewStyle(.page(indexDisplayMode: .never))
         .frame(height: calendarHeight)
         
-    }
-    
-    private var todoListView: some View {
-        VStack(alignment: .leading) {
-            if viewModel.months[viewModel.selection].selectedDay.todos.isEmpty {
-                Text("\(viewModel.months[viewModel.selection].selectedDay)")
-            } else {
-                Text("\(viewModel.months[viewModel.selection].selectedDay.date.format("M월 d일"))")
-                    .font(.caption)
-                    .foregroundStyle(.gray)
-                Text("\(viewModel.months[viewModel.selection].selectedDay)")
-                List(viewModel.months[viewModel.selection].selectedDay.todos, id: \.self) { todo in
-                    Text("\(todo.memo)")
-                }
-                .listStyle(.grouped)
-            }
-        }
-        .background(Color.fixWh).clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     private var plusBtnView: some View {
@@ -151,7 +132,8 @@ struct CalendarView: View {
             ForEach(month) { value in
                 DateCell(value: value)
                     .onTapGesture {
-                        viewModel.months[viewModel.selection].selectedDay = value
+                        viewModel.months[viewModel.selection].selectedDayIndex = value.days
+                        viewModel.selectedDay = value
                     }
             }
         }
@@ -161,11 +143,11 @@ struct CalendarView: View {
     private func DateCell(value: Day) -> some View {
         VStack(spacing: 0) {
             if value.days != -1 {
-                VStack(spacing: 0) {
+                ZStack() {
                     Text("\(value.days)")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundStyle(value.date.isToday ? .blue : .gray.opacity(0.8))
-                        .frame(width: 36)
+                        .font(.subheadline)
+                        .foregroundStyle(value.date.isToday ? .blue : .text)
+                        
                     HStack(spacing: 2) {
                         if value.todos.count > 3 {
                             Text("+\(value.todos.count)")
@@ -174,24 +156,23 @@ struct CalendarView: View {
                             ForEach(0..<value.todos.count) { _ in
                                 Circle()
                                     .frame(height: 3)
-
                             }
                         }
-                    }
+                    }.offset(y: 15)
                 }
-                .padding(10)
+                .padding(15)
+                .frame(height: calendarHeight/value.date.numberOfWeeks)
                 .overlay {
-                    if value.date == viewModel.months[viewModel.selection].selectedDay.date {
+                    if value.date == viewModel.selectedDay!.date {
                         Circle()
                             .foregroundStyle(.blue.opacity(0.2))
-                    } else if value.date == Date.now.startOfDay {
+                    } else if value.date.isToday {
                         Circle()
                             .foregroundStyle(.red.opacity(0.2))
                     }
                 }
             }
         }
-        .frame(height: calendarHeight/value.date.numberOfWeeks)
     }
     
     private var todoInputView: some View {
@@ -207,7 +188,7 @@ struct CalendarView: View {
                     .submitLabel(.done)
                 HStack {
                     Label {
-                        Text("\(viewModel.months[viewModel.selection].selectedDay.date.format("yyyy년 MM월 dd일 EEEE"))")
+                        Text("\(viewModel.selectedDay!.date.format("yyyy년 MM월 dd일 EEEE"))")
                     } icon: {
                         Image(.icCalendar)
                             .resizable()
@@ -236,6 +217,60 @@ struct CalendarView: View {
             .padding(.bottom, viewModel.showTextField ?  keyboardHeight-10 : 0)
             .background(Color.fixWh)
             .cornerRadius(10)
+        }
+    }
+    
+    private var todoListView: some View {
+        VStack(alignment: .leading) {
+                if let selectedDay = viewModel.selectedDay {
+                    if selectedDay.todos.isEmpty {
+                        emptyTodoView
+                    } else {
+                        List {
+                            Text("\(selectedDay.date.format("M월 d일"))")
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                            
+                            ForEach(selectedDay.todos) { todo in
+                                Text("\(todo.content)")
+                            }
+                            .onDelete(perform: { indexSet in
+                                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Code@*/ /*@END_MENU_TOKEN@*/
+                            })
+                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                Button(action: {
+                                    
+                                }, label: {
+                                    Text("Button")
+                                })
+                            }
+                        }
+                        .listRowBackground(Color.fixWh)
+                        .listRowSeparator(.hidden)
+                        .background(Color.mainbg)
+                        .listStyle(.plain)
+                        
+                        
+                    }
+                }
+            }
+        .scrollContentBackground(.hidden)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .padding(10)
+    }
+    
+    private var emptyTodoView: some View {
+        VStack {
+            Spacer()
+            Image(.icCalendarBack)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 150)
+                .padding(.bottom, 20)
+            Text("이 날에는 일정이 없어요")
+                .font(.callout)
+                .foregroundStyle(.text)
+            Spacer()
         }
     }
 }
