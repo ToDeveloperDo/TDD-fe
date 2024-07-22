@@ -51,7 +51,7 @@ struct CalendarView: View {
                 focusField = .meme
             case .meme:
                 viewModel.showTextField = false
-                viewModel.createTodo()
+                viewModel.send(action: .createTodo)
             case nil:
                 viewModel.showTextField = false
             }
@@ -71,7 +71,7 @@ struct CalendarView: View {
     
     private var calendarHeader: some View {
         VStack(alignment: .center) {
-            if let date = viewModel.months[viewModel.selection].days.first?.date {
+            if let date = viewModel.selectedDay?.date {
                 Text(date.format("YYYY년 MMMM"))
                     .font(.title3.bold())
                     .foregroundStyle(Color.text)
@@ -95,10 +95,10 @@ struct CalendarView: View {
                 DateGrid(month)
                     .tag(index)
                     .onDisappear {
-                        viewModel.paginateMonth()
+                        viewModel.send(action: .paginate)
                     }
                     .onAppear {
-                        viewModel.paginateMonth()
+                        viewModel.send(action: .paginate)
                     }
             }
         }
@@ -132,8 +132,7 @@ struct CalendarView: View {
             ForEach(month) { value in
                 DateCell(value: value)
                     .onTapGesture {
-                        viewModel.months[viewModel.selection].selectedDayIndex = value.days
-                        viewModel.selectedDay = value
+                        viewModel.send(action: .selectDay(day: value))
                     }
             }
         }
@@ -149,13 +148,15 @@ struct CalendarView: View {
                         .foregroundStyle(value.date.isToday ? .blue : .text)
                         
                     HStack(spacing: 2) {
-                        if value.todos.count > 3 {
-                            Text("+\(value.todos.count)")
-                                .font(.system(size: 8))
-                        } else {
-                            ForEach(0..<value.todos.count) { _ in
-                                Circle()
-                                    .frame(height: 3)
+                        if !value.todos.isEmpty {
+                            if value.todos.count > 3 {
+                                Text("+\(value.todos.count)")
+                                    .font(.system(size: 8))
+                            } else {
+                                ForEach(0..<value.todos.count) { _ in
+                                    Circle()
+                                        .frame(height: 3)
+                                }
                             }
                         }
                     }.offset(y: 15)
@@ -200,7 +201,7 @@ struct CalendarView: View {
                     Spacer()
                     
                     Button(action: {
-                        viewModel.createTodo()
+                        viewModel.send(action: .createTodo)
                     }, label: {
                         Image(.icUparrow)
                             .resizable()
@@ -227,36 +228,56 @@ struct CalendarView: View {
                         emptyTodoView
                     } else {
                         List {
-                            Text("\(selectedDay.date.format("M월 d일"))")
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                            
-                            ForEach(selectedDay.todos) { todo in
-                                Text("\(todo.content)")
-                            }
-                            .onDelete(perform: { indexSet in
-                                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Code@*/ /*@END_MENU_TOKEN@*/
-                            })
-                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                Button(action: {
+                            Section {
+                                Text("\(selectedDay.date.format("M월 d일"))")
+                                    .font(.caption)
+                                    .foregroundStyle(.text)
+                                ForEach(selectedDay.todos) { todo in
+                                    todoCell(todo: todo)
+                                }
+                                .onDelete(perform: { indexSet in
                                     
-                                }, label: {
-                                    Text("Button")
                                 })
+                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                    Button(action: {
+                                        
+                                    }, label: {
+                                        Text("Button")
+                                    })
+                                }
                             }
+                            .listRowSeparator(.hidden)
+                            
+                            Section {
+                                Text("완료")
+                                    .font(.caption)
+                                    .foregroundStyle(.text)
+                            }
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.fixWh)
+                            .listStyle(.plain)
                         }
-                        .listRowBackground(Color.fixWh)
-                        .listRowSeparator(.hidden)
-                        .background(Color.mainbg)
-                        .listStyle(.plain)
-                        
-                        
                     }
                 }
             }
         .scrollContentBackground(.hidden)
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .padding(10)
+    }
+    @State var isSelected: Bool = false
+    private func todoCell(todo: Todo) -> some View {
+        HStack {
+            Image(isSelected ? .icSelectedBox : .icUnSelectedBox)
+                .resizable()
+                .frame(width: 20, height: 20)
+                .onTapGesture {
+                    isSelected.toggle()
+                }
+            
+            Text("\(todo.memo)")
+                .font(.caption)
+                .foregroundStyle(.text)
+        }
     }
     
     private var emptyTodoView: some View {

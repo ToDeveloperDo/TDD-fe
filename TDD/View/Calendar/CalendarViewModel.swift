@@ -23,11 +23,27 @@ final class CalendarViewModel: ObservableObject {
     init() {        
         self.fetchMonths()
     }
-
+    
+    enum Action {
+        case paginate
+        case createTodo
+        case selectDay(day: Day)
+    }
+    
+    func send(action: Action) {
+        switch action {
+        case .paginate:
+            paginateMonth()
+        case .createTodo:
+            createTodo()
+        case .selectDay(let day):
+            selectDay(selectDay: day)
+        }
+    }
 }
 
 extension CalendarViewModel {
-    func fetchMonths() {
+    private func fetchMonths() {
         let calendar = Calendar.current
         let currentMonth = Date().startOfMonth
         
@@ -36,7 +52,7 @@ extension CalendarViewModel {
                 months.append(date.createMonth(date))
             }
         }
-        months[selection].days[21].todos = [
+        months[selection].days[22].todos = [
                    .init(todoListId: 1, content: "dk", memo: "dk", tag: "kd"),
                    .init(todoListId: 1, content: "dk", memo: "dk", tag: "kd"),
                    .init(todoListId: 1, content: "dk", memo: "dk", tag: "kd")
@@ -46,7 +62,7 @@ extension CalendarViewModel {
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
-    func paginateMonth() {
+    private func paginateMonth() {
         let calendar = Calendar.current
         let currentMonthIndex = selection
         
@@ -70,7 +86,7 @@ extension CalendarViewModel {
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
-    func createTodo() {
+    private func createTodo() {
         let request = CreateTodoRequest(content: title, memo: memo, tag: "아", deadline: selectedDay?.date.format("yyyy-MM-dd") ?? "")
         TodoAPI.createTodo(request: request)
             .sink { completion in
@@ -80,6 +96,12 @@ extension CalendarViewModel {
                 print(out)
             }
             .store(in: &subscriptions)
-
+    }
+    
+    private func selectDay(selectDay: Day) {
+        let selectedDay = months[selection].days.first { $0.date == selectDay.date }
+        let selectDayIndex = months[selection].days.firstIndex { $0.date == selectDay.date }
+        months[selection].selectedDayIndex = selectDayIndex ?? -1
+        self.selectedDay = selectDay
     }
 }

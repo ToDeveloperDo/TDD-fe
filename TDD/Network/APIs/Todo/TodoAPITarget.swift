@@ -10,6 +10,7 @@ import Alamofire
 
 enum TodoAPITarget {
     case createTodo(CreateTodoRequest)
+    case getTodoList(GetTodoListRequest)
 }
 
 extension TodoAPITarget: TargetType {
@@ -20,18 +21,21 @@ extension TodoAPITarget: TargetType {
     var method: Alamofire.HTTPMethod {
         switch self {
         case .createTodo: return .post
+        case .getTodoList: return .post
         }
     }
     
     var path: String {
         switch self {
         case .createTodo: return "/api/todo"
+        case .getTodoList: return "/api/todo/list"
         }
     }
     
     var parameters: RequestParams {
         switch self {
         case .createTodo(let request): return .body(request)
+        case .getTodoList(let request): return .body(request)
         }
     }
     
