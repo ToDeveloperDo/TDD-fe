@@ -18,9 +18,10 @@ struct Day: Identifiable {
     var days: Int
     var date: Date
     var todos: [Todo]
+    var finishTodos: [Todo]
 }
 
-struct Todo: Identifiable, Hashable {
+struct Todo: Identifiable, Equatable {
     var id = UUID().uuidString
     var todoListId: Int
     var content: String

@@ -44,6 +44,7 @@ struct CalendarView: View {
                     .ignoresSafeArea()
             }
         }
+        .environmentObject(viewModel)
         .background(Color.mainbg)
         .onSubmit {
             switch focusField {
@@ -128,7 +129,7 @@ struct CalendarView: View {
     
     @ViewBuilder
     private func DateGrid(_ month: [Day]) -> some View {
-        LazyVGrid(columns: columns, spacing: 0) {
+        LazyVGrid(columns: columns, spacing: 5) {
             ForEach(month) { value in
                 DateCell(value: value)
                     .onTapGesture {
@@ -138,7 +139,7 @@ struct CalendarView: View {
         }
     }   
     
-    @ViewBuilder
+    
     private func DateCell(value: Day) -> some View {
         VStack(spacing: 0) {
             if value.days != -1 {
@@ -151,9 +152,9 @@ struct CalendarView: View {
                         if !value.todos.isEmpty {
                             if value.todos.count > 3 {
                                 Text("+\(value.todos.count)")
-                                    .font(.system(size: 8))
+                                    .font(.system(size: 9))
                             } else {
-                                ForEach(0..<value.todos.count) { _ in
+                                ForEach(value.todos) { _ in
                                     Circle()
                                         .frame(height: 3)
                                 }
@@ -224,38 +225,50 @@ struct CalendarView: View {
     private var todoListView: some View {
         VStack(alignment: .leading) {
                 if let selectedDay = viewModel.selectedDay {
-                    if selectedDay.todos.isEmpty {
+                    if selectedDay.todos.isEmpty && selectedDay.finishTodos.isEmpty {
                         emptyTodoView
                     } else {
                         List {
-                            Section {
-                                Text("\(selectedDay.date.format("M월 d일"))")
-                                    .font(.caption)
-                                    .foregroundStyle(.text)
-                                ForEach(selectedDay.todos) { todo in
-                                    todoCell(todo: todo)
-                                }
-                                .onDelete(perform: { indexSet in
-                                    
-                                })
-                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                    Button(action: {
-                                        
-                                    }, label: {
-                                        Text("Button")
+                            if !selectedDay.todos.isEmpty {
+                                Section {
+                                    Text("\(selectedDay.date.format("M월 d일"))")
+                                        .font(.caption)
+                                        .foregroundStyle(.text)
+                                    ForEach(selectedDay.todos) { todo in
+                                        TodoCell(todo: todo) {
+                                            viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
+                                        }
+                                    }
+                                    .onDelete(perform: { indexSet in
+                                        viewModel.send(action: .deleteTodo(index: indexSet))
                                     })
+                                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                        Button(action: {}, label: {
+                                            Text("Button")
+                                        })
+                                    }
                                 }
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.fixWh)
+                                .listStyle(.plain)
                             }
-                            .listRowSeparator(.hidden)
                             
-                            Section {
-                                Text("완료")
-                                    .font(.caption)
-                                    .foregroundStyle(.text)
+                            if !selectedDay.finishTodos.isEmpty {
+                                Section {
+                                    Text("완료")
+                                        .font(.caption)
+                                        .foregroundStyle(.text)
+                                    ForEach(selectedDay.finishTodos) { todo in
+                                        TodoCell(isSelected: true, todo: todo) {
+                                            viewModel.send(action: .moveTodo(todo: todo, mode: .reverse))
+                                        }
+                                    }
+                                    
+                                }                                
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.fixWh)
+                                .listStyle(.plain)
                             }
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.fixWh)
-                            .listStyle(.plain)
                         }
                     }
                 }
@@ -264,21 +277,7 @@ struct CalendarView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .padding(10)
     }
-    @State var isSelected: Bool = false
-    private func todoCell(todo: Todo) -> some View {
-        HStack {
-            Image(isSelected ? .icSelectedBox : .icUnSelectedBox)
-                .resizable()
-                .frame(width: 20, height: 20)
-                .onTapGesture {
-                    isSelected.toggle()
-                }
-            
-            Text("\(todo.memo)")
-                .font(.caption)
-                .foregroundStyle(.text)
-        }
-    }
+    
     
     private var emptyTodoView: some View {
         VStack {
@@ -296,7 +295,45 @@ struct CalendarView: View {
     }
 }
 
+private struct TodoCell: View {
+    private var isSelected: Bool
+    @EnvironmentObject private var viewModel: CalendarViewModel
+    
+    private var todo: Todo
+    var onCheckboxTapped: () -> Void = {}
+    
+    fileprivate init(isSelected: Bool = false, todo: Todo, _ onCheckboxTapped: @escaping () -> Void) {
+        self.isSelected = isSelected
+        self.todo = todo
+        self.onCheckboxTapped = onCheckboxTapped
+    }
+    
+    fileprivate var body: some View {
+        HStack {
+            Image(isSelected ? .icSelectedBox : .icUnSelectedBox)
+                .resizable()
+                .frame(width: 20, height: 20)
+                .onTapGesture {
+                    onCheckboxTapped()
+                }
+                .padding(5)
+            
+            Button(action: {
+                
+            }, label: {
+                HStack {
+                    Text("\(todo.memo)")
+                        .font(.caption)
+                        .foregroundStyle(.text)
+                    Spacer()
+                }
+            })
+        }
+    }
+}
+
 #Preview {
     CalendarView(viewModel: .init())
+        .environmentObject(CalendarViewModel())
 }
 

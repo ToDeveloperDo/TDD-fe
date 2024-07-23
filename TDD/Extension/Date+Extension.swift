@@ -65,7 +65,7 @@ extension Date {
         
         var days = range.compactMap { day -> Day in
             let date = calendar.date(byAdding: .day, value: day-1, to: startDate)!
-            return Day(days: calendar.component(.day, from: date), date: date, todos: [])
+            return Day(days: calendar.component(.day, from: date), date: date, todos: [], finishTodos: [])
         }
         
         let currentDate = Date()
@@ -76,7 +76,7 @@ extension Date {
         let firstWeekday = calendar.component(.weekday, from: days.first?.date ?? Date())
         
         for _ in 0..<(firstWeekday - calendar.firstWeekday) {
-            days.insert(Day(days: -1, date: date, todos: []), at: 0)
+            days.insert(Day(days: -1, date: date, todos: [], finishTodos: []), at: 0)
         }
         
         if currentStartOfMonth == startDate {
