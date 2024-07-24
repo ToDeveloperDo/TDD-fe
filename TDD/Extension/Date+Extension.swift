@@ -65,7 +65,7 @@ extension Date {
         
         var days = range.compactMap { day -> Day in
             let date = calendar.date(byAdding: .day, value: day-1, to: startDate)!
-            return Day(days: calendar.component(.day, from: date), date: date, todos: [], finishTodos: [])
+            return Day(days: calendar.component(.day, from: date), date: date)
         }
         
         let currentDate = Date()
@@ -76,7 +76,7 @@ extension Date {
         let firstWeekday = calendar.component(.weekday, from: days.first?.date ?? Date())
         
         for _ in 0..<(firstWeekday - calendar.firstWeekday) {
-            days.insert(Day(days: -1, date: date, todos: [], finishTodos: []), at: 0)
+            days.insert(Day(days: -1, date: date), at: 0)
         }
         
         if currentStartOfMonth == startDate {
@@ -87,22 +87,4 @@ extension Date {
         
         return Month(days: days, selectedDayIndex: selectedDay)
     }
-    
-//    func createPreviousMonth() -> Month {
-//        let calendar = Calendar.current
-//        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? Date()
-//        
-//        guard let startDate = calendar.date(byAdding: .month, value: -1, to: startOfMonth) else { return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: [])) }
-//        
-//        return createMonth(startDate)
-//    }
-//    
-//    func createNextMonth() -> Month {
-//        let calendar = Calendar.current
-//        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: self)) ?? Date()
-//        
-//        guard let startDate = calendar.date(byAdding: .month, value: +1, to: startOfMonth) else { return Month(days: [], selectedDay: Day(days: -1, date: Date(), todos: [])) }
-//        
-//        return createMonth(startDate)
-//    }
 }

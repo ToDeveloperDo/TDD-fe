@@ -17,8 +17,8 @@ struct Day: Identifiable {
     var id = UUID().uuidString
     var days: Int
     var date: Date
-    var todos: [Todo]
-    var finishTodos: [Todo]
+    var todos: [Todo] = []
+    var todosCount: Int = 0
 }
 
 struct Todo: Identifiable, Equatable {
@@ -27,5 +27,10 @@ struct Todo: Identifiable, Equatable {
     var content: String
     var memo: String
     var tag: String
+    var status: TodoStatus
 }
 
+enum TodoStatus {
+    case PROCEED
+    case DONE
+}

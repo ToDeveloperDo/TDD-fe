@@ -104,7 +104,7 @@ struct CalendarView: View {
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
-        .frame(height: calendarHeight)
+        .frame(height: calendarHeight + 20)
         
     }
     
@@ -149,12 +149,12 @@ struct CalendarView: View {
                         .foregroundStyle(value.date.isToday ? .blue : .text)
                         
                     HStack(spacing: 2) {
-                        if !value.todos.isEmpty {
-                            if value.todos.count > 3 {
-                                Text("+\(value.todos.count)")
+                        if value.todosCount != 0 {
+                            if value.todosCount > 3 {
+                                Text("+\(value.todosCount)")
                                     .font(.system(size: 9))
                             } else {
-                                ForEach(value.todos) { _ in
+                                ForEach(0..<value.todosCount, id: \.self) { _ in
                                     Circle()
                                         .frame(height: 3)
                                 }
@@ -220,56 +220,67 @@ struct CalendarView: View {
             .background(Color.fixWh)
             .cornerRadius(10)
         }
+        .onDisappear {
+            viewModel.title = ""
+            viewModel.memo = ""
+            
+        }
     }
     
     private var todoListView: some View {
         VStack(alignment: .leading) {
                 if let selectedDay = viewModel.selectedDay {
-                    if selectedDay.todos.isEmpty && selectedDay.finishTodos.isEmpty {
+                    if selectedDay.todos.isEmpty {
                         emptyTodoView
                     } else {
-                        List {
-                            if !selectedDay.todos.isEmpty {
-                                Section {
-                                    Text("\(selectedDay.date.format("M월 d일"))")
-                                        .font(.caption)
-                                        .foregroundStyle(.text)
-                                    ForEach(selectedDay.todos) { todo in
-                                        TodoCell(todo: todo) {
-                                            viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
+                            List {
+                                if selectedDay.todosCount != 0 {
+                                    Section {
+                                        Text("\(selectedDay.date.format("M월 d일"))")
+                                            .font(.caption)
+                                            .foregroundStyle(.text)
+                                        ForEach(selectedDay.todos.filter( { $0.status == .PROCEED })) { todo in
+                                            TodoCell(todo: todo) {
+                                                viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
+                                            }
+                                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                                Button(action: {
+                                                    viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
+                                                }, label: {
+                                                    Image(systemName: "checkmark")
+                                                })
+                                                .tint(.green)
+                                            }
                                         }
+                                        //                                    .onDelete(perform: { indexSet in
+                                        //                                        viewModel.send(action: .deleteTodo(index: indexSet))
+                                        //                                    })
+                                        
+                                        
                                     }
-                                    .onDelete(perform: { indexSet in
-                                        viewModel.send(action: .deleteTodo(index: indexSet))
-                                    })
-                                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                        Button(action: {}, label: {
-                                            Text("Button")
-                                        })
-                                    }
+                                    .listRowSeparator(.hidden)
+                                    .listRowBackground(Color.fixWh)
+                                    .listStyle(.plain)
                                 }
-                                .listRowSeparator(.hidden)
-                                .listRowBackground(Color.fixWh)
-                                .listStyle(.plain)
-                            }
-                            
-                            if !selectedDay.finishTodos.isEmpty {
-                                Section {
-                                    Text("완료")
-                                        .font(.caption)
-                                        .foregroundStyle(.text)
-                                    ForEach(selectedDay.finishTodos) { todo in
-                                        TodoCell(isSelected: true, todo: todo) {
-                                            viewModel.send(action: .moveTodo(todo: todo, mode: .reverse))
+                                
+                                if selectedDay.todos.count - selectedDay.todosCount != 0 {
+                                    Section {
+                                        Text("완료")
+                                            .font(.caption)
+                                            .foregroundStyle(.text)
+                                        ForEach(selectedDay.todos.filter( { $0.status == .DONE })) { todo in
+                                            TodoCell(isSelected: true, todo: todo) {
+                                                viewModel.send(action: .moveTodo(todo: todo, mode: .reverse))
+                                            }
                                         }
-                                    }
-                                    
-                                }                                
-                                .listRowSeparator(.hidden)
-                                .listRowBackground(Color.fixWh)
-                                .listStyle(.plain)
+                                        
+                                    }                                
+                                    .listRowSeparator(.hidden)
+                                    .listRowBackground(Color.fixWh)
+                                    .listStyle(.plain)
+                                }
                             }
-                        }
+                            .animation(.default, value: viewModel.selectedDay?.todos)
                     }
                 }
             }
@@ -309,26 +320,24 @@ private struct TodoCell: View {
     }
     
     fileprivate var body: some View {
-        HStack {
-            Image(isSelected ? .icSelectedBox : .icUnSelectedBox)
-                .resizable()
-                .frame(width: 20, height: 20)
-                .onTapGesture {
-                    onCheckboxTapped()
-                }
-                .padding(5)
             
-            Button(action: {
-                
-            }, label: {
                 HStack {
+                    Image(isSelected ? .icSelectedBox : .icUnSelectedBox)
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .onTapGesture {
+                            onCheckboxTapped()
+                        }
+                        .padding(5)
+                    
                     Text("\(todo.memo)")
                         .font(.caption)
                         .foregroundStyle(.text)
                     Spacer()
                 }
-            })
-        }
+                .onTapGesture {
+                    print(todo)
+                }
     }
 }
 

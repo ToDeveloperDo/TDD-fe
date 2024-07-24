@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import SwiftUI
 
 final class CalendarViewModel: ObservableObject {
     @Published var months: [Month] = []
@@ -22,10 +21,12 @@ final class CalendarViewModel: ObservableObject {
     let dayOfWeek: [String] = Calendar.current.veryShortWeekdaySymbols
     
     init() {        
-        self.fetchMonths()
+        self.fetchMonths()        
+        self.fetchTodos()
     }
     
     enum Action {
+        case fetchTodos
         case paginate
         case createTodo
         case selectDay(day: Day)
@@ -41,6 +42,8 @@ final class CalendarViewModel: ObservableObject {
     
     func send(action: Action) {
         switch action {
+        case .fetchTodos:
+            fetchTodos()
         case .paginate:
             paginateMonth()
         case .createTodo:
@@ -67,15 +70,21 @@ extension CalendarViewModel {
                 months.append(date.createMonth(date))
             }
         }
-        months[selection].days[23].todos = [
-                   .init(todoListId: 1, content: "가", memo: "가", tag: "kd"),
-                   .init(todoListId: 1, content: "니", memo: "나", tag: "kd"),
-                   .init(todoListId: 1, content: "다", memo: "다", tag: "kd"),
-                   .init(todoListId: 1, content: "라", memo: "다", tag: "kd"),
+        months[selection].days[24].todos = [
+                   .init(todoListId: 1, content: "가", memo: "가", tag: "kd", status: .PROCEED),
+                   .init(todoListId: 1, content: "니", memo: "나", tag: "kd", status: .PROCEED),
+                   .init(todoListId: 1, content: "다", memo: "다", tag: "kd", status: .PROCEED),
+                   .init(todoListId: 1, content: "라", memo: "다", tag: "kd", status: .PROCEED),
                    
                ]
         selection = 12
         
+        selectedDay = months[selection].days[months[selection].selectedDayIndex]
+    }
+    
+    private func fetchTodos() {
+        let proceedTodo = months[selection].days[months[selection].selectedDayIndex].todos.filter { $0.status == .PROCEED }
+        months[selection].days[months[selection].selectedDayIndex].todosCount = proceedTodo.count
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
@@ -104,38 +113,42 @@ extension CalendarViewModel {
     }
     
     private func createTodo() {
-        let request = CreateTodoRequest(content: title, memo: memo, tag: "아", deadline: selectedDay?.date.format("yyyy-MM-dd") ?? "")
-        TodoAPI.createTodo(request: request)
-            .sink { completion in
-                self.showTextField = false
-            } receiveValue: { out in
-                self.showTextField = false
-                print(out)
-            }
-            .store(in: &subscriptions)
+        let todo: Todo = .init(todoListId: 1, content: title, memo: memo, tag: "코", status: .PROCEED)
+        months[selection].days[months[selection].selectedDayIndex].todos.append(todo)
+        months[selection].days[months[selection].selectedDayIndex].todosCount += 1
+        selectedDay = months[selection].days[months[selection].selectedDayIndex]
+        showTextField = false
+//        let request = CreateTodoRequest(content: title, memo: memo, tag: "아", deadline: selectedDay?.date.format("yyyy-MM-dd") ?? "")
+//        TodoAPI.createTodo(request: request)
+//            .sink { completion in
+//                self.showTextField = false
+//            } receiveValue: { out in
+//                self.showTextField = false
+//                print(out)
+//            }
+//            .store(in: &subscriptions)
     }
     
     private func moveTodo(_ todo: Todo, _ mode: Mode) {
-        let todoIndex = searchTodoIndex(todo, mode)
+        let todoIndex = searchTodoIndex(todo)
         
             switch mode {
             case .finish:
                 // TODO: - Todo 완료 API 호출
-                months[selection].days[months[selection].selectedDayIndex].todos.remove(at: todoIndex)
-                months[selection].days[months[selection].selectedDayIndex].finishTodos.append(todo)
+                months[selection].days[months[selection].selectedDayIndex].todosCount -= 1
+                months[selection].days[months[selection].selectedDayIndex].todos[todoIndex].status = .DONE
             case .reverse:
                 // TODO: - Todo 번복 API 호출
-                months[selection].days[months[selection].selectedDayIndex].finishTodos.remove(at: todoIndex)
-                months[selection].days[months[selection].selectedDayIndex].todos.append(todo)
+                months[selection].days[months[selection].selectedDayIndex].todosCount += 1
+                months[selection].days[months[selection].selectedDayIndex].todos[todoIndex].status = .PROCEED
             }
-        withAnimation {
-            selectedDay = months[selection].days[months[selection].selectedDayIndex]
-        }
         
+            selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
     private func deleteTodo(_ index: IndexSet) {
         // TODO: - Todo 삭제 API 호출
+        months[selection].days[months[selection].selectedDayIndex].todosCount -= 1
         months[selection].days[months[selection].selectedDayIndex].todos.remove(atOffsets: index)
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
@@ -146,17 +159,9 @@ extension CalendarViewModel {
         selectedDay = selectDay
     }
     
-    private func searchTodoIndex(_ todo: Todo, _ mode: Mode) -> Int {
-        switch mode {
-        case .finish:
-            let index = months[selection].days[months[selection].selectedDayIndex].todos.firstIndex { $0 == todo }
-            guard let index else { return -1 }
-            return index
-        case .reverse:
-            let index = months[selection].days[months[selection].selectedDayIndex].finishTodos.firstIndex { $0 == todo }
-            guard let index else { return -1 }
-            return index
-        }
-        
+    private func searchTodoIndex(_ todo: Todo) -> Int {
+        let index = months[selection].days[months[selection].selectedDayIndex].todos.firstIndex { $0 == todo }
+        guard let index else { return -1 }
+        return index
     }
 }
