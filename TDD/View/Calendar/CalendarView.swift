@@ -35,7 +35,7 @@ struct CalendarView: View {
                             focusField = nil
                         }
                 }
-            }            
+            }
             plusBtnView
             
             if viewModel.showTextField {
@@ -67,6 +67,10 @@ struct CalendarView: View {
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (_) in
                 keyboardHeight = 0
             }
+        }
+        .sheet(isPresented: $viewModel.isPresent) {
+            TodoDetailView(todo: .init(todoListId: 2, content: "d", memo: "dk", tag: "dk", status: .DONE))
+                .presentationDetents([.medium, .large] )
         }
     }
     
@@ -127,7 +131,6 @@ struct CalendarView: View {
         .padding(.horizontal, 10)
     }
     
-    @ViewBuilder
     private func DateGrid(_ month: [Day]) -> some View {
         LazyVGrid(columns: columns, spacing: 5) {
             ForEach(month) { value in
@@ -138,8 +141,7 @@ struct CalendarView: View {
             }
         }
     }   
-    
-    
+        
     private func DateCell(value: Day) -> some View {
         VStack(spacing: 0) {
             if value.days != -1 {
@@ -320,24 +322,28 @@ private struct TodoCell: View {
     }
     
     fileprivate var body: some View {
-            
-                HStack {
-                    Image(isSelected ? .icSelectedBox : .icUnSelectedBox)
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .onTapGesture {
-                            onCheckboxTapped()
-                        }
-                        .padding(5)
-                    
-                    Text("\(todo.memo)")
-                        .font(.caption)
-                        .foregroundStyle(.text)
-                    Spacer()
-                }
-                .onTapGesture {
-                    print(todo)
-                }
+        Button(action: {
+            viewModel.isPresent = true
+        }, label: {
+            HStack {
+                Image(isSelected ? .icSelectedBox : .icUnSelectedBox)
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .onTapGesture {
+                        onCheckboxTapped()
+                    }
+                    .padding(5)
+                
+                Text("\(todo.memo)")
+                    .font(.caption)
+                    .foregroundStyle(.text)
+                Spacer()
+            }
+            .onTapGesture {
+                print(todo)
+            }
+        })
+        .buttonStyle(.borderless)
     }
 }
 

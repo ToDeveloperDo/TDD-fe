@@ -15,6 +15,7 @@ final class CalendarViewModel: ObservableObject {
     @Published var title: String = ""
     @Published var memo: String = ""
     @Published var selectedDay: Day?
+    @Published var isPresent: Bool = false
     
     private var subscriptions = Set<AnyCancellable>()
     
