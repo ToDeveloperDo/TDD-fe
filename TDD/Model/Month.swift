@@ -30,7 +30,12 @@ struct Todo: Identifiable, Equatable {
     var status: TodoStatus
 }
 
-enum TodoStatus {
+enum TodoStatus: Codable {
     case PROCEED
     case DONE
+}
+
+extension Todo {
+    static let stub1 = Todo(todoListId: 1, content: "축구", memo: "아", tag: "아", status: .DONE)
+    static let stub2 = Todo(todoListId: 1, content: "공부", memo: "아", tag: "아", status: .PROCEED)
 }

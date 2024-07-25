@@ -11,7 +11,7 @@ struct CalendarView: View {
     enum Field: Hashable {
         case title, meme
     }
-    
+    @EnvironmentObject var container: DIContainer
     @StateObject var viewModel: CalendarViewModel
     @FocusState private var focusField: Field?    
     @State private var keyboardHeight: CGFloat = 0
@@ -109,7 +109,6 @@ struct CalendarView: View {
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .frame(height: calendarHeight + 20)
-        
     }
     
     private var plusBtnView: some View {
@@ -137,6 +136,7 @@ struct CalendarView: View {
                 DateCell(value: value)
                     .onTapGesture {
                         viewModel.send(action: .selectDay(day: value))
+                        viewModel.send(action: .fetchTodos)
                     }
             }
         }
@@ -339,16 +339,16 @@ private struct TodoCell: View {
                     .foregroundStyle(.text)
                 Spacer()
             }
-            .onTapGesture {
-                print(todo)
-            }
         })
         .buttonStyle(.borderless)
     }
 }
 
-#Preview {
-    CalendarView(viewModel: .init())
-        .environmentObject(CalendarViewModel())
+struct CalendarView_Previews: PreviewProvider {
+    static let container: DIContainer = .init(services: StubService())
+    
+    static var previews: some View {
+        CalendarView(viewModel: CalendarViewModel(container: Self.container))
+            .environmentObject(Self.container)
+    }
 }
-

@@ -20,7 +20,7 @@ struct MainTabView: View {
                         Group {
                             switch tab {
                             case .calendar:
-                                CalendarView(viewModel: CalendarViewModel())
+                                CalendarView(viewModel: CalendarViewModel(container: container))
                             case .myInfo:
                                 MyInfoView()
                             case .todo:

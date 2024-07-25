@@ -36,6 +36,11 @@
 		AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE042C479AF300DE940B /* APIEventLogger.swift */; };
 		AD46DE072C47A38000DE940B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE062C47A38000DE940B /* API.swift */; };
 		AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE082C47AFAF00DE940B /* AuthInterceptor.swift */; };
+		AD5D72C32C5213F4009FE208 /* GetTodoCountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72C22C5213F4009FE208 /* GetTodoCountRequest.swift */; };
+		AD5D72C52C521A95009FE208 /* GetTodoCountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72C42C521A95009FE208 /* GetTodoCountResponse.swift */; };
+		AD5D72C72C521FBC009FE208 /* GetTodoListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72C62C521FBC009FE208 /* GetTodoListResponse.swift */; };
+		AD5D72C92C522C0B009FE208 /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72C82C522C0B009FE208 /* TodoService.swift */; };
+		AD5D72CB2C524036009FE208 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72CA2C524036009FE208 /* ServiceError.swift */; };
 		AD67DF322C47EF7D008971DB /* CreateRepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF312C47EF7D008971DB /* CreateRepoView.swift */; };
 		AD67DF342C47EF88008971DB /* CreateRepoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF332C47EF88008971DB /* CreateRepoViewModel.swift */; };
 		AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF362C47F3BA008971DB /* NavigationDestination.swift */; };
@@ -92,6 +97,11 @@
 		AD46DE042C479AF300DE940B /* APIEventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEventLogger.swift; sourceTree = "<group>"; };
 		AD46DE062C47A38000DE940B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		AD46DE082C47AFAF00DE940B /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		AD5D72C22C5213F4009FE208 /* GetTodoCountRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodoCountRequest.swift; sourceTree = "<group>"; };
+		AD5D72C42C521A95009FE208 /* GetTodoCountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodoCountResponse.swift; sourceTree = "<group>"; };
+		AD5D72C62C521FBC009FE208 /* GetTodoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodoListResponse.swift; sourceTree = "<group>"; };
+		AD5D72C82C522C0B009FE208 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
+		AD5D72CA2C524036009FE208 /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
 		AD67DF312C47EF7D008971DB /* CreateRepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepoView.swift; sourceTree = "<group>"; };
 		AD67DF332C47EF88008971DB /* CreateRepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepoViewModel.swift; sourceTree = "<group>"; };
 		AD67DF362C47F3BA008971DB /* NavigationDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestination.swift; sourceTree = "<group>"; };
@@ -221,6 +231,8 @@
 			isa = PBXGroup;
 			children = (
 				AD10DBB82C400F6F00785252 /* Services.swift */,
+				AD5D72C82C522C0B009FE208 /* TodoService.swift */,
+				AD5D72CA2C524036009FE208 /* ServiceError.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -331,6 +343,9 @@
 			children = (
 				AD46DE002C4795BC00DE940B /* CreateTodoRequest.swift */,
 				AD241F4E2C4E2AA700DE8805 /* GetTodoListRequest.swift */,
+				AD5D72C62C521FBC009FE208 /* GetTodoListResponse.swift */,
+				AD5D72C22C5213F4009FE208 /* GetTodoCountRequest.swift */,
+				AD5D72C42C521A95009FE208 /* GetTodoCountResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -473,6 +488,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD5D72CB2C524036009FE208 /* ServiceError.swift in Sources */,
 				AD46DE072C47A38000DE940B /* API.swift in Sources */,
 				ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */,
 				AD10DBBE2C401F2700785252 /* MainTabView.swift in Sources */,
@@ -493,6 +509,7 @@
 				AD241F572C4E2B6800DE8805 /* CreateRepoRequest.swift in Sources */,
 				AD46DE012C4795BC00DE940B /* CreateTodoRequest.swift in Sources */,
 				AD46DDFA2C4792C500DE940B /* HTTPHeaderField.swift in Sources */,
+				AD5D72C32C5213F4009FE208 /* GetTodoCountRequest.swift in Sources */,
 				AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */,
 				AD10DBBB2C401A9B00785252 /* DIContainer.swift in Sources */,
 				AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */,
@@ -501,9 +518,12 @@
 				AD80C8102C510CF900FB71A9 /* TodoDetailView.swift in Sources */,
 				AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */,
 				AD241F522C4E2B0B00DE8805 /* RepoAPI.swift in Sources */,
+				AD5D72C72C521FBC009FE208 /* GetTodoListResponse.swift in Sources */,
 				AD46DE032C47981E00DE940B /* TodoAPI.swift in Sources */,
 				AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */,
 				ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */,
+				AD5D72C92C522C0B009FE208 /* TodoService.swift in Sources */,
+				AD5D72C52C521A95009FE208 /* GetTodoCountResponse.swift in Sources */,
 				AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */,
 				ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */,
 				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,

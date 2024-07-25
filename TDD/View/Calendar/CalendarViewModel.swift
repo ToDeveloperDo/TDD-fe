@@ -14,20 +14,23 @@ final class CalendarViewModel: ObservableObject {
     @Published var showTextField: Bool = false
     @Published var title: String = ""
     @Published var memo: String = ""
-    @Published var selectedDay: Day?
+    @Published var selectedDay: Day? 
     @Published var isPresent: Bool = false
     
+    private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
     
     let dayOfWeek: [String] = Calendar.current.veryShortWeekdaySymbols
     
-    init() {        
-        self.fetchMonths()        
-        self.fetchTodos()
+    init(container: DIContainer) {
+        self.container = container
+        self.fetchMonths()
+//        self.fetchTodos()
     }
     
     enum Action {
         case fetchTodos
+        case fetchTodosCount
         case paginate
         case createTodo
         case selectDay(day: Day)
@@ -45,6 +48,8 @@ final class CalendarViewModel: ObservableObject {
         switch action {
         case .fetchTodos:
             fetchTodos()
+        case .fetchTodosCount:
+            fetchTodosCount()
         case .paginate:
             paginateMonth()
         case .createTodo:
@@ -71,22 +76,42 @@ extension CalendarViewModel {
                 months.append(date.createMonth(date))
             }
         }
-        months[selection].days[24].todos = [
-                   .init(todoListId: 1, content: "가", memo: "가", tag: "kd", status: .PROCEED),
-                   .init(todoListId: 1, content: "니", memo: "나", tag: "kd", status: .PROCEED),
-                   .init(todoListId: 1, content: "다", memo: "다", tag: "kd", status: .PROCEED),
-                   .init(todoListId: 1, content: "라", memo: "다", tag: "kd", status: .PROCEED),
-                   
-               ]
+
         selection = 12
         
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
     private func fetchTodos() {
-        let proceedTodo = months[selection].days[months[selection].selectedDayIndex].todos.filter { $0.status == .PROCEED }
-        months[selection].days[months[selection].selectedDayIndex].todosCount = proceedTodo.count
-        selectedDay = months[selection].days[months[selection].selectedDayIndex]
+        guard let date = selectedDay?.date.format("YYYY-MM-dd") else { return }
+        container.services.todoService.getTodoList(date: date)
+            .sink { completion in
+                if case .failure = completion {
+                    return
+                }
+            } receiveValue: { [weak self] todos in
+                guard let self = self else { return }
+                self.months[self.selection].days[self.months[self.selection].selectedDayIndex].todos = todos
+                self.selectedDay = self.months[self.selection].days[self.months[self.selection].selectedDayIndex]
+            }.store(in: &subscriptions)
+    }
+    
+    private func fetchTodosCount() {
+        guard let selectedDay = selectedDay else {return}
+        let year = selectedDay.date.format("YYYY")
+        let month = selectedDay.date.format("MM")
+        container.services.todoService.getTodoCount(year: year, month: month)
+            .sink { completion in
+                if case .failure = completion {
+                    return
+                }
+            } receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.months[self.selection].days.map { day in
+                    
+                }
+            }
+
     }
     
     private func paginateMonth() {
