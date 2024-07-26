@@ -10,7 +10,12 @@ import Combine
 
 final class CalendarViewModel: ObservableObject {
     @Published var months: [Month] = []
-    @Published var selection: Int = 12
+    @Published var selection: Int = 6 {
+        didSet {
+            
+//            send(action: .fetchTodos)
+        }
+    }
     @Published var showTextField: Bool = false
     @Published var title: String = ""
     @Published var memo: String = ""
@@ -31,6 +36,7 @@ final class CalendarViewModel: ObservableObject {
     enum Action {
         case fetchTodos
         case fetchTodosCount
+        case updateSelectedDay
         case paginate
         case createTodo
         case selectDay(day: Day)
@@ -50,6 +56,8 @@ final class CalendarViewModel: ObservableObject {
             fetchTodos()
         case .fetchTodosCount:
             fetchTodosCount()
+        case .updateSelectedDay:
+            updateSelectedDay()
         case .paginate:
             paginateMonth()
         case .createTodo:
@@ -67,54 +75,8 @@ final class CalendarViewModel: ObservableObject {
 }
 
 extension CalendarViewModel {
-    private func fetchMonths() {
-        let calendar = Calendar.current
-        let currentMonth = Date().startOfMonth
-        
-        for offset in -12...12 {
-            if let date = calendar.date(byAdding: .month, value: offset, to: currentMonth) {
-                months.append(date.createMonth(date))
-            }
-        }
-
-        selection = 12
-        
-        selectedDay = months[selection].days[months[selection].selectedDayIndex]
-    }
-    
-    private func fetchTodos() {
-        guard let date = selectedDay?.date.format("YYYY-MM-dd") else { return }
-        container.services.todoService.getTodoList(date: date)
-            .sink { completion in
-                if case .failure = completion {
-                    return
-                }
-            } receiveValue: { [weak self] todos in
-                guard let self = self else { return }
-                self.months[self.selection].days[self.months[self.selection].selectedDayIndex].todos = todos
-                self.selectedDay = self.months[self.selection].days[self.months[self.selection].selectedDayIndex]
-            }.store(in: &subscriptions)
-    }
-    
-    private func fetchTodosCount() {
-        guard let selectedDay = selectedDay else {return}
-        let year = selectedDay.date.format("YYYY")
-        let month = selectedDay.date.format("MM")
-        container.services.todoService.getTodoCount(year: year, month: month)
-            .sink { completion in
-                if case .failure = completion {
-                    return
-                }
-            } receiveValue: { [weak self] value in
-                guard let self = self else { return }
-                self.months[self.selection].days.map { day in
-                    
-                }
-            }
-
-    }
-    
     private func paginateMonth() {
+        print("selection: \(selection)")
         let calendar = Calendar.current
         let currentMonthIndex = selection
         
@@ -138,13 +100,67 @@ extension CalendarViewModel {
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
+    private func updateSelectedDay() {
+        print("selection: \(selection)")
+        selectedDay = months[selection].days[months[selection].selectedDayIndex]
+    }
+    
+    private func fetchMonths() {
+        let calendar = Calendar.current
+        let currentMonth = Date().startOfMonth
+        
+        for offset in -6...6 {
+            if let date = calendar.date(byAdding: .month, value: offset, to: currentMonth) {
+                months.append(date.createMonth(date))
+            }
+        }
+
+        selection = 6
+        
+        selectedDay = months[selection].days[months[selection].selectedDayIndex]
+        send(action: .fetchTodos)
+    }
+    
+    private func fetchTodos() {
+        if ((selectedDay?.todos.isEmpty) != nil) {
+            guard let date = selectedDay?.date.format("YYYY-MM-dd") else { return }
+            container.services.todoService.getTodoList(date: date)
+                .sink { completion in
+                    if case .failure = completion {
+                        return
+                    }
+                } receiveValue: { [weak self] todos in
+                    guard let self = self else { return }
+                    self.months[self.selection].days[self.months[self.selection].selectedDayIndex].todos = todos
+                    self.selectedDay = self.months[self.selection].days[self.months[self.selection].selectedDayIndex]
+                }.store(in: &subscriptions)
+        }
+    }
+    
+    private func fetchTodosCount() {
+        guard let selectedDay = selectedDay else {return}
+        let year = selectedDay.date.format("YYYY")
+        let month = selectedDay.date.format("MM")
+        container.services.todoService.getTodoCount(year: year, month: month)
+            .sink { completion in
+                if case .failure = completion {
+                    return
+                }
+            } receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                self.months[self.selection].days.map { day in
+                    
+                }
+            }
+    }
+        
     private func createTodo() {
         let todo: Todo = .init(todoListId: 1, content: title, memo: memo, tag: "코", status: .PROCEED)
         months[selection].days[months[selection].selectedDayIndex].todos.append(todo)
         months[selection].days[months[selection].selectedDayIndex].todosCount += 1
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
         showTextField = false
-//        let request = CreateTodoRequest(content: title, memo: memo, tag: "아", deadline: selectedDay?.date.format("yyyy-MM-dd") ?? "")
+        let request = CreateTodoRequest(content: title, memo: memo, tag: "아", deadline: selectedDay?.date.format("yyyy-MM-dd") ?? "")
 //        TodoAPI.createTodo(request: request)
 //            .sink { completion in
 //                self.showTextField = false

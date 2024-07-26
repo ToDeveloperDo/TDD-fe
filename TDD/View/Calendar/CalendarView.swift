@@ -13,17 +13,17 @@ struct CalendarView: View {
     }
     @EnvironmentObject var container: DIContainer
     @StateObject var viewModel: CalendarViewModel
-    @FocusState private var focusField: Field?    
+    @FocusState private var focusField: Field?
     @State private var keyboardHeight: CGFloat = 0
     
     private let columns = Array(repeating: GridItem(.flexible()), count: 7)
-    private let calendarHeight: CGFloat = UIScreen.main.bounds.height/4
+    private let calendarHeight: CGFloat = UIScreen.main.bounds.height/3
     
     var body: some View {
         ZStack {
             VStack {
                 calendarHeader
-                calendarBody
+                calendarBody                    
                 todoListView
             }
             .overlay {
@@ -99,16 +99,18 @@ struct CalendarView: View {
                 let month = viewModel.months[index].days
                 DateGrid(month)
                     .tag(index)
-                    .onDisappear {
-                        viewModel.send(action: .paginate)
-                    }
                     .onAppear {
+                        if index == 0 || index == viewModel.months.count - 1 {
+                            viewModel.send(action: .paginate)
+                        }
+                    }
+                    .onDisappear {                    
                         viewModel.send(action: .paginate)
                     }
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
-        .frame(height: calendarHeight + 20)
+        .frame(height: calendarHeight)
     }
     
     private var plusBtnView: some View {
@@ -123,7 +125,7 @@ struct CalendarView: View {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
                         .frame(width: 50, height: 50)
-                        .foregroundStyle(.blue)                        
+                        .foregroundStyle(.blue)
                 })
             }
         }
@@ -131,17 +133,23 @@ struct CalendarView: View {
     }
     
     private func DateGrid(_ month: [Day]) -> some View {
-        LazyVGrid(columns: columns, spacing: 5) {
-            ForEach(month) { value in
-                DateCell(value: value)
-                    .onTapGesture {
-                        viewModel.send(action: .selectDay(day: value))
-                        viewModel.send(action: .fetchTodos)
+        VStack {
+            LazyVGrid(columns: columns, spacing: 5) {
+                ForEach(0..<42) { index in
+                    if index < month.count {
+                        DateCell(value: month[index])
+                            .onTapGesture {
+                                viewModel.send(action: .selectDay(day: month[index]))
+                                viewModel.send(action: .fetchTodos)
+                            }
+                    } else {
+                        DateCell(value: .init(days: -1, date: Date()))
                     }
+                }
             }
         }
-    }   
-        
+    }
+    
     private func DateCell(value: Day) -> some View {
         VStack(spacing: 0) {
             if value.days != -1 {
@@ -149,7 +157,7 @@ struct CalendarView: View {
                     Text("\(value.days)")
                         .font(.subheadline)
                         .foregroundStyle(value.date.isToday ? .blue : .text)
-                        
+                    
                     HStack(spacing: 2) {
                         if value.todosCount != 0 {
                             if value.todosCount > 3 {
@@ -165,16 +173,18 @@ struct CalendarView: View {
                     }.offset(y: 15)
                 }
                 .padding(15)
-                .frame(height: calendarHeight/value.date.numberOfWeeks)
-                .overlay {
-                    if value.date == viewModel.selectedDay!.date {
-                        Circle()
-                            .foregroundStyle(.blue.opacity(0.2))
-                    } else if value.date.isToday {
-                        Circle()
-                            .foregroundStyle(.red.opacity(0.2))
-                    }
-                }
+            } else {
+                Spacer()
+            }
+        }
+        .frame(height: calendarHeight/7)
+        .overlay {
+            if value.date == viewModel.selectedDay!.date {
+                Circle()
+                    .foregroundStyle(.blue.opacity(0.2))
+            } else if value.date.isToday {
+                Circle()
+                    .foregroundStyle(.red.opacity(0.2))
             }
         }
     }
@@ -200,7 +210,7 @@ struct CalendarView: View {
                             .frame(width: 20, height: 20)
                             .foregroundStyle(Color.red)
                     }
-                                        
+                    
                     Spacer()
                     
                     Button(action: {
@@ -231,64 +241,64 @@ struct CalendarView: View {
     
     private var todoListView: some View {
         VStack(alignment: .leading) {
-                if let selectedDay = viewModel.selectedDay {
-                    if selectedDay.todos.isEmpty {
-                        emptyTodoView
-                    } else {
-                            List {
-                                if selectedDay.todosCount != 0 {
-                                    Section {
-                                        Text("\(selectedDay.date.format("M월 d일"))")
-                                            .font(.caption)
-                                            .foregroundStyle(.text)
-                                        ForEach(selectedDay.todos.filter( { $0.status == .PROCEED })) { todo in
-                                            TodoCell(todo: todo) {
-                                                viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
-                                            }
-                                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                                Button(action: {
-                                                    viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
-                                                }, label: {
-                                                    Image(systemName: "checkmark")
-                                                })
-                                                .tint(.green)
-                                            }
-                                        }
-                                        //                                    .onDelete(perform: { indexSet in
-                                        //                                        viewModel.send(action: .deleteTodo(index: indexSet))
-                                        //                                    })
-                                        
-                                        
+            if let selectedDay = viewModel.selectedDay {
+                if selectedDay.todos.isEmpty {                    
+                    emptyTodoView
+                } else {
+                    List {
+                        if selectedDay.todosCount != 0 {
+                            Section {
+                                Text("\(selectedDay.date.format("M월 d일"))")
+                                    .font(.caption)
+                                    .foregroundStyle(.text)
+                                ForEach(selectedDay.todos.filter( { $0.status == .PROCEED })) { todo in
+                                    TodoCell(todo: todo) {
+                                        viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
                                     }
-                                    .listRowSeparator(.hidden)
-                                    .listRowBackground(Color.fixWh)
-                                    .listStyle(.plain)
+                                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                        Button(action: {
+                                            viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
+                                        }, label: {
+                                            Image(systemName: "checkmark")
+                                        })
+                                        .tint(.green)
+                                    }
+                                }
+                                //                                    .onDelete(perform: { indexSet in
+                                //                                        viewModel.send(action: .deleteTodo(index: indexSet))
+                                //                                    })
+                                
+                                
+                            }
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.fixWh)
+                            .listStyle(.plain)
+                        }
+                        
+                        if selectedDay.todos.count - selectedDay.todosCount != 0 {
+                            Section {
+                                Text("완료")
+                                    .font(.caption)
+                                    .foregroundStyle(.text)
+                                ForEach(selectedDay.todos.filter( { $0.status == .DONE })) { todo in
+                                    TodoCell(isSelected: true, todo: todo) {
+                                        viewModel.send(action: .moveTodo(todo: todo, mode: .reverse))
+                                    }
                                 }
                                 
-                                if selectedDay.todos.count - selectedDay.todosCount != 0 {
-                                    Section {
-                                        Text("완료")
-                                            .font(.caption)
-                                            .foregroundStyle(.text)
-                                        ForEach(selectedDay.todos.filter( { $0.status == .DONE })) { todo in
-                                            TodoCell(isSelected: true, todo: todo) {
-                                                viewModel.send(action: .moveTodo(todo: todo, mode: .reverse))
-                                            }
-                                        }
-                                        
-                                    }                                
-                                    .listRowSeparator(.hidden)
-                                    .listRowBackground(Color.fixWh)
-                                    .listStyle(.plain)
-                                }
                             }
-                            .animation(.default, value: viewModel.selectedDay?.todos)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.fixWh)
+                            .listStyle(.plain)
+                        }
                     }
+                    .animation(.default, value: viewModel.selectedDay?.todos)
+                    
                 }
             }
+        }
         .scrollContentBackground(.hidden)
         .clipShape(RoundedRectangle(cornerRadius: 8))
-        .padding(10)
     }
     
     
@@ -334,7 +344,7 @@ private struct TodoCell: View {
                     }
                     .padding(5)
                 
-                Text("\(todo.memo)")
+                Text("\(todo.content)")
                     .font(.caption)
                     .foregroundStyle(.text)
                 Spacer()

@@ -74,15 +74,16 @@ extension Date {
         var selectedDay: Int
                                 
         let firstWeekday = calendar.component(.weekday, from: days.first?.date ?? Date())
+        let offset = (firstWeekday - calendar.firstWeekday + 7) % 7
         
-        for _ in 0..<(firstWeekday - calendar.firstWeekday) {
-            days.insert(Day(days: -1, date: date), at: 0)
+        for _ in 0..<offset {
+            days.insert(Day(days: -1, date: startDate), at: 0)
         }
         
         if currentStartOfMonth == startDate {
-            selectedDay = days.firstIndex(where: { $0.date.isToday }) ?? -1
+            selectedDay = days.firstIndex(where: { $0.date.isToday && $0.days != -1 }) ?? -1
         } else {
-            selectedDay = 1
+            selectedDay = days.firstIndex(where: { $0.days != -1 }) ?? -1
         }
         
         return Month(days: days, selectedDayIndex: selectedDay)
