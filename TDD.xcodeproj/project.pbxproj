@@ -41,6 +41,11 @@
 		AD5D72C72C521FBC009FE208 /* GetTodoListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72C62C521FBC009FE208 /* GetTodoListResponse.swift */; };
 		AD5D72C92C522C0B009FE208 /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72C82C522C0B009FE208 /* TodoService.swift */; };
 		AD5D72CB2C524036009FE208 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72CA2C524036009FE208 /* ServiceError.swift */; };
+		AD5D72CF2C54E3E7009FE208 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72CE2C54E3E7009FE208 /* AuthenticationService.swift */; };
+		AD5D72D22C54F286009FE208 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D12C54F286009FE208 /* AuthAPI.swift */; };
+		AD5D72D42C54F291009FE208 /* AuthAPITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D32C54F291009FE208 /* AuthAPITarget.swift */; };
+		AD5D72D72C54F2E1009FE208 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */; };
+		AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */; };
 		AD67DF322C47EF7D008971DB /* CreateRepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF312C47EF7D008971DB /* CreateRepoView.swift */; };
 		AD67DF342C47EF88008971DB /* CreateRepoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF332C47EF88008971DB /* CreateRepoViewModel.swift */; };
 		AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF362C47F3BA008971DB /* NavigationDestination.swift */; };
@@ -102,6 +107,13 @@
 		AD5D72C62C521FBC009FE208 /* GetTodoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodoListResponse.swift; sourceTree = "<group>"; };
 		AD5D72C82C522C0B009FE208 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
 		AD5D72CA2C524036009FE208 /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
+		AD5D72CC2C5394BB009FE208 /* TDDDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TDDDebug.entitlements; sourceTree = "<group>"; };
+		AD5D72CD2C5397EE009FE208 /* TDD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TDD.entitlements; sourceTree = "<group>"; };
+		AD5D72CE2C54E3E7009FE208 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		AD5D72D12C54F286009FE208 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
+		AD5D72D32C54F291009FE208 /* AuthAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPITarget.swift; sourceTree = "<group>"; };
+		AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		AD67DF312C47EF7D008971DB /* CreateRepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepoView.swift; sourceTree = "<group>"; };
 		AD67DF332C47EF88008971DB /* CreateRepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepoViewModel.swift; sourceTree = "<group>"; };
 		AD67DF362C47F3BA008971DB /* NavigationDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestination.swift; sourceTree = "<group>"; };
@@ -145,6 +157,8 @@
 		AD10D4B82C3D1034008481FF /* TDD */ = {
 			isa = PBXGroup;
 			children = (
+				AD5D72CD2C5397EE009FE208 /* TDD.entitlements */,
+				AD5D72CC2C5394BB009FE208 /* TDDDebug.entitlements */,
 				AD10DBB32C3FC61300785252 /* Info.plist */,
 				AD10DBB62C400E9700785252 /* App */,
 				ADEA4B5F2C48A8C500C10B9C /* General */,
@@ -232,6 +246,7 @@
 			children = (
 				AD10DBB82C400F6F00785252 /* Services.swift */,
 				AD5D72C82C522C0B009FE208 /* TodoService.swift */,
+				AD5D72CE2C54E3E7009FE208 /* AuthenticationService.swift */,
 				AD5D72CA2C524036009FE208 /* ServiceError.swift */,
 			);
 			path = Service;
@@ -322,6 +337,7 @@
 		AD46DDFB2C4794EC00DE940B /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				AD5D72D02C54F275009FE208 /* Auth */,
 				AD241F502C4E2AFA00DE8805 /* Repo */,
 				AD46DDFC2C47952900DE940B /* Todo */,
 			);
@@ -346,6 +362,25 @@
 				AD5D72C62C521FBC009FE208 /* GetTodoListResponse.swift */,
 				AD5D72C22C5213F4009FE208 /* GetTodoCountRequest.swift */,
 				AD5D72C42C521A95009FE208 /* GetTodoCountResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AD5D72D02C54F275009FE208 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				AD5D72D12C54F286009FE208 /* AuthAPI.swift */,
+				AD5D72D32C54F291009FE208 /* AuthAPITarget.swift */,
+				AD5D72D52C54F2D3009FE208 /* Models */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		AD5D72D52C54F2D3009FE208 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */,
+				AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -500,6 +535,7 @@
 				AD10DBC92C40234000785252 /* UnKnownView.swift in Sources */,
 				AD10DBC72C40232400785252 /* MyInfoView.swift in Sources */,
 				AD241F542C4E2B1700DE8805 /* RepoAPITarget.swift in Sources */,
+				AD5D72CF2C54E3E7009FE208 /* AuthenticationService.swift in Sources */,
 				AD46DDFE2C47954000DE940B /* TodoAPITarget.swift in Sources */,
 				ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */,
 				AD10DBC32C401F7A00785252 /* MainTabType.swift in Sources */,
@@ -516,11 +552,13 @@
 				AD241F4F2C4E2AA700DE8805 /* GetTodoListRequest.swift in Sources */,
 				AD10D4BA2C3D1034008481FF /* TDDApp.swift in Sources */,
 				AD80C8102C510CF900FB71A9 /* TodoDetailView.swift in Sources */,
+				AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */,
 				AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */,
 				AD241F522C4E2B0B00DE8805 /* RepoAPI.swift in Sources */,
 				AD5D72C72C521FBC009FE208 /* GetTodoListResponse.swift in Sources */,
 				AD46DE032C47981E00DE940B /* TodoAPI.swift in Sources */,
 				AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */,
+				AD5D72D22C54F286009FE208 /* AuthAPI.swift in Sources */,
 				ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */,
 				AD5D72C92C522C0B009FE208 /* TodoService.swift in Sources */,
 				AD5D72C52C521A95009FE208 /* GetTodoCountResponse.swift in Sources */,
@@ -528,6 +566,8 @@
 				ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */,
 				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,
 				AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */,
+				AD5D72D42C54F291009FE208 /* AuthAPITarget.swift in Sources */,
+				AD5D72D72C54F2E1009FE208 /* LoginRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +698,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TDD/TDDDebug.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TDD/Preview Content\"";
@@ -675,8 +717,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = anyong.TDD;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anyong.TDD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -688,6 +731,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TDD/TDD.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TDD/Preview Content\"";
@@ -705,8 +750,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = anyong.TDD;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anyong.TDD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

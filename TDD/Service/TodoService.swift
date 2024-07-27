@@ -11,7 +11,7 @@ import Combine
 protocol TodoServiceType {
     func createTodo(content: String, memo: String?, tag: String, deadline: String) -> AnyPublisher<Int, ServiceError>
     func getTodoList(date: String) -> AnyPublisher<[Todo], ServiceError>
-    func getTodoCount(year: String, month: String) -> AnyPublisher<[(String, Int)], ServiceError>
+    func getTodoCount(year: String, month: String) -> AnyPublisher<[(Int, Int)], ServiceError>
     func reverseTodo(todoId: Int) -> AnyPublisher<Bool, ServiceError>
     func doneTodo(todoId: Int) -> AnyPublisher<Bool, ServiceError>
     
@@ -39,17 +39,17 @@ final class TodoService: TodoServiceType {
             .eraseToAnyPublisher()
     }
     
-    func getTodoCount(year: String, month: String) -> AnyPublisher<[(String, Int)], ServiceError> {
+    func getTodoCount(year: String, month: String) -> AnyPublisher<[(Int, Int)], ServiceError> {
         let Iyear = Int(year) ?? -1
         let Imonth = Int(month) ?? -1
         let request = GetTodoCountRequest(year: Iyear, month: Imonth)
         return todoAPI.getTodoCount(request: request)
             .map {
                 $0.map {
-                    var day = ""
+                    var day = -1
                     let component = $0.deadline.split(separator: "-")
                     if component.count == 3 {
-                        day = String(component[2])
+                        day = Int(String(component[2]))!
                     }
                     return (day, $0.count)
                 }
@@ -80,8 +80,8 @@ final class StubTodoService: TodoServiceType {
         Just([.stub1, .stub2]).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     
-    func getTodoCount(year: String, month: String) -> AnyPublisher<[(String, Int)], ServiceError> {
-        Just([("26", 2)]).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
+    func getTodoCount(year: String, month: String) -> AnyPublisher<[(Int, Int)], ServiceError> {
+        Just([(27, 2)]).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     
     func reverseTodo(todoId: Int) -> AnyPublisher<Bool, ServiceError> {

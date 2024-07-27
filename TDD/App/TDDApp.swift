@@ -14,7 +14,7 @@ struct TDDApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AuthenticationView(viewModel: AuthenticationViewModel())
+            AuthenticationView(viewModel: AuthenticationViewModel(container: container))
                 .environmentObject(container)
         }
     }

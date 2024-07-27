@@ -6,46 +6,37 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
 struct LoginView: View {
-    @EnvironmentObject private var viewModel: AuthenticationViewModel
-    
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+
     var body: some View {
         VStack {
             Spacer()
             
-            Button(action: {
-                viewModel.isPresent.toggle()
-            }, label: {
-                HStack {
-                    Image("ic_gitgub")
-                        .resizable()
-                        .renderingMode(.template)
-                        .foregroundColor(.white)
-                        .frame(width: 30, height: 30)
-                    
-                    Text("GitHub로 시작하기")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.white)
-                }
-                .padding(.vertical, 12)
-                .padding(.horizontal, 25)
-                .background {
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(.black)
-                }
-            })
+            SignInWithAppleButton { request in
+                viewModel.send(action: .appleLogin(request))
+            } onCompletion: { completion in
+                viewModel.send(action: .appleLoginCompletion(completion))
+            }
+            .frame(maxWidth: .infinity, maxHeight: 50)
+            .padding(.horizontal, 30)
+            .signInWithAppleButtonStyle(.black)
+
         }
-        .sheet(isPresented: $viewModel.isPresent) {
-            LoginWebView(urlToLoad: URL(string: "https://api.todeveloperdo.shop/git/login")!)
-                .ignoresSafeArea()
-        }        
+//        .sheet(isPresented: $viewModel.isPresent) {
+//            LoginWebView(urlToLoad: URL(string: "https://api.todeveloperdo.shop/git/login")!)
+//                .ignoresSafeArea()
+//        }        
     }
-    
-    
 }
 
-#Preview {
-    LoginView()
-        .environmentObject(AuthenticationViewModel())
+struct LoginView_Previews: PreviewProvider {
+    static let viewModel = AuthenticationViewModel(container: .stub)
+
+    static var previews: some View {
+        LoginView()
+            .environmentObject(viewModel)
+    }
 }

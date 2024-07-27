@@ -7,16 +7,138 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "054818C9-5B37-481A-91DC-C98B0B4F72A4"
+            uuid = "96996440-E4A2-4EE7-89A0-40A4F557D94E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TDD/View/Calendar/CalendarViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "paginateMonth()"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "fetchTodos()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "13C8137A-766F-4C33-B4BC-472149743C9B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TDD/View/Calendar/CalendarViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "fetchTodos()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "13C8137A-766F-4C33-B4BC-472149743C9B - 654984f7043c7e17"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TDD.CalendarViewModel.fetchTodos() -&gt; ()"
+                  moduleName = "TDD"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anyongchoi/Desktop/TDD/TDD/View/Calendar/CalendarViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127">
+               </Location>
+               <Location
+                  uuid = "13C8137A-766F-4C33-B4BC-472149743C9B - eb047b8641f0b778"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Combine.Subscribers.Completion&lt;TDD.ServiceError&gt;) -&gt; () in TDD.CalendarViewModel.fetchTodos() -&gt; ()"
+                  moduleName = "TDD"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anyongchoi/Desktop/TDD/TDD/View/Calendar/CalendarViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "78302A6C-696C-4D96-BE2B-9C3EF71AAFB1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TDD/View/Calendar/CalendarViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "fetchTodos()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "78302A6C-696C-4D96-BE2B-9C3EF71AAFB1 - 654984f7043c7d9b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TDD.CalendarViewModel.fetchTodos() -&gt; ()"
+                  moduleName = "TDD"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anyongchoi/Desktop/TDD/TDD/View/Calendar/CalendarViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "131"
+                  endingLineNumber = "131">
+               </Location>
+               <Location
+                  uuid = "78302A6C-696C-4D96-BE2B-9C3EF71AAFB1 - eb047b8641f0b495"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Combine.Subscribers.Completion&lt;TDD.ServiceError&gt;) -&gt; () in TDD.CalendarViewModel.fetchTodos() -&gt; ()"
+                  moduleName = "TDD"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anyongchoi/Desktop/TDD/TDD/View/Calendar/CalendarViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "131"
+                  endingLineNumber = "131">
+               </Location>
+               <Location
+                  uuid = "78302A6C-696C-4D96-BE2B-9C3EF71AAFB1 - 6a1b7c3362432321"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Array&lt;TDD.Todo&gt;) -&gt; () in TDD.CalendarViewModel.fetchTodos() -&gt; ()"
+                  moduleName = "TDD"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anyongchoi/Desktop/TDD/TDD/View/Calendar/CalendarViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "131"
+                  endingLineNumber = "131">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2E0FFC5D-CDF4-4908-92A3-E85B30BB5843"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TDD/Network/APIs/Todo/TodoAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "getTodoList(request:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

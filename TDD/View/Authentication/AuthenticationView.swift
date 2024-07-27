@@ -16,9 +16,6 @@ struct AuthenticationView: View {
             switch viewModel.authState {
             case .unAuthenticated:
                 LoginView()
-                    .onAppear {
-                        viewModel.check()
-                    }
             case .authenticated:
                 MainTabView(viewModel: .init(container: container))
             }
@@ -27,7 +24,11 @@ struct AuthenticationView: View {
     }
 }
 
-#Preview {
-    AuthenticationView(viewModel: AuthenticationViewModel())
-        .environmentObject(DIContainer(services: StubService()))
+struct AuthenticationView_Previews: PreviewProvider {
+    static let container: DIContainer = .init(services: StubService())
+    
+    static var previews: some View {
+        AuthenticationView(viewModel: AuthenticationViewModel(container: Self.container))
+            .environmentObject(Self.container)
+    }
 }

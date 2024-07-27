@@ -30,7 +30,7 @@ struct Todo: Identifiable, Equatable {
     var status: TodoStatus
 }
 
-enum TodoStatus: Codable {
+enum TodoStatus: String, Codable {
     case PROCEED
     case DONE
 }

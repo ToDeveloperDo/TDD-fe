@@ -10,10 +10,11 @@ import Combine
 
 final class CalendarViewModel: ObservableObject {
     @Published var months: [Month] = []
-    @Published var selection: Int = 6 {
+    @Published var selection: Int {
         didSet {
-            
-//            send(action: .fetchTodos)
+            slideSelectedDay()
+            send(action: .fetchTodos)
+            send(action: .fetchTodosCount)
         }
     }
     @Published var showTextField: Bool = false
@@ -27,10 +28,10 @@ final class CalendarViewModel: ObservableObject {
     
     let dayOfWeek: [String] = Calendar.current.veryShortWeekdaySymbols
     
-    init(container: DIContainer) {
+    init(container: DIContainer, selection: Int = 6) {
         self.container = container
+        self.selection = selection
         self.fetchMonths()
-//        self.fetchTodos()
     }
     
     enum Action {
@@ -76,7 +77,6 @@ final class CalendarViewModel: ObservableObject {
 
 extension CalendarViewModel {
     private func paginateMonth() {
-        print("selection: \(selection)")
         let calendar = Calendar.current
         let currentMonthIndex = selection
         
@@ -100,8 +100,7 @@ extension CalendarViewModel {
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
-    private func updateSelectedDay() {
-        print("selection: \(selection)")
+    private func updateSelectedDay() {        
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
@@ -139,19 +138,23 @@ extension CalendarViewModel {
     
     private func fetchTodosCount() {
         guard let selectedDay = selectedDay else {return}
+        let index = months[selection].days.firstIndex(where: { $0.days != -1 })!
         let year = selectedDay.date.format("YYYY")
         let month = selectedDay.date.format("MM")
+        print("fetchTodoCount Called!")
         container.services.todoService.getTodoCount(year: year, month: month)
             .sink { completion in
                 if case .failure = completion {
                     return
                 }
-            } receiveValue: { [weak self] value in
+            } receiveValue: { [weak self] values in
                 guard let self = self else { return }
-                self.months[self.selection].days.map { day in
-                    
+                for value in values {
+                    self.months[self.selection].days[index+value.0-1].todosCount = value.1
+                    self.selectedDay = self.months[self.selection].days[self.months[self.selection].selectedDayIndex]
                 }
             }
+            .store(in: &subscriptions)
     }
         
     private func createTodo() {
@@ -195,10 +198,17 @@ extension CalendarViewModel {
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
+    
+    // 날짜 클릭 시 선택된 날짜 교체
     private func selectDay(_ selectDay: Day) {
         let selectDayIndex = months[selection].days.firstIndex { $0.date == selectDay.date }
         months[selection].selectedDayIndex = selectDayIndex ?? -1
         selectedDay = selectDay
+    }
+    
+    // 슬라이드 시 선택된 날짜 교체
+    private func slideSelectedDay() {
+        selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
     private func searchTodoIndex(_ todo: Todo) -> Int {
