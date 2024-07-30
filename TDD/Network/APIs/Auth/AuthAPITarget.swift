@@ -26,14 +26,13 @@ extension AuthAPITarget: TargetType {
     
     var path: String {
         switch self {
-        // MARK: path 미정
         case .signInWithApple: return "/api/login/apple"
         }
     }
     
     var parameters: RequestParams {
         switch self {
-        case .signInWithApple(let request): return .body(request)
+        case .signInWithApple(let request): return .query(request)
         }
     }
 }

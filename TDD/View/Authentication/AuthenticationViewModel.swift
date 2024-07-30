@@ -29,6 +29,7 @@ final class AuthenticationViewModel: ObservableObject {
     enum Action {
         case appleLogin(ASAuthorizationAppleIDRequest)
         case appleLoginCompletion(Result<ASAuthorization, Error>)
+        case checkLoginState
     }
       
     func send(action: Action) {
@@ -45,11 +46,37 @@ final class AuthenticationViewModel: ObservableObject {
                         }
                     } receiveValue: { [weak self] result in
                         guard let self = self else { return }
-                        self.authState = .authenticated
-                        print(result)
+                        do {
+                            try KeychainManager.shared.create(.access, input: result.0.idToken)
+                            try KeychainManager.shared.create(.userIdentifier, input: result.1)
+                            self.authState = .authenticated
+                        } catch {
+                            self.authState = .unAuthenticated
+                            self.isPresent = true
+                            return
+                        }
                     }.store(in: &subscription)
 
             } else if case .failure(_) = result {
+                authState = .unAuthenticated
+            }
+        case .checkLoginState:
+            let appleIDProvicer = ASAuthorizationAppleIDProvider()
+            do {
+                let userIdentifier = try KeychainManager.shared.getData(.userIdentifier)
+                appleIDProvicer.getCredentialState(forUserID: userIdentifier) { [weak self](credentialState, error) in
+                    DispatchQueue.main.async {
+                        switch credentialState {
+                        case .authorized:
+                            self?.authState = .authenticated
+                        case .revoked, .notFound:
+                            self?.authState = .unAuthenticated
+                        default:
+                            self?.authState = .unAuthenticated
+                        }
+                    }
+                }
+            } catch {
                 authState = .unAuthenticated
             }
         }

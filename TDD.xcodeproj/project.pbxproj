@@ -52,6 +52,7 @@
 		AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF382C47F400008971DB /* NavigationRouter.swift */; };
 		AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */; };
 		AD80C8102C510CF900FB71A9 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD80C80F2C510CF900FB71A9 /* TodoDetailView.swift */; };
+		ADAA4FE92C58BD7100EF30E0 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA4FE82C58BD7100EF30E0 /* KeychainManager.swift */; };
 		ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */; };
 		ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */; };
 		ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */; };
@@ -120,6 +121,7 @@
 		AD67DF382C47F400008971DB /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObjectSettable.swift; sourceTree = "<group>"; };
 		AD80C80F2C510CF900FB71A9 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
+		ADAA4FE82C58BD7100EF30E0 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
 		ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoutingView.swift; sourceTree = "<group>"; };
 		ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				AD10D4D32C3D2390008481FF /* View */,
 				AD10DBB42C400C9700785252 /* Model */,
 				AD10DBB72C400F4300785252 /* Service */,
+				ADAA4FE72C58BD4700EF30E0 /* Keychain */,
 				AD46DDF32C47834500DE940B /* Network */,
 				AD46DDF02C47760400DE940B /* Resource */,
 				AD10D4BF2C3D1035008481FF /* Preview Content */,
@@ -419,6 +422,14 @@
 			path = TodoDetail;
 			sourceTree = "<group>";
 		};
+		ADAA4FE72C58BD4700EF30E0 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				ADAA4FE82C58BD7100EF30E0 /* KeychainManager.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
 		ADEA4B5F2C48A8C500C10B9C /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +551,7 @@
 				ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */,
 				AD10DBC32C401F7A00785252 /* MainTabType.swift in Sources */,
 				AD10DBD02C40D3DB00785252 /* Month.swift in Sources */,
+				ADAA4FE92C58BD7100EF30E0 /* KeychainManager.swift in Sources */,
 				AD67DF322C47EF7D008971DB /* CreateRepoView.swift in Sources */,
 				AD10DBB92C400F6F00785252 /* Services.swift in Sources */,
 				AD241F572C4E2B6800DE8805 /* CreateRepoRequest.swift in Sources */,
