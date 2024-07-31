@@ -24,11 +24,7 @@ struct LoginView: View {
             .padding(.horizontal, 30)
             .signInWithAppleButtonStyle(.black)
 
-        }
-//        .sheet(isPresented: $viewModel.isPresent) {
-//            LoginWebView(urlToLoad: URL(string: "https://api.todeveloperdo.shop/git/login")!)
-//                .ignoresSafeArea()
-//        }        
+        }    
     }
 }
 

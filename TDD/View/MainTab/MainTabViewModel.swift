@@ -17,7 +17,7 @@ final class MainTabViewModel: ObservableObject {
     
     func isRepo() {
         if check {
-            self.container.navigationRouter.push(to: .createRepo)
+            self.container.navigationRouter.push(to: .linkGithub)
         }
     }
 }

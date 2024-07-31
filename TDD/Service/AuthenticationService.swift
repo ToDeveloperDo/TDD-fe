@@ -30,7 +30,7 @@ final class AuthenticationService: AuthenticationServiceType {
               let code = credential.authorizationCode else {
             return Fail(error: ServiceError.authorizationFailed).eraseToAnyPublisher()
         }
-
+        
         guard let codeStr = String(data: code, encoding: .utf8) else {
             return Fail(error: ServiceError.authorizationFailed).eraseToAnyPublisher()
         }

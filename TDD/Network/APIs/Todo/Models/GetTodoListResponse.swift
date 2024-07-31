@@ -10,8 +10,8 @@ import Foundation
 struct GetTodoListResponse: Decodable {
     let todoListId: Int
     let content: String
-    let memo: String
-    let tag: String
+    let memo: String?
+    let tag: String?
     let deadline: String
     let todoStatus: TodoStatus
     
@@ -20,6 +20,7 @@ struct GetTodoListResponse: Decodable {
                     content: content,
                     memo: memo,
                     tag: tag,
+                    deadline: deadline, 
                     status: todoStatus)
     }
 }

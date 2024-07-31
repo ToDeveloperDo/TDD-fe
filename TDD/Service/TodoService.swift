@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol TodoServiceType {
-    func createTodo(content: String, memo: String?, tag: String, deadline: String) -> AnyPublisher<Int, ServiceError>
+    func createTodo(content: String, memo: String?, tag: String?, deadline: String) -> AnyPublisher<Int, ServiceError>
     func getTodoList(date: String) -> AnyPublisher<[Todo], ServiceError>
     func getTodoCount(year: String, month: String) -> AnyPublisher<[(Int, Int)], ServiceError>
     func reverseTodo(todoId: Int) -> AnyPublisher<Bool, ServiceError>
@@ -24,7 +24,7 @@ final class TodoService: TodoServiceType {
         self.todoAPI = todoAPI
     }
     
-    func createTodo(content: String, memo: String?, tag: String, deadline: String) -> AnyPublisher<Int, ServiceError> {
+    func createTodo(content: String, memo: String?, tag: String?, deadline: String) -> AnyPublisher<Int, ServiceError> {
         let request = CreateTodoRequest(content: content, memo: memo, tag: tag, deadline: deadline)
         return todoAPI.createTodo(request: request)
             .mapError { ServiceError.error($0) }
@@ -72,7 +72,7 @@ final class TodoService: TodoServiceType {
 }
 
 final class StubTodoService: TodoServiceType {
-    func createTodo(content: String, memo: String?, tag: String, deadline: String) -> AnyPublisher<Int, ServiceError> {
+    func createTodo(content: String, memo: String?, tag: String?, deadline: String) -> AnyPublisher<Int, ServiceError> {
         Empty().eraseToAnyPublisher()
     }
     

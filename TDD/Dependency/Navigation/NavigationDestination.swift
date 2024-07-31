@@ -9,4 +9,5 @@ import Foundation
 
 enum NavigationDestination: Hashable {
     case createRepo
+    case linkGithub
 }

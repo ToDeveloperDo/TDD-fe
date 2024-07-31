@@ -22,6 +22,7 @@ final class CalendarViewModel: ObservableObject {
     @Published var memo: String = ""
     @Published var selectedDay: Day? 
     @Published var isPresent: Bool = false
+    @Published var detailTodo: Todo?
     
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
@@ -70,7 +71,8 @@ final class CalendarViewModel: ObservableObject {
         case .deleteTodo(let index):
             deleteTodo(index)
         case .moveDetail(let todo):
-            break
+            moveDetail(todo)
+            
         }
     }
 }
@@ -158,7 +160,7 @@ extension CalendarViewModel {
     }
         
     private func createTodo() {
-        let todo: Todo = .init(todoListId: 1, content: title, memo: memo, tag: "코", status: .PROCEED)
+        let todo: Todo = .init(todoListId: 1, content: title, memo: memo, tag: "코", deadline: "", status: .PROCEED)
         months[selection].days[months[selection].selectedDayIndex].todos.append(todo)
         months[selection].days[months[selection].selectedDayIndex].todosCount += 1
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
@@ -215,5 +217,9 @@ extension CalendarViewModel {
         let index = months[selection].days[months[selection].selectedDayIndex].todos.firstIndex { $0 == todo }
         guard let index else { return -1 }
         return index
+    }
+    
+    private func moveDetail(_ todo: Todo) {
+        
     }
 }
