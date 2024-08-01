@@ -52,6 +52,7 @@
 		AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF382C47F400008971DB /* NavigationRouter.swift */; };
 		AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */; };
 		AD80C8102C510CF900FB71A9 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD80C80F2C510CF900FB71A9 /* TodoDetailView.swift */; };
+		AD87D0EF2C5B5A0700E68C90 /* TodoInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD87D0EE2C5B5A0700E68C90 /* TodoInputViewModel.swift */; };
 		AD8996C32C5930510081B487 /* LinkGitHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8996C22C5930510081B487 /* LinkGitHubView.swift */; };
 		AD8996C52C5931BC0081B487 /* LinkGitHubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8996C42C5931BC0081B487 /* LinkGitHubViewModel.swift */; };
 		ADAA4FE92C58BD7100EF30E0 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA4FE82C58BD7100EF30E0 /* KeychainManager.swift */; };
@@ -126,6 +127,7 @@
 		AD67DF382C47F400008971DB /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObjectSettable.swift; sourceTree = "<group>"; };
 		AD80C80F2C510CF900FB71A9 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
+		AD87D0EE2C5B5A0700E68C90 /* TodoInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInputViewModel.swift; sourceTree = "<group>"; };
 		AD8996C22C5930510081B487 /* LinkGitHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkGitHubView.swift; sourceTree = "<group>"; };
 		AD8996C42C5931BC0081B487 /* LinkGitHubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkGitHubViewModel.swift; sourceTree = "<group>"; };
 		ADAA4FE82C58BD7100EF30E0 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				ADAA4FEF2C58EB3900EF30E0 /* TodoInputView.swift */,
+				AD87D0EE2C5B5A0700E68C90 /* TodoInputViewModel.swift */,
 			);
 			path = TodoInput;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,
 				AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */,
 				ADAA4FF22C58F07000EF30E0 /* TodoListView.swift in Sources */,
+				AD87D0EF2C5B5A0700E68C90 /* TodoInputViewModel.swift in Sources */,
 				AD5D72D42C54F291009FE208 /* AuthAPITarget.swift in Sources */,
 				AD5D72D72C54F2E1009FE208 /* LoginRequest.swift in Sources */,
 			);

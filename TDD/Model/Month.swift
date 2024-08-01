@@ -23,10 +23,9 @@ struct Day: Identifiable {
 
 struct Todo: Identifiable, Equatable {
     var id = UUID().uuidString
-    var todoListId: Int
     var content: String
-    var memo: String?
-    var tag: String?
+    var memo: String
+    var tag: String
     var deadline: String
     var status: TodoStatus
 }
@@ -37,6 +36,6 @@ enum TodoStatus: String, Codable {
 }
 
 extension Todo {
-    static let stub1 = Todo(todoListId: 1, content: "축구", memo: "아", tag: "아", deadline: "2024-07-31", status: .PROCEED)
-    static let stub2 = Todo(todoListId: 1, content: "공부", memo: "아", tag: "아", deadline: "2024-07-31", status: .PROCEED)
+    static let stub1 = Todo(content: "축구", memo: "아", tag: "아", deadline: "2024-07-31", status: .PROCEED)
+    static let stub2 = Todo(content: "공부", memo: "아", tag: "아", deadline: "2024-07-31", status: .PROCEED)
 }

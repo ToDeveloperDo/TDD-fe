@@ -37,9 +37,11 @@ struct CalendarView: View {
             if viewModel.showTextField {
                 VStack {
                     Spacer()
-                    TodoInputView()
-                        .padding(.bottom, viewModel.showTextField ?  keyboardHeight-10 : 0)
-                        .animation(.linear, value: keyboardHeight)
+                    if let date = viewModel.selectedDay?.date {
+                        TodoInputView(todoInputViewModel: TodoInputViewModel(todo: .init(content: "", memo: "", tag: "", deadline: date.format("YYYY-MM-dd"), status: .PROCEED)))
+                            .padding(.bottom, viewModel.showTextField ?  keyboardHeight-10 : 0)
+                            .animation(.linear, value: keyboardHeight)
+                    }
                 }
                 .ignoresSafeArea()
             }

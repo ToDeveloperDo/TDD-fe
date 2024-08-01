@@ -16,7 +16,7 @@ struct TodoDetailView: View {
     
     init(todo: Todo) {
         self.todo = todo
-        self.memo = todo.memo ?? ""
+        self.memo = todo.memo
     }
     
     var body: some View {
@@ -106,8 +106,10 @@ struct TodoDetailView: View {
                 Button(action: {
                     switch todo.status {
                     case .PROCEED:
+                        viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
                         todo.status = .DONE
                     case .DONE:
+                        viewModel.send(action: .moveTodo(todo: todo, mode: .reverse))
                         todo.status = .PROCEED
                     }
                 }, label: {
@@ -139,7 +141,7 @@ struct TodoDetailView: View {
                     Spacer()
                 }.frame(width: screenWidth/4)
                 
-                Text("\(todo.tag ?? "비어 있음")")
+                Text("\(todo.tag.isEmpty ? todo.tag : "비어 있음")")
                 Spacer()
             }
         }
@@ -157,6 +159,6 @@ struct TodoDetailView: View {
 }
 
 #Preview {
-    TodoDetailView(todo: .init(todoListId: 1, content: "코딩하기", memo: "dksjf", tag: "dkfj", deadline: "2024-07-31", status: .DONE))
+    TodoDetailView(todo: .init(content: "코딩하기", memo: "dksjf", tag: "dkfj", deadline: "2024-07-31", status: .DONE))
         .environmentObject(CalendarViewModel(container: .stub))
 }

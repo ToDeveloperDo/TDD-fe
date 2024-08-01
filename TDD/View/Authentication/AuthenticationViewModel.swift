@@ -15,7 +15,7 @@ enum AuthenticationState {
 }
 
 final class AuthenticationViewModel: ObservableObject {
-    @Published var authState: AuthenticationState = .unAuthenticated
+    @Published var authState: AuthenticationState = .authenticated
     @Published var authToken: String?
     @Published var isPresent: Bool = false
     

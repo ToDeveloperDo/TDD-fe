@@ -10,6 +10,6 @@ import Foundation
 struct CreateTodoRequest: Encodable {
     let content: String
     let memo: String?
-    let tag: String?
+    let tag: String
     let deadline: String
 }

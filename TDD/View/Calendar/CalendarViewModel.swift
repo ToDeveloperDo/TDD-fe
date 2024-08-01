@@ -63,7 +63,8 @@ final class CalendarViewModel: ObservableObject {
         case .paginate:
             paginateMonth()
         case .createTodo:
-            createTodo()
+//            createTodo()
+            break
         case .selectDay(let day):
             selectDay(day)
         case .moveTodo(let todo, let mode):
@@ -159,22 +160,22 @@ extension CalendarViewModel {
             .store(in: &subscriptions)
     }
         
-    private func createTodo() {
-        let todo: Todo = .init(todoListId: 1, content: title, memo: memo, tag: "코", deadline: "", status: .PROCEED)
-        months[selection].days[months[selection].selectedDayIndex].todos.append(todo)
-        months[selection].days[months[selection].selectedDayIndex].todosCount += 1
-        selectedDay = months[selection].days[months[selection].selectedDayIndex]
-        showTextField = false
-        let request = CreateTodoRequest(content: title, memo: memo, tag: "아", deadline: selectedDay?.date.format("yyyy-MM-dd") ?? "")
-//        TodoAPI.createTodo(request: request)
-//            .sink { completion in
-//                self.showTextField = false
-//            } receiveValue: { out in
-//                self.showTextField = false
-//                print(out)
-//            }
-//            .store(in: &subscriptions)
-    }
+//    private func createTodo() {
+//        let todo: Todo = .init(todoListId: 1, content: title, memo: memo, tag: "코", deadline: "", status: .PROCEED)
+//        months[selection].days[months[selection].selectedDayIndex].todos.append(todo)
+//        months[selection].days[months[selection].selectedDayIndex].todosCount += 1
+//        selectedDay = months[selection].days[months[selection].selectedDayIndex]
+//        showTextField = false
+//        let request = CreateTodoRequest(content: title, memo: memo, tag: "아", deadline: selectedDay?.date.format("yyyy-MM-dd") ?? "")
+////        TodoAPI.createTodo(request: request)
+////            .sink { completion in
+////                self.showTextField = false
+////            } receiveValue: { out in
+////                self.showTextField = false
+////                print(out)
+////            }
+////            .store(in: &subscriptions)
+//    }
     
     private func moveTodo(_ todo: Todo, _ mode: Mode) {
         let todoIndex = searchTodoIndex(todo)
