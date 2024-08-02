@@ -25,7 +25,7 @@ struct AuthenticationView: View {
             }
         }
         .onAppear {
-//            viewModel.send(action: .checkLoginState)
+            viewModel.send(action: .checkLoginState)
         }
     }
 }

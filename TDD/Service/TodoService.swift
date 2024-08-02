@@ -73,7 +73,7 @@ final class TodoService: TodoServiceType {
 
 final class StubTodoService: TodoServiceType {
     func createTodo(todo: Todo) -> AnyPublisher<Int, ServiceError> {
-        Empty().eraseToAnyPublisher()
+        Just(1).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     
     func getTodoList(date: String) -> AnyPublisher<[Todo], ServiceError> {
@@ -89,7 +89,8 @@ final class StubTodoService: TodoServiceType {
     }
     
     func doneTodo(todoId: Int) -> AnyPublisher<Bool, ServiceError> {
-        Empty().eraseToAnyPublisher()
+        Just(true).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
+
     }
     
     

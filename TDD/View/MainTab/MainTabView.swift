@@ -14,32 +14,50 @@ struct MainTabView: View {
     
     var body: some View {
         NavigationStack(path: $container.navigationRouter.destinations) {
-             ZStack {
-                TabView(selection: $selectedTab) {
-                    ForEach(MainTabType.allCases, id: \.self) { tab in
-                        Group {
-                            switch tab {
-                            case .calendar:
-                                CalendarView(viewModel: CalendarViewModel(container: container))
-                            case .myInfo:
-                                MyInfoView()
-                            case .todo:
-                                ContentView()
-                            }
+            contentView
+                .navigationDestination(for: NavigationDestination.self) {
+                    NavigationRoutingView(destination: $0)
+                }
+        }
+    }
+    
+    @ViewBuilder
+    var contentView: some View {
+        switch viewModel.phase {
+        case .notRequest:
+            PlaceholderView()
+                .onAppear {
+                    viewModel.send(action: .load)
+                }
+        case .loading:
+            LoadingView()
+        case .success:
+            loadedView
+        case .fail:
+            ErrorView()
+        }
+    }
+    
+    var loadedView: some View {
+        ZStack {
+            TabView(selection: $selectedTab) {
+                ForEach(MainTabType.allCases, id: \.self) { tab in
+                    Group {
+                        switch tab {
+                        case .calendar:
+                            CalendarView(viewModel: CalendarViewModel(container: container))
+                        case .myInfo:
+                            MyInfoView()
+                        case .todo:
+                            ContentView()
                         }
-                        .tabItem {
-                            Label(tab.title, systemImage: tab.systemImageName)
-                        }
-                        .tag(tab)
                     }
+                    .tabItem {
+                        Label(tab.title, systemImage: tab.systemImageName)
+                    }
+                    .tag(tab)
                 }
             }
-             .onAppear {
-                 viewModel.isRepo()
-             }
-             .navigationDestination(for: NavigationDestination.self) {
-                 NavigationRoutingView(destination: $0)
-             }
         }
     }
 }

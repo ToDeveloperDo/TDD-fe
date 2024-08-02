@@ -53,6 +53,11 @@
 		AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */; };
 		AD6E2A6F2C5CA4EC006783B9 /* RefreshRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A6E2C5CA4EC006783B9 /* RefreshRequest.swift */; };
 		AD6E2A712C5CA51C006783B9 /* RefreshResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A702C5CA51C006783B9 /* RefreshResponse.swift */; };
+		AD6E2A732C5CBC7D006783B9 /* GitHubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A722C5CBC7D006783B9 /* GitHubService.swift */; };
+		AD6E2A752C5CC279006783B9 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A742C5CC279006783B9 /* Phase.swift */; };
+		AD6E2A772C5CC6DA006783B9 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A762C5CC6DA006783B9 /* PlaceholderView.swift */; };
+		AD6E2A792C5CC6FF006783B9 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A782C5CC6FF006783B9 /* LoadingView.swift */; };
+		AD6E2A7B2C5CC734006783B9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A7A2C5CC734006783B9 /* ErrorView.swift */; };
 		AD80C8102C510CF900FB71A9 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD80C80F2C510CF900FB71A9 /* TodoDetailView.swift */; };
 		AD87D0EF2C5B5A0700E68C90 /* TodoInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD87D0EE2C5B5A0700E68C90 /* TodoInputViewModel.swift */; };
 		AD8996C32C5930510081B487 /* LinkGitHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8996C22C5930510081B487 /* LinkGitHubView.swift */; };
@@ -130,6 +135,11 @@
 		AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObjectSettable.swift; sourceTree = "<group>"; };
 		AD6E2A6E2C5CA4EC006783B9 /* RefreshRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshRequest.swift; sourceTree = "<group>"; };
 		AD6E2A702C5CA51C006783B9 /* RefreshResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshResponse.swift; sourceTree = "<group>"; };
+		AD6E2A722C5CBC7D006783B9 /* GitHubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubService.swift; sourceTree = "<group>"; };
+		AD6E2A742C5CC279006783B9 /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
+		AD6E2A762C5CC6DA006783B9 /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
+		AD6E2A782C5CC6FF006783B9 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		AD6E2A7A2C5CC734006783B9 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		AD80C80F2C510CF900FB71A9 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
 		AD87D0EE2C5B5A0700E68C90 /* TodoInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInputViewModel.swift; sourceTree = "<group>"; };
 		AD8996C22C5930510081B487 /* LinkGitHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkGitHubView.swift; sourceTree = "<group>"; };
@@ -268,6 +278,7 @@
 				AD10DBB82C400F6F00785252 /* Services.swift */,
 				AD5D72C82C522C0B009FE208 /* TodoService.swift */,
 				AD5D72CE2C54E3E7009FE208 /* AuthenticationService.swift */,
+				AD6E2A722C5CBC7D006783B9 /* GitHubService.swift */,
 				AD5D72CA2C524036009FE208 /* ServiceError.swift */,
 			);
 			path = Service;
@@ -499,6 +510,7 @@
 			isa = PBXGroup;
 			children = (
 				ADEA4B602C48A8E300C10B9C /* View */,
+				AD6E2A742C5CC279006783B9 /* Phase.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -507,6 +519,9 @@
 			isa = PBXGroup;
 			children = (
 				ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */,
+				AD6E2A762C5CC6DA006783B9 /* PlaceholderView.swift */,
+				AD6E2A782C5CC6FF006783B9 /* LoadingView.swift */,
+				AD6E2A7A2C5CC734006783B9 /* ErrorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -603,6 +618,7 @@
 				AD46DE072C47A38000DE940B /* API.swift in Sources */,
 				ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */,
 				AD10DBBE2C401F2700785252 /* MainTabView.swift in Sources */,
+				AD6E2A732C5CBC7D006783B9 /* GitHubService.swift in Sources */,
 				AD10DBAF2C3ED77400785252 /* AuthenticationViewModel.swift in Sources */,
 				AD10DBB22C3FB5FF00785252 /* CalendarView.swift in Sources */,
 				AD8996C52C5931BC0081B487 /* LinkGitHubViewModel.swift in Sources */,
@@ -620,7 +636,10 @@
 				AD10DBC32C401F7A00785252 /* MainTabType.swift in Sources */,
 				AD10DBD02C40D3DB00785252 /* Month.swift in Sources */,
 				ADAA4FE92C58BD7100EF30E0 /* KeychainManager.swift in Sources */,
+				AD6E2A752C5CC279006783B9 /* Phase.swift in Sources */,
+				AD6E2A7B2C5CC734006783B9 /* ErrorView.swift in Sources */,
 				AD67DF322C47EF7D008971DB /* CreateRepoView.swift in Sources */,
+				AD6E2A792C5CC6FF006783B9 /* LoadingView.swift in Sources */,
 				AD10DBB92C400F6F00785252 /* Services.swift in Sources */,
 				AD241F572C4E2B6800DE8805 /* CreateRepoRequest.swift in Sources */,
 				AD46DE012C4795BC00DE940B /* CreateTodoRequest.swift in Sources */,
@@ -646,6 +665,7 @@
 				AD5D72C52C521A95009FE208 /* GetTodoCountResponse.swift in Sources */,
 				AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */,
 				ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */,
+				AD6E2A772C5CC6DA006783B9 /* PlaceholderView.swift in Sources */,
 				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,
 				AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */,
 				ADAA4FF22C58F07000EF30E0 /* TodoListView.swift in Sources */,
