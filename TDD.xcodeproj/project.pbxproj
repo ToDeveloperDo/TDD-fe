@@ -24,8 +24,8 @@
 		AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCD2C40CA0E00785252 /* Date+Extension.swift */; };
 		AD10DBD02C40D3DB00785252 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCF2C40D3DB00785252 /* Month.swift */; };
 		AD241F4F2C4E2AA700DE8805 /* GetTodoListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F4E2C4E2AA700DE8805 /* GetTodoListRequest.swift */; };
-		AD241F522C4E2B0B00DE8805 /* RepoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F512C4E2B0B00DE8805 /* RepoAPI.swift */; };
-		AD241F542C4E2B1700DE8805 /* RepoAPITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F532C4E2B1700DE8805 /* RepoAPITarget.swift */; };
+		AD241F522C4E2B0B00DE8805 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F512C4E2B0B00DE8805 /* GitHubAPI.swift */; };
+		AD241F542C4E2B1700DE8805 /* GitHubAPITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F532C4E2B1700DE8805 /* GitHubAPITarget.swift */; };
 		AD241F572C4E2B6800DE8805 /* CreateRepoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F562C4E2B6800DE8805 /* CreateRepoRequest.swift */; };
 		AD46DDF22C47762A00DE940B /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD46DDF12C47762A00DE940B /* Color.xcassets */; };
 		AD46DDF82C47906E00DE940B /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DDF72C47906E00DE940B /* TargetType.swift */; };
@@ -51,6 +51,8 @@
 		AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF362C47F3BA008971DB /* NavigationDestination.swift */; };
 		AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF382C47F400008971DB /* NavigationRouter.swift */; };
 		AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */; };
+		AD6E2A6F2C5CA4EC006783B9 /* RefreshRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A6E2C5CA4EC006783B9 /* RefreshRequest.swift */; };
+		AD6E2A712C5CA51C006783B9 /* RefreshResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A702C5CA51C006783B9 /* RefreshResponse.swift */; };
 		AD80C8102C510CF900FB71A9 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD80C80F2C510CF900FB71A9 /* TodoDetailView.swift */; };
 		AD87D0EF2C5B5A0700E68C90 /* TodoInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD87D0EE2C5B5A0700E68C90 /* TodoInputViewModel.swift */; };
 		AD8996C32C5930510081B487 /* LinkGitHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8996C22C5930510081B487 /* LinkGitHubView.swift */; };
@@ -97,8 +99,8 @@
 		AD10DBCD2C40CA0E00785252 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		AD10DBCF2C40D3DB00785252 /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		AD241F4E2C4E2AA700DE8805 /* GetTodoListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodoListRequest.swift; sourceTree = "<group>"; };
-		AD241F512C4E2B0B00DE8805 /* RepoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoAPI.swift; sourceTree = "<group>"; };
-		AD241F532C4E2B1700DE8805 /* RepoAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoAPITarget.swift; sourceTree = "<group>"; };
+		AD241F512C4E2B0B00DE8805 /* GitHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI.swift; sourceTree = "<group>"; };
+		AD241F532C4E2B1700DE8805 /* GitHubAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPITarget.swift; sourceTree = "<group>"; };
 		AD241F562C4E2B6800DE8805 /* CreateRepoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepoRequest.swift; sourceTree = "<group>"; };
 		AD46DDF12C47762A00DE940B /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		AD46DDF72C47906E00DE940B /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
@@ -126,6 +128,8 @@
 		AD67DF362C47F3BA008971DB /* NavigationDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestination.swift; sourceTree = "<group>"; };
 		AD67DF382C47F400008971DB /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		AD67DF3B2C47F449008971DB /* ObservableObjectSettable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObjectSettable.swift; sourceTree = "<group>"; };
+		AD6E2A6E2C5CA4EC006783B9 /* RefreshRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshRequest.swift; sourceTree = "<group>"; };
+		AD6E2A702C5CA51C006783B9 /* RefreshResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshResponse.swift; sourceTree = "<group>"; };
 		AD80C80F2C510CF900FB71A9 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
 		AD87D0EE2C5B5A0700E68C90 /* TodoInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInputViewModel.swift; sourceTree = "<group>"; };
 		AD8996C22C5930510081B487 /* LinkGitHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkGitHubView.swift; sourceTree = "<group>"; };
@@ -303,14 +307,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		AD241F502C4E2AFA00DE8805 /* Repo */ = {
+		AD241F502C4E2AFA00DE8805 /* GitHub */ = {
 			isa = PBXGroup;
 			children = (
-				AD241F512C4E2B0B00DE8805 /* RepoAPI.swift */,
-				AD241F532C4E2B1700DE8805 /* RepoAPITarget.swift */,
+				AD241F512C4E2B0B00DE8805 /* GitHubAPI.swift */,
+				AD241F532C4E2B1700DE8805 /* GitHubAPITarget.swift */,
 				AD241F552C4E2B5200DE8805 /* Models */,
 			);
-			path = Repo;
+			path = GitHub;
 			sourceTree = "<group>";
 		};
 		AD241F552C4E2B5200DE8805 /* Models */ = {
@@ -355,7 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				AD5D72D02C54F275009FE208 /* Auth */,
-				AD241F502C4E2AFA00DE8805 /* Repo */,
+				AD241F502C4E2AFA00DE8805 /* GitHub */,
 				AD46DDFC2C47952900DE940B /* Todo */,
 			);
 			path = APIs;
@@ -398,6 +402,8 @@
 			children = (
 				AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */,
 				AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */,
+				AD6E2A6E2C5CA4EC006783B9 /* RefreshRequest.swift */,
+				AD6E2A702C5CA51C006783B9 /* RefreshResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -606,7 +612,7 @@
 				AD46DDF82C47906E00DE940B /* TargetType.swift in Sources */,
 				AD10DBC92C40234000785252 /* UnKnownView.swift in Sources */,
 				AD10DBC72C40232400785252 /* MyInfoView.swift in Sources */,
-				AD241F542C4E2B1700DE8805 /* RepoAPITarget.swift in Sources */,
+				AD241F542C4E2B1700DE8805 /* GitHubAPITarget.swift in Sources */,
 				AD5D72CF2C54E3E7009FE208 /* AuthenticationService.swift in Sources */,
 				AD46DDFE2C47954000DE940B /* TodoAPITarget.swift in Sources */,
 				ADAA4FF02C58EB3900EF30E0 /* TodoInputView.swift in Sources */,
@@ -622,17 +628,19 @@
 				AD5D72C32C5213F4009FE208 /* GetTodoCountRequest.swift in Sources */,
 				AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */,
 				AD10DBBB2C401A9B00785252 /* DIContainer.swift in Sources */,
+				AD6E2A712C5CA51C006783B9 /* RefreshResponse.swift in Sources */,
 				AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */,
 				AD241F4F2C4E2AA700DE8805 /* GetTodoListRequest.swift in Sources */,
 				AD10D4BA2C3D1034008481FF /* TDDApp.swift in Sources */,
 				AD80C8102C510CF900FB71A9 /* TodoDetailView.swift in Sources */,
 				AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */,
 				AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */,
-				AD241F522C4E2B0B00DE8805 /* RepoAPI.swift in Sources */,
+				AD241F522C4E2B0B00DE8805 /* GitHubAPI.swift in Sources */,
 				AD5D72C72C521FBC009FE208 /* GetTodoListResponse.swift in Sources */,
 				AD46DE032C47981E00DE940B /* TodoAPI.swift in Sources */,
 				AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */,
 				AD5D72D22C54F286009FE208 /* AuthAPI.swift in Sources */,
+				AD6E2A6F2C5CA4EC006783B9 /* RefreshRequest.swift in Sources */,
 				ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */,
 				AD5D72C92C522C0B009FE208 /* TodoService.swift in Sources */,
 				AD5D72C52C521A95009FE208 /* GetTodoCountResponse.swift in Sources */,

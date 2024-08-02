@@ -49,7 +49,7 @@ final class StubAuthenticationService: AuthenticationServiceType {
     }
     
     func signInwithAppleCompletion(_ authorization: ASAuthorization) -> AnyPublisher<(LoginResponse, String), ServiceError> {
-        Just((LoginResponse(idToken: "성공"), "id"))
+        Just((LoginResponse(idToken: "성공", refreshToken: "성공"), "id"))
             .setFailureType(to: ServiceError.self)
             .eraseToAnyPublisher()
     }

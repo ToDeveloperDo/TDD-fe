@@ -17,5 +17,33 @@ final class AuthAPI {
             .mapError { $0 }
             .eraseToAnyPublisher()
     }
+    
+    static func refreshToken(completion: @escaping (Bool) -> Void) {
+        do {
+            let refreshToken = try KeychainManager.shared.getData(.refresh)
+            let request = RefreshRequest(refreshToken: refreshToken)
+            
+            AF.request(AuthAPITarget.refreshToken(request))
+                .response { response in
+                    switch response.result {
+                    case let .success(data):
+                        do {
+                            guard let data = data else { return }
+                            let result = try JSONDecoder().decode(RefreshResponse.self, from: data)
+                            try KeychainManager.shared.create(.access, input: result.idToken)
+                            completion(true)
+                        } catch {
+                            completion(false)
+                        }
+                    case let .failure(error):
+                        print(error.localizedDescription)
+                        completion(false)
+                    }
+                }
+            
+        } catch {
+            completion(false)
+        }
+    }
 }
 

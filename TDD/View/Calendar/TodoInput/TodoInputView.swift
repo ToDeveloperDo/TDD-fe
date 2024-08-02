@@ -11,7 +11,9 @@ struct TodoInputView: View {
     @EnvironmentObject var viewModel: CalendarViewModel
     @StateObject var todoInputViewModel: TodoInputViewModel
     @FocusState private var focusedField: Field?
-    @State var isEdit: Bool = true
+    @State private var keyboardHeight: CGFloat = 0
+    @State var isPresent: Bool = false
+    @State private var isEdit: Bool = true
     
     enum Field {
         case title
@@ -25,118 +27,58 @@ struct TodoInputView: View {
                 .focused($focusedField, equals: .title)
                 .submitLabel(.next)
                 .onSubmit {
-                    if todoInputViewModel.todo.tag.isEmpty {
-                        focusedField = .tag
-                    } else {
-                        focusedField = .memo
-                    }
+                    focusedField = .memo
                 }
                 .onAppear {
                     focusedField = .title
                 }
             
-            TagView(todoInputViewModel: todoInputViewModel, 
-                    focusedField: $focusedField, isEdit: $isEdit)
-                .focused($focusedField, equals: .tag)
-            
             TodoMemoView(todoInputViewModel: todoInputViewModel)
                 .focused($focusedField, equals: .memo)
+                .onSubmit {
+                    focusedField = .tag
+                }
             
-            HStack {
-                Label {
-                    Text("\(todoInputViewModel.todo.deadline)")
-                } icon: {
-                    Image(.icCalendar)
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(Color.red)
+            TagView(todoInputViewModel: todoInputViewModel,
+                    focusedField: $focusedField, isEdit: $isEdit)
+                .focused($focusedField, equals: .tag)
+                .submitLabel(.return)
+                .onSubmit {
+                    focusedField = nil
+                    isPresent = true
                 }
-                
-                Spacer()
-                
-                Button(action: {
-                    viewModel.send(action: .createTodo)
-                }, label: {
-                    Image(.icUparrow)
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 30, height: 30)
-                        .foregroundStyle(Color.fixWh)
-                        .padding(1)
-                        .background(
-                            RoundedRectangle(cornerRadius: 25)
-                                .foregroundStyle(Color.red)
-                        )
-                })
-                .overlay {
-                    if todoInputViewModel.todo.content.isEmpty || todoInputViewModel.todo.tag.isEmpty{
-                        Color.white.opacity(0.5).clipShape(Circle())
-                    }
-                }
-                .disabled(todoInputViewModel.todo.content.isEmpty || todoInputViewModel.todo.tag.isEmpty)
-            }
+            
+            BottomView(todoInputViewModel: todoInputViewModel, isPresent: $isPresent)
         }
-        .padding(.all, 20)
+        .padding(.horizontal, 20)
+        .padding(.top, 20)
+        .padding(.bottom, keyboardHeight)
         .background(Color.fixWh)
         .cornerRadius(10)
-    }
-}
-
-private struct TagView: View {
-    @ObservedObject private var todoInputViewModel: TodoInputViewModel
-    @Binding private var isEdit: Bool
-    
-    private var focusedField: FocusState<TodoInputView.Field?>.Binding
-    
-    
-    fileprivate init(todoInputViewModel: TodoInputViewModel, 
-                     focusedField: FocusState<TodoInputView.Field?>.Binding,
-                     isEdit: Binding<Bool>) {
-        self.todoInputViewModel = todoInputViewModel
-        self.focusedField = focusedField
-        self._isEdit = isEdit
-    }
-    
-    var body: some View {
-        Group {
-            if todoInputViewModel.todo.tag.isEmpty || isEdit {
-                TextField("태그", text: $todoInputViewModel.todo.tag)
-                    .onChange(of: focusedField.wrappedValue) { oldValue, newValue in
-                        if newValue != .tag {
-                            isEdit = false
-                        } else {
-                            isEdit = true
-                        }
-                    }
-            } else {
-                HStack {
-                    Button(action: {
-                        todoInputViewModel.todo.tag = ""
-                        focusedField.wrappedValue = .tag
-                    }, label: {
-                        HStack {
-                            Image(.icTag)
-                                .resizable()
-                                .renderingMode(.template)
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundStyle(.fixWh)
-                                .frame(width: 15)
-                            Text("\(todoInputViewModel.todo.tag)")
-                                .foregroundStyle(.fixWh)
-                        }
-                        .padding(3)
-                        .background(RoundedRectangle(cornerRadius: 5).fill(.green))
-                        
-                    })
-                    Spacer()
-                }.onAppear {
-                    focusedField.wrappedValue = .memo
+        .alert("업로드 확인", isPresented: $isPresent) {
+            Button(role: .cancel) {
+                viewModel.send(action: .createTodo(todo: todoInputViewModel.todo))
+            } label: {
+                Text("확인")
+            }
+            Button(role: .destructive) {
+                focusedField = .title
+            } label: {
+                Text("취소")
+            }
+        } message: {
+            Text("GitHub에 업로드 하시겠습니까?")
+        }
+        .onAppear {
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification,
+                                                   object: nil,
+                                                   queue: .main) { notification in
+                if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                    keyboardHeight = keyboardFrame.height
                 }
             }
         }
-        .padding(.top, 5)
-        .padding(.horizontal, 4)
+        .animation(.linear, value: keyboardHeight)
     }
 }
 
@@ -180,7 +122,7 @@ private struct TodoMemoView: View {
     }
 }
 
-struct TextViewWrapper: UIViewRepresentable {
+private struct TextViewWrapper: UIViewRepresentable {
     @Binding var text: String
     @Binding var calculatedHeight: CGFloat
     
@@ -226,6 +168,111 @@ struct TextViewWrapper: UIViewRepresentable {
         }
     }
 }
+
+private struct TagView: View {
+    @ObservedObject private var todoInputViewModel: TodoInputViewModel
+    @Binding private var isEdit: Bool
+    
+    private var focusedField: FocusState<TodoInputView.Field?>.Binding
+    
+    
+    fileprivate init(todoInputViewModel: TodoInputViewModel,
+                     focusedField: FocusState<TodoInputView.Field?>.Binding,
+                     isEdit: Binding<Bool>) {
+        self.todoInputViewModel = todoInputViewModel
+        self.focusedField = focusedField
+        self._isEdit = isEdit
+    }
+    
+    var body: some View {
+        Group {
+            if todoInputViewModel.todo.tag.isEmpty || isEdit {
+                TextField("태그", text: $todoInputViewModel.todo.tag)
+                    .onChange(of: focusedField.wrappedValue) { oldValue, newValue in
+                        if newValue != .tag {
+                            isEdit = false
+                        } else {
+                            isEdit = true
+                        }
+                    }
+            } else {
+                HStack {
+                    Button(action: {
+                        todoInputViewModel.todo.tag = ""
+                        focusedField.wrappedValue = .tag
+                    }, label: {
+                        HStack {
+                            Image(.icTag)
+                                .resizable()
+                                .renderingMode(.template)
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundStyle(.fixWh)
+                                .frame(width: 15)
+                            Text("\(todoInputViewModel.todo.tag)")
+                                .foregroundStyle(.fixWh)
+                        }
+                        .padding(3)
+                        .background(RoundedRectangle(cornerRadius: 5).fill(.green))
+                        
+                    })
+                    Spacer()
+                }.onAppear {
+                    focusedField.wrappedValue = .memo
+                }
+            }
+        }
+        .padding(.horizontal, 4)
+    }
+}
+
+private struct BottomView: View {
+    @EnvironmentObject var viewModel: CalendarViewModel
+    @ObservedObject private var todoInputViewModel: TodoInputViewModel
+    @Binding var isPresent: Bool
+    fileprivate init(todoInputViewModel: TodoInputViewModel, isPresent: Binding<Bool>) {
+        self.todoInputViewModel = todoInputViewModel
+        self._isPresent = isPresent
+    }
+    
+    fileprivate var body: some View {
+        HStack {
+            Label {
+                Text("\(todoInputViewModel.todo.deadline)")
+            } icon: {
+                Image(.icCalendar)
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: 20, height: 20)
+                    .foregroundStyle(Color.red)
+            }
+            
+            Spacer()
+            
+            Button(action: {
+                isPresent = true
+            }, label: {
+                Image(.icUparrow)
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: 30, height: 30)
+                    .foregroundStyle(Color.fixWh)
+                    .padding(1)
+                    .background(
+                        RoundedRectangle(cornerRadius: 25)
+                            .foregroundStyle(Color.red)
+                    )
+            })
+            .overlay {
+                if todoInputViewModel.todo.content.isEmpty || todoInputViewModel.todo.tag.isEmpty{
+                    Color.white.opacity(0.5).clipShape(Circle())
+                }
+            }
+            .disabled(todoInputViewModel.todo.content.isEmpty || todoInputViewModel.todo.tag.isEmpty)
+        }
+        .padding(.vertical, 5)
+    }
+}
+
 
 #Preview {
     TodoInputView(todoInputViewModel:.init(todo: .init(content: "", memo: "", tag: "", deadline: "2049-02-31", status: .PROCEED)))

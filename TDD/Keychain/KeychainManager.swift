@@ -16,7 +16,9 @@ enum KeychainError: Error {
 
 enum SaveType: String {
     case access = "accessToken"
+    case refresh = "refreshToken"
     case userIdentifier = "userID"
+    
 }
 
 final class KeychainManager {
@@ -34,6 +36,14 @@ final class KeychainManager {
                 kSecAttrType: type.rawValue,
                 kSecValueData: data
             ]
+            
+        case .refresh:
+            createQuery = [
+                kSecClass: kSecClassKey,
+                kSecAttrType: type.rawValue,
+                kSecValueData: data
+            ]
+
         case .userIdentifier:
             createQuery = [
                 kSecClass: kSecClassGenericPassword,
@@ -60,6 +70,13 @@ final class KeychainManager {
         
         switch type {
         case .access:
+        searchQuery = [
+            kSecClass: kSecClassKey,
+            kSecAttrType: type.rawValue,
+            kSecReturnAttributes: true,
+            kSecReturnData: true
+        ]
+        case .refresh:
         searchQuery = [
             kSecClass: kSecClassKey,
             kSecAttrType: type.rawValue,
@@ -108,6 +125,11 @@ final class KeychainManager {
                 kSecClass: kSecClassKey,
                 kSecAttrType: type.rawValue
             ]
+        case .refresh:
+            originalQuery = [
+                kSecClass: kSecClassKey,
+                kSecAttrType: type.rawValue
+            ]
         case .userIdentifier:
             originalQuery = [
                 kSecClass: kSecClassGenericPassword,
@@ -134,6 +156,11 @@ final class KeychainManager {
         
         switch type {
         case .access:
+            deleteQuery = [
+                kSecClass: kSecClassKey,
+                kSecAttrType: type.rawValue
+            ]
+        case .refresh:
             deleteQuery = [
                 kSecClass: kSecClassKey,
                 kSecAttrType: type.rawValue

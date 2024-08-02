@@ -48,6 +48,7 @@ final class AuthenticationViewModel: ObservableObject {
                         guard let self = self else { return }
                         do {
                             try KeychainManager.shared.create(.access, input: result.0.idToken)
+                            try KeychainManager.shared.create(.refresh, input: result.0.refreshToken)
                             try KeychainManager.shared.create(.userIdentifier, input: result.1)
                             self.authState = .authenticated
                         } catch {

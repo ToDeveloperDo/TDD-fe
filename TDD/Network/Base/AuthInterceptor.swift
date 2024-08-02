@@ -21,4 +21,20 @@ final class AuthInterceptor: RequestInterceptor {
             completion(.failure(KeychainError.notFound))
         }
     }
+    
+    func retry(_ request: Request, for session: Session, dueTo error: any Error, completion: @escaping (RetryResult) -> Void) {
+        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
+            completion(.doNotRetryWithError(error))
+            return
+        }
+        
+        AuthAPI.refreshToken { succeed in
+            if succeed {
+                completion(.retry)
+            } else {
+                completion(.doNotRetryWithError(error))
+                //실패
+            }
+        }
+    }
 }

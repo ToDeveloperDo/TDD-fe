@@ -1,5 +1,5 @@
 //
-//  RepoAPITarget.swift
+//  GitHubAPITarget.swift
 //  TDD
 //
 //  Created by 최안용 on 7/22/24.
@@ -8,11 +8,11 @@
 import Foundation
 import Alamofire
 
-enum RepoAPITarget {
+enum GitHubAPITarget {
     case createRepo(CreateRepoRequest)
 }
 
-extension RepoAPITarget: TargetType {
+extension GitHubAPITarget: TargetType {
     var baseURL: String {
         return "https://api.todeveloperdo.shop"
     }

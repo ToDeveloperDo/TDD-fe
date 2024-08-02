@@ -10,8 +10,6 @@ import SwiftUI
 struct CalendarView: View {
     @EnvironmentObject var container: DIContainer
     @StateObject var viewModel: CalendarViewModel
-   
-    @State private var keyboardHeight: CGFloat = 0
     
     private let columns = Array(repeating: GridItem(.flexible()), count: 7)
     private let calendarHeight: CGFloat = UIScreen.main.bounds.height/3
@@ -38,9 +36,15 @@ struct CalendarView: View {
                 VStack {
                     Spacer()
                     if let date = viewModel.selectedDay?.date {
-                        TodoInputView(todoInputViewModel: TodoInputViewModel(todo: .init(content: "", memo: "", tag: "", deadline: date.format("YYYY-MM-dd"), status: .PROCEED)))
-                            .padding(.bottom, viewModel.showTextField ?  keyboardHeight-10 : 0)
-                            .animation(.linear, value: keyboardHeight)
+                        TodoInputView(todoInputViewModel:
+                                        TodoInputViewModel(todo:
+                                                .init(content: "",
+                                                      memo: "",
+                                                      tag: "",
+                                                      deadline: date.format("YYYY-MM-dd"),
+                                                      status: .PROCEED)
+                                        )
+                        )
                     }
                 }
                 .ignoresSafeArea()
@@ -48,22 +52,7 @@ struct CalendarView: View {
         }
         .environmentObject(viewModel)
         .background(Color.mainbg)
-
         .ignoresSafeArea(.keyboard)
-        .onAppear {
-            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, 
-                                                   object: nil,
-                                                   queue: .main) { notification in
-                if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                    keyboardHeight = keyboardFrame.height
-                }
-            }
-            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification,
-                                                   object: nil,
-                                                   queue: .main) { _ in
-                keyboardHeight = 0
-            }
-        }
     }
     
     private var calendarHeader: some View {
