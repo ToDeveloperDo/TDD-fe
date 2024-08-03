@@ -16,7 +16,7 @@ struct NavigationRoutingView: View {
         case .createRepo:
             CreateRepoView(viewModel: CreateRepoViewModel(container: container))
         case .linkGithub:
-            LinkGitHubView(viewModel: .init())
+            LinkGitHubView(viewModel: .init(container: container))
         }
     }
 }

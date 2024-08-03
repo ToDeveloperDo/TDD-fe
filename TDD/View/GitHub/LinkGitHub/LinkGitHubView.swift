@@ -44,5 +44,5 @@ struct LinkGitHubView: View {
 }
 
 #Preview {
-    LinkGitHubView(viewModel: .init())
+    LinkGitHubView(viewModel: .init(container: .stub))
 }

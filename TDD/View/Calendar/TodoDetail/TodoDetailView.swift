@@ -7,17 +7,12 @@
 
 import SwiftUI
 
-struct TodoDetailView: View {
-    @State var todo: Todo
+struct TodoDetailView: View {    
     @EnvironmentObject var viewModel: CalendarViewModel
     @Environment(\.dismiss) private var dismiss
-    @State var memo: String
-    private let screenWidth = UIScreen.main.bounds.width
+    @StateObject var todoVM: TodoDetailViewModel
     
-    init(todo: Todo) {
-        self.todo = todo
-        self.memo = todo.memo
-    }
+    private let screenWidth = UIScreen.main.bounds.width
     
     var body: some View {
         VStack {
@@ -77,7 +72,7 @@ struct TodoDetailView: View {
                     Button(action: {
                         
                     }, label: {
-                        Text("\(todo.deadline)")
+                        Text("\(todoVM.todo.deadline)")
                             .font(.callout)
                             .foregroundStyle(.blue)
                     })
@@ -104,7 +99,7 @@ struct TodoDetailView: View {
                 
                 
                 Button(action: {
-                    switch todo.status {
+                    switch todoVM.todo.status {
                     case .PROCEED:
                         viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
                         todo.status = .DONE
@@ -141,7 +136,7 @@ struct TodoDetailView: View {
                     Spacer()
                 }.frame(width: screenWidth/4)
                 
-                Text("\(todo.tag.isEmpty ? todo.tag : "비어 있음")")
+                Text("\(todo.tag.isEmpty ? "비어 있음" : todo.tag)")
                 Spacer()
             }
         }

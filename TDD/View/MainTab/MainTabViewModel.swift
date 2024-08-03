@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class MainTabViewModel: ObservableObject {
-    @Published var phase: Phase = .notRequest
+    @Published var phase: Phase = .success
     
     private var container: DIContainer
     private var subscription = Set<AnyCancellable>()
@@ -45,7 +45,7 @@ final class MainTabViewModel: ObservableObject {
                 }
             }
             .sink(receiveCompletion: { [weak self] completion in
-                if case .failure(let error) = completion {
+                if case .failure(_) = completion {
                     self?.phase = .fail
                 }
             }, receiveValue: { [weak self] isRepoCreated in

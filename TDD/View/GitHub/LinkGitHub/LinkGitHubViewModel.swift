@@ -12,7 +12,9 @@ final class LinkGitHubViewModel: ObservableObject {
     let url: URL
     let userId: String
     
-    init() {
+    private var container: DIContainer
+    
+    init(container: DIContainer) {
         do {
             self.userId = try KeychainManager.shared.getData(.userIdentifier)
             self.url = URL(string: "https://api.todeveloperdo.shop/git/login?appleId=\(userId)")!            
@@ -20,6 +22,7 @@ final class LinkGitHubViewModel: ObservableObject {
             self.userId = ""
             self.url = URL(fileURLWithPath: "")
         }
+        self.container = container
         check()
     }
     
@@ -28,7 +31,7 @@ final class LinkGitHubViewModel: ObservableObject {
                 if let url = notification.object as? URL {
                     if let token = self.extractToken(from: url) {
                         self.isPresent = false
-                        print("Received JWT token: \(token)")
+                        self.container.navigationRouter.pop()
                     }
                 }
             }
