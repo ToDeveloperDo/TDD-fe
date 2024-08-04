@@ -23,7 +23,7 @@ final class AuthAPI {
             let refreshToken = try KeychainManager.shared.getData(.refresh)
             let request = RefreshRequest(refreshToken: refreshToken)
             
-            AF.request(AuthAPITarget.refreshToken(request))
+            API.session.request(AuthAPITarget.refreshToken(request))
                 .response { response in
                     switch response.result {
                     case let .success(data):

@@ -56,11 +56,11 @@ extension Date {
         let calendar = Calendar.current
         
         guard let startDate = calendar.date(from: calendar.dateComponents([.year, .month], from: date)) else {
-            return Month(days: [], selectedDayIndex: -1)
+            return Month(month: "", days: [], selectedDayIndex: -1)
         }
         
         guard let range = calendar.range(of: .day, in: .month, for: startDate) else { 
-            return Month(days: [], selectedDayIndex: -1)
+            return Month(month: "", days: [], selectedDayIndex: -1)
         }
         
         var days = range.compactMap { day -> Day in
@@ -69,6 +69,7 @@ extension Date {
         }
         
         let currentDate = Date()
+        let month = startDate.format("YYYY-MM")
         let currentStartOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate))
         
         var selectedDay: Int
@@ -86,6 +87,6 @@ extension Date {
             selectedDay = days.firstIndex(where: { $0.days != -1 }) ?? -1
         }
         
-        return Month(days: days, selectedDayIndex: selectedDay)
+        return Month(month: month, days: days, selectedDayIndex: selectedDay)
     }
 }

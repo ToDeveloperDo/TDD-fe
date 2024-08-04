@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TodoListView: View {
     @EnvironmentObject var viewModel: CalendarViewModel
+    @EnvironmentObject var container: DIContainer
     
      var body: some View {
         VStack(alignment: .leading) {
@@ -69,7 +70,7 @@ struct TodoListView: View {
             }
         }
         .sheet(isPresented: $viewModel.isPresent) {
-            TodoDetailView(todo: viewModel.detailTodo!)
+            TodoDetailView(todoDetailVM: TodoDetailViewModel(todo: viewModel.detailTodo!, container: container))
                 .presentationDetents([.medium, .large] )
                 .presentationDragIndicator(.hidden)
         }

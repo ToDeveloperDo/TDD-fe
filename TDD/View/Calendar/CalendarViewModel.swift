@@ -44,7 +44,7 @@ final class CalendarViewModel: ObservableObject {
         case selectDay(day: Day)
         case moveTodo(todo: Todo, mode: Mode)
         case deleteTodo(index: IndexSet)
-        case moveDetail(todo: Todo)
+        case updateTodo(todo: Todo)
     }
     
     enum Mode {
@@ -70,9 +70,8 @@ final class CalendarViewModel: ObservableObject {
             moveTodo(todo, mode)
         case .deleteTodo(let index):
             deleteTodo(index)
-        case .moveDetail(let todo):
-            moveDetail(todo)
-            
+        case .updateTodo(let todo):
+            updateTodo(todo)
         }
     }
 }
@@ -179,7 +178,7 @@ extension CalendarViewModel {
     }
     
     private func moveTodo(_ todo: Todo, _ mode: Mode) {
-        let todoIndex = searchTodoIndex(todo)
+        let todoIndex = searchTodoIndex(todo.id)
         
             switch mode {
             case .finish:
@@ -215,13 +214,41 @@ extension CalendarViewModel {
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
     
-    private func searchTodoIndex(_ todo: Todo) -> Int {
-        let index = months[selection].days[months[selection].selectedDayIndex].todos.firstIndex { $0 == todo }
+    private func searchTodoIndex(_ todo: String) -> Int {
+        let index = months[selection].days[months[selection].selectedDayIndex].todos.firstIndex { $0.id == todo }
         guard let index else { return -1 }
         return index
     }
     
-    private func moveDetail(_ todo: Todo) {
+    private func searchMonthIndex(_ monthString: String) -> Int {
+        let index = months.firstIndex(where: { $0.month == monthString })
+        guard let index else { return -1 }
+        return index
+    }
+    
+    private func updateTodo(_ todo: Todo) {
+        let todoIndex = searchTodoIndex(todo.id)
+        let base = months[selection].days[months[selection].selectedDayIndex].todos[todoIndex]
         
+        if base.deadline != todo.deadline {
+            let todoString = todo.deadline.split(separator: "-")
+            let monthString = String(todoString[0] + "-" + todoString[1])
+            let monthIndex = searchMonthIndex(monthString)
+            
+            if base.status == .PROCEED {
+                months[selection].days[months[selection].selectedDayIndex].todosCount -= 1
+            }
+            months[selection].days[months[selection].selectedDayIndex].todos.remove(at: todoIndex)
+            
+        } else {
+            if base.status != todo.status {
+                if todo.status == .PROCEED {
+                    months[selection].days[months[selection].selectedDayIndex].todosCount += 1
+                } else {
+                    months[selection].days[months[selection].selectedDayIndex].todosCount -= 1
+                }
+            }
+        }
+        selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
 }

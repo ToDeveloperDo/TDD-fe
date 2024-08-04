@@ -58,7 +58,7 @@ struct CalendarView: View {
     private var calendarHeader: some View {
         VStack(alignment: .center) {
             if let date = viewModel.selectedDay?.date {
-                Text(date.format("YYYY년 MMMM"))
+                Text(date.format("YYYY년 MM월"))
                     .font(.title3.bold())
                     .foregroundStyle(Color.text)
             }

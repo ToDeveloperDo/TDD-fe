@@ -8,13 +8,14 @@
 import Foundation
 
 struct Month: Identifiable {
-    var id = UUID().uuidString
+    let id = UUID().uuidString
+    let month: String
     var days: [Day]
     var selectedDayIndex: Int
 }
 
 struct Day: Identifiable {
-    var id = UUID().uuidString
+    let id = UUID().uuidString
     var days: Int
     var date: Date
     var todos: [Todo] = []
@@ -22,7 +23,7 @@ struct Day: Identifiable {
 }
 
 struct Todo: Identifiable, Equatable {
-    var id = UUID().uuidString
+    let id = UUID().uuidString
     var content: String
     var memo: String
     var tag: String

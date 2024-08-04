@@ -9,6 +9,7 @@ import Foundation
 
 final class TodoDetailViewModel: ObservableObject {
     @Published var todo: Todo
+    @Published var isPresent: Bool = false
     
     private var container: DIContainer
     

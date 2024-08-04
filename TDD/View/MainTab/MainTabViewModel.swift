@@ -30,6 +30,7 @@ final class MainTabViewModel: ObservableObject {
     }
     
     private func loadAction() {
+        phase = .loading
         isGithubLink()
             .flatMap { [weak self] isLinked -> AnyPublisher<Bool, Error> in
                 guard let self = self else {

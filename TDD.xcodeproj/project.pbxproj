@@ -67,6 +67,8 @@
 		ADAA4FF02C58EB3900EF30E0 /* TodoInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA4FEF2C58EB3900EF30E0 /* TodoInputView.swift */; };
 		ADAA4FF22C58F07000EF30E0 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA4FF12C58F07000EF30E0 /* TodoListView.swift */; };
 		ADAAF2CE2C5E6F5A00C292CA /* TodoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2CD2C5E6F5A00C292CA /* TodoDetailViewModel.swift */; };
+		ADAAF2D02C5F786800C292CA /* TodoInfoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */; };
+		ADAAF2D22C5F796200C292CA /* TodoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2D12C5F796200C292CA /* TodoInfo.swift */; };
 		ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */; };
 		ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */; };
 		ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */; };
@@ -150,6 +152,8 @@
 		ADAA4FEF2C58EB3900EF30E0 /* TodoInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInputView.swift; sourceTree = "<group>"; };
 		ADAA4FF12C58F07000EF30E0 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
 		ADAAF2CD2C5E6F5A00C292CA /* TodoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewModel.swift; sourceTree = "<group>"; };
+		ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInfoModifier.swift; sourceTree = "<group>"; };
+		ADAAF2D12C5F796200C292CA /* TodoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInfo.swift; sourceTree = "<group>"; };
 		ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
 		ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoutingView.swift; sourceTree = "<group>"; };
 		ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -514,6 +518,7 @@
 			children = (
 				ADEA4B602C48A8E300C10B9C /* View */,
 				AD6E2A742C5CC279006783B9 /* Phase.swift */,
+				ADAAF2D12C5F796200C292CA /* TodoInfo.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -525,6 +530,7 @@
 				AD6E2A762C5CC6DA006783B9 /* PlaceholderView.swift */,
 				AD6E2A782C5CC6FF006783B9 /* LoadingView.swift */,
 				AD6E2A7A2C5CC734006783B9 /* ErrorView.swift */,
+				ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -619,6 +625,7 @@
 				AD5D72CB2C524036009FE208 /* ServiceError.swift in Sources */,
 				AD8996C32C5930510081B487 /* LinkGitHubView.swift in Sources */,
 				AD46DE072C47A38000DE940B /* API.swift in Sources */,
+				ADAAF2D02C5F786800C292CA /* TodoInfoModifier.swift in Sources */,
 				ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */,
 				AD10DBBE2C401F2700785252 /* MainTabView.swift in Sources */,
 				AD6E2A732C5CBC7D006783B9 /* GitHubService.swift in Sources */,
@@ -632,6 +639,7 @@
 				AD10DBC92C40234000785252 /* UnKnownView.swift in Sources */,
 				AD10DBC72C40232400785252 /* MyInfoView.swift in Sources */,
 				AD241F542C4E2B1700DE8805 /* GitHubAPITarget.swift in Sources */,
+				ADAAF2D22C5F796200C292CA /* TodoInfo.swift in Sources */,
 				AD5D72CF2C54E3E7009FE208 /* AuthenticationService.swift in Sources */,
 				AD46DDFE2C47954000DE940B /* TodoAPITarget.swift in Sources */,
 				ADAA4FF02C58EB3900EF30E0 /* TodoInputView.swift in Sources */,
