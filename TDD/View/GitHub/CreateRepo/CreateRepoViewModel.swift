@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum ShowAlert {
     case create
@@ -20,6 +21,7 @@ final class CreateRepoViewModel: ObservableObject {
     
     var alert: ShowAlert = .create
     private var container: DIContainer
+    private var subscription = Set<AnyCancellable>()
     
     init(name: String = "",
          description: String = "",
@@ -34,6 +36,19 @@ final class CreateRepoViewModel: ObservableObject {
     }
     
     func createRepo() {
-        container.navigationRouter.pop()
+        let request = CreateRepoRequest(repoName: name, description: description, isPrivate: isPrivate)
+        
+        container.services.githubService.createRepo(request: request)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    //Error
+                    print(completion)
+                }
+            } receiveValue: { [weak self] succeed in
+                guard let self = self else { return }
+                if succeed {
+                    self.container.navigationRouter.pop()
+                }
+            }.store(in: &subscription)
     }
 }

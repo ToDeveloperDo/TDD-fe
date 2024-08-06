@@ -36,9 +36,9 @@ struct TodoListView: View {
                                         .tint(.green)
                                     }
                                 }
-                                //                                    .onDelete(perform: { indexSet in
-                                //                                        viewModel.send(action: .deleteTodo(index: indexSet))
-                                //                                    })
+                                .onDelete(perform: { indexSet in
+                                    viewModel.send(action: .deleteTodo(index: indexSet))
+                                })
                                 
                                 
                             }
@@ -70,7 +70,7 @@ struct TodoListView: View {
             }
         }
         .sheet(isPresented: $viewModel.isPresent) {
-            TodoDetailView(todoDetailVM: TodoDetailViewModel(todo: viewModel.detailTodo!, container: container))
+            TodoDetailView(todoDetailVM: TodoDetailViewModel(todo: viewModel.detailTodo!, container: container, date: viewModel.selectedDay?.date ?? Date()))
                 .presentationDetents([.medium, .large] )
                 .presentationDragIndicator(.hidden)
         }

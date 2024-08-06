@@ -11,12 +11,12 @@ import Alamofire
 
 
 final class TodoAPI {
-    func createTodo(request: CreateTodoRequest) -> AnyPublisher<Int, Error> {
+    func createTodo(request: CreateTodoRequest) -> AnyPublisher<Int64, Error> {
         return API.session.request(TodoAPITarget.createTodo(request), interceptor: AuthInterceptor.shared)
             .validate(statusCode: 200..<300)
             .publishString()
             .value()
-            .map { Int($0) ?? -1 }
+            .map { Int64(Int($0) ?? -1) }
             .mapError({ error in
                 return error
             })
@@ -39,7 +39,7 @@ final class TodoAPI {
             .eraseToAnyPublisher()
     }
     
-    func reverseTodo(request: Int) -> AnyPublisher<Bool, Error> {
+    func reverseTodo(request: Int64) -> AnyPublisher<Bool, Error> {
         return API.session.request(TodoAPITarget.reverseTodo(request), interceptor: AuthInterceptor.shared)
             .validate(statusCode: 200..<300)
             .publishData()
@@ -52,7 +52,7 @@ final class TodoAPI {
             .eraseToAnyPublisher()
     }
     
-    func doneTodo(request: Int) -> AnyPublisher<Bool, Error> {
+    func doneTodo(request: Int64) -> AnyPublisher<Bool, Error> {
         return API.session.request(TodoAPITarget.doneTodo(request), interceptor: AuthInterceptor.shared)
             .validate(statusCode: 200..<300)
             .publishData()
@@ -65,7 +65,7 @@ final class TodoAPI {
             .eraseToAnyPublisher()
     }
     
-    func editTodo(id: Int, request: CreateTodoRequest) -> AnyPublisher<Bool, Error> {
+    func editTodo(id: Int64, request: CreateTodoRequest) -> AnyPublisher<Bool, Error> {
         return API.session.request(TodoAPITarget.editTodo(id, request), interceptor: AuthInterceptor.shared)
             .validate(statusCode: 200..<300)
             .publishData()
@@ -76,5 +76,18 @@ final class TodoAPI {
                 return true
             }
             .eraseToAnyPublisher()
+    }
+    
+    func deleteTodo(id: Int64) -> AnyPublisher<Bool, Error> {
+        return API.session.request(TodoAPITarget.deleteTodo(id), interceptor: AuthInterceptor.shared)
+            .validate(statusCode: 200..<300)
+            .publishData()
+            .tryMap { response in
+                guard response.error == nil else {
+                    throw response.error!
+                }
+                return true
+            }
+            .eraseToAnyPublisher()        
     }
 }

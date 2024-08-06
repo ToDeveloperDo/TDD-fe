@@ -31,14 +31,17 @@ extension TargetType {
         case .body(let request):
             let params = request?.toDictionary() ?? [:]
             urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+        case .empty:
+            break
         }
         return urlRequest
     }
 }
 
 enum RequestParams {
-    case query(_ parameter: Encodable? = nil)
-    case body(_ parameter: Encodable? = nil)
+    case query(_ parameter: Encodable?)
+    case body(_ parameter: Encodable?)
+    case empty
 }
 
 extension Encodable {

@@ -52,7 +52,6 @@ struct CalendarView: View {
         }
         .environmentObject(viewModel)
         .background(Color.mainbg)
-        .ignoresSafeArea(.keyboard)
     }
     
     private var calendarHeader: some View {

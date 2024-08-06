@@ -24,6 +24,7 @@ struct Day: Identifiable {
 
 struct Todo: Identifiable, Equatable {
     let id = UUID().uuidString
+    var todoListId: Int64?
     var content: String
     var memo: String
     var tag: String

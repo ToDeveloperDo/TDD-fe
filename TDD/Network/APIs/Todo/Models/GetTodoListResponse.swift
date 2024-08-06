@@ -8,7 +8,7 @@
 import Foundation
 
 struct GetTodoListResponse: Decodable {
-    let todoListId: Int
+    let todoListId: Int64
     let content: String
     let memo: String?
     let tag: String
@@ -16,7 +16,8 @@ struct GetTodoListResponse: Decodable {
     let todoStatus: TodoStatus
     
     func toModel() -> Todo {
-        return Todo(content: content,
+        return Todo(todoListId: todoListId,
+                    content: content,
                     memo: memo ?? "",
                     tag: tag,
                     deadline: deadline, 

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class MainTabViewModel: ObservableObject {
-    @Published var phase: Phase = .success
+    @Published var phase: Phase = .notRequest
     
     private var container: DIContainer
     private var subscription = Set<AnyCancellable>()
@@ -31,7 +31,8 @@ final class MainTabViewModel: ObservableObject {
     
     private func loadAction() {
         phase = .loading
-        isGithubLink()
+        container.services.githubService.isGitLink()
+            .mapError { $0 }
             .flatMap { [weak self] isLinked -> AnyPublisher<Bool, Error> in
                 guard let self = self else {
                     return Fail(error: NSError(domain: "", code: -1, userInfo: nil)).eraseToAnyPublisher()
@@ -40,9 +41,11 @@ final class MainTabViewModel: ObservableObject {
                     self.container.navigationRouter.push(to: .createRepo)
                     self.container.navigationRouter.push(to: .linkGithub)
                     self.phase = .success
-                    return Empty().eraseToAnyPublisher()
+                    return Just(false).setFailureType(to: Error.self).eraseToAnyPublisher()
                 } else {
-                    return self.isRepoCreated()
+                    return self.container.services.githubService.isRepoCreated()
+                        .mapError { $0 }
+                        .eraseToAnyPublisher()
                 }
             }
             .sink(receiveCompletion: { [weak self] completion in
@@ -57,19 +60,5 @@ final class MainTabViewModel: ObservableObject {
                 self.phase = .success
             })
             .store(in: &subscription)
-    }
-}
-
-extension MainTabViewModel {
-    private func isGithubLink() -> AnyPublisher<Bool, Error> {
-        container.services.githubService.isGitLink()
-            .mapError { $0 }
-            .eraseToAnyPublisher()
-    }
-    
-    private func isRepoCreated() -> AnyPublisher<Bool, Error> {
-        container.services.githubService.isRepoCreated()
-            .mapError { $0 }
-            .eraseToAnyPublisher()
     }
 }

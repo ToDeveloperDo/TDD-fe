@@ -163,18 +163,19 @@ extension CalendarViewModel {
         months[selection].days[months[selection].selectedDayIndex].todosCount += 1
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
         showTextField = false
-        let request = CreateTodoRequest(content: todo.content,
-                                        memo: todo.memo,
-                                        tag: todo.tag,
-                                        deadline: todo.deadline)
-//        TodoAPI.createTodo(request: request)
-//            .sink { completion in
-//                self.showTextField = false
-//            } receiveValue: { out in
-//                self.showTextField = false
-//                print(out)
-//            }
-//            .store(in: &subscriptions)
+        
+        container.services.todoService.createTodo(todo: todo)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print("CreateTodo: Error(\(error))")
+                    // TODO: Todo upload 실패
+                }
+            } receiveValue: { [weak self] id in
+                guard let self = self else { return }
+                guard let index = self.months[self.selection].days[self.months[self.selection].selectedDayIndex].todos.firstIndex(where: { $0.id == todo.id }) else { return }
+                self.months[self.selection].days[self.months[self.selection].selectedDayIndex].todos[index].todoListId = id
+            }
+            .store(in: &subscriptions)
     }
     
     private func moveTodo(_ todo: Todo, _ mode: Mode) {
@@ -185,10 +186,27 @@ extension CalendarViewModel {
                 // TODO: - Todo 완료 API 호출
                 months[selection].days[months[selection].selectedDayIndex].todosCount -= 1
                 months[selection].days[months[selection].selectedDayIndex].todos[todoIndex].status = .DONE
+                guard let id = months[selection].days[months[selection].selectedDayIndex].todos[todoIndex].todoListId else { return }
+                container.services.todoService.doneTodo(todoId: id)
+                    .sink { completion in
+                        print("\(completion)")
+                    } receiveValue: { succeed in
+                        print("\(succeed)")
+                    }
+                    .store(in: &subscriptions)
+
             case .reverse:
                 // TODO: - Todo 번복 API 호출
                 months[selection].days[months[selection].selectedDayIndex].todosCount += 1
                 months[selection].days[months[selection].selectedDayIndex].todos[todoIndex].status = .PROCEED
+                guard let id = months[selection].days[months[selection].selectedDayIndex].todos[todoIndex].todoListId else { return }
+                container.services.todoService.reverseTodo(todoId: id)
+                    .sink { completion in
+                        print("\(completion)")
+                    } receiveValue: { succeed in
+                        print("\(succeed)")
+                    }
+                    .store(in: &subscriptions)
             }
         
             selectedDay = months[selection].days[months[selection].selectedDayIndex]
@@ -196,9 +214,23 @@ extension CalendarViewModel {
     
     private func deleteTodo(_ index: IndexSet) {
         // TODO: - Todo 삭제 API 호출
+        guard let firstIndex = index.first else { return }
+        
+        let todoId = months[selection].days[months[selection].selectedDayIndex].todos[firstIndex].todoListId
+        guard let todoId = todoId else { return }
+        
         months[selection].days[months[selection].selectedDayIndex].todosCount -= 1
         months[selection].days[months[selection].selectedDayIndex].todos.remove(atOffsets: index)
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
+                
+        container.services.todoService.deleteTodo(todoId: todoId)
+            .sink { completion in
+                print("\(completion)")
+            } receiveValue: { succeed in
+                print("\(succeed)")
+            }
+            .store(in: &subscriptions)
+
     }
     
     
@@ -230,15 +262,20 @@ extension CalendarViewModel {
         let todoIndex = searchTodoIndex(todo.id)
         let base = months[selection].days[months[selection].selectedDayIndex].todos[todoIndex]
         
+        
         if base.deadline != todo.deadline {
             let todoString = todo.deadline.split(separator: "-")
             let monthString = String(todoString[0] + "-" + todoString[1])
             let monthIndex = searchMonthIndex(monthString)
+            let dayIndex = months[monthIndex].days.firstIndex(where: { $0.days == Int(todoString[2]) }) ?? -1
+            
+            months[selection].days[months[selection].selectedDayIndex].todos.remove(at: todoIndex)
             
             if base.status == .PROCEED {
                 months[selection].days[months[selection].selectedDayIndex].todosCount -= 1
+                months[monthIndex].days[dayIndex].todosCount += 1
             }
-            months[selection].days[months[selection].selectedDayIndex].todos.remove(at: todoIndex)
+            months[monthIndex].days[dayIndex].todos.append(todo)
             
         } else {
             if base.status != todo.status {
@@ -248,7 +285,22 @@ extension CalendarViewModel {
                     months[selection].days[months[selection].selectedDayIndex].todosCount -= 1
                 }
             }
+            months[selection].days[months[selection].selectedDayIndex].todos[todoIndex] = todo
         }
+        
+        container.services.todoService.editTodo(todo: todo)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print("UpdateTodo Error(\(error))")
+                }
+            } receiveValue: { succeed in
+                if succeed {
+                    
+                }
+            }
+            .store(in: &subscriptions)
+
+        
         selectedDay = months[selection].days[months[selection].selectedDayIndex]
     }
 }

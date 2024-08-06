@@ -21,8 +21,8 @@ extension GitHubAPITarget: TargetType {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .isGitLink: return .post
-        case .isRepoCreated: return .post
+        case .isGitLink: return .get
+        case .isRepoCreated: return .get
         case .createRepo: return .post
         }
     }
@@ -30,15 +30,15 @@ extension GitHubAPITarget: TargetType {
     var path: String {
         switch self {
         case .isGitLink: return "/api/github/check"
-        case .isRepoCreated: return ""
+        case .isRepoCreated: return "/api/github/check/repo"
         case .createRepo: return "/api/github/create/repo"
         }
     }
     
     var parameters: RequestParams {
         switch self {
-        case .isGitLink: return .body()
-        case .isRepoCreated: return .body()
+        case .isGitLink: return .empty
+        case .isRepoCreated: return .empty
         case .createRepo(let request): return .body(request)
         }
     }

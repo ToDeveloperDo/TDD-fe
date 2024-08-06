@@ -12,9 +12,10 @@ enum TodoAPITarget {
     case createTodo(CreateTodoRequest)
     case getTodoList(GetTodoListRequest)
     case getTodoCount(GetTodoCountRequest)
-    case reverseTodo(Int)
-    case doneTodo(Int)
-    case editTodo(Int, CreateTodoRequest)
+    case reverseTodo(Int64)
+    case doneTodo(Int64)
+    case editTodo(Int64, CreateTodoRequest)
+    case deleteTodo(Int64)
 }
 
 extension TodoAPITarget: TargetType {
@@ -30,6 +31,7 @@ extension TodoAPITarget: TargetType {
         case .reverseTodo: return .patch
         case .doneTodo: return .patch
         case .editTodo: return .patch
+        case .deleteTodo: return .delete
         }
     }
     
@@ -38,9 +40,10 @@ extension TodoAPITarget: TargetType {
         case .createTodo: return "/api/todo"
         case .getTodoList: return "/api/todo/list"
         case .getTodoCount: return "/api/todo/count"
-        case .reverseTodo: return "/api/todo/proceed/"
-        case .doneTodo: return "/api/todo/done/"
+        case .reverseTodo(let id): return "/api/todo/proceed/\(id)"
+        case .doneTodo(let id): return "/api/todo/done/\(id)"
         case .editTodo(let id, _): return "/api/todo/change/\(id)"
+        case .deleteTodo(let id): return "/api/todo/\(id)"
         }
     }
     
@@ -49,9 +52,10 @@ extension TodoAPITarget: TargetType {
         case .createTodo(let request): return .body(request)
         case .getTodoList(let request): return .body(request)
         case .getTodoCount(let request): return .body(request)
-        case .reverseTodo(let id): return .query(id)
-        case .doneTodo(let id): return .query(id)
+        case .reverseTodo: return .empty
+        case .doneTodo: return .empty
         case .editTodo(_, let request): return .body(request)
+        case .deleteTodo: return .empty
         }
     }
     

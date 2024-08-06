@@ -73,6 +73,7 @@
 		ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */; };
 		ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */; };
 		ADF2AB7F2C3EA0BF00B5AD60 /* LoginWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */; };
+		ADFBF5E62C6098B50022ED2A /* TodoPatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFBF5E52C6098B50022ED2A /* TodoPatchRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -158,6 +159,7 @@
 		ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoutingView.swift; sourceTree = "<group>"; };
 		ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		ADF2AB7E2C3EA0BF00B5AD60 /* LoginWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebView.swift; sourceTree = "<group>"; };
+		ADFBF5E52C6098B50022ED2A /* TodoPatchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPatchRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -400,6 +402,7 @@
 				AD5D72C62C521FBC009FE208 /* GetTodoListResponse.swift */,
 				AD5D72C22C5213F4009FE208 /* GetTodoCountRequest.swift */,
 				AD5D72C42C521A95009FE208 /* GetTodoCountResponse.swift */,
+				ADFBF5E52C6098B50022ED2A /* TodoPatchRequest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				AD6E2A712C5CA51C006783B9 /* RefreshResponse.swift in Sources */,
 				AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */,
 				AD241F4F2C4E2AA700DE8805 /* GetTodoListRequest.swift in Sources */,
+				ADFBF5E62C6098B50022ED2A /* TodoPatchRequest.swift in Sources */,
 				AD10D4BA2C3D1034008481FF /* TDDApp.swift in Sources */,
 				AD80C8102C510CF900FB71A9 /* TodoDetailView.swift in Sources */,
 				AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */,

@@ -87,22 +87,19 @@ private struct TodoInfoView: View {
     
     fileprivate var body: some View {
         VStack {
-            Button(action: {
-                
-            }, label: {
-                Text("\(todoDetailVM.todo.deadline)")
-                    .font(.callout)
-                    .foregroundStyle(.blue)
-            })            
-            .modifier(TodoInfoModifier(type: .date, width: screenWidth))
-            
+            DatePicker("", selection: $todoDetailVM.changeDate, displayedComponents: [.date])
+                .datePickerStyle(.compact)
+                .labelsHidden()            
+                .modifier(TodoInfoModifier(type: .date, width: screenWidth))
             
             HStack {
                 Button(action: {
                     switch todoDetailVM.todo.status {
                     case .PROCEED:
+                        viewModel.send(action: .moveTodo(todo: todoDetailVM.todo, mode: .finish))
                         todoDetailVM.todo.status = .DONE
                     case .DONE:
+                        viewModel.send(action: .moveTodo(todo: todoDetailVM.todo, mode: .finish))
                         todoDetailVM.todo.status = .PROCEED
                     }
                 }, label: {
@@ -178,6 +175,6 @@ private struct todoEditView: View {
 }
 
 #Preview {
-    TodoDetailView(todoDetailVM: .init(todo: .stub1, container: .stub))
+    TodoDetailView(todoDetailVM: .init(todo: .stub1, container: .stub, date: Date()))
         .environmentObject(CalendarViewModel(container: .stub))
 }
