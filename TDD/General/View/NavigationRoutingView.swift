@@ -13,10 +13,7 @@ struct NavigationRoutingView: View {
     
     var body: some View {
         switch destination {
-        case .createRepo:
-            CreateRepoView(viewModel: CreateRepoViewModel(container: container))
-        case .linkGithub:
-            LinkGitHubView(viewModel: .init(container: container))
+        case .empty: Text("dlk")
         }
     }
 }

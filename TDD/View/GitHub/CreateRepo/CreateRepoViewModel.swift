@@ -18,24 +18,29 @@ final class CreateRepoViewModel: ObservableObject {
     @Published var description: String
     @Published var isPrivate: Bool
     @Published var isPresentAlert: Bool
+    @Published var isLoading: Bool = false
     
     var alert: ShowAlert = .create
     private var container: DIContainer
+    private var mainTabViewModel: MainTabViewModel
     private var subscription = Set<AnyCancellable>()
     
     init(name: String = "",
          description: String = "",
          isPrivate: Bool = true,
          isPresentAlert: Bool =  false,
+         mainTabViewModel: MainTabViewModel,
          container: DIContainer) {
         self.name = name
         self.description = description
         self.isPrivate = isPrivate
         self.isPresentAlert = isPresentAlert
+        self.mainTabViewModel = mainTabViewModel
         self.container = container
     }
     
     func createRepo() {
+        isLoading = true
         let request = CreateRepoRequest(repoName: name, description: description, isPrivate: isPrivate)
         
         container.services.githubService.createRepo(request: request)
@@ -47,7 +52,11 @@ final class CreateRepoViewModel: ObservableObject {
             } receiveValue: { [weak self] succeed in
                 guard let self = self else { return }
                 if succeed {
-                    self.container.navigationRouter.pop()
+                    self.isLoading = false
+                    self.mainTabViewModel.phase = .success
+                } else {
+                    self.isLoading = false
+                    self.mainTabViewModel.phase = .fail
                 }
             }.store(in: &subscription)
     }

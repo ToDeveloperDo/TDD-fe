@@ -9,12 +9,14 @@ import Foundation
 
 final class LinkGitHubViewModel: ObservableObject {
     @Published var isPresent: Bool = false
+    
     let url: URL
     let userId: String
     
     private var container: DIContainer
+    private var mainTabViewModel: MainTabViewModel
     
-    init(container: DIContainer) {
+    init(container: DIContainer, mainTabViewModel: MainTabViewModel) {
         do {
             self.userId = try KeychainManager.shared.getData(.userIdentifier)
             self.url = URL(string: "https://api.todeveloperdo.shop/git/login?appleId=\(userId)")!            
@@ -23,15 +25,17 @@ final class LinkGitHubViewModel: ObservableObject {
             self.url = URL(fileURLWithPath: "")
         }
         self.container = container
+        self.mainTabViewModel = mainTabViewModel
         check()
     }
     
         func check() {
-            NotificationCenter.default.addObserver(forName: Notification.Name("GitHubLogin"), object: nil, queue: .main) { notification in
+            NotificationCenter.default.addObserver(forName: Notification.Name("GitHubLogin"), object: nil, queue: .main) { [weak self] notification in
+                guard let self = self else { return }
                 if let url = notification.object as? URL {
                     if let token = self.extractToken(from: url) {
                         self.isPresent = false
-                        self.container.navigationRouter.pop()
+                        self.mainTabViewModel.isPresentGitLink = false
                     }
                 }
             }

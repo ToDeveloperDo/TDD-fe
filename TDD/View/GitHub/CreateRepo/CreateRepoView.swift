@@ -186,7 +186,5 @@ struct CreateRepoView: View {
 }
 
 #Preview {
-    NavigationStack {
-        CreateRepoView(viewModel: CreateRepoViewModel(container: .init(services: StubService())) )
-    }
+    CreateRepoView(viewModel: CreateRepoViewModel(mainTabViewModel: .init(container: .stub), container: .init(services: StubService())) )
 }
