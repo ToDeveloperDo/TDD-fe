@@ -9,7 +9,125 @@ import SwiftUI
 
 struct MyInfoView: View {
     var body: some View {
-        Text("MyInfoView")
+        ScrollView {
+            LazyVStack {
+                MyProfileCell()
+                    .padding(.bottom, 20)
+                FriendRequestBtnView()
+                    .padding(.bottom, 20)
+                ForEach(0..<100) {_ in
+                    FriendCellView()
+                }
+            }
+        }
+    }
+}
+
+private struct MyProfileCell: View {
+    
+    fileprivate var body: some View {
+        HStack(spacing: 50) {
+            VStack {
+                URLImageView(urlString: "")
+                    .frame(width: 80, height: 80)
+                    .background {
+                        Color.gray.opacity(0.4)
+                            .clipShape(Circle())
+                            .shadow(radius: 2)
+                    }
+                Text("이준석")
+                    .font(.headline)
+                    .foregroundStyle(.text)
+            }
+            
+            VStack {
+                HStack(spacing: 50) {
+                    VStack {
+                        Text("할 일")
+                        Text("1")
+                    }
+                    VStack {
+                        Text("완료")
+                        Text("1")
+                    }
+                    VStack {
+                        Text("총")
+                        Text("2")
+                    }
+                }
+                .font(.headline)
+                .foregroundStyle(.text)
+            }
+        }
+    }
+}
+
+private struct FriendRequestBtnView: View {
+    fileprivate var body: some View {
+        HStack {
+            Button(action: {}, label: {
+                Text("보낸 친구 요청")
+                    .font(.headline)
+                    .foregroundStyle(.text)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 32)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.text, lineWidth: 2)
+                            .foregroundStyle(.clear)
+                    }
+                    
+            })
+            Spacer()
+            Button(action: {}, label: {
+                Text("받은 친구 요청")
+                    .font(.headline)
+                    .foregroundStyle(.text)
+                    .font(.headline)
+                    .foregroundStyle(.text)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 32)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.text, lineWidth: 2)
+                            .foregroundStyle(.clear)
+                    }
+            })
+        }.padding(.horizontal, 30)
+    }
+}
+
+private struct FriendCellView: View {
+    var body: some View {
+        HStack(spacing: 90) {
+            URLImageView(urlString: "")
+                .frame(width: 40, height: 40)
+                .background {
+                    Color.gray.opacity(0.4)
+                        .clipShape(Circle())
+                        .shadow(radius: 2)
+                }
+            Text("이준석")
+                .font(.headline)
+                .foregroundStyle(.text)
+            
+            Button(action: {}, label: {
+                Text("삭제")
+                    .font(.headline)
+                    .foregroundStyle(.text)
+                    .font(.headline)
+                    .foregroundStyle(.text)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 20)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.text, lineWidth: 1)
+                            .foregroundStyle(.clear)
+                    }
+            })
+        }.onTapGesture {
+            
+        }
     }
 }
 

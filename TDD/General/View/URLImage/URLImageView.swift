@@ -15,7 +15,7 @@ struct URLImageView: View {
     
     init(urlString: String?, placeholderName: String? = nil) {
         self.urlString = urlString
-        self.placeholderName = placeholderName ?? "place"
+        self.placeholderName = placeholderName ?? "ic_placeholder"
     }
     
     var body: some View {
@@ -41,7 +41,7 @@ private struct URLInnerImageView: View {
     fileprivate var body: some View {
         Image(uiImage: viewModel.loadedImage ?? placeholderImage)
             .resizable()
-            .aspectRatio(contentMode: .fit)
+            .aspectRatio(contentMode: .fill)
             .onAppear {
                 if !viewModel.loadingOrSuccess {
                     viewModel.start()
