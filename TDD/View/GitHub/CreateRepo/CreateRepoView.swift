@@ -11,13 +11,20 @@ struct CreateRepoView: View {
     @StateObject var viewModel: CreateRepoViewModel
     
     var body: some View {
-        VStack(alignment: .leading) {
-            headerView
-            Rectangle().frame(height: 1)
-            textFieldView
-            radioBtnView
-            createBtnView
-            Spacer()
+        ZStack {
+            VStack(alignment: .leading) {
+                headerView
+                Rectangle().frame(height: 1)
+                textFieldView
+                radioBtnView
+                createBtnView
+                Spacer()
+            }
+        }
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+            }
         }
         .navigationBarBackButtonHidden()
         .alert(isPresented: $viewModel.isPresentAlert) {

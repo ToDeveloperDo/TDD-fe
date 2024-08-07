@@ -18,8 +18,6 @@ final class CalendarViewModel: ObservableObject {
         }
     }
     @Published var showTextField: Bool = false
-    @Published var title: String = ""
-    @Published var memo: String = ""
     @Published var selectedDay: Day? 
     @Published var isPresent: Bool = false
     @Published var detailTodo: Todo?

@@ -37,7 +37,7 @@ struct LinkGitHubView: View {
             .padding(.horizontal, 30)
         }
         .sheet(isPresented: $viewModel.isPresent, content: {
-            LoginWebView(urlToLoad: viewModel.url)
+            MyWebView(urlToLoad: viewModel.url)
         })
         .navigationBarBackButtonHidden()
     }

@@ -8,10 +8,10 @@
 import SwiftUI
 import SafariServices
 
-struct LoginWebView: UIViewControllerRepresentable {
+struct MyWebView: UIViewControllerRepresentable {
     let urlToLoad: URL
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<LoginWebView>) -> SFSafariViewController {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<MyWebView>) -> SFSafariViewController {
         return SFSafariViewController(url: urlToLoad)
     }
     
