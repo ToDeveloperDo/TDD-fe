@@ -10,7 +10,10 @@ import Foundation
 final class TodoInputViewModel: ObservableObject {
     @Published var todo: Todo
     
-    init(todo: Todo) {
+    let dateStr: String
+    
+    init(todo: Todo, date: Date) {
         self.todo = todo
+        self.dateStr = date.format("YYYY년 MM월 dd일")
     }
 }

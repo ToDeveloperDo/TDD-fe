@@ -11,7 +11,7 @@ import AuthenticationServices
 
 enum AuthenticationState {
     case unAuthenticated
-    case authenticated
+    case authenticated  
 }
 
 final class AuthenticationViewModel: ObservableObject {

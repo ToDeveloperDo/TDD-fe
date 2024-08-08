@@ -47,7 +47,7 @@ private struct MyProfileCell: View {
                         Text("1")
                     }
                     VStack {
-                        Text("완료")
+                        Text("친구")
                         Text("1")
                     }
                     VStack {

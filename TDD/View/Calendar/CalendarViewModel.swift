@@ -120,8 +120,9 @@ extension CalendarViewModel {
     }
     
     private func fetchTodos() {
-        if ((selectedDay?.todos.isEmpty) != nil) {
-            guard let date = selectedDay?.date.format("YYYY-MM-dd") else { return }
+        guard let selectedDay = selectedDay else { return }
+        if selectedDay.todos.isEmpty {
+            let date = selectedDay.date.format("YYYY-MM-dd")
             container.services.todoService.getTodoList(date: date)
                 .sink { completion in
                     if case .failure = completion {
@@ -234,9 +235,10 @@ extension CalendarViewModel {
     
     // 날짜 클릭 시 선택된 날짜 교체
     private func selectDay(_ selectDay: Day) {
+        selectedDay = selectDay
         let selectDayIndex = months[selection].days.firstIndex { $0.date == selectDay.date }
         months[selection].selectedDayIndex = selectDayIndex ?? -1
-        selectedDay = selectDay
+        
     }
     
     // 슬라이드 시 선택된 날짜 교체

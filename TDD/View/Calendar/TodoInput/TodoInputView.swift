@@ -23,6 +23,9 @@ struct TodoInputView: View {
     
     var body: some View {
         VStack {
+            HeaderView(todoInputViewModel: todoInputViewModel)
+                .padding(.bottom, 6)
+            
             TodoTitleView(todoInputViewModel: todoInputViewModel)
                 .focused($focusedField, equals: .title)
                 .submitLabel(.next)
@@ -33,11 +36,21 @@ struct TodoInputView: View {
                     focusedField = .title
                 }
             
+            Rectangle()
+                .frame(height: 1)
+                .foregroundStyle(.fixBk.opacity(0.2))
+                .padding(.bottom, 4)
+            
             TodoMemoView(todoInputViewModel: todoInputViewModel)
                 .focused($focusedField, equals: .memo)
                 .onSubmit {
                     focusedField = .tag
                 }
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundStyle(.fixBk.opacity(0.2))
+                .padding(.bottom, 4)
             
             TagView(todoInputViewModel: todoInputViewModel,
                     focusedField: $focusedField, isEdit: $isEdit)
@@ -47,14 +60,17 @@ struct TodoInputView: View {
                     focusedField = nil
                     isPresent = true
                 }
+            Rectangle()
+                .frame(height: 1)
+                .foregroundStyle(.fixBk.opacity(0.2))
             
             BottomView(todoInputViewModel: todoInputViewModel, isPresent: $isPresent)
         }
-        .padding(.horizontal, 20)
-        .padding(.top, 20)
+        .padding(.horizontal, 24)
+        .padding(.top, 32)
         .padding(.bottom, keyboardHeight)
         .background(Color.fixWh)
-        .cornerRadius(10)
+        .cornerRadius(20)
         .alert("업로드 확인", isPresented: $isPresent) {
             Button(role: .cancel) {
                 viewModel.send(action: .createTodo(todo: todoInputViewModel.todo))
@@ -82,6 +98,20 @@ struct TodoInputView: View {
     }
 }
 
+private struct HeaderView: View {
+    @ObservedObject var todoInputViewModel: TodoInputViewModel
+    
+    var body: some View {
+        HStack {
+            Text("\(todoInputViewModel.dateStr)")
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(.fixBk)
+                
+            Spacer()
+        }
+    }
+}
+
 private struct TodoTitleView: View {
     @ObservedObject private var todoInputViewModel: TodoInputViewModel
     
@@ -90,8 +120,15 @@ private struct TodoTitleView: View {
     }
     
     fileprivate var body: some View {
-        TextField("어떤 일을 하시겠습니까?", text: $todoInputViewModel.todo.content)
+        TextField("", text: $todoInputViewModel.todo.content,
+                  prompt: Text("어떤 일을 하시겠습니까?")
+            .font(.system(size: 14, weight: .ultraLight))
+            .foregroundStyle(.fixBk.opacity(0.2))
+        )
+        .font(.system(size: 14, weight: .ultraLight))
+        .foregroundStyle(.fixBk)
             .padding(.horizontal, 3)
+            .padding(.vertical, 8)
     }
 }
 
@@ -106,14 +143,14 @@ private struct TodoMemoView: View {
     fileprivate var body: some View {
         ZStack(alignment: .leading) {
             TextViewWrapper(text: $todoInputViewModel.todo.memo, calculatedHeight: $textHeight)
-                .frame(height: min(textHeight, 5 * UIFont.systemFont(ofSize: 16).lineHeight))
+                .frame(height: min(textHeight, 5 * UIFont.systemFont(ofSize: 14).lineHeight))
                 .clipShape(Rectangle())
             
             
             if todoInputViewModel.todo.memo.isEmpty {
-                Text("설명")
-                    .font(.system(size: 16))
-                    .foregroundColor(.gray.opacity(0.6))
+                Text("설명을 입력해주세요")
+                    .font(.system(size: 14, weight: .ultraLight))
+                    .foregroundStyle(.fixBk.opacity(0.2))
                     .allowsHitTesting(false)
                     .padding(.top, 2)
                     .padding(.leading, 5)
@@ -131,7 +168,7 @@ private struct TextViewWrapper: UIViewRepresentable {
         textView.isScrollEnabled = false  // 초기에는 스크롤 비활성화
         textView.isEditable = true
         textView.backgroundColor = .clear
-        textView.font = .systemFont(ofSize: 16)
+        textView.font = .systemFont(ofSize: 14, weight: .ultraLight)
         textView.delegate = context.coordinator
         return textView
     }
@@ -187,14 +224,21 @@ private struct TagView: View {
     var body: some View {
         Group {
             if todoInputViewModel.todo.tag.isEmpty || isEdit {
-                TextField("태그", text: $todoInputViewModel.todo.tag)
-                    .onChange(of: focusedField.wrappedValue) { oldValue, newValue in
-                        if newValue != .tag {
-                            isEdit = false
-                        } else {
-                            isEdit = true
-                        }
+                TextField("",
+                          text: $todoInputViewModel.todo.tag,
+                          prompt: Text("태그를 입력해주세요")
+                    .font(.system(size: 14, weight: .ultraLight))
+                    .foregroundStyle(.fixBk.opacity(0.2))
+                )
+                .font(.system(size: 14, weight: .ultraLight))
+                .foregroundStyle(.fixBk)
+                .onChange(of: focusedField.wrappedValue) { oldValue, newValue in
+                    if newValue != .tag {
+                        isEdit = false
+                    } else {
+                        isEdit = true
                     }
+                }
             } else {
                 HStack {
                     Button(action: {
@@ -203,16 +247,14 @@ private struct TagView: View {
                     }, label: {
                         HStack {
                             Image(.icTag)
-                                .resizable()
-                                .renderingMode(.template)
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundStyle(.fixWh)
-                                .frame(width: 15)
+                                
                             Text("\(todoInputViewModel.todo.tag)")
-                                .foregroundStyle(.fixWh)
+                                .font(.system(size: 14, weight: .ultraLight))
+                                .foregroundStyle(.fixBk)
                         }
-                        .padding(3)
-                        .background(RoundedRectangle(cornerRadius: 5).fill(.green))
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 6)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(.tagfill))
                         
                     })
                     Spacer()
@@ -221,6 +263,7 @@ private struct TagView: View {
                 }
             }
         }
+        .padding(.vertical, 8)
         .padding(.horizontal, 4)
     }
 }
@@ -236,31 +279,14 @@ private struct BottomView: View {
     
     fileprivate var body: some View {
         HStack {
-            Label {
-                Text("\(todoInputViewModel.todo.deadline)")
-            } icon: {
-                Image(.icCalendar)
-                    .resizable()
-                    .renderingMode(.template)
-                    .frame(width: 20, height: 20)
-                    .foregroundStyle(Color.red)
-            }
-            
             Spacer()
             
             Button(action: {
                 isPresent = true
             }, label: {
-                Image(.icUparrow)
+                Image(.icInputarrow)
                     .resizable()
-                    .renderingMode(.template)
-                    .frame(width: 30, height: 30)
-                    .foregroundStyle(Color.fixWh)
-                    .padding(1)
-                    .background(
-                        RoundedRectangle(cornerRadius: 25)
-                            .foregroundStyle(Color.red)
-                    )
+                    .frame(width: 29, height: 29)
             })
             .overlay {
                 if todoInputViewModel.todo.content.isEmpty || todoInputViewModel.todo.tag.isEmpty{
@@ -269,12 +295,12 @@ private struct BottomView: View {
             }
             .disabled(todoInputViewModel.todo.content.isEmpty || todoInputViewModel.todo.tag.isEmpty)
         }
-        .padding(.vertical, 5)
+        .padding(.vertical, 11)
     }
 }
 
 
 #Preview {
-    TodoInputView(todoInputViewModel:.init(todo: .init(content: "", memo: "", tag: "", deadline: "2049-02-31", status: .PROCEED)))
+    TodoInputView(todoInputViewModel:.init(todo: .init(content: "", memo: "", tag: "", deadline: "2049-02-31", status: .PROCEED), date: Date()))
         .environmentObject(CalendarViewModel(container: .stub))
 }

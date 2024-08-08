@@ -27,6 +27,7 @@
 		AD241F522C4E2B0B00DE8805 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F512C4E2B0B00DE8805 /* GitHubAPI.swift */; };
 		AD241F542C4E2B1700DE8805 /* GitHubAPITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F532C4E2B1700DE8805 /* GitHubAPITarget.swift */; };
 		AD241F572C4E2B6800DE8805 /* CreateRepoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F562C4E2B6800DE8805 /* CreateRepoRequest.swift */; };
+		AD43C85D2C64C391000BC6ED /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD43C85C2C64C391000BC6ED /* TodoListViewModel.swift */; };
 		AD46DDF22C47762A00DE940B /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD46DDF12C47762A00DE940B /* Color.xcassets */; };
 		AD46DDF82C47906E00DE940B /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DDF72C47906E00DE940B /* TargetType.swift */; };
 		AD46DDFA2C4792C500DE940B /* HTTPHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DDF92C4792C500DE940B /* HTTPHeaderField.swift */; };
@@ -117,6 +118,7 @@
 		AD241F512C4E2B0B00DE8805 /* GitHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI.swift; sourceTree = "<group>"; };
 		AD241F532C4E2B1700DE8805 /* GitHubAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPITarget.swift; sourceTree = "<group>"; };
 		AD241F562C4E2B6800DE8805 /* CreateRepoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepoRequest.swift; sourceTree = "<group>"; };
+		AD43C85C2C64C391000BC6ED /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		AD46DDF12C47762A00DE940B /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		AD46DDF72C47906E00DE940B /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		AD46DDF92C4792C500DE940B /* HTTPHeaderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaderField.swift; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 			children = (
 				ADAA4FF12C58F07000EF30E0 /* TodoListView.swift */,
 				ADAA4FEC2C58E65800EF30E0 /* TodoCell */,
+				AD43C85C2C64C391000BC6ED /* TodoListViewModel.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */,
 				AD241F4F2C4E2AA700DE8805 /* GetTodoListRequest.swift in Sources */,
 				ADFBF5E62C6098B50022ED2A /* TodoPatchRequest.swift in Sources */,
+				AD43C85D2C64C391000BC6ED /* TodoListViewModel.swift in Sources */,
 				AD10D4BA2C3D1034008481FF /* TDDApp.swift in Sources */,
 				AD80C8102C510CF900FB71A9 /* TodoDetailView.swift in Sources */,
 				AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */,

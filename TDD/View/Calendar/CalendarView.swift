@@ -42,7 +42,7 @@ struct CalendarView: View {
                                                       memo: "",
                                                       tag: "",
                                                       deadline: date.format("YYYY-MM-dd"),
-                                                      status: .PROCEED)
+                                                      status: .PROCEED), date: date
                                         )
                         )
                     }
@@ -58,9 +58,21 @@ struct CalendarView: View {
     private var calendarHeader: some View {
         VStack(alignment: .center) {
             if let date = viewModel.selectedDay?.date {
-                Text(date.format("YYYY년 MM월"))
-                    .font(.title3.bold())
-                    .foregroundStyle(Color.text)
+                HStack(spacing: 74) {
+                    Button(action: {
+                        viewModel.selection -= 1
+                    }, label: {
+                        Image(systemName: "chevron.left")
+                    })
+                    Text(date.format("YYYY년 MM월"))
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundStyle(Color.text)
+                    Button(action: {
+                        viewModel.selection += 1
+                    }, label: {
+                        Image(systemName: "chevron.right")
+                    })
+                }
             }
             
             LazyVGrid(columns: columns) {
@@ -70,8 +82,9 @@ struct CalendarView: View {
                         .foregroundStyle(Color.text)
                 }
             }
-            .padding(.top, 10)
+            .padding(.top, 23)
         }
+        .padding(.top, 29)
     }
     
     private var calendarBody: some View {
@@ -90,6 +103,7 @@ struct CalendarView: View {
                     }
             }
         }
+        
         .tabViewStyle(.page(indexDisplayMode: .never))
         .frame(height: calendarHeight)
     }
@@ -113,7 +127,13 @@ struct CalendarView: View {
     }
     
     private func DateCell(value: Day) -> some View {
-        VStack(spacing: 0) {
+//        private var clicked: Bool
+//        private var isToday: Bool
+//        private var isCurrentMonthDay: Bool
+//
+//        fileprivate init(cli
+        
+        return VStack(spacing: 0) {
             if value.days != -1 {
                 ZStack() {
                     Text("\(value.days)")
