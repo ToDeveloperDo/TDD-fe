@@ -12,6 +12,7 @@ import Alamofire
 final class GitHubAPI {
     func isGitLink() -> AnyPublisher<Bool, Error> {
         return API.session.request(GitHubAPITarget.isGitLink, interceptor: AuthInterceptor.shared)
+            .validate(statusCode: 200..<300)
             .publishData()
             .tryMap { response -> Bool in
                 guard let httpResponse = response.response,
@@ -26,6 +27,7 @@ final class GitHubAPI {
     
     func isRepoCreated() -> AnyPublisher<Bool, Error> {
         return API.session.request(GitHubAPITarget.isRepoCreated, interceptor: AuthInterceptor.shared)
+            .validate(statusCode: 200..<300)
             .publishData()
             .tryMap { response -> Bool in
                 guard let httpResponse = response.response,
@@ -40,8 +42,10 @@ final class GitHubAPI {
     
     func createRepo(request: CreateRepoRequest) -> AnyPublisher<Bool, Error> {
         return API.session.request(GitHubAPITarget.createRepo(request), interceptor: AuthInterceptor.shared)
+            .validate(statusCode: 200..<300)
             .publishData()
             .tryMap { response -> Bool in
+                print("Status Code???: \(response.response?.statusCode ?? 0)")
                 guard let httpResponse = response.response,
                       httpResponse.statusCode == 200 else {
                     return false

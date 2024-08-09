@@ -78,6 +78,7 @@
 		ADAAF2D22C5F796200C292CA /* TodoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2D12C5F796200C292CA /* TodoInfo.swift */; };
 		ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */; };
 		ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */; };
+		ADEFB8F02C65C9F400A03C26 /* TagBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEFB8EF2C65C9F400A03C26 /* TagBtn.swift */; };
 		ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */; };
 		ADF2AB7F2C3EA0BF00B5AD60 /* MyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF2AB7E2C3EA0BF00B5AD60 /* MyWebView.swift */; };
 		ADFBF5E62C6098B50022ED2A /* TodoPatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFBF5E52C6098B50022ED2A /* TodoPatchRequest.swift */; };
@@ -171,6 +172,7 @@
 		ADAAF2D12C5F796200C292CA /* TodoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInfo.swift; sourceTree = "<group>"; };
 		ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
 		ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoutingView.swift; sourceTree = "<group>"; };
+		ADEFB8EF2C65C9F400A03C26 /* TagBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBtn.swift; sourceTree = "<group>"; };
 		ADF2AB7C2C3E994900B5AD60 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		ADF2AB7E2C3EA0BF00B5AD60 /* MyWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWebView.swift; sourceTree = "<group>"; };
 		ADFBF5E52C6098B50022ED2A /* TodoPatchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPatchRequest.swift; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 				AD6E2A782C5CC6FF006783B9 /* LoadingView.swift */,
 				AD6E2A7A2C5CC734006783B9 /* ErrorView.swift */,
 				ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */,
+				ADEFB8EF2C65C9F400A03C26 /* TagBtn.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 				ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */,
 				AD5D72C92C522C0B009FE208 /* TodoService.swift in Sources */,
 				ADAAF2CE2C5E6F5A00C292CA /* TodoDetailViewModel.swift in Sources */,
+				ADEFB8F02C65C9F400A03C26 /* TagBtn.swift in Sources */,
 				AD5D72C52C521A95009FE208 /* GetTodoCountResponse.swift in Sources */,
 				AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */,
 				ADF2AB7F2C3EA0BF00B5AD60 /* MyWebView.swift in Sources */,

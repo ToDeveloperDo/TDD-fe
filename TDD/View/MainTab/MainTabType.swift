@@ -8,29 +8,22 @@
 import Foundation
 
 enum MainTabType: String, CaseIterable {
-    case todo
     case calendar
+    case quest
     case myInfo
     
     var title: String {
         switch self {
-        case .todo:
-            return "몰라"
         case .calendar:
             return "캘린더"
+        case .quest:
+            return "탐색"
         case .myInfo:
-            return "내정보"        
+            return "내 정보"
         }
     }
     
-    var systemImageName: String {
-           switch self {
-           case .todo:
-               return "checkmark.circle"
-           case .calendar:
-               return "calendar"
-           case .myInfo:
-               return "person.circle"
-           }
-       }
+    func imageName(selected: Bool) -> String {
+        selected ? "\(rawValue)_fill" : rawValue
+    }
 }

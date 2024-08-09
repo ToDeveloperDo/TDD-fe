@@ -12,6 +12,7 @@ final class AuthInterceptor: RequestInterceptor {
     static var shared = AuthInterceptor()
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, any Error>) -> Void) {
+        print("Call Adapt!!!!!!!!!!!!")
         var urlRequest = urlRequest
         do {
             let accessToken = try KeychainManager.shared.getData(.access)
@@ -23,6 +24,7 @@ final class AuthInterceptor: RequestInterceptor {
     }
     
     func retry(_ request: Request, for session: Session, dueTo error: any Error, completion: @escaping (RetryResult) -> Void) {
+        print("Call Retry!!!!!!!!!!!!!!")
         guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
             completion(.doNotRetryWithError(error))
             return

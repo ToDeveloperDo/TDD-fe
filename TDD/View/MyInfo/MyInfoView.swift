@@ -20,6 +20,7 @@ struct MyInfoView: View {
                 }
             }
         }
+        .background(Color.white.edgesIgnoringSafeArea(.bottom))
     }
 }
 

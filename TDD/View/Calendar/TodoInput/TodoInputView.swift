@@ -22,7 +22,7 @@ struct TodoInputView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HeaderView(todoInputViewModel: todoInputViewModel)
                 .padding(.bottom, 6)
             
@@ -122,13 +122,13 @@ private struct TodoTitleView: View {
     fileprivate var body: some View {
         TextField("", text: $todoInputViewModel.todo.content,
                   prompt: Text("어떤 일을 하시겠습니까?")
-            .font(.system(size: 14, weight: .ultraLight))
+            .font(.system(size: 14, weight: .light))
             .foregroundStyle(.fixBk.opacity(0.2))
         )
-        .font(.system(size: 14, weight: .ultraLight))
+        .font(.system(size: 14, weight: .light))
         .foregroundStyle(.fixBk)
-            .padding(.horizontal, 3)
-            .padding(.vertical, 8)
+        .padding(.horizontal, 3)
+        .padding(.vertical, 8)
     }
 }
 
@@ -149,11 +149,12 @@ private struct TodoMemoView: View {
             
             if todoInputViewModel.todo.memo.isEmpty {
                 Text("설명을 입력해주세요")
-                    .font(.system(size: 14, weight: .ultraLight))
+                    .font(.system(size: 14, weight: .light))
                     .foregroundStyle(.fixBk.opacity(0.2))
                     .allowsHitTesting(false)
-                    .padding(.top, 2)
-                    .padding(.leading, 5)
+                    .padding(.vertical, 8)
+                    .padding(.leading, 3)
+                    
             }
         }
     }
@@ -168,7 +169,7 @@ private struct TextViewWrapper: UIViewRepresentable {
         textView.isScrollEnabled = false  // 초기에는 스크롤 비활성화
         textView.isEditable = true
         textView.backgroundColor = .clear
-        textView.font = .systemFont(ofSize: 14, weight: .ultraLight)
+        textView.font = .systemFont(ofSize: 14, weight: .light)
         textView.delegate = context.coordinator
         return textView
     }
@@ -227,11 +228,12 @@ private struct TagView: View {
                 TextField("",
                           text: $todoInputViewModel.todo.tag,
                           prompt: Text("태그를 입력해주세요")
-                    .font(.system(size: 14, weight: .ultraLight))
+                    .font(.system(size: 14, weight: .light))
                     .foregroundStyle(.fixBk.opacity(0.2))
                 )
-                .font(.system(size: 14, weight: .ultraLight))
+                .font(.system(size: 14, weight: .light))
                 .foregroundStyle(.fixBk)
+                .padding(.vertical, 8)
                 .onChange(of: focusedField.wrappedValue) { oldValue, newValue in
                     if newValue != .tag {
                         isEdit = false
@@ -241,30 +243,19 @@ private struct TagView: View {
                 }
             } else {
                 HStack {
-                    Button(action: {
+                    TagBtn(action: {
                         todoInputViewModel.todo.tag = ""
                         focusedField.wrappedValue = .tag
-                    }, label: {
-                        HStack {
-                            Image(.icTag)
-                                
-                            Text("\(todoInputViewModel.todo.tag)")
-                                .font(.system(size: 14, weight: .ultraLight))
-                                .foregroundStyle(.fixBk)
-                        }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 6)
-                        .background(RoundedRectangle(cornerRadius: 8).fill(.tagfill))
-                        
-                    })
+                    }, title: "\(todoInputViewModel.todo.tag)")
+                    .padding(.top, 4)
+                    .padding(.bottom, 2)
                     Spacer()
                 }.onAppear {
                     focusedField.wrappedValue = .memo
                 }
             }
         }
-        .padding(.vertical, 8)
-        .padding(.horizontal, 4)
+        .padding(.horizontal, 3)
     }
 }
 
@@ -301,6 +292,6 @@ private struct BottomView: View {
 
 
 #Preview {
-    TodoInputView(todoInputViewModel:.init(todo: .init(content: "", memo: "", tag: "", deadline: "2049-02-31", status: .PROCEED), date: Date()))
+    TodoInputView(todoInputViewModel:.init(todo: .init(content: "", memo: "", tag: "디자인", deadline: "2049-02-31", status: .PROCEED), date: Date()))
         .environmentObject(CalendarViewModel(container: .stub))
 }
