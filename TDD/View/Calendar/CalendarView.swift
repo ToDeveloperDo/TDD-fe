@@ -15,39 +15,41 @@ struct CalendarView: View {
     private let calendarHeight: CGFloat = UIScreen.main.bounds.height/3
     
     var body: some View {
-        ZStack {
-            VStack {
-                calendarHeader
-                calendarBody                    
-                TodoListView()
-            }
-            .overlay {
-                if viewModel.showTextField {
-                    Color.gray.opacity(0.1)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            viewModel.showTextField = false                            
-                        }                        
-                }
-            }
-            plusBtnView
-            
-            if viewModel.showTextField {
+        GeometryReader {_ in 
+            ZStack {
                 VStack {
-                    Spacer()
-                    if let date = viewModel.selectedDay?.date {
-                        TodoInputView(todoInputViewModel:
-                                        TodoInputViewModel(todo:
-                                                .init(content: "",
-                                                      memo: "",
-                                                      tag: "",
-                                                      deadline: date.format("YYYY-MM-dd"),
-                                                      status: .PROCEED), date: date
-                                        )
-                        )
+                    calendarHeader
+                    calendarBody                    
+                    TodoListView()
+                }
+                .overlay {
+                    if viewModel.showTextField {
+                        Color.gray.opacity(0.1)
+                            .ignoresSafeArea()
+                            .onTapGesture {
+                                viewModel.showTextField = false                            
+                            }                        
                     }
                 }
-                .ignoresSafeArea()
+                plusBtnView
+                
+                if viewModel.showTextField {
+                    VStack {
+                        Spacer()
+                        if let date = viewModel.selectedDay?.date {
+                            TodoInputView(todoInputViewModel:
+                                            TodoInputViewModel(todo:
+                                                    .init(content: "",
+                                                          memo: "",
+                                                          tag: "",
+                                                          deadline: date.format("YYYY-MM-dd"),
+                                                          status: .PROCEED), date: date
+                                            )
+                            )
+                        }
+                    }
+                    .ignoresSafeArea()
+                }
             }
         }
         .environmentObject(viewModel)

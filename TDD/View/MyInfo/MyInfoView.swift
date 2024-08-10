@@ -16,10 +16,11 @@ struct MyInfoView: View {
                 FriendRequestBtnView()
                     .padding(.bottom, 20)
                 ForEach(0..<100) {_ in
-                    FriendCellView()
+                    UserInfoCardView(user: .init(userName: "이준석", avatarUrl: "", gitUrl: "https://github.com", status: .follow))
                 }
             }
         }
+        .background(Color.mainbg)
         .background(Color.white.edgesIgnoringSafeArea(.bottom))
     }
 }

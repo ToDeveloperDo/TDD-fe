@@ -76,6 +76,9 @@
 		ADAAF2CE2C5E6F5A00C292CA /* TodoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2CD2C5E6F5A00C292CA /* TodoDetailViewModel.swift */; };
 		ADAAF2D02C5F786800C292CA /* TodoInfoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */; };
 		ADAAF2D22C5F796200C292CA /* TodoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2D12C5F796200C292CA /* TodoInfo.swift */; };
+		ADE2C2902C6768C3002BF3A6 /* UserInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */; };
+		ADE2C2932C679DA1002BF3A6 /* InfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C2922C679DA1002BF3A6 /* InfoType.swift */; };
+		ADE2C2952C67A14A002BF3A6 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */; };
 		ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */; };
 		ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */; };
 		ADEFB8F02C65C9F400A03C26 /* TagBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEFB8EF2C65C9F400A03C26 /* TagBtn.swift */; };
@@ -170,6 +173,9 @@
 		ADAAF2CD2C5E6F5A00C292CA /* TodoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewModel.swift; sourceTree = "<group>"; };
 		ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInfoModifier.swift; sourceTree = "<group>"; };
 		ADAAF2D12C5F796200C292CA /* TodoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInfo.swift; sourceTree = "<group>"; };
+		ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCardView.swift; sourceTree = "<group>"; };
+		ADE2C2922C679DA1002BF3A6 /* InfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoType.swift; sourceTree = "<group>"; };
+		ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
 		ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoutingView.swift; sourceTree = "<group>"; };
 		ADEFB8EF2C65C9F400A03C26 /* TagBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagBtn.swift; sourceTree = "<group>"; };
@@ -275,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				AD10DBCF2C40D3DB00785252 /* Month.swift */,
+				ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -561,6 +568,15 @@
 			path = TodoCell;
 			sourceTree = "<group>";
 		};
+		ADE2C2912C679D88002BF3A6 /* UserInfoCardView */ = {
+			isa = PBXGroup;
+			children = (
+				ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */,
+				ADE2C2922C679DA1002BF3A6 /* InfoType.swift */,
+			);
+			path = UserInfoCardView;
+			sourceTree = "<group>";
+		};
 		ADEA4B5F2C48A8C500C10B9C /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -574,6 +590,7 @@
 		ADEA4B602C48A8E300C10B9C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				ADE2C2912C679D88002BF3A6 /* UserInfoCardView */,
 				AD6353C12C634B6E00CED65A /* URLImage */,
 				ADF2AB7E2C3EA0BF00B5AD60 /* MyWebView.swift */,
 				ADEA4B612C48A8F700C10B9C /* NavigationRoutingView.swift */,
@@ -709,11 +726,13 @@
 				AD6353C02C633F1A00CED65A /* URLImageView.swift in Sources */,
 				AD241F572C4E2B6800DE8805 /* CreateRepoRequest.swift in Sources */,
 				AD46DE012C4795BC00DE940B /* CreateTodoRequest.swift in Sources */,
+				ADE2C2932C679DA1002BF3A6 /* InfoType.swift in Sources */,
 				AD46DDFA2C4792C500DE940B /* HTTPHeaderField.swift in Sources */,
 				AD5D72C32C5213F4009FE208 /* GetTodoCountRequest.swift in Sources */,
 				AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */,
 				AD10DBBB2C401A9B00785252 /* DIContainer.swift in Sources */,
 				AD6E2A712C5CA51C006783B9 /* RefreshResponse.swift in Sources */,
+				ADE2C2902C6768C3002BF3A6 /* UserInfoCardView.swift in Sources */,
 				AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */,
 				AD241F4F2C4E2AA700DE8805 /* GetTodoListRequest.swift in Sources */,
 				ADFBF5E62C6098B50022ED2A /* TodoPatchRequest.swift in Sources */,
@@ -739,6 +758,7 @@
 				AD6353CB2C6358A000CED65A /* SHA256.swift in Sources */,
 				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,
 				AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */,
+				ADE2C2952C67A14A002BF3A6 /* UserInfo.swift in Sources */,
 				ADAA4FF22C58F07000EF30E0 /* TodoListView.swift in Sources */,
 				AD87D0EF2C5B5A0700E68C90 /* TodoInputViewModel.swift in Sources */,
 				AD5D72D42C54F291009FE208 /* AuthAPITarget.swift in Sources */,
