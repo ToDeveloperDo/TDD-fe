@@ -547,8 +547,8 @@
 			isa = PBXGroup;
 			children = (
 				ADAA4FF12C58F07000EF30E0 /* TodoListView.swift */,
-				ADAA4FEC2C58E65800EF30E0 /* TodoCell */,
 				AD43C85C2C64C391000BC6ED /* TodoListViewModel.swift */,
+				ADAA4FEC2C58E65800EF30E0 /* TodoCell */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";

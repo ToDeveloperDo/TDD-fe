@@ -21,9 +21,13 @@ struct TodoListView: View {
                     List {
                         if selectedDay.todosCount != 0 {
                             Section {
-                                Text("\(selectedDay.date.format("M월 d일"))")
-                                    .font(.caption)
-                                    .foregroundStyle(.text)
+                                VStack(alignment: .leading) {
+                                    Text("진행중")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundStyle(.text)
+                                    Rectangle().frame(height: 1)
+                                        .foregroundStyle(.linegray)
+                                }
                                 ForEach(selectedDay.todos.filter( { $0.status == .PROCEED })) { todo in
                                     TodoCellView(todo: todo) {
                                         viewModel.send(action: .moveTodo(todo: todo, mode: .finish))
@@ -50,9 +54,13 @@ struct TodoListView: View {
                         
                         if selectedDay.todos.count - selectedDay.todosCount != 0 {
                             Section {
-                                Text("완료")
-                                    .font(.caption)
-                                    .foregroundStyle(.text)
+                                VStack(alignment: .leading) {
+                                    Text("완료 ✅")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundStyle(.text)
+                                    Rectangle().frame(height: 1)
+                                        .foregroundStyle(.linegray)
+                                }
                                 ForEach(selectedDay.todos.filter( { $0.status == .DONE })) { todo in
                                     TodoCellView(isSelected: true, todo: todo) {
                                         viewModel.send(action: .moveTodo(todo: todo, mode: .reverse))

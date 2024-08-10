@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodoCellView: View {
-    private var isSelected: Bool
+    @State var isSelected: Bool
     @EnvironmentObject private var viewModel: CalendarViewModel
     
     private var todo: Todo
@@ -21,25 +21,28 @@ struct TodoCellView: View {
     }
     
     var body: some View {
-        Button(action: {
-            viewModel.detailTodo = todo
-            viewModel.isPresent = true
-        }, label: {
-            HStack {
+        HStack(spacing: 8) {
+            Button(action: {
+                onCheckboxTapped()
+            }, label: {
                 Image(isSelected ? .icSelectedBox : .icUnSelectedBox)
                     .resizable()
-                    .frame(width: 20, height: 20)
-                    .onTapGesture {
-                        onCheckboxTapped()
-                    }
-                    .padding(5)
+                    .frame(width: 18, height: 18)
+            })
+            
+            Text("\(todo.content)")
+                .font(.system(size: 12, weight: .light))
+                .foregroundStyle(.text)
+            Spacer()
+            Button(action: {
                 
-                Text("\(todo.content)")
-                    .font(.caption)
-                    .foregroundStyle(.text)
-                Spacer()
-            }
-        })
+            }, label: {
+                Text("더보기")
+                    .font(.system(size: 12, weight: .light))
+                    .foregroundStyle(.textGray)
+                    .underline()
+            })
+        }
         .buttonStyle(.borderless)
     }
 }
