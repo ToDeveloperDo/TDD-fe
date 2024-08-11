@@ -25,7 +25,7 @@ struct TodoDetailView: View {
         .padding(.horizontal, 20)
         .alert("수정하시겠습니까?", isPresented: $todoDetailVM.isPresent) {
             Button(role: .cancel) {
-                viewModel.send(action: .updateTodo(todo: todoDetailVM.todo))
+//                viewModel.send(action: .updateTodo(todo: todoDetailVM.todo))
                 dismiss()
             } label: {
                 Text("확인")
@@ -94,14 +94,14 @@ private struct TodoInfoView: View {
             
             HStack {
                 Button(action: {
-                    switch todoDetailVM.todo.status {
-                    case .PROCEED:
-                        viewModel.send(action: .moveTodo(todo: todoDetailVM.todo, mode: .finish))
-                        todoDetailVM.todo.status = .DONE
-                    case .DONE:
-                        viewModel.send(action: .moveTodo(todo: todoDetailVM.todo, mode: .finish))
-                        todoDetailVM.todo.status = .PROCEED
-                    }
+//                    switch todoDetailVM.todo.status {
+//                    case .PROCEED:
+//                        viewModel.send(action: .moveTodo(todo: todoDetailVM.todo, mode: .finish))
+//                        todoDetailVM.todo.status = .DONE
+//                    case .DONE:
+//                        viewModel.send(action: .moveTodo(todo: todoDetailVM.todo, mode: .finish))
+//                        todoDetailVM.todo.status = .PROCEED
+//                    }
                 }, label: {
                     Image(todoDetailVM.todo.status == .PROCEED ? .icUnSelectedBox : .icSelectedBox)
                         .resizable()

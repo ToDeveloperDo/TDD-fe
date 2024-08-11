@@ -8,10 +8,10 @@
 import Foundation
 
 enum InfoType: String {
-    case following
-    case follow
-    case request
-    case accept
+    case following // 친구 상태
+    case follow // 모르는 사람
+    case request // 친구 요청을 보낸 사람
+    case accept // 친구 요청을 받은 사람
     
     var title: String {
         switch self {

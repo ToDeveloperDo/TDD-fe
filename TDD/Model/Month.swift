@@ -7,18 +7,15 @@
 
 import Foundation
 
-struct Month: Identifiable {
-    let id = UUID().uuidString
-    let month: String
+struct Month {
     var days: [Day]
-    var selectedDayIndex: Int
+    var selectedDay: Date
 }
 
-struct Day: Identifiable {
-    let id = UUID().uuidString
-    var days: Int
-    var date: Date
-    var todos: [Todo] = []
+struct Day {
+    let days: Int
+    let date: Date
+    var isCurrentMonthDay: Bool = true
     var todosCount: Int = 0
 }
 
@@ -38,6 +35,6 @@ enum TodoStatus: String, Codable {
 }
 
 extension Todo {
-    static let stub1 = Todo(content: "축구", memo: "아", tag: "아", deadline: "2024-07-31", status: .PROCEED)
+    static let stub1 = Todo(content: "축구", memo: "아", tag: "아", deadline: "2024-07-31", status: .DONE)
     static let stub2 = Todo(content: "공부", memo: "아", tag: "아", deadline: "2024-07-31", status: .PROCEED)
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MyInfoView: View {
+    private let columns = Array(repeating: GridItem(.fixed(170)), count: 2)
+    
     var body: some View {
         ScrollView {
             LazyVStack {
@@ -15,9 +17,12 @@ struct MyInfoView: View {
                     .padding(.bottom, 20)
                 FriendRequestBtnView()
                     .padding(.bottom, 20)
-                ForEach(0..<100) {_ in
-                    UserInfoCardView(user: .init(userName: "이준석", avatarUrl: "", gitUrl: "https://github.com", status: .follow))
+                LazyVGrid(columns: columns, spacing: 8) {
+                    ForEach(0..<100) {_ in
+                        UserInfoCardView(user: .init(userName: "이준석", avatarUrl: "", gitUrl: "https://github.com", status: .follow))
+                    }
                 }
+                
             }
         }
         .background(Color.mainbg)

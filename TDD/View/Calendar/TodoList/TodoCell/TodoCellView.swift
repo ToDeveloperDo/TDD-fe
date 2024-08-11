@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodoCellView: View {
-    @State var isSelected: Bool
+     var isSelected: Bool
     @EnvironmentObject private var viewModel: CalendarViewModel
     
     private var todo: Todo

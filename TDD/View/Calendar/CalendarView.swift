@@ -17,10 +17,13 @@ struct CalendarView: View {
     var body: some View {
         GeometryReader {_ in 
             ZStack {
-                VStack {
+                VStack(spacing: 0) {
                     calendarHeader
-                    calendarBody                    
-                    TodoListView()
+                        .padding(.top, 29)
+                        .padding(.bottom, 8)
+                    calendarBody
+                        .padding(.horizontal, 36)
+                    TodoListView(todoListViewModel: .init(date: viewModel.clickedCurrentMonthDates ?? Date(), container: container))
                 }
                 .overlay {
                     if viewModel.showTextField {
@@ -36,7 +39,7 @@ struct CalendarView: View {
                 if viewModel.showTextField {
                     VStack {
                         Spacer()
-                        if let date = viewModel.selectedDay?.date {
+                        if let date = viewModel.clickedCurrentMonthDates {
                             TodoInputView(todoInputViewModel:
                                             TodoInputViewModel(todo:
                                                     .init(content: "",
@@ -52,15 +55,15 @@ struct CalendarView: View {
                 }
             }
         }
-        .environmentObject(viewModel)
         .background(Color.mainbg)
         .ignoresSafeArea(.keyboard)
+        .environmentObject(viewModel)
     }
     
     private var calendarHeader: some View {
         VStack(alignment: .center) {
-            if let date = viewModel.selectedDay?.date {
-                HStack(spacing: 74) {
+            if let date = viewModel.clickedCurrentMonthDates {
+                HStack(spacing: 72) {
                     Button(action: {
                         viewModel.selection -= 1
                     }, label: {
@@ -76,99 +79,57 @@ struct CalendarView: View {
                     })
                 }
             }
-            
-            LazyVGrid(columns: columns) {
-                ForEach(viewModel.dayOfWeek, id: \.self) { day in
-                    Text("\(day)")
-                        .font(.subheadline)
-                        .foregroundStyle(Color.text)
-                }
-            }
-            .padding(.top, 23)
         }
-        .padding(.top, 29)
+        .padding(.horizontal, 51)
+        
     }
     
     private var calendarBody: some View {
-        TabView(selection: $viewModel.selection) {
-            ForEach(viewModel.months.indices, id: \.self) { index in
-                let month = viewModel.months[index].days
-                DateGrid(month)
-                    .tag(index)
-                    .onAppear {
-                        if index == 0 || index == viewModel.months.count - 1 {
-                            viewModel.send(action: .paginate)
-                        }
-                    }
-                    .onDisappear {                    
-                        viewModel.send(action: .paginate)
-                    }
+        VStack(spacing: 0) {
+            LazyVGrid(columns: columns) {
+                ForEach(viewModel.dayOfWeek, id: \.self) { day in
+                    Text("\(day)")
+                        .font(.system(size: 14, weight: .light))
+                        .foregroundStyle(Color.calendarDayGray)
+                }
+                
             }
+            .padding(.top, 13)
+            .padding(.horizontal, 16)
+            
+            TabView(selection: $viewModel.selection) {
+                ForEach(viewModel.months.indices, id: \.self) { index in
+                    DateGrid(viewModel.months[index].days)
+                        .tag(index)
+                }
+                .padding(.horizontal, 16)
+                
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(height: calendarHeight)
         }
-        
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .frame(height: calendarHeight)
+        .padding(.top, 15)
     }
     
     private func DateGrid(_ month: [Day]) -> some View {
         VStack {
             LazyVGrid(columns: columns, spacing: 5) {
                 ForEach(0..<42) { index in
-                    if index < month.count {
-                        DateCell(value: month[index])
-                            .onTapGesture {
-                                viewModel.send(action: .selectDay(day: month[index]))
-                                viewModel.send(action: .fetchTodos)
-                            }
-                    } else {
-                        DateCell(value: .init(days: -1, date: Date()))
+                    let clicked = viewModel.months[viewModel.selection].selectedDay == month[index].date
+                    let isToday = month[index].date.isToday
+                    Group {
+                        if month[index].isCurrentMonthDay {
+                            DateCell(day: month[index], clicked: clicked, isToday: isToday)
+                        } else {
+                            DateCell(day: month[index], isCurrentMonthDay: false)
+                        }
+                    }
+                    .onTapGesture {
+                        if month[index].isCurrentMonthDay {
+                            viewModel.clickedCurrentMonthDates = month[index].date
+                        }
                     }
                 }
-            }
-        }
-    }
-    
-    private func DateCell(value: Day) -> some View {
-//        private var clicked: Bool
-//        private var isToday: Bool
-//        private var isCurrentMonthDay: Bool
-//
-//        fileprivate init(cli
-        
-        return VStack(spacing: 0) {
-            if value.days != -1 {
-                ZStack() {
-                    Text("\(value.days)")
-                        .font(.subheadline)
-                        .foregroundStyle(value.date.isToday ? .blue : .text)
-                    
-                    HStack(spacing: 2) {
-                        if value.todosCount != 0 {
-                            if value.todosCount > 3 {
-                                Text("+\(value.todosCount)")
-                                    .font(.system(size: 9))
-                            } else {
-                                ForEach(0..<value.todosCount, id: \.self) { _ in
-                                    Circle()
-                                        .frame(height: 3)
-                                }
-                            }
-                        }
-                    }.offset(y: 15)
-                }
-                .padding(15)
-            } else {
-                Spacer()
-            }
-        }
-        .frame(height: calendarHeight/7)
-        .overlay {
-            if value.date == viewModel.selectedDay!.date {
-                Circle()
-                    .foregroundStyle(.blue.opacity(0.2))
-            } else if value.date.isToday {
-                Circle()
-                    .foregroundStyle(.red.opacity(0.2))
             }
         }
     }
@@ -189,6 +150,76 @@ struct CalendarView: View {
             }
         }
         .padding(.horizontal, 10)
+    }
+}
+
+private struct DateCell: View {
+    private var day: Day
+    private var clicked: Bool
+    private var isToday: Bool
+    private var isCurrentMonthDay: Bool
+    
+    private var textColor: Color {
+        if clicked || isToday  {
+            return Color.fixWh
+        } else if isCurrentMonthDay {
+            return Color.daycellGray
+        } else {
+            return Color.daycellGray2
+        }
+    }
+    private var backgroundColor: Color {
+        if clicked {
+            return Color.main
+        } else if isToday {
+            return Color.main.opacity(0.5)
+        } else {
+            return Color.mainbg
+        }
+    }
+    
+    private var todoCountColor: Color {
+        if clicked || isToday {
+            return Color.fixWh
+        } else {
+            return Color.fixBk
+        }
+    }
+    
+    fileprivate init(
+      day: Day,
+      clicked: Bool = false,
+      isToday: Bool = false,
+      isCurrentMonthDay: Bool = true
+    ) {
+      self.day = day
+      self.clicked = clicked
+      self.isToday = isToday
+      self.isCurrentMonthDay = isCurrentMonthDay
+    }
+    
+    fileprivate var body: some View {
+        VStack {
+            Circle()
+                .fill(backgroundColor)
+                .overlay(
+                    Text("\(day.days)")
+                        .font(.system(size: 16, weight: .light))
+                )
+                .foregroundStyle(textColor)
+        }
+        .frame(width: 40, height: 40)
+        .overlay {
+            if day.isCurrentMonthDay && day.todosCount != 0 {
+                HStack(spacing: 2) {
+                    ForEach(0..<day.todosCount, id: \.self) {_ in
+                        Circle().frame(width: 2, height: 2)
+                            .foregroundStyle(todoCountColor)                        
+                    }
+                    .offset(y: 15)
+                }
+            }
+        }
     }
 }
 

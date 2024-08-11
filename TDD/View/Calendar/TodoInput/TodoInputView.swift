@@ -73,7 +73,7 @@ struct TodoInputView: View {
         .cornerRadius(20)
         .alert("업로드 확인", isPresented: $isPresent) {
             Button(role: .cancel) {
-                viewModel.send(action: .createTodo(todo: todoInputViewModel.todo))
+//                viewModel.send(action: .createTodo(todo: todoInputViewModel.todo))
             } label: {
                 Text("확인")
             }
