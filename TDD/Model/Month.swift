@@ -13,10 +13,12 @@ struct Month {
 }
 
 struct Day {
+    var request: Bool = false
     let days: Int
     let date: Date
     var isCurrentMonthDay: Bool = true
     var todosCount: Int = 0
+    var todos: [Todo] = []
 }
 
 struct Todo: Identifiable, Equatable {

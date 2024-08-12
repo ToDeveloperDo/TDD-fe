@@ -22,8 +22,10 @@ struct CalendarView: View {
                         .padding(.top, 29)
                         .padding(.bottom, 8)
                     calendarBody
-                        .padding(.horizontal, 36)
-                    TodoListView(todoListViewModel: .init(date: viewModel.clickedCurrentMonthDates ?? Date(), container: container))
+                        .padding(.horizontal, 36)                    
+                    TodoListView(viewModel: .init(todos: viewModel.currentTodos(),
+                                                  todosCount: viewModel.currentTodosCount()))
+                    .environmentObject(viewModel)
                 }
                 .overlay {
                     if viewModel.showTextField {
@@ -56,8 +58,7 @@ struct CalendarView: View {
             }
         }
         .background(Color.mainbg)
-        .ignoresSafeArea(.keyboard)
-        .environmentObject(viewModel)
+        .ignoresSafeArea(.keyboard)        
     }
     
     private var calendarHeader: some View {

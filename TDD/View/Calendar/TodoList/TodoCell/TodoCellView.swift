@@ -8,24 +8,25 @@
 import SwiftUI
 
 struct TodoCellView: View {
-     var isSelected: Bool
-    @EnvironmentObject private var viewModel: CalendarViewModel
+    @EnvironmentObject private var calendarViewModel: CalendarViewModel
+     var todo: Todo
     
-    private var todo: Todo
-    var onCheckboxTapped: () -> Void = {}
-    
-    init(isSelected: Bool = false, todo: Todo, _ onCheckboxTapped: @escaping () -> Void) {
-        self.isSelected = isSelected
+    init(todo: Todo) {
         self.todo = todo
-        self.onCheckboxTapped = onCheckboxTapped
     }
     
     var body: some View {
         HStack(spacing: 8) {
             Button(action: {
-                onCheckboxTapped()
+                switch todo.status {
+                case .PROCEED:
+                    calendarViewModel.send(action: .clickCheckBox(todo, .proceed))
+                case .DONE:
+                    calendarViewModel.send(action: .clickCheckBox(todo, .done))
+                }
+                
             }, label: {
-                Image(isSelected ? .icSelectedBox : .icUnSelectedBox)
+                Image(todo.status == .DONE ? .icSelectedBox : .icUnSelectedBox)
                     .resizable()
                     .frame(width: 18, height: 18)
             })
@@ -47,9 +48,12 @@ struct TodoCellView: View {
     }
 }
 
-
-
-#Preview {
-    TodoCellView(todo: .stub1, {})
-        .environmentObject(CalendarViewModel(container: .stub))
+struct TodoCellView_Previews: PreviewProvider {
+    static let container: DIContainer = .init(services: StubService())
+    
+    static var previews: some View {
+        TodoCellView(todo: .stub1)
+            .environmentObject(CalendarViewModel(container: container))
+    }
 }
+
