@@ -22,10 +22,14 @@ struct CalendarView: View {
                         .padding(.top, 29)
                         .padding(.bottom, 8)
                     calendarBody
-                        .padding(.horizontal, 36)                    
-                    TodoListView(viewModel: .init(todos: viewModel.currentTodos(),
-                                                  todosCount: viewModel.currentTodosCount()))
-                    .environmentObject(viewModel)
+                        .padding(.horizontal, 36) 
+                    if viewModel.isTodoLoading {
+                        LoadingView()
+                    } else {
+                        TodoListView(viewModel: .init(todos: viewModel.currentTodos(),
+                                                      todosCount: viewModel.currentTodosCount()))
+                        .environmentObject(viewModel)
+                    }
                 }
                 .overlay {
                     if viewModel.showTextField {
@@ -50,7 +54,7 @@ struct CalendarView: View {
                                                           deadline: date.format("YYYY-MM-dd"),
                                                           status: .PROCEED), date: date
                                             )
-                            )
+                            ).environmentObject(viewModel)
                         }
                     }
                     .ignoresSafeArea()
@@ -58,7 +62,14 @@ struct CalendarView: View {
             }
         }
         .background(Color.mainbg)
-        .ignoresSafeArea(.keyboard)        
+        .ignoresSafeArea(.keyboard)
+        .sheet(isPresented: $viewModel.isPresent) {
+            if let todo = viewModel.detailTodo,
+               let date = viewModel.clickedCurrentMonthDates {
+                TodoDetailView(todoDetailViewModel: .init(todo: todo, date: date))
+                    .presentationDetents([.medium, .large])
+            }
+        }
     }
     
     private var calendarHeader: some View {

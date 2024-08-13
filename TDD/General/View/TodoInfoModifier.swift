@@ -16,15 +16,15 @@ struct TodoInfoModifier: ViewModifier {
             HStack {
                 Label {
                     Text("\(type.rawValue)")
-                        .font(.callout)
-                        .foregroundStyle(.text)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(Color.githubText)
                 } icon: {
                     Image("\(type.imageName)")
                         .resizable()
                         .renderingMode(.template)
                         .scaledToFit()
                         .frame(width: 20)
-                        .foregroundStyle(.text)
+                        .foregroundStyle(Color.githubText)
                 }
                 Spacer()
             }.frame(width: width)

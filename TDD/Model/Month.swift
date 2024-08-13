@@ -14,6 +14,7 @@ struct Month {
 
 struct Day {
     var request: Bool = false
+    var update: Bool = false
     let days: Int
     let date: Date
     var isCurrentMonthDay: Bool = true

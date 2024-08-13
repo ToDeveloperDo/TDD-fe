@@ -64,7 +64,10 @@ struct TodoInputView: View {
                 .frame(height: 1)
                 .foregroundStyle(.fixBk.opacity(0.2))
             
-            BottomView(todoInputViewModel: todoInputViewModel, isPresent: $isPresent)
+            BottomView(todoInputViewModel: todoInputViewModel) {
+                focusedField = nil
+                isPresent = true
+            }
         }
         .padding(.horizontal, 24)
         .padding(.top, 32)
@@ -73,7 +76,7 @@ struct TodoInputView: View {
         .cornerRadius(20)
         .alert("업로드 확인", isPresented: $isPresent) {
             Button(role: .cancel) {
-//                viewModel.send(action: .createTodo(todo: todoInputViewModel.todo))
+                viewModel.send(action: .createTodo(todoInputViewModel.todo))
             } label: {
                 Text("확인")
             }
@@ -262,10 +265,12 @@ private struct TagView: View {
 private struct BottomView: View {
     @EnvironmentObject var viewModel: CalendarViewModel
     @ObservedObject private var todoInputViewModel: TodoInputViewModel
-    @Binding var isPresent: Bool
-    fileprivate init(todoInputViewModel: TodoInputViewModel, isPresent: Binding<Bool>) {
+    
+    var btnAction: () -> Void
+    
+    fileprivate init(todoInputViewModel: TodoInputViewModel, btnAction: @escaping () -> Void) {
         self.todoInputViewModel = todoInputViewModel
-        self._isPresent = isPresent
+        self.btnAction = btnAction
     }
     
     fileprivate var body: some View {
@@ -273,7 +278,7 @@ private struct BottomView: View {
             Spacer()
             
             Button(action: {
-                isPresent = true
+                btnAction()
             }, label: {
                 Image(.icInputarrow)
                     .resizable()

@@ -36,7 +36,7 @@ struct TodoCellView: View {
                 .foregroundStyle(.text)
             Spacer()
             Button(action: {
-                
+                calendarViewModel.send(action: .clickDetailBtn(todo))
             }, label: {
                 Text("더보기")
                     .font(.system(size: 12, weight: .light))

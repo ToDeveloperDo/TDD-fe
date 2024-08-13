@@ -17,7 +17,8 @@ final class CalendarViewModel: ObservableObject {
     @Published var months: [Month] = []
     @Published var clickedCurrentMonthDates: Date? {
         didSet {
-            months[selection].selectedDay = clickedCurrentMonthDates ?? Date()
+            guard let date = clickedCurrentMonthDates else { return }
+            months[selection].selectedDay = date
             searchCurrentDayIndex()
             fetchTodos()
         }
@@ -29,6 +30,10 @@ final class CalendarViewModel: ObservableObject {
             getTodosCount()
         }
     }
+    @Published var isPresent: Bool = false
+    @Published var isTodoLoading: Bool = false
+    
+    @Published var detailTodo: Todo?
     
     enum Action {
         case pagingCalendar
@@ -37,6 +42,7 @@ final class CalendarViewModel: ObservableObject {
         case slideDeleteTodo(_ indexSet: IndexSet)
         case clickDetailBtn(_ todo: Todo)
         case updateTodo(_ todo: Todo)
+        case createTodo(_ todo: Todo)
     }
     
 
@@ -67,9 +73,11 @@ final class CalendarViewModel: ObservableObject {
         case .slideDeleteTodo(let indexSet):
             slideDeleteTodo(indexSet)
         case .clickDetailBtn(let todo):
-            break
+            clickDetailBtn(todo)
         case .updateTodo(let todo):
             break
+        case .createTodo(let todo):
+            createTodo(todo)
         }
     }
 }
@@ -100,7 +108,6 @@ extension CalendarViewModel {
                 months.append(date.createMonth(date))
             }
         }
-        selection = 6
         clickedCurrentMonthDates = months[selection].selectedDay
     }
     
@@ -132,9 +139,9 @@ extension CalendarViewModel {
     
     private func getTodosCount() {
         guard let year = clickedCurrentMonthDates?.format("YYYY"),
-              let month = clickedCurrentMonthDates?.format("MM") else { return }
-        
-        guard let index = searchStartDayIndex() else { return }
+              let month = clickedCurrentMonthDates?.format("MM"),
+              let monthIndex = months.firstIndex(where: { $0.selectedDay.format("MM") == month }),
+              let index = searchStartDayIndex() else { return }
         
         container.services.todoService.getTodoCount(year: year, month: month)
             .sink { completion in
@@ -144,7 +151,7 @@ extension CalendarViewModel {
             } receiveValue: { [weak self] values in
                 guard let self = self else { return }
                 for value in values {
-                    self.months[self.selection].days[index + value.0 - 1].todosCount = value.1
+                    self.months[monthIndex].days[index + value.0 - 1].todosCount = value.1
                 }
             }
             .store(in: &subscriptions)
@@ -155,13 +162,17 @@ extension CalendarViewModel {
         if let index = months[selection].days.firstIndex(where: { $0.date == clickedCurrentMonthDates }),
            let date = clickedCurrentMonthDates?.format("YYYY-MM-dd") {
             if !months[selection].days[index].request {
+                isTodoLoading = true
                 container.services.todoService.getTodoList(date: date)
                     .sink { completion in
                         
                     } receiveValue: { [weak self] todos in
                         guard let self = self else { return }
-                        self.months[self.selection].days[index].todos = todos
-                        self.months[self.selection].days[index].request = true
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+                            self.months[self.selection].days[index].todos = todos
+                            self.months[self.selection].days[index].request = true
+                            self.isTodoLoading = false
+                        }
                     }.store(in: &subscriptions)
             }
         }
@@ -225,6 +236,27 @@ extension CalendarViewModel {
                     
                 }.store(in: &subscriptions)
         }
+    }
+    
+    private func createTodo(_ todo: Todo) {
+        if let index = currentDayIndex {
+            months[selection].days[index].todos.append(todo)
+            months[selection].days[index].todosCount += 1
+            showTextField = false
+            container.services.todoService.createTodo(todo: todo)
+                .sink { completion in
+                    
+                } receiveValue: { [weak self] id in
+                    guard let self = self else { return }
+                    guard let todoIndex = self.months[self.selection].days[index].todos.firstIndex(where: { $0.id == todo.id }) else { return }
+                    self.months[self.selection].days[index].todos[todoIndex].todoListId = id
+                }.store(in: &subscriptions)
+        }
+    }
+    
+    private func clickDetailBtn(_ todo: Todo) {
+        detailTodo = todo
+        isPresent = true
     }
     
     private func searchStartDayIndex() -> Int? {
