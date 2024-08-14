@@ -64,10 +64,10 @@ struct CustomTabBarController: UIViewControllerRepresentable {
         
         calendarVC.tabBarItem = UITabBarItem(title: "캘린더", image: UIImage(named: "calendar"), tag: 0)
 
-        let searchVC = UIHostingController(rootView:  ContentView())
+        let searchVC = UIHostingController(rootView:  QuestView(viewModel: QuestViewModel(container: container)))
         searchVC.tabBarItem = UITabBarItem(title: "탐색", image: UIImage(named: "quest"), tag: 1)
 
-        let profileVC = UIHostingController(rootView: MyInfoView())
+        let profileVC = UIHostingController(rootView: MyProfileView(viewModel: MyProfileViewModel(container: container)))
         profileVC.tabBarItem = UITabBarItem(title: "내 정보", image: UIImage(named: "myInfo"), tag: 2)
 
         // 탭 바 컨트롤러에 뷰 컨트롤러 추가

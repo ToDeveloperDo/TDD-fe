@@ -28,6 +28,7 @@ final class CalendarViewModel: ObservableObject {
         didSet {
             clickedCurrentMonthDates = months[selection].selectedDay
             getTodosCount()
+            pagingCalendar()
         }
     }
     @Published var isPresent: Bool = false
@@ -113,26 +114,25 @@ extension CalendarViewModel {
     
     private func pagingCalendar() {
         let calendar = Calendar.current
-        let currentMonth = months[selection].selectedDay.startOfMonth
+        let threshold = 3 // 스크롤 시 몇 개월 전에 새 달을 추가할지 결정
         
-        if selection == 3 {
-            for i in -1 ... -3 {
-                if let date = calendar.date(byAdding: .month, value: i, to: currentMonth) {
-                    months.insert(date.createMonth(date), at: 0)
-                }
+        // 이전 달 추가
+        if selection < threshold {
+            if let firstMonth = months.first,
+               let newMonth = calendar.date(byAdding: .month, value: -1, to: firstMonth.selectedDay) {
+                months.insert(newMonth.createMonth(newMonth), at: 0)
+                months.removeLast() // 뒤에서 마지막 달 삭제
+                selection += 1 // 추가 후 selection 값을 증가시킴
             }
-            for _ in 0..<3 {
-                months.removeLast()
-            }
-            selection = 6
-        } else if selection == 6 {
-            for i in 1 ... 3 {
-                if let date = calendar.date(byAdding: .month, value: i, to: currentMonth) {
-                    months.append(date.createMonth(date))
-                }
-            }
-            for _ in 0..<3 {
-                months.removeFirst()
+        }
+        
+        // 다음 달 추가
+        if selection > months.count - threshold - 1 {
+            if let lastMonth = months.last,
+               let newMonth = calendar.date(byAdding: .month, value: 1, to: lastMonth.selectedDay) {
+                months.append(newMonth.createMonth(newMonth))
+                months.removeFirst() // 앞에서 첫 번째 달 삭제
+                selection -= 1 // 추가 후 selection 값을 감소시킴
             }
         }
     }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct UserInfoCardView: View {
     @State var user: UserInfo
+    var action1: () -> Void
+    var action2: () -> Void
     
     var body: some View {
         VStack(spacing: 0) {
@@ -22,7 +24,7 @@ struct UserInfoCardView: View {
             .padding(.top, 8)
             .padding(.bottom, 6)
             
-            URLImageView(urlString: user.avatarUrl)
+            URLImageView(urlString: user.profileUrl)
                 .frame(width: 86, height: 86)
                 .background(Color.shadow)
                 .clipShape(Circle())
@@ -42,12 +44,12 @@ struct UserInfoCardView: View {
                 .padding(.bottom, 12)
             
             Button(action: {
-                if user.status == .accept {
-                    user.status = .following
-                    //TODO: - 요청 수락 API
-                } else if user.status == .follow {
-                    user.status = .request
-                    //TODO: - 요청 API
+                if user.status == .RECEIVE {
+                    user.status = .FOLLOWING
+                    action1()
+                } else if user.status == .NOT_FRIEND {
+                    user.status = .REQUEST
+                    action2()
                 }
             }, label: {
                 Text("\(user.status.title)")
@@ -61,7 +63,7 @@ struct UserInfoCardView: View {
                     }
                 
             })
-            .disabled(user.status == .following || user.status == .request)
+            .disabled(user.status == .FOLLOWING || user.status == .REQUEST)
             .padding(.bottom, 21)
         }
         .frame(width: 168, height: 213)
@@ -74,5 +76,10 @@ struct UserInfoCardView: View {
 }
 
 #Preview {
-    UserInfoCardView(user: .init(userName: "이준석", avatarUrl: "", gitUrl: "https://github.com", status: .accept))
+    UserInfoCardView(user: .stu1) {
+        
+    } action2: {
+        
+    }
+
 }

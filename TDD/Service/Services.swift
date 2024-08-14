@@ -12,6 +12,8 @@ protocol ServiceType {
     var authService: AuthenticationServiceType { get set }
     var githubService: GitHubSericeType { get set }
     var imageCacheService: ImageCacheServiceType { get set }
+    var memberService: MemberServiceType { get set }
+    var friendService: FriendServiceType { get set }
 }
 
 final class Services: ServiceType {
@@ -19,12 +21,16 @@ final class Services: ServiceType {
     var authService: AuthenticationServiceType
     var githubService: GitHubSericeType
     var imageCacheService: ImageCacheServiceType
+    var memberService: MemberServiceType
+    var friendService: FriendServiceType
     
     init() {
         self.todoService = TodoService(todoAPI: TodoAPI())
         self.authService = AuthenticationService(authAPI: AuthAPI())
         self.githubService = GitHubService(githubAPI: GitHubAPI())
         self.imageCacheService = ImageCacheService(memoryStorage: MemoryStorage(), diskStorage: DiskStorage())
+        self.memberService = MemberService(memberAPI: MemberAPI())
+        self.friendService = FriendService(friendAPI: FriendAPI())
     }
 }
 
@@ -34,4 +40,6 @@ final class StubService: ServiceType {
     var authService: AuthenticationServiceType = StubAuthenticationService()
     var githubService: GitHubSericeType = StubGitHubService()
     var imageCacheService: ImageCacheServiceType = StubImageCacheService()
+    var memberService: MemberServiceType = StubMemberService()
+    var friendService: FriendServiceType = StubFriendService()
 }

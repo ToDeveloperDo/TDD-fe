@@ -25,6 +25,7 @@ final class TodoAPI {
     
     func getTodoList(request: GetTodoListRequest) -> AnyPublisher<[GetTodoListResponse], Error> {
         return API.session.request(TodoAPITarget.getTodoList(request), interceptor: AuthInterceptor.shared)
+            .validate(statusCode: 200..<300)
             .publishDecodable(type: [GetTodoListResponse].self)
             .value()
             .mapError { $0 }
@@ -33,6 +34,7 @@ final class TodoAPI {
     
     func getTodoCount(request: GetTodoCountRequest) -> AnyPublisher<[GetTodoCountResponse], Error> {
         return API.session.request(TodoAPITarget.getTodoCount(request), interceptor: AuthInterceptor.shared)
+            .validate(statusCode: 200..<300)
             .publishDecodable(type: [GetTodoCountResponse].self)
             .value()
             .mapError { $0 }

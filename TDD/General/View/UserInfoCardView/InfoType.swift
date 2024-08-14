@@ -7,47 +7,47 @@
 
 import Foundation
 
-enum InfoType: String {
-    case following // 친구 상태
-    case follow // 모르는 사람
-    case request // 친구 요청을 보낸 사람
-    case accept // 친구 요청을 받은 사람
+enum InfoType: String, Codable {
+    case FOLLOWING // 친구 상태
+    case NOT_FRIEND // 모르는 사람
+    case REQUEST // 친구 요청을 보낸 사람
+    case RECEIVE // 친구 요청을 받은 사람
     
     var title: String {
         switch self {
-        case .following:
+        case .FOLLOWING:
             return "팔로잉"
-        case .follow:
+        case .NOT_FRIEND:
             return "팔로우"
-        case .request:
+        case .REQUEST:
             return "요청됨"
-        case .accept:
+        case .RECEIVE:
             return "수락하기"
         }
     }
     
     var titleColor: String {
         switch self {
-        case .following:
+        case .FOLLOWING:
             return "mainColor"
-        case .follow:
+        case .NOT_FRIEND:
             return "fixWh"
-        case .request:
+        case .REQUEST:
             return "cardBtnTextGray"
-        case .accept:
+        case .RECEIVE:
             return "fixWh"
         }
     }
     
     var bgColor: String {
         switch self {
-        case .following:
+        case .FOLLOWING:
             return "mainbg"
-        case .follow:
+        case .NOT_FRIEND:
             return "mainColor"
-        case .request:
+        case .REQUEST:
             return "cardBtnGray"
-        case .accept:
+        case .RECEIVE:
             return "mainColor"
         }
     }

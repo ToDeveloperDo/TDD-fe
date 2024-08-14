@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UserInfoView: View {
+    var url: String
     
     var body: some View {
         ZStack {
@@ -17,7 +18,7 @@ struct UserInfoView: View {
             }
             
             HStack {
-                URLImageView(urlString: "")
+                URLImageView(urlString: url)
                     .frame(width: 128, height: 128)
                     .background(Color.shadow)
                     .clipShape(Circle())
@@ -30,5 +31,5 @@ struct UserInfoView: View {
 }
 
 #Preview {
-    UserInfoView()
+    UserInfoView(url: "")
 }

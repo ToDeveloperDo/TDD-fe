@@ -1,5 +1,5 @@
 //
-//  MyInfoBtn.swift
+//  MyProfileBtn.swift
 //  TDD
 //
 //  Created by 최안용 on 8/13/24.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct MyInfoBtn: View {
-    private var type: MyInfoBtnType
+struct MyProfileBtn: View {
+    private var type: MyProfileBtnType
     private var selected: Bool
     private var action: () -> Void
     
-    init(type: MyInfoBtnType, selected: Bool, action: @escaping () -> Void) {
+    init(type: MyProfileBtnType, selected: Bool, action: @escaping () -> Void) {
         self.type = type
         self.selected = selected
         self.action = action
@@ -37,7 +37,7 @@ struct MyInfoBtn: View {
 }
 
 #Preview {
-    MyInfoBtn(type: .friend, selected: false) {
+    MyProfileBtn(type: .friend, selected: false) {
         
     }
 }

@@ -1,5 +1,5 @@
 //
-//  MyInfoBtnType.swift
+//  MyProfileBtnType.swift
 //  TDD
 //
 //  Created by 최안용 on 8/13/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MyInfoBtnType {
+enum MyProfileBtnType {
     case friend
     case request
     case receive
