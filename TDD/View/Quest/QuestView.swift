@@ -30,7 +30,7 @@ struct QuestView: View {
             }
             .background(Color.mainbg)
         }
-        .ignoresSafeArea()
+        .background(Color.mainbg)
         .onAppear {
             viewModel.fetchMembers()
         }
