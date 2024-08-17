@@ -9,17 +9,18 @@ import SwiftUI
 
 struct MyProfileView: View {
     @StateObject var viewModel: MyProfileViewModel
+    @EnvironmentObject private var container: DIContainer
     @State private var isRefreshing = false
     private let columns = Array(repeating: GridItem(.fixed(170)), count: 2)
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $container.navigationRouter.destinations) {
             RefreshableScrollView(isRefreshing: $isRefreshing) {
                 self.refresh()
             } content: {
                 VStack(spacing: 0) {
                     MyProfileCell(viewModel: viewModel)
-                        .padding(.top, 115)
+                        .padding(.top, 116)
                         .background(Color.fixWh)
                     
                     BtnView(viewModel: viewModel)
@@ -29,7 +30,7 @@ struct MyProfileView: View {
                     }
                     .padding(.bottom, 14)
                     .padding(.horizontal, 24)
-                    .background(Color.mainbg)
+                    
                     
                     if viewModel.users.isEmpty {
                         VStack {
@@ -48,11 +49,9 @@ struct MyProfileView: View {
                                 
                             }
                         }
-                        .background(Color.mainbg)
                     }
-                    
-                    
                 }
+                .background(Color.mainbg)
             }
             .ignoresSafeArea()
             .background(Color.white.edgesIgnoringSafeArea(.bottom))
@@ -69,10 +68,12 @@ struct MyProfileView: View {
             .toolbarBackground(Color.fixWh, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             
-           
-
+        }
+        .navigationDestination(for: NavigationDestination.self) {
+            NavigationRoutingView(destination: $0)
         }
     }
+    
     private func refresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.isRefreshing = false
@@ -138,75 +139,15 @@ private struct BtnView: View {
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 12)
-        .background(Color.mainbg)
     }
 }
 
-struct RefreshableScrollView<Content: View>: UIViewRepresentable {
-    let content: Content
-    @Binding var isRefreshing: Bool
-    let onRefresh: () -> Void
+struct MyProfileView_Previews: PreviewProvider {
+    static let container: DIContainer = .init(services: StubService())
+    static let navigationRouter: NavigationRouter = .init()
     
-    init(isRefreshing: Binding<Bool>, onRefresh: @escaping () -> Void, @ViewBuilder content: () -> Content) {
-        self._isRefreshing = isRefreshing
-        self.onRefresh = onRefresh
-        self.content = content()
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    func makeUIView(context: Context) -> UIScrollView {
-        let scrollView = UIScrollView()
-        
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.handleRefreshControl), for: .valueChanged)
-        scrollView.refreshControl = refreshControl
-        
-        let hostingController = UIHostingController(rootView: content)
-        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        scrollView.addSubview(hostingController.view)
-        
-        NSLayoutConstraint.activate([
-            hostingController.view.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            hostingController.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            hostingController.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            hostingController.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.backgroundColor = UIColor(resource: .mainbg)
-        
-        return scrollView
-    }
-    
-    func updateUIView(_ uiView: UIScrollView, context: Context) {
-        if isRefreshing {
-            uiView.refreshControl?.beginRefreshing()
-        } else {
-            uiView.refreshControl?.endRefreshing()
-        }
-    }
-    
-    class Coordinator: NSObject {
-        let parent: RefreshableScrollView
-        
-        init(_ parent: RefreshableScrollView) {
-            self.parent = parent
-        }
-        
-        @objc func handleRefreshControl(sender: UIRefreshControl) {
-            if !parent.isRefreshing {
-                parent.isRefreshing = true
-                parent.onRefresh()
-            }
-        }
-    }
-}
-#Preview {
-    NavigationStack {
-        MyProfileView(viewModel: .init(users: [.stu1, .stu2, .stu3, .stu4], container: .stub))
+    static var previews: some View {
+        MyProfileView(viewModel: .init(container: Self.container))
+            .environmentObject(Self.container)
     }
 }

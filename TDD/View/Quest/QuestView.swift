@@ -9,23 +9,28 @@ import SwiftUI
 
 struct QuestView: View {
     @StateObject var viewModel: QuestViewModel
-    
+    @State var isRefreshing: Bool = false
     var body: some View {
-        ScrollView {
-            SearchBar(text: $viewModel.searchName) {
+        RefreshableScrollView(isRefreshing: $isRefreshing) {
+            isRefreshing = false
+        } content: {
+            VStack(spacing: 0) {
+                SearchBar(text: $viewModel.searchName) {
+                    
+                }
+                .padding(.top, 28)
+                .padding(.horizontal, 24)
                 
+                if viewModel.users.isEmpty {
+                    EmptyView()
+                } else {
+                    MemberCardView(viewModel: viewModel)
+                    
+                }
             }
-            .padding(.top, 28)
-            .padding(.horizontal, 24)
-            
-            if viewModel.users.isEmpty {
-                EmptyView()
-            } else {
-                MemberCardView(viewModel: viewModel)
-            }
+            .background(Color.mainbg)
         }
-        .scrollIndicators(.hidden)
-        .toolbarBackground(.hidden, for: .tabBar)
+        .ignoresSafeArea()
         .onAppear {
             viewModel.fetchMembers()
         }
@@ -62,11 +67,12 @@ private struct EmptyView: View {
             Text("없음")
             Spacer()
         }
+        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestView(viewModel: .init(users: [.stu1, .stu2, .stu3, .stu4],container: .stub))
+        QuestView(viewModel: .init(users: [.stu1, .stu2],container: .stub))
     }
 }

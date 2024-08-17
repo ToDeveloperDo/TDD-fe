@@ -63,6 +63,7 @@ struct CalendarView: View {
         }
         .background(Color.mainbg)
         .ignoresSafeArea(.keyboard)
+        .toolbar(.hidden, for: .navigationBar)
         .sheet(isPresented: $viewModel.isPresent) {
             if let todo = viewModel.detailTodo,
                let date = viewModel.clickedCurrentMonthDates {
@@ -161,7 +162,8 @@ struct CalendarView: View {
                 })
             }
         }
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 24)
+        .padding(.bottom, 48)
     }
 }
 
