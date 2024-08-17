@@ -17,14 +17,14 @@ struct TodoInfoModifier: ViewModifier {
                 Label {
                     Text("\(type.rawValue)")
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(Color.githubText)
+                        .foregroundStyle(Color.serve)
                 } icon: {
                     Image("\(type.imageName)")
                         .resizable()
                         .renderingMode(.template)
                         .scaledToFit()
                         .frame(width: 20)
-                        .foregroundStyle(Color.githubText)
+                        .foregroundStyle(Color.serve)
                 }
                 Spacer()
             }.frame(width: width)

@@ -33,11 +33,8 @@ struct MyProfileView: View {
                     
                     
                     if viewModel.users.isEmpty {
-                        VStack {
-                            Spacer()
-                            Text("없음")
-                            Spacer()
-                        }
+                        EmptyView(viewModel: viewModel)
+                            .padding(.top, 82)
                     } else {
                         LazyVGrid(columns: columns, spacing: 8) {
                             ForEach(viewModel.users) { user in
@@ -139,6 +136,25 @@ private struct BtnView: View {
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 12)
+    }
+}
+
+private struct EmptyView: View {
+    @ObservedObject private var viewModel: MyProfileViewModel
+    
+    init(viewModel: MyProfileViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            Image(viewModel.selectedMode.imageName)
+                    .resizable()
+                    .frame(width: 40, height: 45)
+            Text(viewModel.selectedMode.emptyTitle)
+                    .font(.system(size: 14, weight: .light))
+                    .foregroundStyle(Color.serve)
+        }
     }
 }
 

@@ -27,12 +27,11 @@ private struct TodoEmptyView: View {
             Spacer()
             Image(.icCalendarBack)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 150)
+                .frame(width: 48, height: 53)
                 .padding(.bottom, 20)
-            Text("이 날에는 일정이 없어요")
-                .font(.callout)
-                .foregroundStyle(.text)
+            Text("작성된 일정이 없어요")
+                .font(.system(size: 16, weight: .light))
+                .foregroundStyle(.serve2)
             Spacer()
         }
     }
@@ -116,7 +115,7 @@ struct TodoListView_Previews: PreviewProvider {
     static let container: DIContainer = .init(services: StubService())
     
     static var previews: some View {
-        TodoListView(viewModel: .init(todos: [.stub1, .stub2], todosCount: 2))
+        TodoListView(viewModel: .init(todos: [], todosCount: 2))
             .environmentObject(CalendarViewModel(container: Self.container))
     }
 }

@@ -129,7 +129,7 @@ struct CreateRepoView: View {
                         .foregroundStyle(Color.text)
                     Text("인터넷에 있는 모든 사람이 이 저장소를 볼 수 있습니다.")
                         .font(.system(size: 12, weight: .light))
-                        .foregroundStyle(Color.githubText)
+                        .foregroundStyle(Color.serve)
                 }
             }
             .padding(.bottom, 14)
@@ -183,7 +183,7 @@ struct CreateRepoView: View {
                 .padding(.horizontal, 82.5)
                 .background {
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundStyle(!viewModel.name.isEmpty ? Color.text : Color.githubText)
+                        .foregroundStyle(!viewModel.name.isEmpty ? Color.text : Color.serve)
                 }
             })
             .disabled(viewModel.name.isEmpty)

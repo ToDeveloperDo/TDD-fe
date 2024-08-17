@@ -103,7 +103,7 @@ final class StubFriendService: FriendServiceType {
     }
     
     func fetchSendList() -> AnyPublisher<[UserInfo], ServiceError> {
-        Just([.stu1, .stu2, .stu3, .stu4]).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
+        Just([]).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     
     func fetchReceiveList() -> AnyPublisher<[UserInfo], ServiceError> {

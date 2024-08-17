@@ -63,7 +63,7 @@ private struct HeaderView: View {
             Button(action: {
                 todoDetailViewModel.isPresent = true
             }, label: {
-                Image(.icEdit)
+                Image(.editBtn)
                     .resizable()
                     .frame(width: 25, height: 25)
                 

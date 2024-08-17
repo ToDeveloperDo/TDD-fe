@@ -80,7 +80,7 @@ struct CalendarView: View {
                     Button(action: {
                         viewModel.selection -= 1
                     }, label: {
-                        Image(systemName: "chevron.left")
+                        Image(.previousBtn)
                     })
                     Text(date.format("YYYY년 MM월"))
                         .font(.system(size: 18, weight: .bold))
@@ -88,7 +88,7 @@ struct CalendarView: View {
                     Button(action: {
                         viewModel.selection += 1
                     }, label: {
-                        Image(systemName: "chevron.right")
+                        Image(.nextBtn)
                     })
                 }
             }
@@ -155,10 +155,9 @@ struct CalendarView: View {
                 Button(action: {
                     viewModel.showTextField = true                    
                 }, label: {
-                    Image(systemName: "plus.circle.fill")
+                    Image(.plusBtn)
                         .resizable()
-                        .frame(width: 50, height: 50)
-                        .foregroundStyle(.blue)
+                        .frame(width: 48, height: 48)
                 })
             }
         }

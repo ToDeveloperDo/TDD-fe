@@ -46,7 +46,7 @@ enum InfoType: String, Codable {
         case .NOT_FRIEND:
             return "mainColor"
         case .REQUEST:
-            return "cardBtnGray"
+            return "serve2"
         case .RECEIVE:
             return "mainColor"
         }
