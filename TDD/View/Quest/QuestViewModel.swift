@@ -54,4 +54,7 @@ extension QuestViewModel {
             }.store(in: &subscriptions)
 
     }
+     func clickedUserCell(_ user: UserInfo) {
+        container.navigationRouter.push(to: .userDetail(user: user))
+    }
 }

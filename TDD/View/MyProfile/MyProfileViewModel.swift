@@ -13,6 +13,9 @@ final class MyProfileViewModel: ObservableObject {
     @Published var myInfo: MyInfo?
     @Published var users: [UserInfo]
     @Published var selectedMode: MyProfileBtnType = .friend 
+    @Published var isPresentGit: Bool = false
+    
+     var clickedGitUrl: String = ""
     
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()

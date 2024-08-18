@@ -12,47 +12,43 @@ struct UserDetailView: View {
     @ObservedObject var viewModel: UserDetailViewModel
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                userInfoCell
-                    .padding(.bottom, 36)
-            
-                if viewModel.user.status == .FOLLOWING {
-                    if viewModel.userTodoList.isEmpty {
-                        EmptyView()
-                            .padding(.top, 24)
-                    } else {
-                        FriendTodoListView(friendTodoList: viewModel.userTodoList)
-                    }
-                } else {
-                    HiddenView()
-                        .padding(.top, 24)
+        VStack(spacing: 0) {
+            HStack {
+                Button(action: {
+                    viewModel.send(action: .pop)
+                }, label: {
+                    Image(.backBtn)
+                })
+                Spacer()
+                ToolbarBtn(infoType: viewModel.user.status) {
+                    
                 }
             }
-            .navigationBarBackButtonHidden()
-            .toolbar(.hidden, for: .tabBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            .toolbarBackground(Color.fixWh, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack(spacing: 0) {
-                        ToolbarBtn(infoType: viewModel.user.status) {
-                            
+            .padding(.horizontal, 24)
+            .padding(.bottom, 5)
+            .background(Color.fixWh)
+            ScrollView {
+                VStack(spacing: 0) {
+                    userInfoCell
+                        .padding(.bottom, 36)
+                    
+                    if viewModel.user.status == .FOLLOWING {
+                        if viewModel.userTodoList.isEmpty {
+                            EmptyView()
+                                .padding(.top, 100)
+                        } else {
+                            FriendTodoListView(friendTodoList: viewModel.userTodoList)
                         }
-                    }.padding(.horizontal, 8)
-                }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        viewModel.send(action: .pop)
-                    }, label: {
-                        Image(.backBtn)
-                    })
+                    } else {
+                        HiddenView()
+                            .padding(.top, 24)
+                    }
                 }
             }
+            .scrollDisabled(!(viewModel.user.status == .FOLLOWING))
         }
-        .scrollDisabled(!(viewModel.user.status == .FOLLOWING))
         .background(Color.mainbg)
+        .navigationBarBackButtonHidden()
     }
     
     private var userInfoCell: some View {

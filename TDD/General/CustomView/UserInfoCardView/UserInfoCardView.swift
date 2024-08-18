@@ -56,7 +56,7 @@ struct UserInfoCardView: View {
                     }
                 
             })
-            .disabled(user.status == .FOLLOWING || user.status == .REQUEST)
+            .disabled(user.status == .REQUEST)
             .padding(.bottom, 21)
         }
         .frame(width: 168, height: 213)

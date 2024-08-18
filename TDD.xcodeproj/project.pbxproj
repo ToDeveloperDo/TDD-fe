@@ -100,6 +100,7 @@
 		ADAAF2CE2C5E6F5A00C292CA /* TodoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2CD2C5E6F5A00C292CA /* TodoDetailViewModel.swift */; };
 		ADAAF2D02C5F786800C292CA /* TodoInfoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */; };
 		ADAAF2D22C5F796200C292CA /* TodoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2D12C5F796200C292CA /* TodoInfo.swift */; };
+		ADAE4BA52C71E44A0046FF88 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BA42C71E44A0046FF88 /* UINavigationController+Extension.swift */; };
 		ADE2C2902C6768C3002BF3A6 /* UserInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */; };
 		ADE2C2932C679DA1002BF3A6 /* InfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C2922C679DA1002BF3A6 /* InfoType.swift */; };
 		ADE2C2952C67A14A002BF3A6 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */; };
@@ -221,6 +222,7 @@
 		ADAAF2CD2C5E6F5A00C292CA /* TodoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewModel.swift; sourceTree = "<group>"; };
 		ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInfoModifier.swift; sourceTree = "<group>"; };
 		ADAAF2D12C5F796200C292CA /* TodoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInfo.swift; sourceTree = "<group>"; };
+		ADAE4BA42C71E44A0046FF88 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCardView.swift; sourceTree = "<group>"; };
 		ADE2C2922C679DA1002BF3A6 /* InfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoType.swift; sourceTree = "<group>"; };
 		ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 			children = (
 				AD10DBCD2C40CA0E00785252 /* Date+Extension.swift */,
 				AD1F5ED42C71CD0600CBCACE /* View+Extension.swift */,
+				ADAE4BA42C71E44A0046FF88 /* UINavigationController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -853,6 +856,7 @@
 				ADAA4FF02C58EB3900EF30E0 /* TodoInputView.swift in Sources */,
 				AD42969D2C6C923B0016A57A /* MemberAPI.swift in Sources */,
 				AD4296892C6B42FA0016A57A /* MyProfileBtn.swift in Sources */,
+				ADAE4BA52C71E44A0046FF88 /* UINavigationController+Extension.swift in Sources */,
 				AD4296A62C6C96450016A57A /* FriendService.swift in Sources */,
 				ADF2AB7D2C3E994900B5AD60 /* LoginView.swift in Sources */,
 				AD10DBC32C401F7A00785252 /* MainTabType.swift in Sources */,

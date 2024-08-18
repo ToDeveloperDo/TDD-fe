@@ -45,11 +45,16 @@ struct MainTabView: View {
 
 extension MainTabView {
     var loadedView: some View {
-        ZStack(alignment: .bottom) {
-            tabView.zIndex(0)
-            bottomTabs.zIndex(1)
+        NavigationStack(path: $container.navigationRouter.destinations) {
+            ZStack(alignment: .bottom) {
+                tabView.zIndex(0)
+                bottomTabs.zIndex(1)
+            }
+            .ignoresSafeArea()
+            .navigationDestination(for: NavigationDestination.self) {
+                NavigationRoutingView(destination: $0)
+            }
         }
-        .ignoresSafeArea()
     }
     
     var tabView: some View {

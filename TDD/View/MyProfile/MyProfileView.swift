@@ -14,7 +14,18 @@ struct MyProfileView: View {
     private let columns = Array(repeating: GridItem(.fixed(170)), count: 2)
     
     var body: some View {
-        NavigationStack(path: $container.navigationRouter.destinations) {
+        VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                Button(action: {
+                    
+                }, label: {
+                    Image(.settingIcon)
+                })
+            }
+            .padding(.horizontal, 24)
+            .background(Color.fixWh)
+            
             RefreshableScrollView(isRefreshing: $isRefreshing) {
                 self.refresh()
             } content: {
@@ -39,7 +50,7 @@ struct MyProfileView: View {
                         LazyVGrid(columns: columns, spacing: 8) {
                             ForEach(viewModel.users) { user in
                                 UserInfoCardView(user: user) {
-                                    viewModel.accept(id: user.userId) // State 값 주기
+                                    
                                 }
                                 .onTapGesture {
                                     viewModel.send(action: .clickedUserCell(user: user))
@@ -50,23 +61,10 @@ struct MyProfileView: View {
                 }
                 .background(Color.mainbg)
             }
-            .ignoresSafeArea()
-            .background(Color.white.edgesIgnoringSafeArea(.bottom))
-            .toolbar {
-                ToolbarItem {
-                    Button(action: {
-                        // TODO: -
-                    }, label: {
-                        Image(.settingIcon)
-                    })
-                }
-            }
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            .toolbarBackground(Color.fixWh, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .navigationDestination(for: NavigationDestination.self) {
-                NavigationRoutingView(destination: $0)
-            }
+        }
+        .sheet(isPresented: $viewModel.isPresentGit) {
+            MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
+                .ignoresSafeArea()
         }
     }
     
@@ -94,7 +92,8 @@ private struct MyProfileCell: View {
                 .padding(.bottom, 8)
                 .padding(.horizontal, 24)
             Button(action: {
-                
+                viewModel.clickedGitUrl = viewModel.myInfo?.gitUrl ?? ""
+                viewModel.isPresentGit = true
             }, label: {
                 Text("\(viewModel.myInfo?.gitUrl ?? "url")")
                     .font(.system(size: 14, weight: .light))

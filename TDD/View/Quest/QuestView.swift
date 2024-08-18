@@ -51,6 +51,9 @@ private struct MemberCardView: View {
                 UserInfoCardView(user: user) {
                     viewModel.accept(id: user.userId)
                 }
+                .onTapGesture {
+                    viewModel.clickedUserCell(user)
+                }
             }
         })
         .padding(.top, 34)
