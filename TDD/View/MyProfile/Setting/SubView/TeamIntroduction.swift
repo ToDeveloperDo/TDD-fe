@@ -42,11 +42,12 @@ struct TeamIntroduction: View {
                        role: "PD")
             Spacer()
         }
+        .foregroundStyle(Color.fixBk)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    container.navigationRouter.pop()
+                    container.navigationRouter.pop(on: .myProfile)
                 } label: {
                     Image(.backBtn)
                 }
@@ -54,7 +55,6 @@ struct TeamIntroduction: View {
         }
         .padding(.leading, 24)
         .background(Color.mainbg)
-        
     }
 }
 

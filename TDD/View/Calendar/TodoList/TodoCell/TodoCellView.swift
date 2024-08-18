@@ -33,7 +33,7 @@ struct TodoCellView: View {
             
             Text("\(todo.content)")
                 .font(.system(size: 12, weight: .light))
-                .foregroundStyle(.text)
+                .foregroundStyle(.fixBk)
             Spacer()
             Button(action: {
                 calendarViewModel.send(action: .clickDetailBtn(todo))

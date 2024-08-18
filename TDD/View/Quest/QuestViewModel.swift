@@ -55,6 +55,6 @@ extension QuestViewModel {
 
     }
      func clickedUserCell(_ user: UserInfo) {
-        container.navigationRouter.push(to: .userDetail(user: user))
+         container.navigationRouter.push(to: .userDetail(user: user, parent: .quest), on: .quest)
     }
 }

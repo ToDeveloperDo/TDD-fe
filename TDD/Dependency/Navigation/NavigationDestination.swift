@@ -8,7 +8,7 @@
 import Foundation
 
 enum NavigationDestination: Hashable {
-    case userDetail(user: UserInfo)
+    case userDetail(user: UserInfo, parent: NavigationRouterType)
     case setting
     case teamIntroduction
 }

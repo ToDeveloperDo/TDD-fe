@@ -8,31 +8,43 @@
 import SwiftUI
 
 struct QuestView: View {
+    @EnvironmentObject private var container: DIContainer
     @StateObject var viewModel: QuestViewModel
     @State var isRefreshing: Bool = false
+    
     var body: some View {
-        RefreshableScrollView(isRefreshing: $isRefreshing) {
-            isRefreshing = false
-        } content: {
-            VStack(spacing: 0) {
-                SearchBar(text: $viewModel.searchName) {
+        NavigationStack(path: $container.navigationRouter.questDestinations) {
+            RefreshableScrollView(isRefreshing: $isRefreshing) {
+                refresh()
+            } content: {
+                VStack(spacing: 0) {
+                    SearchBar(text: $viewModel.searchName) {
+                        
+                    }
+                    .padding(.top, 28)
+                    .padding(.horizontal, 24)
                     
+                    if viewModel.users.isEmpty {
+                        EmptyView()
+                    } else {
+                        MemberCardView(viewModel: viewModel)
+                        
+                    }
                 }
-                .padding(.top, 28)
-                .padding(.horizontal, 24)
-                
-                if viewModel.users.isEmpty {
-                    EmptyView()
-                } else {
-                    MemberCardView(viewModel: viewModel)
-                    
-                }
+                .background(Color.mainbg)
             }
             .background(Color.mainbg)
+            .onAppear {
+                viewModel.fetchMembers()
+            }
+            .navigationDestination(for: NavigationDestination.self) {
+                NavigationRoutingView(destination: $0)
+            }
         }
-        .background(Color.mainbg)
-        .onAppear {
-            viewModel.fetchMembers()
+    }
+    private func refresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.isRefreshing = false
         }
     }
 }
@@ -74,5 +86,6 @@ private struct EmptyView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         QuestView(viewModel: .init(users: [.stu1, .stu2],container: .stub))
+        
     }
 }

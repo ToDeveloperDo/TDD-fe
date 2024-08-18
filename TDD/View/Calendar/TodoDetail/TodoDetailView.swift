@@ -110,7 +110,7 @@ private struct TodoInfoView: View {
                 })
                 Text("\(todoDetailViewModel.todo.status == .PROCEED ? "진행중" : "완료")")
                     .font(.callout)
-                    .foregroundStyle(.text)
+                    .foregroundStyle(.fixBk)
                 
             }
             .modifier(TodoInfoModifier(type: .isDone, width: screenWidth))

@@ -43,7 +43,7 @@ final class MyProfileViewModel: ObservableObject {
         case .clickedUserCell(let user):
             clickedUserCell(user)
         case .clickedSetting:
-            container.navigationRouter.push(to: .setting)
+            container.navigationRouter.push(to: .setting, on: .myProfile)
         }
     }
     
@@ -51,7 +51,7 @@ final class MyProfileViewModel: ObservableObject {
 
 extension MyProfileViewModel {
     private func clickedUserCell(_ user: UserInfo) {
-        container.navigationRouter.push(to: .userDetail(user: user))
+        container.navigationRouter.push(to: .userDetail(user: user, parent: .myProfile), on: .myProfile)
     }
     
     private func fetchMyInfo() {

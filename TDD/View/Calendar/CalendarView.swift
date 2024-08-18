@@ -84,7 +84,7 @@ struct CalendarView: View {
                     })
                     Text(date.format("YYYY년 MM월"))
                         .font(.system(size: 18, weight: .bold))
-                        .foregroundStyle(Color.text)
+                        .foregroundStyle(Color.fixBk)
                     Button(action: {
                         viewModel.selection += 1
                     }, label: {

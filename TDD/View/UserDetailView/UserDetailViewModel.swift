@@ -10,11 +10,13 @@ import Foundation
 final class UserDetailViewModel: ObservableObject {
     @Published var userTodoList: [FriendTodoList]
     var user: UserInfo
+    var parent: NavigationRouterType
     private var container: DIContainer
     
-    init(userTodoList: [FriendTodoList] = [], user: UserInfo, container: DIContainer) {
+    init(userTodoList: [FriendTodoList] = [], user: UserInfo, parent: NavigationRouterType, container: DIContainer) {
         self.userTodoList = userTodoList
         self.user = user
+        self.parent = parent
         self.container = container
     }
     
@@ -25,7 +27,7 @@ final class UserDetailViewModel: ObservableObject {
     func send(action: Action) {
         switch action {
         case .pop:
-            container.navigationRouter.pop()
+            container.navigationRouter.pop(on: parent)
         }
     }
 }

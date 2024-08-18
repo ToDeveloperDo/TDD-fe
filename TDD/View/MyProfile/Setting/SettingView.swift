@@ -16,6 +16,7 @@ struct SettingView: View {
                 
             }
             .padding(.bottom, 4)
+            .padding(.top, 165)
             
             SettingCellView(title: "문의하기") {
                 
@@ -23,7 +24,7 @@ struct SettingView: View {
             .padding(.bottom, 4)
             
             SettingCellView(title: "팀 소개") {
-                container.navigationRouter.push(to: .teamIntroduction)
+                container.navigationRouter.push(to: .teamIntroduction, on: .myProfile)
             }
             .padding(.bottom, 4)
             
@@ -40,10 +41,15 @@ struct SettingView: View {
             }
             Spacer()
         }
+        .ignoresSafeArea()
+        
+        .padding(.horizontal, 24)
+ 
+        .background(Color.mainbg)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    container.navigationRouter.pop()
+                    container.navigationRouter.pop(on: .myProfile)
                 } label: {
                     Image(.backBtn)
                 }
@@ -56,9 +62,8 @@ struct SettingView: View {
                     .foregroundStyle(Color.fixBk)
             }
         }
+        
         .navigationBarBackButtonHidden()
-        .padding(.top, 48)
-        .padding(.horizontal, 24)
         
     }
 }

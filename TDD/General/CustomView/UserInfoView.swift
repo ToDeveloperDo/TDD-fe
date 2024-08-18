@@ -11,10 +11,11 @@ struct UserInfoView: View {
     var url: String
     
     var body: some View {
-        ZStack {
-            VStack {
-                Color.fixWh
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                Image(.profileBg)
                 Color.mainbg
+                    .frame(height: 65)
             }
             
             HStack {
@@ -24,7 +25,7 @@ struct UserInfoView: View {
                     .clipShape(Circle())
                 Spacer()
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 20)            
         }
         .ignoresSafeArea()
     }

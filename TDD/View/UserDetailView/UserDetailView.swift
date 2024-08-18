@@ -13,20 +13,6 @@ struct UserDetailView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                Button(action: {
-                    viewModel.send(action: .pop)
-                }, label: {
-                    Image(.backBtn)
-                })
-                Spacer()
-                ToolbarBtn(infoType: viewModel.user.status) {
-                    
-                }
-            }
-            .padding(.horizontal, 24)
-            .padding(.bottom, 5)
-            .background(Color.fixWh)
             ScrollView {
                 VStack(spacing: 0) {
                     userInfoCell
@@ -45,21 +31,37 @@ struct UserDetailView: View {
                     }
                 }
             }
+            .background(Color.mainbg)
             .scrollDisabled(!(viewModel.user.status == .FOLLOWING))
         }
-        .background(Color.mainbg)
+        .ignoresSafeArea()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+                    viewModel.send(action: .pop)
+                }, label: {
+                    Image(.backBtn)
+                })
+                
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                ToolbarBtn(infoType: viewModel.user.status) {
+                    
+                }
+            }
+        }
+        .toolbarBackground(.hidden, for: .navigationBar)
         .navigationBarBackButtonHidden()
     }
     
     private var userInfoCell: some View {
         VStack(alignment: .leading, spacing: 0) {
             UserInfoView(url: viewModel.user.profileUrl)
-                .padding(.top, 120)
-                .background(Color.fixWh)
                 .padding(.bottom, 28)
             Text("\(viewModel.user.userName)")
                 .font(.system(size: 28, weight: .semibold))
-                .foregroundStyle(Color.text)
+                .foregroundStyle(Color.fixBk)
                 .padding(.bottom, 8)
                 .padding(.horizontal, 24)
             Button(action: {
@@ -67,7 +69,7 @@ struct UserDetailView: View {
             }, label: {
                 Text("\(viewModel.user.gitUrl)")
                     .font(.system(size: 14, weight: .light))
-                    .tint(Color.text)
+                    .tint(Color.fixBk)
             })
             .padding(.horizontal, 24)
         }
@@ -77,7 +79,6 @@ struct UserDetailView: View {
 private struct HiddenView: View {
     var body: some View {
         VStack {
-            
             Image(.hiddenTodo)
         }
     }
@@ -161,6 +162,6 @@ private struct FriendTodoCellView: View {
 
 #Preview {
     NavigationStack {
-        UserDetailView(viewModel: .init(user: .stu3, container: .stub))
+        UserDetailView(viewModel: .init(user: .stu3, parent: .quest, container: .stub))
     }
 }

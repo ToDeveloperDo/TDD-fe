@@ -14,57 +14,63 @@ struct MyProfileView: View {
     private let columns = Array(repeating: GridItem(.fixed(170)), count: 2)
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Spacer()
-                Button(action: {
-                    viewModel.send(action: .clickedSetting)
-                }, label: {
-                    Image(.settingIcon)
-                })
-            }
-            .padding(.horizontal, 24)
-            .background(Color.fixWh)
-            
-            RefreshableScrollView(isRefreshing: $isRefreshing) {
-                self.refresh()
-            } content: {
-                VStack(spacing: 0) {
-                    MyProfileCell(viewModel: viewModel)
-                        .padding(.top, 116)
-                        .background(Color.fixWh)
-                    
-                    BtnView(viewModel: viewModel)
-                    
-                    SearchBar(text: $viewModel.searchName) {
+        NavigationStack(path: $container.navigationRouter.myProfileDestinations) {
+            VStack(spacing: 0) {
+                RefreshableScrollView(isRefreshing: $isRefreshing) {
+                    self.refresh()
+                } content: {
+                    VStack(spacing: 0) {
+                        MyProfileCell(viewModel: viewModel)
                         
-                    }
-                    .padding(.bottom, 14)
-                    .padding(.horizontal, 24)
-                    
-                    
-                    if viewModel.users.isEmpty {
-                        EmptyView(viewModel: viewModel)
-                            .padding(.top, 82)
-                    } else {
-                        LazyVGrid(columns: columns, spacing: 8) {
-                            ForEach(viewModel.users) { user in
-                                UserInfoCardView(user: user) {
-                                    
-                                }
-                                .onTapGesture {
-                                    viewModel.send(action: .clickedUserCell(user: user))
+                        BtnView(viewModel: viewModel)
+                        
+                        SearchBar(text: $viewModel.searchName) {
+                            
+                        }
+                        .padding(.bottom, 14)
+                        .padding(.horizontal, 24)
+                        
+                        
+                        if viewModel.users.isEmpty {
+                            EmptyView(viewModel: viewModel)
+                                .padding(.top, 82)
+                        } else {
+                            LazyVGrid(columns: columns, spacing: 8) {
+                                ForEach(viewModel.users) { user in
+                                    UserInfoCardView(user: user) {
+                                        
+                                    }
+                                    .onTapGesture {
+                                        viewModel.send(action: .clickedUserCell(user: user))
+                                    }
                                 }
                             }
                         }
                     }
+                    
                 }
-                .background(Color.mainbg)
             }
-        }
-        .sheet(isPresented: $viewModel.isPresentGit) {
-            MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
-                .ignoresSafeArea()
+            .ignoresSafeArea()
+            .background(Color.mainbg)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        viewModel.send(action: .clickedSetting)
+                    }, label: {
+                        Image(.settingIcon)
+                    })
+                    
+                }
+            }
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .navigationBarBackButtonHidden()
+            .navigationDestination(for: NavigationDestination.self) {
+                NavigationRoutingView(destination: $0)
+            }
+            .sheet(isPresented: $viewModel.isPresentGit) {
+                MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
+                    .ignoresSafeArea()
+            }
         }
     }
     
@@ -88,7 +94,7 @@ private struct MyProfileCell: View {
                 .padding(.bottom, 28)
             Text("\(viewModel.myInfo?.name ?? "이름")")
                 .font(.system(size: 28, weight: .semibold))
-                .foregroundStyle(Color.text)
+                .foregroundStyle(Color.fixBk)
                 .padding(.bottom, 8)
                 .padding(.horizontal, 24)
             Button(action: {
@@ -97,7 +103,7 @@ private struct MyProfileCell: View {
             }, label: {
                 Text("\(viewModel.myInfo?.gitUrl ?? "url")")
                     .font(.system(size: 14, weight: .light))
-                    .tint(Color.text)
+                    .tint(Color.fixBk)
             })
             .padding(.horizontal, 24)
         }

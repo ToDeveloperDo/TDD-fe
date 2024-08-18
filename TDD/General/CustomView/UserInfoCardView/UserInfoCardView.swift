@@ -31,7 +31,7 @@ struct UserInfoCardView: View {
             
             Text("\(user.userName)")
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundStyle(Color.text)
+                .foregroundStyle(Color.fixBk)
                 .padding(.bottom, 4)
             
             Button(action: {
@@ -39,7 +39,7 @@ struct UserInfoCardView: View {
             }, label: {
                 Text("\(user.gitUrl)")
                     .font(.system(size: 8, weight: .light))
-            }).tint(Color.text)
+            }).tint(Color.fixBk)
                 .padding(.bottom, 12)
             
             Button(action: {

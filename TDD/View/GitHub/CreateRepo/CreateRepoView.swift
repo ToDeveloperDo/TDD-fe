@@ -60,7 +60,7 @@ struct CreateRepoView: View {
     private var headerView: some View {
         Text("새로운 저장소를 생성하세요")
             .font(.system(size: 28, weight: .bold))
-            .foregroundStyle(Color.text)
+            .foregroundStyle(Color.fixBk)
             .padding(.horizontal, 23)
             .padding(.vertical, 58)
     }
@@ -70,7 +70,7 @@ struct CreateRepoView: View {
             HStack(spacing: 1) {
                 Text("Repository Name")
                     .font(.system(size: 18, weight: .regular))
-                    .foregroundStyle(Color.text)
+                    .foregroundStyle(Color.fixBk)
                 
                 Text("*")
                     .font(.system(size: 18, weight: .regular))
@@ -93,7 +93,7 @@ struct CreateRepoView: View {
             
             Text("Description")
                 .font(.system(size: 18, weight: .regular))
-                .foregroundStyle(Color.text)
+                .foregroundStyle(Color.fixBk)
                 .padding(.bottom, 4)
             
             TextField("텍스트 입력", text: $viewModel.description)
@@ -126,7 +126,7 @@ struct CreateRepoView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Public")
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(Color.text)
+                        .foregroundStyle(Color.fixBk)
                     Text("인터넷에 있는 모든 사람이 이 저장소를 볼 수 있습니다.")
                         .font(.system(size: 12, weight: .light))
                         .foregroundStyle(Color.serve)
@@ -172,18 +172,18 @@ struct CreateRepoView: View {
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 20, height: 20)
-                        .foregroundStyle(Color.reverseText)
+                        .foregroundStyle(Color.fixWh)
                         .padding(.trailing, 16)
                     Text("Repository 생성")
                         .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(Color.reverseText)
+                        .foregroundStyle(Color.fixWh)
                     
                 }
                 .padding(.vertical, 14)
                 .padding(.horizontal, 82.5)
                 .background {
                     RoundedRectangle(cornerRadius: 12)
-                        .foregroundStyle(!viewModel.name.isEmpty ? Color.text : Color.serve)
+                        .foregroundStyle(!viewModel.name.isEmpty ? Color.fixBk : Color.serve)
                 }
             })
             .disabled(viewModel.name.isEmpty)

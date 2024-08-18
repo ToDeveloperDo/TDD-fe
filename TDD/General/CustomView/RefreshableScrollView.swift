@@ -7,75 +7,65 @@
 
 import SwiftUI
 
-struct RefreshableScrollView<Content: View>: UIViewRepresentable {
-    private var content: Content
+struct RefreshableScrollView<Content: View>: View {
     @Binding var isRefreshing: Bool
     let onRefresh: () -> Void
+    let content: () -> Content
     
-    init(isRefreshing: Binding<Bool>, onRefresh: @escaping () -> Void, @ViewBuilder content: () -> Content) {
+    init(isRefreshing: Binding<Bool>, onRefresh: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
         self._isRefreshing = isRefreshing
         self.onRefresh = onRefresh
-        self.content = content()
+        self.content = content
     }
     
-    func makeUIView(context: Context) -> UIScrollView {
-        let scrollView = UIScrollView()
-        scrollView.delegate = context.coordinator
-        
-        // UIRefreshControl 설정
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.handleRefreshControl), for: .valueChanged)
-        scrollView.refreshControl = refreshControl
-        
-        // UIHostingController 설정
-        let hostingController = context.coordinator.hostingController
-        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        // hostingController의 뷰를 scrollView에 추가
-        scrollView.addSubview(hostingController.view)
-        
-        // 레이아웃 제약 설정
-        NSLayoutConstraint.activate([
-            hostingController.view.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            hostingController.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            hostingController.view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            hostingController.view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            hostingController.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
-        
-        // 스크롤 뷰 설정
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.backgroundColor = UIColor(named: "mainbg")
-        
-        return scrollView
+    var body: some View {
+        ScrollView {
+            ZStack(alignment: .top) {
+                // Pull to refresh
+                RefreshControl(isRefreshing: $isRefreshing, onRefresh: onRefresh)
+                
+                // Content
+                content()
+            }
+        }
     }
+}
+
+struct RefreshControl: UIViewRepresentable {
+    @Binding var isRefreshing: Bool
+    let onRefresh: () -> Void
     
     func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)
     }
     
-    func updateUIView(_ uiView: UIScrollView, context: Context) {
-        // RefreshControl 상태 업데이트
-        if isRefreshing {
-            uiView.refreshControl?.beginRefreshing()
-        } else {
-            uiView.refreshControl?.endRefreshing()
+    func makeUIView(context: Context) -> some UIView {
+        let view = UIView(frame: .zero)
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.handleRefreshControl), for: .valueChanged)
+        context.coordinator.refreshControl = refreshControl
+        
+        DispatchQueue.main.async {
+            view.addSubview(refreshControl)
         }
         
-        // hostingController의 콘텐츠 업데이트
-        context.coordinator.hostingController.rootView = content
-        
-        // 레이아웃 제약 조건 업데이트
-        context.coordinator.hostingController.view.setNeedsUpdateConstraints()
+        return view
     }
     
-    class Coordinator: NSObject, UIScrollViewDelegate {
-        let parent: RefreshableScrollView
-        var hostingController: UIHostingController<Content>
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+        if isRefreshing {
+            context.coordinator.refreshControl?.beginRefreshing()
+        } else {
+            context.coordinator.refreshControl?.endRefreshing()
+        }
+    }
+    
+    class Coordinator: NSObject {
+        var parent: RefreshControl
+        var refreshControl: UIRefreshControl?
         
-        init(parent: RefreshableScrollView) {
+        init(parent: RefreshControl) {
             self.parent = parent
-            self.hostingController = UIHostingController(rootView: parent.content)
         }
         
         @objc func handleRefreshControl(sender: UIRefreshControl) {

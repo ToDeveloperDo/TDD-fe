@@ -21,17 +21,17 @@ struct LinkGitHubView: View {
                         .resizable()
                         .renderingMode(.template)
                         .frame(width: 30, height: 30)
-                        .tint(Color.reverseText)
+                        .tint(Color.fixWh)
                     
                     Text("GitHub 연동하기")
                         .font(.headline)
-                        .foregroundStyle(Color.reverseText)
+                        .foregroundStyle(Color.fixWh)
                 }
             })
             .frame(maxWidth: .infinity, maxHeight: 50)            
             .background {
                 RoundedRectangle(cornerRadius: 5)
-                    .fill(Color.text)
+                    .fill(Color.fixBk)
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
             .padding(.horizontal, 30)

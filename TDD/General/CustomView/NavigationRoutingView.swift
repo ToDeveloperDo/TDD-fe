@@ -13,8 +13,8 @@ struct NavigationRoutingView: View {
     
     var body: some View {
         switch destination {
-        case let .userDetail(user):
-            UserDetailView(viewModel: .init(user: user, container: container))
+        case let .userDetail(user, parent):
+            UserDetailView(viewModel: .init(user: user, parent: parent, container: container))
         case .setting: SettingView()
         case .teamIntroduction: TeamIntroduction()
         }

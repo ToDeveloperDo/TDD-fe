@@ -52,10 +52,11 @@ private struct TodoListBodyView: View {
                     VStack(alignment: .leading) {
                         Text("진행중")
                             .font(.system(size: 14, weight: .medium))
-                            .foregroundStyle(.text)
+                            .foregroundStyle(.fixBk)
                         Rectangle().frame(height: 1)
                             .foregroundStyle(.linegray)
                     }
+                    .listRowBackground(Color.fixWh)
                     
                     ForEach(viewModel.todos.filter( { $0.status == .PROCEED })) { todo in
                         TodoCellView(todo: todo)
@@ -71,7 +72,9 @@ private struct TodoListBodyView: View {
                     .onDelete(perform: { indexSet in
                         calendarViewModel.send(action: .slideDeleteTodo(indexSet))
                     })
+                    .listRowBackground(Color.fixWh)
                 }
+                
                 .listRowSeparator(.hidden)
             }
             
@@ -80,10 +83,11 @@ private struct TodoListBodyView: View {
                     VStack(alignment: .leading) {
                         Text("완료 ✅")
                             .font(.system(size: 14, weight: .medium))
-                            .foregroundStyle(.text)
+                            .foregroundStyle(.fixBk)
                         Rectangle().frame(height: 1)
                             .foregroundStyle(.linegray)
                     }
+                    .listRowBackground(Color.fixWh)
                     ForEach(viewModel.todos.filter( { $0.status == .DONE })) { todo in
                         TodoCellView(todo: todo)
                             .swipeActions(edge: .leading, allowsFullSwipe: true) {
@@ -98,13 +102,13 @@ private struct TodoListBodyView: View {
                     .onDelete(perform: { indexSet in
                         calendarViewModel.send(action: .slideDeleteTodo(indexSet))
                     })
+                    .listRowBackground(Color.fixWh)
                 }
                 .listRowSeparator(.hidden)
             }
         }
         .contentMargins(.top, 0)
         .listSectionSpacing(16)
-        .listRowBackground(Color.fixWh)
         .background(Color.mainbg)
         .scrollContentBackground(.hidden)
         .animation(.linear, value: viewModel.todos)
@@ -115,7 +119,7 @@ struct TodoListView_Previews: PreviewProvider {
     static let container: DIContainer = .init(services: StubService())
     
     static var previews: some View {
-        TodoListView(viewModel: .init(todos: [], todosCount: 2))
+        TodoListView(viewModel: .init(todos: [.stub1], todosCount: 2))
             .environmentObject(CalendarViewModel(container: Self.container))
     }
 }
