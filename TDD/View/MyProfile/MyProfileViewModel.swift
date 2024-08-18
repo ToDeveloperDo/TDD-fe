@@ -23,6 +23,7 @@ final class MyProfileViewModel: ObservableObject {
     enum Action {
         case clickedBtn(mode: MyProfileBtnType)
         case clickedUserCell(user: UserInfo)
+        case clickedSetting
     }
     
     init(searchName: String = "",
@@ -41,6 +42,8 @@ final class MyProfileViewModel: ObservableObject {
             clickedBtn(mode)
         case .clickedUserCell(let user):
             clickedUserCell(user)
+        case .clickedSetting:
+            container.navigationRouter.push(to: .setting)
         }
     }
     

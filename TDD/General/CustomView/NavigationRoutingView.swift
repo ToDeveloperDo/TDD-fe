@@ -15,7 +15,8 @@ struct NavigationRoutingView: View {
         switch destination {
         case let .userDetail(user):
             UserDetailView(viewModel: .init(user: user, container: container))
-        case .setting: Text("dk")
+        case .setting: SettingView()
+        case .teamIntroduction: TeamIntroduction()
         }
     }
 }

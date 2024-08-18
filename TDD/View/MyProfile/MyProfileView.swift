@@ -18,7 +18,7 @@ struct MyProfileView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    
+                    viewModel.send(action: .clickedSetting)
                 }, label: {
                     Image(.settingIcon)
                 })

@@ -10,4 +10,5 @@ import Foundation
 enum NavigationDestination: Hashable {
     case userDetail(user: UserInfo)
     case setting
+    case teamIntroduction
 }

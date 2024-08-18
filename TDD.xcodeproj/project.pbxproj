@@ -101,6 +101,8 @@
 		ADAAF2D02C5F786800C292CA /* TodoInfoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */; };
 		ADAAF2D22C5F796200C292CA /* TodoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2D12C5F796200C292CA /* TodoInfo.swift */; };
 		ADAE4BA52C71E44A0046FF88 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BA42C71E44A0046FF88 /* UINavigationController+Extension.swift */; };
+		ADAE4BA82C71FB0C0046FF88 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BA72C71FB0C0046FF88 /* SettingView.swift */; };
+		ADAE4BAB2C71FDBB0046FF88 /* TeamIntroduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BAA2C71FDBB0046FF88 /* TeamIntroduction.swift */; };
 		ADE2C2902C6768C3002BF3A6 /* UserInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */; };
 		ADE2C2932C679DA1002BF3A6 /* InfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C2922C679DA1002BF3A6 /* InfoType.swift */; };
 		ADE2C2952C67A14A002BF3A6 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */; };
@@ -223,6 +225,8 @@
 		ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInfoModifier.swift; sourceTree = "<group>"; };
 		ADAAF2D12C5F796200C292CA /* TodoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInfo.swift; sourceTree = "<group>"; };
 		ADAE4BA42C71E44A0046FF88 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		ADAE4BA72C71FB0C0046FF88 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		ADAE4BAA2C71FDBB0046FF88 /* TeamIntroduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamIntroduction.swift; sourceTree = "<group>"; };
 		ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCardView.swift; sourceTree = "<group>"; };
 		ADE2C2922C679DA1002BF3A6 /* InfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoType.swift; sourceTree = "<group>"; };
 		ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -386,6 +390,7 @@
 		AD10DBC42C40230E00785252 /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
+				ADAE4BA62C71FAFF0046FF88 /* Setting */,
 				AD10DBC62C40232400785252 /* MyProfileView.swift */,
 				AD42968D2C6B58490016A57A /* MyProfileViewModel.swift */,
 			);
@@ -694,6 +699,23 @@
 			path = TodoCell;
 			sourceTree = "<group>";
 		};
+		ADAE4BA62C71FAFF0046FF88 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				ADAE4BA72C71FB0C0046FF88 /* SettingView.swift */,
+				ADAE4BA92C71FDAC0046FF88 /* SubView */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		ADAE4BA92C71FDAC0046FF88 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				ADAE4BAA2C71FDBB0046FF88 /* TeamIntroduction.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
 		ADE2C2912C679D88002BF3A6 /* UserInfoCardView */ = {
 			isa = PBXGroup;
 			children = (
@@ -890,6 +912,7 @@
 				AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */,
 				AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */,
 				AD241F522C4E2B0B00DE8805 /* GitHubAPI.swift in Sources */,
+				ADAE4BAB2C71FDBB0046FF88 /* TeamIntroduction.swift in Sources */,
 				AD5D72C72C521FBC009FE208 /* GetTodoListResponse.swift in Sources */,
 				AD46DE032C47981E00DE940B /* TodoAPI.swift in Sources */,
 				AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */,
@@ -902,6 +925,7 @@
 				ADEFB8F02C65C9F400A03C26 /* TagBtn.swift in Sources */,
 				AD4296A42C6C963A0016A57A /* MemberService.swift in Sources */,
 				AD6085532C70F4BC00D33143 /* FriendTodoList.swift in Sources */,
+				ADAE4BA82C71FB0C0046FF88 /* SettingView.swift in Sources */,
 				AD60854C2C709CCD00D33143 /* UserDetailViewModel.swift in Sources */,
 				AD5D72C52C521A95009FE208 /* GetTodoCountResponse.swift in Sources */,
 				AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */,
