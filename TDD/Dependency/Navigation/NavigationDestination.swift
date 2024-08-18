@@ -8,5 +8,6 @@
 import Foundation
 
 enum NavigationDestination: Hashable {
-   case empty
+    case userDetail(user: UserInfo)
+    case setting
 }

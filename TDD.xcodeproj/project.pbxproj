@@ -23,6 +23,8 @@
 		AD10DBCB2C40C4C600785252 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCA2C40C4C600785252 /* CalendarViewModel.swift */; };
 		AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCD2C40CA0E00785252 /* Date+Extension.swift */; };
 		AD10DBD02C40D3DB00785252 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCF2C40D3DB00785252 /* Month.swift */; };
+		AD1F5ED52C71CD0600CBCACE /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1F5ED42C71CD0600CBCACE /* View+Extension.swift */; };
+		AD1F5ED72C71CE2D00CBCACE /* TabBarAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1F5ED62C71CE2D00CBCACE /* TabBarAccessor.swift */; };
 		AD241F4F2C4E2AA700DE8805 /* GetTodoListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F4E2C4E2AA700DE8805 /* GetTodoListRequest.swift */; };
 		AD241F522C4E2B0B00DE8805 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F512C4E2B0B00DE8805 /* GitHubAPI.swift */; };
 		AD241F542C4E2B1700DE8805 /* GitHubAPITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F532C4E2B1700DE8805 /* GitHubAPITarget.swift */; };
@@ -65,6 +67,10 @@
 		AD5D72D72C54F2E1009FE208 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */; };
 		AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */; };
 		AD6085452C6F5B3D00D33143 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6085442C6F5B3D00D33143 /* RefreshableScrollView.swift */; };
+		AD60854A2C7097FB00D33143 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6085492C7097FB00D33143 /* UserDetailView.swift */; };
+		AD60854C2C709CCD00D33143 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60854B2C709CCD00D33143 /* UserDetailViewModel.swift */; };
+		AD60854E2C70A76A00D33143 /* ToolbarBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60854D2C70A76A00D33143 /* ToolbarBtn.swift */; };
+		AD6085532C70F4BC00D33143 /* FriendTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6085522C70F4BC00D33143 /* FriendTodoList.swift */; };
 		AD6353C02C633F1A00CED65A /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6353BF2C633F1A00CED65A /* URLImageView.swift */; };
 		AD6353C32C634B8400CED65A /* URLImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6353C22C634B8400CED65A /* URLImageViewModel.swift */; };
 		AD6353C82C6354E300CED65A /* DiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6353C72C6354E300CED65A /* DiskStorage.swift */; };
@@ -136,6 +142,8 @@
 		AD10DBCA2C40C4C600785252 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		AD10DBCD2C40CA0E00785252 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		AD10DBCF2C40D3DB00785252 /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
+		AD1F5ED42C71CD0600CBCACE /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		AD1F5ED62C71CE2D00CBCACE /* TabBarAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAccessor.swift; sourceTree = "<group>"; };
 		AD241F4E2C4E2AA700DE8805 /* GetTodoListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodoListRequest.swift; sourceTree = "<group>"; };
 		AD241F512C4E2B0B00DE8805 /* GitHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI.swift; sourceTree = "<group>"; };
 		AD241F532C4E2B1700DE8805 /* GitHubAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPITarget.swift; sourceTree = "<group>"; };
@@ -180,6 +188,10 @@
 		AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		AD6085442C6F5B3D00D33143 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
+		AD6085492C7097FB00D33143 /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
+		AD60854B2C709CCD00D33143 /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
+		AD60854D2C70A76A00D33143 /* ToolbarBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarBtn.swift; sourceTree = "<group>"; };
+		AD6085522C70F4BC00D33143 /* FriendTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTodoList.swift; sourceTree = "<group>"; };
 		AD6353BF2C633F1A00CED65A /* URLImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
 		AD6353C22C634B8400CED65A /* URLImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageViewModel.swift; sourceTree = "<group>"; };
 		AD6353C72C6354E300CED65A /* DiskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskStorage.swift; sourceTree = "<group>"; };
@@ -281,6 +293,7 @@
 		AD10D4D32C3D2390008481FF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AD6085462C7097E000D33143 /* UserDetailView */,
 				AD8996C02C592FEF0081B487 /* GitHub */,
 				AD10DBAB2C3ED6D800785252 /* Authentication */,
 				ADF2AB7B2C3E993D00B5AD60 /* Login */,
@@ -319,6 +332,7 @@
 				AD10DBCF2C40D3DB00785252 /* Month.swift */,
 				ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */,
 				AD4296982C6C901B0016A57A /* MyInfo.swift */,
+				AD6085522C70F4BC00D33143 /* FriendTodoList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -362,6 +376,7 @@
 				AD10DBBD2C401F2700785252 /* MainTabView.swift */,
 				AD10DBC22C401F7A00785252 /* MainTabType.swift */,
 				ADEA4B5D2C48A72700C10B9C /* MainTabViewModel.swift */,
+				AD1F5ED62C71CE2D00CBCACE /* TabBarAccessor.swift */,
 			);
 			path = MainTab;
 			sourceTree = "<group>";
@@ -388,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				AD10DBCD2C40CA0E00785252 /* Date+Extension.swift */,
+				AD1F5ED42C71CD0600CBCACE /* View+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -543,6 +559,23 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		AD6085462C7097E000D33143 /* UserDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				AD6085492C7097FB00D33143 /* UserDetailView.swift */,
+				AD60854B2C709CCD00D33143 /* UserDetailViewModel.swift */,
+			);
+			path = UserDetailView;
+			sourceTree = "<group>";
+		};
+		AD60854F2C70A7A200D33143 /* ToolbarBtn */ = {
+			isa = PBXGroup;
+			children = (
+				AD60854D2C70A76A00D33143 /* ToolbarBtn.swift */,
+			);
+			path = ToolbarBtn;
+			sourceTree = "<group>";
+		};
 		AD6353C12C634B6E00CED65A /* URLImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,6 +714,7 @@
 		ADEA4B602C48A8E300C10B9C /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				AD60854F2C70A7A200D33143 /* ToolbarBtn */,
 				ADE2C2912C679D88002BF3A6 /* UserInfoCardView */,
 				AD6353C12C634B6E00CED65A /* URLImage */,
 				AD42968A2C6B492C0016A57A /* MyProfileBtn */,
@@ -790,6 +824,7 @@
 				AD46DE072C47A38000DE940B /* API.swift in Sources */,
 				ADAAF2D02C5F786800C292CA /* TodoInfoModifier.swift in Sources */,
 				ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */,
+				AD1F5ED52C71CD0600CBCACE /* View+Extension.swift in Sources */,
 				AD10DBBE2C401F2700785252 /* MainTabView.swift in Sources */,
 				AD6E2A732C5CBC7D006783B9 /* GitHubService.swift in Sources */,
 				AD10DBAF2C3ED77400785252 /* AuthenticationViewModel.swift in Sources */,
@@ -803,6 +838,7 @@
 				AD46DDF82C47906E00DE940B /* TargetType.swift in Sources */,
 				AD42968C2C6B49400016A57A /* MyProfileBtnType.swift in Sources */,
 				AD4296A22C6C94F40016A57A /* FetchMyInfoResponse.swift in Sources */,
+				AD60854A2C7097FB00D33143 /* UserDetailView.swift in Sources */,
 				AD10DBC92C40234000785252 /* QuestView.swift in Sources */,
 				AD10DBC72C40232400785252 /* MyProfileView.swift in Sources */,
 				AD4296A82C6C9B470016A57A /* FriendResponse.swift in Sources */,
@@ -841,6 +877,7 @@
 				AD6E2A712C5CA51C006783B9 /* RefreshResponse.swift in Sources */,
 				ADE2C2902C6768C3002BF3A6 /* UserInfoCardView.swift in Sources */,
 				AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */,
+				AD60854E2C70A76A00D33143 /* ToolbarBtn.swift in Sources */,
 				AD241F4F2C4E2AA700DE8805 /* GetTodoListRequest.swift in Sources */,
 				ADFBF5E62C6098B50022ED2A /* TodoPatchRequest.swift in Sources */,
 				AD43C85D2C64C391000BC6ED /* TodoListViewModel.swift in Sources */,
@@ -857,8 +894,11 @@
 				ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */,
 				AD5D72C92C522C0B009FE208 /* TodoService.swift in Sources */,
 				ADAAF2CE2C5E6F5A00C292CA /* TodoDetailViewModel.swift in Sources */,
+				AD1F5ED72C71CE2D00CBCACE /* TabBarAccessor.swift in Sources */,
 				ADEFB8F02C65C9F400A03C26 /* TagBtn.swift in Sources */,
 				AD4296A42C6C963A0016A57A /* MemberService.swift in Sources */,
+				AD6085532C70F4BC00D33143 /* FriendTodoList.swift in Sources */,
+				AD60854C2C709CCD00D33143 /* UserDetailViewModel.swift in Sources */,
 				AD5D72C52C521A95009FE208 /* GetTodoCountResponse.swift in Sources */,
 				AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */,
 				AD4296952C6C87FA0016A57A /* SearchBar.swift in Sources */,

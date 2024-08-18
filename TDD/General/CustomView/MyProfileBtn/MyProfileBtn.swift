@@ -30,9 +30,9 @@ struct MyProfileBtn: View {
                 .background {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color(selected ? "mainColor" : "fixWh"))
+                        .shadow(radius: 1)
                 }
         })
-        .shadow(radius: 1)
     }
 }
 

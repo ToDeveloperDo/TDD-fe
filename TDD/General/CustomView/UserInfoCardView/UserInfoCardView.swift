@@ -9,8 +9,7 @@ import SwiftUI
 
 struct UserInfoCardView: View {
     @State var user: UserInfo
-    var action1: () -> Void
-    var action2: () -> Void
+    var action: () -> Void
     
     var body: some View {
         VStack(spacing: 0) {
@@ -44,13 +43,7 @@ struct UserInfoCardView: View {
                 .padding(.bottom, 12)
             
             Button(action: {
-                if user.status == .RECEIVE {
-                    user.status = .FOLLOWING
-                    action1()
-                } else if user.status == .NOT_FRIEND {
-                    user.status = .REQUEST
-                    action2()
-                }
+                action()
             }, label: {
                 Text("\(user.status.title)")
                     .font(.system(size: 10, weight: .semibold))
@@ -78,8 +71,5 @@ struct UserInfoCardView: View {
 #Preview {
     UserInfoCardView(user: .stu1) {
         
-    } action2: {
-        
     }
-
 }

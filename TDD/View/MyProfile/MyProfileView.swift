@@ -39,11 +39,11 @@ struct MyProfileView: View {
                         LazyVGrid(columns: columns, spacing: 8) {
                             ForEach(viewModel.users) { user in
                                 UserInfoCardView(user: user) {
-                                    viewModel.accept(id: user.userId)
-                                } action2: {
-                                    viewModel.send(id: user.userId)
+                                    viewModel.accept(id: user.userId) // State 값 주기
                                 }
-                                
+                                .onTapGesture {
+                                    viewModel.send(action: .clickedUserCell(user: user))
+                                }
                             }
                         }
                     }
@@ -64,10 +64,9 @@ struct MyProfileView: View {
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(Color.fixWh, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            
-        }
-        .navigationDestination(for: NavigationDestination.self) {
-            NavigationRoutingView(destination: $0)
+            .navigationDestination(for: NavigationDestination.self) {
+                NavigationRoutingView(destination: $0)
+            }
         }
     }
     

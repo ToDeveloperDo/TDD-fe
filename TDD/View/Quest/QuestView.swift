@@ -50,10 +50,7 @@ private struct MemberCardView: View {
             ForEach(viewModel.users) { user in
                 UserInfoCardView(user: user) {
                     viewModel.accept(id: user.userId)
-                } action2: {
-                    viewModel.send(id: user.userId)
                 }
-
             }
         })
         .padding(.top, 34)

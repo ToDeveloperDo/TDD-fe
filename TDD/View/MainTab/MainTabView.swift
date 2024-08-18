@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct MainTabView: View {
-    @State private var selectedTab: MainTabType = .myInfo
+    @State private var selectedTab: MainTabType = .calendar
     @StateObject var viewModel: MainTabViewModel
     @EnvironmentObject private var container: DIContainer
     
@@ -41,52 +41,65 @@ struct MainTabView: View {
                 }
         }
     }
-    
-    var loadedView: some View {
-        CustomTabBarView()
-            .ignoresSafeArea(edges: .vertical)
-    }
 }
 
-
-struct CustomTabBarView: UIViewControllerRepresentable {
-    @EnvironmentObject private var container: DIContainer
-    
-    func makeUIViewController(context: Context) -> UITabBarController {
-        let tabBarController = UITabBarController()
-        
-        let calendarVC = UIHostingController(rootView: CalendarView(viewModel: CalendarViewModel(container:container)))
-        calendarVC.tabBarItem = UITabBarItem(title: "캘린더", image: UIImage(named: "calendar"), tag: 0)
-
-        let searchVC = UIHostingController(rootView:  QuestView(viewModel: QuestViewModel(container: container)))
-        searchVC.tabBarItem = UITabBarItem(title: "탐색", image: UIImage(named: "quest"), tag: 1)
-
-        let profileVC = UIHostingController(rootView: MyProfileView(viewModel: MyProfileViewModel(container: container)))
-        profileVC.tabBarItem = UITabBarItem(title: "내 정보", image: UIImage(named: "myInfo"), tag: 2)
-        
-        tabBarController.viewControllers = [calendarVC, searchVC, profileVC]
-                
-        let tabBar = tabBarController.tabBar
-        tabBar.tintColor = UIColor.main
-        
-        tabBar.layer.cornerRadius = 20
-        tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        tabBar.layer.masksToBounds = false
-        
-        tabBar.backgroundImage = UIImage()
-        tabBar.backgroundColor = UIColor.fixWh
-        
-        tabBar.layer.shadowColor = UIColor.shadow.cgColor
-        tabBar.layer.shadowOpacity = 0.6
-        tabBar.layer.shadowOffset = CGSize(width: 0, height: -1)
-        tabBar.layer.shadowRadius = 20
-        tabBar.layer.shadowPath = UIBezierPath(roundedRect: tabBar.bounds,
-                                               cornerRadius: 20).cgPath
-        
-        return tabBarController
+extension MainTabView {
+    var loadedView: some View {
+        ZStack(alignment: .bottom) {
+            tabView.zIndex(0)
+            bottomTabs.zIndex(1)
+        }
+        .ignoresSafeArea()
     }
+    
+    var tabView: some View {
+        TabView(selection: $selectedTab) {
+            ForEach(MainTabType.allCases, id: \.self) { tab in
+                Group {
+                    switch tab {
+                    case .calendar:
+                        CalendarView(viewModel: .init(container: container))
+                            .setTabBarVisibility(isHidden: true)
+                    case .quest:
+                        QuestView(viewModel: .init(container: container))
+                    case .myInfo:
+                        MyProfileView(viewModel: .init(container: container))
+                    }
+                }
 
-    func updateUIViewController(_ uiViewController: UITabBarController, context: Context) {        
+            }
+        }
+    }
+    
+    var bottomTabs: some View {
+        HStack(alignment: .top) {
+            Spacer()
+            HStack(alignment: .top, spacing: 92) {
+                ForEach(MainTabType.allCases, id: \.self) { tab in
+                    VStack(spacing: 8) {
+                        Image(tab.imageName(selected: selectedTab == tab))
+                        
+                        Text("\(tab.title)")
+                            .font(.system(size: 11, weight: .regular))
+                            .foregroundStyle(Color(tab.colorName(selected: selectedTab == tab)))
+                    }
+                    .frame(width: 32, height: 50)
+                    .onTapGesture {
+                        selectedTab = tab
+                    }
+                }
+            }
+            .padding(.bottom, 20)
+            Spacer()
+        }
+        .frame(height: 80)
+        .background {
+            Color.fixWh
+                .cornerRadius(20, corners: [.topLeft, .topRight])
+                .shadow(radius: 1)
+                
+        }
+        
     }
 }
 
@@ -95,7 +108,7 @@ struct MainTabView_Previews: PreviewProvider {
     static let navigationRouter: NavigationRouter = .init()
     
     static var previews: some View {
-        MainTabView(viewModel: .init(container: Self.container))
-            .environmentObject(Self.container)
+        MainTabView(viewModel: .init(container: container))
+            .environmentObject(container)
     }
 }

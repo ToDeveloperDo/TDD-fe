@@ -13,7 +13,9 @@ struct NavigationRoutingView: View {
     
     var body: some View {
         switch destination {
-        case .empty: Text("dlk")
+        case let .userDetail(user):
+            UserDetailView(viewModel: .init(user: user, container: container))
+        case .setting: Text("dk")
         }
     }
 }

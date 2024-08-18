@@ -13,12 +13,13 @@ final class MyProfileViewModel: ObservableObject {
     @Published var myInfo: MyInfo?
     @Published var users: [UserInfo]
     @Published var selectedMode: MyProfileBtnType = .friend 
-
+    
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
     
     enum Action {
         case clickedBtn(mode: MyProfileBtnType)
+        case clickedUserCell(user: UserInfo)
     }
     
     init(searchName: String = "",
@@ -35,12 +36,18 @@ final class MyProfileViewModel: ObservableObject {
         switch action {
         case .clickedBtn(let mode):
             clickedBtn(mode)
+        case .clickedUserCell(let user):
+            clickedUserCell(user)
         }
     }
     
 }
 
 extension MyProfileViewModel {
+    private func clickedUserCell(_ user: UserInfo) {
+        container.navigationRouter.push(to: .userDetail(user: user))
+    }
+    
     private func fetchMyInfo() {
         container.services.memberService.fetchMyInfo()
             .sink { completion in
