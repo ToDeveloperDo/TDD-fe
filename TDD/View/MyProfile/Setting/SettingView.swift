@@ -11,7 +11,7 @@ struct SettingView: View {
     @EnvironmentObject private var container: DIContainer
     
     var body: some View {
-        VStack(spacing: 0) {
+        ScrollView {
             SettingCellView(title: "개인정보 처리 방침") {
                 
             }

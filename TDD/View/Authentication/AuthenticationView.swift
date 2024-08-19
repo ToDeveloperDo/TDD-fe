@@ -8,24 +8,36 @@
 import SwiftUI
 
 struct AuthenticationView: View {
+    @State var isLaunch: Bool = true
     @StateObject var viewModel: AuthenticationViewModel
     @EnvironmentObject var container: DIContainer
     
     var body: some View {
-        Group {
-            switch viewModel.authState {
-            case .unAuthenticated:
-                LoginView()
-                    .alert("로그인 오류", isPresented: $viewModel.isPresent) {
-                         Button("OK", role: .cancel) {  }
-                       }
-                    .environmentObject(viewModel)
-            case .authenticated:
-                MainTabView(viewModel: .init(container: container))
+        ZStack {
+            Group {
+                switch viewModel.authState {
+                case .unAuthenticated:
+                    LoginView()
+                        .alert("로그인 오류", isPresented: $viewModel.isPresent) {
+                            Button("OK", role: .cancel) {  }
+                        }
+                        .environmentObject(viewModel)
+                case .authenticated:
+                    MainTabView(viewModel: .init(container: container))
+                }
+            }.zIndex(0)
+            
+            if isLaunch {
+                SplashView()
+                    .transition(.opacity)
+                    .zIndex(1)
             }
         }
         .onAppear {
             viewModel.send(action: .checkLoginState)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                withAnimation { isLaunch.toggle() }
+            })
         }
     }
 }

@@ -25,9 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("AppDelegate received URL: \(url)")
         NotificationCenter.default.post(name: Notification.Name("GitHubLogin"), object: url)
-        print("Tlqkf received URL: \(url)")
         return true
     }
     
@@ -45,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else {
             return
         }
-        print("SceneDelegate received URL: \(url)")
+        
         NotificationCenter.default.post(name: Notification.Name("GitHubLogin"), object: url)
     }
 }
