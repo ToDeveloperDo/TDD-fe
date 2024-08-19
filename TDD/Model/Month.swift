@@ -37,6 +37,6 @@ enum TodoStatus: String, Codable {
 }
 
 extension Todo {
-    static let stub1 = Todo(content: "축구", memo: "아", tag: "아", deadline: "2024-07-31", status: .DONE)
+    static let stub1 = Todo(content: "축구", memo: "", tag: "아", deadline: "2024-07-31", status: .DONE)
     static let stub2 = Todo(content: "공부", memo: "아", tag: "아", deadline: "2024-07-31", status: .PROCEED)
 }

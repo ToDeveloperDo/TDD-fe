@@ -9,25 +9,18 @@ import SwiftUI
 
 struct TodoInfoModifier: ViewModifier {
     var type: TodoInfo
-    var width: CGFloat
     
     func body(content: Content) -> some View {
-        HStack {
-            HStack {
-                Label {
-                    Text("\(type.rawValue)")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(Color.serve)
-                } icon: {
-                    Image("\(type.imageName)")
-                        .resizable()
-                        .renderingMode(.template)
-                        .scaledToFit()
-                        .frame(width: 20)
-                        .foregroundStyle(Color.serve)
-                }
-                Spacer()
-            }.frame(width: width)
+        HStack(spacing: 36) {
+            HStack(spacing: 16) {
+                Image("\(type.imageName)")
+                    .resizable()
+                    .frame(width: 16, height: 16)
+                Text("\(type.rawValue)")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundStyle(Color.serve)
+            }
+            .frame(width: 60)
             
             HStack {
                 content

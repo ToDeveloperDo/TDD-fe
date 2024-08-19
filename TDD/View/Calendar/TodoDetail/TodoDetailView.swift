@@ -12,17 +12,18 @@ struct TodoDetailView: View {
     @EnvironmentObject var viewModel: CalendarViewModel
     @StateObject var todoDetailViewModel: TodoDetailViewModel
     
-    private let screenWidth = UIScreen.main.bounds.width/4
-    
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HeaderView(todoDetailViewModel: todoDetailViewModel)
-            TodoInfoView(todoDetailViewModel: todoDetailViewModel, screenWidth: screenWidth)
+            TodoInfoView(todoDetailViewModel: todoDetailViewModel)
+            Rectangle()
+                .frame(height: 1)
+                .foregroundStyle(Color.serve2)
             todoEditView(todoDetailViewModel: todoDetailViewModel)
             Spacer()
         }
-        .padding(.vertical, 20)
-        .padding(.horizontal, 20)
+        .padding(.vertical, 38)
+        .padding(.horizontal, 24)
         .background(Color.fixWh)
         .alert("수정하시겠습니까?", isPresented: $todoDetailViewModel.isPresent) {
             Button(role: .cancel) {
@@ -41,7 +42,6 @@ struct TodoDetailView: View {
 }
 
 private struct HeaderView: View {
-    @Environment(\.dismiss) var dismiss
     @ObservedObject private var todoDetailViewModel: TodoDetailViewModel
     
     fileprivate init(todoDetailViewModel: TodoDetailViewModel) {
@@ -50,24 +50,28 @@ private struct HeaderView: View {
     
     fileprivate var body: some View {
         HStack {
-            Button(action: {
-                dismiss()
-            }, label: {
-                Image(.icDownarrow)
-                    .resizable()
-                    .frame(width: 20, height: 20)
-            })
-            
+            TextField("제목 입력", text: $todoDetailViewModel.todo.content)
+                .font(.system(size: 24, weight: .semibold))
+                .foregroundStyle(Color.fixBk)
             Spacer()
-            
-            Button(action: {
-                todoDetailViewModel.isPresent = true
-            }, label: {
-                Image(.editBtn)
-                    .resizable()
-                    .frame(width: 25, height: 25)
-                
-            })
+            HStack(spacing: 12) {
+                Button(action: {
+                    todoDetailViewModel.isPresent = true
+                }, label: {
+                    Image(.editBtn)
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                    
+                })
+                Button(action: {
+                    todoDetailViewModel.isPresent = true
+                }, label: {
+                    Image(.deleteBtn)
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                    
+                })
+            }
         }
         .padding(.bottom, 20)
     }
@@ -79,41 +83,32 @@ private struct TodoInfoView: View {
     @State private var isEdit: Bool = false
     @FocusState private var isFocused: Bool
     
-    private var screenWidth: CGFloat
-    
-    fileprivate init(todoDetailViewModel: TodoDetailViewModel, screenWidth: CGFloat) {
+    fileprivate init(todoDetailViewModel: TodoDetailViewModel) {
         self.todoDetailViewModel = todoDetailViewModel
-        self.screenWidth = screenWidth
     }
     
     fileprivate var body: some View {
-        VStack {
+        VStack(spacing: 16) {
             DatePicker("", selection: $todoDetailViewModel.changeDate, displayedComponents: [.date])
                 .datePickerStyle(.compact)
                 .labelsHidden()
-                .modifier(TodoInfoModifier(type: .date, width: screenWidth))
+                .modifier(TodoInfoModifier(type: .date))
             
-            HStack {
-                Button(action: {
-                    switch todoDetailViewModel.todo.status {
-                    case .PROCEED:
-                        viewModel.send(action: .clickCheckBox(todoDetailViewModel.todo, .proceed))
-                        todoDetailViewModel.todo.status = .DONE
-                    case .DONE:
-                        viewModel.send(action: .clickCheckBox(todoDetailViewModel.todo, .done))
-                        todoDetailViewModel.todo.status = .PROCEED
-                    }
-                }, label: {
-                    Image(todoDetailViewModel.todo.status == .PROCEED ? .icUnSelectedBox : .icSelectedBox)
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                })
-                Text("\(todoDetailViewModel.todo.status == .PROCEED ? "진행중" : "완료")")
-                    .font(.callout)
-                    .foregroundStyle(.fixBk)
-                
-            }
-            .modifier(TodoInfoModifier(type: .isDone, width: screenWidth))
+            Button(action: {
+                switch todoDetailViewModel.todo.status {
+                case .PROCEED:
+                    viewModel.send(action: .clickCheckBox(todoDetailViewModel.todo, .proceed))
+                    todoDetailViewModel.todo.status = .DONE
+                case .DONE:
+                    viewModel.send(action: .clickCheckBox(todoDetailViewModel.todo, .done))
+                    todoDetailViewModel.todo.status = .PROCEED
+                }
+            }, label: {
+                Image(todoDetailViewModel.todo.status == .PROCEED ? .icUnSelectedBox : .icSelectedBox)
+                    .resizable()
+                    .frame(width: 20, height: 20)
+            })
+            .modifier(TodoInfoModifier(type: .isDone))
             
             
             Group {
@@ -127,6 +122,7 @@ private struct TodoInfoView: View {
                                 isEdit = true
                             }
                         }
+                        .padding(.vertical, 3)
                 } else {
                     HStack {
                         TagBtn(action: {
@@ -137,10 +133,9 @@ private struct TodoInfoView: View {
                     }
                 }
             }
-            .padding(.horizontal, 4)
-                .modifier(TodoInfoModifier(type: .tag, width: screenWidth))
+            .modifier(TodoInfoModifier(type: .tag))
         }
-        .padding(.bottom, 20)
+        .padding(.bottom, 28)
     }
 }
 
@@ -152,12 +147,23 @@ private struct todoEditView: View {
     }
     
     fileprivate var body: some View {
-        VStack {
-            TextField("제목", text: $todoDetailViewModel.todo.content)
-                .font(.title2.bold())
-            
+        ZStack(alignment: .top) {
             TextEditor(text: $todoDetailViewModel.todo.memo)
+                .font(.system(size: 14, weight: .light))
+            
+            if todoDetailViewModel.todo.memo.isEmpty {
+                HStack {
+                    Text("설명 입력")
+                        .font(.system(size: 14, weight: .light))
+                        .foregroundStyle(Color.serve)
+                    Spacer()
+                }
+                .padding(.top, 8)
+                .padding(.horizontal, 6)
+                .allowsHitTesting(false)
+            }
         }
+        .padding(.top, 24)
     }
 }
 
