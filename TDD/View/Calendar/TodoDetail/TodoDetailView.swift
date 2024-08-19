@@ -26,7 +26,7 @@ struct TodoDetailView: View {
         .background(Color.fixWh)
         .alert("수정하시겠습니까?", isPresented: $todoDetailViewModel.isPresent) {
             Button(role: .cancel) {
-//                viewModel.send(action: .updateTodo(todo: todoDetailVM.todo))
+                viewModel.send(action: .updateTodo(todoDetailViewModel.todo))
                 dismiss()
             } label: {
                 Text("확인")

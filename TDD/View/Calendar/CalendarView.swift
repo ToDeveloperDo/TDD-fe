@@ -69,6 +69,7 @@ struct CalendarView: View {
                let date = viewModel.clickedCurrentMonthDates {
                 TodoDetailView(todoDetailViewModel: .init(todo: todo, date: date))
                     .presentationDetents([.medium, .large])
+                    .environmentObject(viewModel)
             }
         }
     }

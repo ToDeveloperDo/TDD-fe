@@ -66,7 +66,6 @@
 		AD5D72D42C54F291009FE208 /* AuthAPITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D32C54F291009FE208 /* AuthAPITarget.swift */; };
 		AD5D72D72C54F2E1009FE208 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */; };
 		AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */; };
-		AD6085452C6F5B3D00D33143 /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6085442C6F5B3D00D33143 /* RefreshableScrollView.swift */; };
 		AD60854A2C7097FB00D33143 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6085492C7097FB00D33143 /* UserDetailView.swift */; };
 		AD60854C2C709CCD00D33143 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60854B2C709CCD00D33143 /* UserDetailViewModel.swift */; };
 		AD60854E2C70A76A00D33143 /* ToolbarBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60854D2C70A76A00D33143 /* ToolbarBtn.swift */; };
@@ -103,6 +102,7 @@
 		ADAE4BA52C71E44A0046FF88 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BA42C71E44A0046FF88 /* UINavigationController+Extension.swift */; };
 		ADAE4BA82C71FB0C0046FF88 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BA72C71FB0C0046FF88 /* SettingView.swift */; };
 		ADAE4BAB2C71FDBB0046FF88 /* TeamIntroduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BAA2C71FDBB0046FF88 /* TeamIntroduction.swift */; };
+		ADAE4BAD2C72645C0046FF88 /* FetchFrienTodoListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BAC2C72645C0046FF88 /* FetchFrienTodoListResponse.swift */; };
 		ADE2C2902C6768C3002BF3A6 /* UserInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */; };
 		ADE2C2932C679DA1002BF3A6 /* InfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C2922C679DA1002BF3A6 /* InfoType.swift */; };
 		ADE2C2952C67A14A002BF3A6 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */; };
@@ -190,7 +190,6 @@
 		AD5D72D32C54F291009FE208 /* AuthAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPITarget.swift; sourceTree = "<group>"; };
 		AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
-		AD6085442C6F5B3D00D33143 /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		AD6085492C7097FB00D33143 /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		AD60854B2C709CCD00D33143 /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
 		AD60854D2C70A76A00D33143 /* ToolbarBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarBtn.swift; sourceTree = "<group>"; };
@@ -227,6 +226,7 @@
 		ADAE4BA42C71E44A0046FF88 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		ADAE4BA72C71FB0C0046FF88 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		ADAE4BAA2C71FDBB0046FF88 /* TeamIntroduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamIntroduction.swift; sourceTree = "<group>"; };
+		ADAE4BAC2C72645C0046FF88 /* FetchFrienTodoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFrienTodoListResponse.swift; sourceTree = "<group>"; };
 		ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCardView.swift; sourceTree = "<group>"; };
 		ADE2C2922C679DA1002BF3A6 /* InfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoType.swift; sourceTree = "<group>"; };
 		ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -299,12 +299,12 @@
 		AD10D4D32C3D2390008481FF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				AD6085462C7097E000D33143 /* UserDetailView */,
 				AD8996C02C592FEF0081B487 /* GitHub */,
 				AD10DBAB2C3ED6D800785252 /* Authentication */,
 				ADF2AB7B2C3E993D00B5AD60 /* Login */,
 				AD10DBBC2C401EFA00785252 /* MainTab */,
 				AD10DBB02C3FB57A00785252 /* Calendar */,
+				AD6085462C7097E000D33143 /* UserDetailView */,
 				AD10DBC52C40231000785252 /* Quest */,
 				AD10DBC42C40230E00785252 /* MyProfile */,
 			);
@@ -459,6 +459,7 @@
 				AD4296A72C6C9B470016A57A /* FriendResponse.swift */,
 				AD4296A92C6CA21F0016A57A /* FriendNotStateResponse.swift */,
 				AD4296AB2C6CA2270016A57A /* SearchReqeust.swift */,
+				ADAE4BAC2C72645C0046FF88 /* FetchFrienTodoListResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -751,7 +752,6 @@
 				ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */,
 				ADEFB8EF2C65C9F400A03C26 /* TagBtn.swift */,
 				AD4296862C6B35350016A57A /* UserInfoView.swift */,
-				AD6085442C6F5B3D00D33143 /* RefreshableScrollView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -899,6 +899,7 @@
 				AD5D72C32C5213F4009FE208 /* GetTodoCountRequest.swift in Sources */,
 				AD4296872C6B35350016A57A /* UserInfoView.swift in Sources */,
 				AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */,
+				ADAE4BAD2C72645C0046FF88 /* FetchFrienTodoListResponse.swift in Sources */,
 				AD10DBBB2C401A9B00785252 /* DIContainer.swift in Sources */,
 				AD6E2A712C5CA51C006783B9 /* RefreshResponse.swift in Sources */,
 				ADE2C2902C6768C3002BF3A6 /* UserInfoCardView.swift in Sources */,
@@ -935,7 +936,6 @@
 				AD6E2A772C5CC6DA006783B9 /* PlaceholderView.swift in Sources */,
 				AD6353CB2C6358A000CED65A /* SHA256.swift in Sources */,
 				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,
-				AD6085452C6F5B3D00D33143 /* RefreshableScrollView.swift in Sources */,
 				AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */,
 				ADE2C2952C67A14A002BF3A6 /* UserInfo.swift in Sources */,
 				ADAA4FF22C58F07000EF30E0 /* TodoListView.swift in Sources */,

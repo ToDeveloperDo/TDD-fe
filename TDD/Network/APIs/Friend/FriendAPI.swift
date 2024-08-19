@@ -55,10 +55,10 @@ final class FriendAPI {
             .eraseToAnyPublisher()
     }
     
-    func fetchFriendTodoList(id: Int64) -> AnyPublisher<[GetTodoListResponse], Error> {
+    func fetchFriendTodoList(id: Int64) -> AnyPublisher<[FetchFrienTodoListResponse], Error> {
         return API.session.request(FriendTarget.fetchFriendTodoList(id), interceptor: AuthInterceptor.shared)
             .validate(statusCode: 200..<300)
-            .publishDecodable(type: [GetTodoListResponse].self)
+            .publishDecodable(type: [FetchFrienTodoListResponse].self)
             .value()
             .mapError { $0 }
             .eraseToAnyPublisher()

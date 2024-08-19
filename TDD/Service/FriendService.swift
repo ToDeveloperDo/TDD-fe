@@ -14,7 +14,7 @@ protocol FriendServiceType {
     func fetchFriend(id: Int64) -> AnyPublisher<UserInfo, ServiceError>
     func fetchSendList() -> AnyPublisher<[UserInfo], ServiceError>
     func fetchReceiveList() -> AnyPublisher<[UserInfo], ServiceError>
-    func fetchFriendTodoList(id: Int64) -> AnyPublisher<[Todo], ServiceError>
+    func fetchFriendTodoList(id: Int64) -> AnyPublisher<[FriendTodoList], ServiceError>
     func addFriend(id: Int64) -> AnyPublisher<Bool, ServiceError>
     func acceptFriend(id: Int64) -> AnyPublisher<Bool, ServiceError>
     func deleteFriend(id: Int64) -> AnyPublisher<Bool, ServiceError>
@@ -63,7 +63,7 @@ final class FriendService: FriendServiceType {
             .eraseToAnyPublisher()
     }
     
-    func fetchFriendTodoList(id: Int64) -> AnyPublisher<[Todo], ServiceError> {
+    func fetchFriendTodoList(id: Int64) -> AnyPublisher<[FriendTodoList], ServiceError> {
         return friendAPI.fetchFriendTodoList(id: id)
             .map { $0.map { $0.toModel() } }
             .mapError { ServiceError.error($0) }
@@ -110,8 +110,8 @@ final class StubFriendService: FriendServiceType {
         Just([.stu1, .stu2, .stu3, .stu4]).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     
-    func fetchFriendTodoList(id: Int64) -> AnyPublisher<[Todo], ServiceError> {
-        Just([.stub1, .stub2]).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
+    func fetchFriendTodoList(id: Int64) -> AnyPublisher<[FriendTodoList], ServiceError> {
+        Just([.init(deadline: "2024-04-08", todos: [.stub1,.stub2])]).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     
     func addFriend(id: Int64) -> AnyPublisher<Bool, ServiceError> {

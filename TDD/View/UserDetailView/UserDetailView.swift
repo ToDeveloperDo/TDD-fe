@@ -19,11 +19,15 @@ struct UserDetailView: View {
                         .padding(.bottom, 36)
                     
                     if viewModel.user.status == .FOLLOWING {
-                        if viewModel.userTodoList.isEmpty {
-                            EmptyView()
-                                .padding(.top, 100)
+                        if viewModel.isLoading {
+                            LoadingView()
                         } else {
-                            FriendTodoListView(friendTodoList: viewModel.userTodoList)
+                            if viewModel.userTodoList.isEmpty {
+                                EmptyView()
+                                    .padding(.top, 100)
+                            } else {
+                                FriendTodoListView(friendTodoList: viewModel.userTodoList)
+                            }
                         }
                     } else {
                         HiddenView()
@@ -53,6 +57,10 @@ struct UserDetailView: View {
         }
         .toolbarBackground(.hidden, for: .navigationBar)
         .navigationBarBackButtonHidden()
+        .sheet(isPresented: $viewModel.isPresentGit) {
+            MyWebView(urlToLoad: URL(string: viewModel.user.gitUrl)!)
+                .ignoresSafeArea()
+        }
     }
     
     private var userInfoCell: some View {
@@ -65,7 +73,7 @@ struct UserDetailView: View {
                 .padding(.bottom, 8)
                 .padding(.horizontal, 24)
             Button(action: {
-                
+                viewModel.isPresentGit = true
             }, label: {
                 Text("\(viewModel.user.gitUrl)")
                     .font(.system(size: 14, weight: .light))

@@ -16,9 +16,7 @@ struct MyProfileView: View {
     var body: some View {
         NavigationStack(path: $container.navigationRouter.myProfileDestinations) {
             VStack(spacing: 0) {
-                RefreshableScrollView(isRefreshing: $isRefreshing) {
-                    self.refresh()
-                } content: {
+                ScrollView {
                     VStack(spacing: 0) {
                         MyProfileCell(viewModel: viewModel)
                         
@@ -38,7 +36,7 @@ struct MyProfileView: View {
                             LazyVGrid(columns: columns, spacing: 8) {
                                 ForEach(viewModel.users) { user in
                                     UserInfoCardView(user: user) {
-                                        
+                                        viewModel.send(action: .clickedUserInfoBtn(user: user))
                                     }
                                     .onTapGesture {
                                         viewModel.send(action: .clickedUserCell(user: user))
@@ -71,12 +69,6 @@ struct MyProfileView: View {
                 MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
                     .ignoresSafeArea()
             }
-        }
-    }
-    
-    private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isRefreshing = false
         }
     }
 }

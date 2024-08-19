@@ -24,6 +24,7 @@ final class MyProfileViewModel: ObservableObject {
         case clickedBtn(mode: MyProfileBtnType)
         case clickedUserCell(user: UserInfo)
         case clickedSetting
+        case clickedUserInfoBtn(user: UserInfo)
     }
     
     init(searchName: String = "",
@@ -44,6 +45,8 @@ final class MyProfileViewModel: ObservableObject {
             clickedUserCell(user)
         case .clickedSetting:
             container.navigationRouter.push(to: .setting, on: .myProfile)
+        case .clickedUserInfoBtn(let user):
+            clickedUserInfoBtn(user: user)
         }
     }
     
@@ -61,26 +64,6 @@ extension MyProfileViewModel {
             } receiveValue: { [weak self]  myInfo in
                 guard let self = self else { return }
                 self.myInfo = myInfo
-            }.store(in: &subscriptions)
-
-    }
-    
-    func accept(id: Int64) {
-        container.services.friendService.acceptFriend(id: id)
-            .sink { completion in
-                
-            } receiveValue: { succeed in
-                
-            }.store(in: &subscriptions)
-
-    }
-    
-    func send(id: Int64) {
-        container.services.friendService.addFriend(id: id)
-            .sink { completion in
-                
-            } receiveValue: { succeed in
-                
             }.store(in: &subscriptions)
 
     }
@@ -116,6 +99,33 @@ extension MyProfileViewModel {
                     guard let self = self else { return }
                     self.users = users
                 }.store(in: &subscriptions)
+        }
+    }
+    
+    private func clickedUserInfoBtn(user: UserInfo) {
+        switch user.status {
+        case .FOLLOWING:
+            if let userIndex = users.firstIndex(where: { $0.userId == user.userId }) {
+                users.remove(at: userIndex)
+                container.services.friendService.deleteFriend(id: user.userId)
+                    .sink { completion in
+                        
+                    } receiveValue: { succeed in
+                        
+                    }.store(in: &subscriptions)
+            }
+        case .NOT_FRIEND, .REQUEST:break
+        case .RECEIVE:
+            if let userIndex = users.firstIndex(where: { $0.userId == user.userId }) {
+                users.remove(at: userIndex)
+                
+                container.services.friendService.acceptFriend(id: user.userId)
+                    .sink { completion in
+                        
+                    } receiveValue: { succeed in
+                        
+                    }.store(in: &subscriptions)
+            }
         }
     }
 }

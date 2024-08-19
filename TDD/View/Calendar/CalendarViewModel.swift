@@ -76,7 +76,7 @@ final class CalendarViewModel: ObservableObject {
         case .clickDetailBtn(let todo):
             clickDetailBtn(todo)
         case .updateTodo(let todo):
-            break
+            updateTodo(todo)
         case .createTodo(let todo):
             createTodo(todo)
         }
@@ -257,6 +257,59 @@ extension CalendarViewModel {
     private func clickDetailBtn(_ todo: Todo) {
         detailTodo = todo
         isPresent = true
+    }
+    
+    private func updateTodo(_ todo: Todo) {
+        guard let currentDayIndex = currentDayIndex else { return }
+        container.services.todoService.editTodo(todo: todo)
+            .sink { completion in
+                
+            } receiveValue: { succeed in
+                
+            }.store(in: &subscriptions)
+
+        if let todoIndex = months[selection].days[currentDayIndex].todos.firstIndex(where: { $0.id == todo.id }) {
+            let oldTodo = months[selection].days[currentDayIndex].todos[todoIndex]
+            let components = oldTodo.deadline.split(separator: "-")
+            let newMonths = components[0] + components[1] + components[2]
+            if oldTodo.deadline != todo.deadline {
+                if months[selection].selectedDay.format("YYYY-MM") != newMonths {
+                    if let newMonthIndex = months.firstIndex(where: { $0.selectedDay.format("YYYY-MM") == newMonths }) {
+                        months[selection].days[currentDayIndex].todos.remove(at: todoIndex)
+                        if oldTodo.status == .PROCEED {
+                            months[selection].days[currentDayIndex].todosCount -= 1
+                        }
+                        
+                        if let newDayIndex = months[newMonthIndex].days.firstIndex(where: { $0.date.format("YYYY-MM-dd") == todo.deadline}) {
+                            months[newMonthIndex].days[newDayIndex].todos.append(todo)
+                            if todo.status == .PROCEED {
+                                months[newMonthIndex].days[newDayIndex].todosCount += 1
+                            }
+                        } else {
+                            print("해당하는 새로운 날짜를 찾을 수 없음")
+                        }
+                    } else {
+                        print("해당하는 새로운 달을 찾을 수 없음")
+                    }
+                } else {
+                    if let newDayIndex = months[selection].days.firstIndex(where: { $0.date.format("YYYY-MM-dd") == todo.deadline }) {
+                        months[selection].days[currentDayIndex].todos.remove(at: todoIndex)
+                        if oldTodo.status == .PROCEED {
+                            months[selection].days[currentDayIndex].todosCount -= 1
+                        }
+                        
+                        months[selection].days[newDayIndex].todos.append(todo)
+                        if todo.status == .PROCEED {
+                            months[selection].days[newDayIndex].todosCount += 1
+                        }
+                    } else {
+                        print("해당 하는 새로운 날짜를 찾을 수 없음")
+                    }
+                }
+            } else {
+                months[selection].days[currentDayIndex].todos[todoIndex] = todo
+            }
+        }
     }
     
     private func searchStartDayIndex() -> Int? {

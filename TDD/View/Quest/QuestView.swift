@@ -10,25 +10,24 @@ import SwiftUI
 struct QuestView: View {
     @EnvironmentObject private var container: DIContainer
     @StateObject var viewModel: QuestViewModel
-    @State var isRefreshing: Bool = false
     
     var body: some View {
         NavigationStack(path: $container.navigationRouter.questDestinations) {
-            RefreshableScrollView(isRefreshing: $isRefreshing) {
-                refresh()
-            } content: {
+            ScrollView {
                 VStack(spacing: 0) {
                     SearchBar(text: $viewModel.searchName) {
                         
                     }
                     .padding(.top, 28)
                     .padding(.horizontal, 24)
-                    
-                    if viewModel.users.isEmpty {
-                        EmptyView()
+                    if viewModel.isLoading {
+                        LoadingView()
                     } else {
-                        MemberCardView(viewModel: viewModel)
-                        
+                        if viewModel.users.isEmpty {
+                            EmptyView()
+                        } else {
+                            MemberCardView(viewModel: viewModel)
+                        }
                     }
                 }
                 .background(Color.mainbg)
@@ -40,11 +39,6 @@ struct QuestView: View {
             .navigationDestination(for: NavigationDestination.self) {
                 NavigationRoutingView(destination: $0)
             }
-        }
-    }
-    private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isRefreshing = false
         }
     }
 }
@@ -83,9 +77,13 @@ private struct EmptyView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct QuestView_Previews: PreviewProvider {
+    static let container: DIContainer = .init(services: StubService())
+    static let navigationRouter: NavigationRouter = .init()
+    
     static var previews: some View {
         QuestView(viewModel: .init(users: [.stu1, .stu2],container: .stub))
+            .environmentObject(Self.container)
         
     }
 }

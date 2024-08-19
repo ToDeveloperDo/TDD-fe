@@ -11,6 +11,7 @@ import Combine
 final class QuestViewModel: ObservableObject {
     @Published var searchName: String
     @Published var users: [UserInfo]
+    @Published var isLoading: Bool = false
     
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
@@ -25,13 +26,15 @@ final class QuestViewModel: ObservableObject {
 }
 
 extension QuestViewModel {
-     func fetchMembers() {
+    func fetchMembers() {
+        self.isLoading = true
         container.services.memberService.fetchAllMember()
             .sink { completion in
                 
             } receiveValue: { [weak self] users in
                 guard let self = self else { return }
                 self.users = users
+                self.isLoading = false
             }.store(in: &subscriptions)
     }
     
