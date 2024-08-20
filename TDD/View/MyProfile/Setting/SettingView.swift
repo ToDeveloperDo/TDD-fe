@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingView: View {
-    @EnvironmentObject private var container: DIContainer
+    @ObservedObject var viewModel: SettingViewModel
     
     var body: some View {
         ScrollView {
@@ -24,7 +24,7 @@ struct SettingView: View {
             .padding(.bottom, 4)
             
             SettingCellView(title: "팀 소개") {
-                container.navigationRouter.push(to: .teamIntroduction, on: .myProfile)
+                viewModel.push()
             }
             .padding(.bottom, 4)
             
@@ -37,7 +37,7 @@ struct SettingView: View {
             }
             
             SettingCellView(title: "회원 탈퇴") {
-                
+                viewModel.revoke()
             }
             Spacer()
         }
@@ -49,7 +49,7 @@ struct SettingView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    container.navigationRouter.pop(on: .myProfile)
+                    viewModel.pop()
                 } label: {
                     Image(.backBtn)
                 }
@@ -62,7 +62,6 @@ struct SettingView: View {
                     .foregroundStyle(Color.fixBk)
             }
         }
-        
         .navigationBarBackButtonHidden()
         
     }
@@ -95,6 +94,6 @@ private struct SettingCellView: View {
 
 #Preview {
     NavigationView {
-        SettingView()
+        SettingView(viewModel: .init(container: .stub, authViewModel: .init(container: .stub)))
     }
 }

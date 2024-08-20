@@ -56,6 +56,7 @@
 		AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE042C479AF300DE940B /* APIEventLogger.swift */; };
 		AD46DE072C47A38000DE940B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE062C47A38000DE940B /* API.swift */; };
 		AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46DE082C47AFAF00DE940B /* AuthInterceptor.swift */; };
+		AD4919052C738EBE00D20976 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4919042C738EBD00D20976 /* SettingViewModel.swift */; };
 		AD5D72C32C5213F4009FE208 /* GetTodoCountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72C22C5213F4009FE208 /* GetTodoCountRequest.swift */; };
 		AD5D72C52C521A95009FE208 /* GetTodoCountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72C42C521A95009FE208 /* GetTodoCountResponse.swift */; };
 		AD5D72C72C521FBC009FE208 /* GetTodoListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72C62C521FBC009FE208 /* GetTodoListResponse.swift */; };
@@ -180,6 +181,7 @@
 		AD46DE042C479AF300DE940B /* APIEventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEventLogger.swift; sourceTree = "<group>"; };
 		AD46DE062C47A38000DE940B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		AD46DE082C47AFAF00DE940B /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		AD4919042C738EBD00D20976 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		AD5D72C22C5213F4009FE208 /* GetTodoCountRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodoCountRequest.swift; sourceTree = "<group>"; };
 		AD5D72C42C521A95009FE208 /* GetTodoCountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodoCountResponse.swift; sourceTree = "<group>"; };
 		AD5D72C62C521FBC009FE208 /* GetTodoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodoListResponse.swift; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 			isa = PBXGroup;
 			children = (
 				ADAE4BA72C71FB0C0046FF88 /* SettingView.swift */,
+				AD4919042C738EBD00D20976 /* SettingViewModel.swift */,
 				ADAE4BA92C71FDAC0046FF88 /* SubView */,
 			);
 			path = Setting;
@@ -906,6 +909,7 @@
 				AD5D72C32C5213F4009FE208 /* GetTodoCountRequest.swift in Sources */,
 				AD4296872C6B35350016A57A /* UserInfoView.swift in Sources */,
 				AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */,
+				AD4919052C738EBE00D20976 /* SettingViewModel.swift in Sources */,
 				ADAE4BAD2C72645C0046FF88 /* FetchFrienTodoListResponse.swift in Sources */,
 				AD10DBBB2C401A9B00785252 /* DIContainer.swift in Sources */,
 				AD6E2A712C5CA51C006783B9 /* RefreshResponse.swift in Sources */,

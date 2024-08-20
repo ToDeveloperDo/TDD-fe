@@ -40,7 +40,9 @@ struct CalendarView: View {
                             }                        
                     }
                 }
+                
                 plusBtnView
+                    
                 
                 if viewModel.showTextField {
                     VStack {
@@ -61,9 +63,10 @@ struct CalendarView: View {
                 }
             }
         }
+        .ignoresSafeArea(edges: .bottom)
         .background(Color.mainbg)
         .ignoresSafeArea(.keyboard)
-        .toolbar(.hidden, for: .navigationBar)
+        
         .sheet(isPresented: $viewModel.isPresent) {
             if let todo = viewModel.detailTodo,
                let date = viewModel.clickedCurrentMonthDates {
@@ -157,13 +160,11 @@ struct CalendarView: View {
                     viewModel.showTextField = true                    
                 }, label: {
                     Image(.plusBtn)
-                        .resizable()
-                        .frame(width: 48, height: 48)
                 })
             }
         }
         .padding(.horizontal, 24)
-        .padding(.bottom, 48)
+        .padding(.bottom, 113)
     }
 }
 

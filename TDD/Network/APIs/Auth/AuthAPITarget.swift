@@ -11,6 +11,7 @@ import Alamofire
 enum AuthAPITarget {
     case signInWithApple(LoginRequest)
     case refreshToken(RefreshRequest)
+    case revokeWithApple
 }
 
 
@@ -23,6 +24,7 @@ extension AuthAPITarget: TargetType {
         switch self {
         case .signInWithApple: return .post
         case .refreshToken: return .post
+        case .revokeWithApple: return .post
         }
     }
     
@@ -30,6 +32,7 @@ extension AuthAPITarget: TargetType {
         switch self {
         case .signInWithApple: return "/api/login/apple"
         case .refreshToken: return "/api/login/refresh"
+        case .revokeWithApple: return "/api/apple"
         }
     }
     
@@ -37,6 +40,7 @@ extension AuthAPITarget: TargetType {
         switch self {
         case .signInWithApple(let request): return .query(request)
         case .refreshToken(let request): return .body(request)
+        case .revokeWithApple: return .empty
         }
     }
 }

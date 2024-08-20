@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserInfoCardView: View {
     @State var user: UserInfo
+    var openGit: () -> Void
     var action: () -> Void
     
     var body: some View {
@@ -35,15 +36,26 @@ struct UserInfoCardView: View {
                 .padding(.bottom, 4)
             
             Button(action: {
-                // TODO: - WebView 호출
+                openGit()
             }, label: {
                 Text("\(user.gitUrl)")
                     .font(.system(size: 8, weight: .light))
-            }).tint(Color.fixBk)
-                .padding(.bottom, 12)
+            })
+            .tint(Color.fixBk)
+            .padding(.bottom, 12)
+            .contentShape(Rectangle())
             
             Button(action: {
                 action()
+                switch user.status {
+                case .FOLLOWING:
+                    user.status = .NOT_FRIEND
+                case .NOT_FRIEND:
+                    user.status = .REQUEST
+                case .REQUEST: break
+                case .RECEIVE:
+                    user.status = .FOLLOWING
+                }
             }, label: {
                 Text("\(user.status.title)")
                     .font(.system(size: 10, weight: .semibold))
@@ -54,10 +66,10 @@ struct UserInfoCardView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(Color(user.status.bgColor))
                     }
-                
             })
             .disabled(user.status == .REQUEST)
             .padding(.bottom, 21)
+            .contentShape(Rectangle())
         }
         .frame(width: 168, height: 213)
         .background {
@@ -65,11 +77,12 @@ struct UserInfoCardView: View {
                 .fill(Color.white)
                 .shadow(radius: 1)
         }
+        .contentShape(Rectangle())
     }
 }
 
 #Preview {
     UserInfoCardView(user: .stu1) {
         
-    }
+    } action: {}
 }

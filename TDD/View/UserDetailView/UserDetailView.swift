@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct UserDetailView: View {
-    @EnvironmentObject private var container: DIContainer
     @ObservedObject var viewModel: UserDetailViewModel
     
     var body: some View {
@@ -51,7 +50,7 @@ struct UserDetailView: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 ToolbarBtn(infoType: viewModel.user.status) {
-                    
+                    viewModel.send(action: .infoTypeBtnClicked)
                 }
             }
         }

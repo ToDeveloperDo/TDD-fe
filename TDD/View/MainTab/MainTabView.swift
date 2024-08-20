@@ -22,7 +22,7 @@ struct MainTabView: View {
         switch viewModel.phase {
         case .notRequest:
             PlaceholderView()
-                .onAppear {
+               .onAppear {
                     viewModel.send(action: .checkRepoCreate)
                 }
         case .loading:
@@ -45,16 +45,11 @@ struct MainTabView: View {
 
 extension MainTabView {
     var loadedView: some View {
-        
-            ZStack(alignment: .bottom) {
-                tabView.zIndex(0)
-                bottomTabs.zIndex(1)
-            }
-            .ignoresSafeArea()
-//            .navigationDestination(for: NavigationDestination.self) {
-//                NavigationRoutingView(destination: $0)
-//            }
-        
+        ZStack(alignment: .bottom) {
+            tabView.zIndex(0)
+            bottomTabs.zIndex(1)
+        }
+        .ignoresSafeArea()
     }
     
     var tabView: some View {

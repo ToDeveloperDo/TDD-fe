@@ -36,16 +36,19 @@ struct MyProfileView: View {
                             LazyVGrid(columns: columns, spacing: 8) {
                                 ForEach(viewModel.users) { user in
                                     UserInfoCardView(user: user) {
+                                        viewModel.clickedGitUrl = user.gitUrl
+                                        viewModel.isPresentGit = true
+                                    } action: {
                                         viewModel.send(action: .clickedUserInfoBtn(user: user))
                                     }
                                     .onTapGesture {
                                         viewModel.send(action: .clickedUserCell(user: user))
                                     }
+                                    .contentShape(Rectangle())
                                 }
-                            }
+                            }.padding(.bottom, 54)
                         }
                     }
-                    
                 }
             }
             .ignoresSafeArea()

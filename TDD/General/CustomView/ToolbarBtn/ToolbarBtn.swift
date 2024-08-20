@@ -13,6 +13,15 @@ struct ToolbarBtn: View {
     
     var body: some View {
         Button(action: {
+            switch infoType {
+            case .FOLLOWING:
+                infoType = .NOT_FRIEND
+            case .NOT_FRIEND:
+                infoType = .REQUEST
+            case .REQUEST: return
+            case .RECEIVE:
+                infoType = .FOLLOWING
+            }
             action()
         }, label: {
             Text("\(infoType.title)")

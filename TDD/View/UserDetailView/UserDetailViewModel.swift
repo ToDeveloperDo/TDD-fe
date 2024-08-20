@@ -12,8 +12,8 @@ final class UserDetailViewModel: ObservableObject {
     @Published var userTodoList: [FriendTodoList]
     @Published var isLoading: Bool = false
     @Published var isPresentGit: Bool = false
+    @Published var user: UserInfo
     
-    var user: UserInfo
     var parent: NavigationRouterType
     
     private var container: DIContainer
@@ -29,13 +29,44 @@ final class UserDetailViewModel: ObservableObject {
     
     enum Action {
         case pop
+        case infoTypeBtnClicked
     }
     
     func send(action: Action) {
         switch action {
         case .pop:
             container.navigationRouter.pop(on: parent)
+        case .infoTypeBtnClicked:
+            switch user.status {
+            case .FOLLOWING:
+                user.status = .NOT_FRIEND
+                container.services.friendService.deleteFriend(id: user.userId)
+                    .sink { completion in
+                        
+                    } receiveValue: { succeed in
+                        
+                    }.store(in: &subscriptions)
+
+            case .NOT_FRIEND:
+                user.status = .REQUEST
+                container.services.friendService.addFriend(id: user.userId)
+                    .sink { completion in
+                        
+                    } receiveValue: { succeed in
+                        
+                    }.store(in: &subscriptions)
+            case .REQUEST: break
+            case .RECEIVE:
+                user.status = .FOLLOWING
+                container.services.friendService.acceptFriend(id: user.userId)
+                    .sink { completion in
+                        
+                    } receiveValue: { succeed in
+                        
+                    }.store(in: &subscriptions)
+            }
         }
+        
     }
 }
 

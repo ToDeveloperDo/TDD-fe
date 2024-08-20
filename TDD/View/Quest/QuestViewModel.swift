@@ -12,9 +12,11 @@ final class QuestViewModel: ObservableObject {
     @Published var searchName: String
     @Published var users: [UserInfo]
     @Published var isLoading: Bool = false
+    @Published var isPresentGit: Bool = false
     
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
+    var clickedGitUrl: String = ""
     
     init(searchName: String = "", users: [UserInfo] = [], container: DIContainer) {
         self.searchName = searchName
@@ -22,7 +24,17 @@ final class QuestViewModel: ObservableObject {
         self.container = container
     }
     
+    enum Action {
+        case clickedInfoType(user: UserInfo)
+    }
     
+    func send(action: Action) {
+        switch action {
+        case .clickedInfoType(let user):
+            clickedUserInfoBtn(user: user)
+            
+        }
+    }
 }
 
 extension QuestViewModel {
@@ -37,27 +49,36 @@ extension QuestViewModel {
                 self.isLoading = false
             }.store(in: &subscriptions)
     }
-    
-    func accept(id: Int64) {
-        container.services.friendService.acceptFriend(id: id)
-            .sink { completion in
-                
-            } receiveValue: { succeed in
-                
-            }.store(in: &subscriptions)
 
+    func clickedUserCell(_ user: UserInfo) {
+        container.navigationRouter.push(to: .userDetail(user: user, parent: .quest), on: .quest)
     }
     
-    func send(id: Int64) {
-        container.services.friendService.addFriend(id: id)
-            .sink { completion in
-                
-            } receiveValue: { succeed in
-                
-            }.store(in: &subscriptions)
-
-    }
-     func clickedUserCell(_ user: UserInfo) {
-         container.navigationRouter.push(to: .userDetail(user: user, parent: .quest), on: .quest)
+    private func clickedUserInfoBtn(user: UserInfo) {
+        switch user.status {
+        case .FOLLOWING:
+            container.services.friendService.deleteFriend(id: user.userId)
+                .sink { completion in
+                    
+                } receiveValue: { succeed in
+                    
+                }.store(in: &subscriptions)
+            
+        case .NOT_FRIEND:
+            container.services.friendService.addFriend(id: user.userId)
+                .sink { completion in
+                    
+                } receiveValue: { succeed in
+                    
+                }.store(in: &subscriptions)
+        case .REQUEST:break
+        case .RECEIVE:
+            container.services.friendService.acceptFriend(id: user.userId)
+                .sink { completion in
+                    
+                } receiveValue: { succeed in
+                    
+                }.store(in: &subscriptions)
+        }
     }
 }

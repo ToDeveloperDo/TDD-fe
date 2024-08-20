@@ -45,5 +45,15 @@ final class AuthAPI {
             completion(false)
         }
     }
+    
+    func revokeWithApple() -> AnyPublisher<Void, Error> {
+        return API.session.request(AuthAPITarget.revokeWithApple, interceptor: AuthInterceptor.shared)
+            .validate(statusCode: 200..<300)
+            .publishData()
+            .tryMap { response in
+                return ()
+            }
+            .eraseToAnyPublisher()
+    }
 }
 

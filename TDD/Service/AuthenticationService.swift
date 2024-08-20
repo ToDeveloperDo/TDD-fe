@@ -12,6 +12,7 @@ import AuthenticationServices
 protocol AuthenticationServiceType {
     func signInWithAppleRequest(_ reqeust: ASAuthorizationAppleIDRequest) -> Void
     func signInwithAppleCompletion(_ authorization: ASAuthorization) -> AnyPublisher<(LoginResponse, String), ServiceError>
+    func revokeWithApple() -> AnyPublisher<Void, ServiceError>
 }
 
 final class AuthenticationService: AuthenticationServiceType {
@@ -41,6 +42,12 @@ final class AuthenticationService: AuthenticationServiceType {
             .mapError { ServiceError.error($0) }
             .eraseToAnyPublisher()
     }
+    
+    func revokeWithApple() -> AnyPublisher<Void, ServiceError> {
+        return authAPI.revokeWithApple()
+            .mapError { ServiceError.error($0) }
+            .eraseToAnyPublisher()
+    }
 }
 
 final class StubAuthenticationService: AuthenticationServiceType {
@@ -52,5 +59,9 @@ final class StubAuthenticationService: AuthenticationServiceType {
         Just((LoginResponse(idToken: "성공", refreshToken: "성공"), "id"))
             .setFailureType(to: ServiceError.self)
             .eraseToAnyPublisher()
+    }
+    
+    func revokeWithApple() -> AnyPublisher<Void, ServiceError> {
+        Empty().eraseToAnyPublisher()
     }
 }

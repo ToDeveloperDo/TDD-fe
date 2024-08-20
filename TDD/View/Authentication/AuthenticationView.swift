@@ -33,6 +33,7 @@ struct AuthenticationView: View {
                     .zIndex(1)
             }
         }
+        .environmentObject(viewModel)
         .onAppear {
             viewModel.send(action: .checkLoginState)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {

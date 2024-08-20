@@ -30,6 +30,7 @@ final class AuthenticationViewModel: ObservableObject {
         case appleLogin(ASAuthorizationAppleIDRequest)
         case appleLoginCompletion(Result<ASAuthorization, Error>)
         case checkLoginState
+        case revokeWithApple
     }
       
     func send(action: Action) {
@@ -80,6 +81,20 @@ final class AuthenticationViewModel: ObservableObject {
             } catch {
                 authState = .unAuthenticated
             }
+        case .revokeWithApple:
+            container.services.authService.revokeWithApple()
+                .sink { [weak self] completion in
+                    do {
+                        try KeychainManager.shared.delete(.access)
+                        try KeychainManager.shared.delete(.refresh)
+                        try KeychainManager.shared.delete(.userIdentifier)
+                        self?.authState = .unAuthenticated
+                    } catch {
+                        self?.authState = .authenticated
+                    }
+                } receiveValue: { _ in
+                }.store(in: &subscription)
+
         }
     }
 }

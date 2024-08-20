@@ -23,11 +23,7 @@ struct QuestView: View {
                     if viewModel.isLoading {
                         LoadingView()
                     } else {
-                        if viewModel.users.isEmpty {
-                            EmptyView()
-                        } else {
-                            MemberCardView(viewModel: viewModel)
-                        }
+                        MemberCardView(viewModel: viewModel)
                     }
                 }
                 .background(Color.mainbg)
@@ -38,6 +34,10 @@ struct QuestView: View {
             }
             .navigationDestination(for: NavigationDestination.self) {
                 NavigationRoutingView(destination: $0)
+            }
+            .sheet(isPresented: $viewModel.isPresentGit) {
+                MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
+                    .ignoresSafeArea()
             }
         }
     }
@@ -55,25 +55,19 @@ private struct MemberCardView: View {
         LazyVGrid(columns: columns, content: {
             ForEach(viewModel.users) { user in
                 UserInfoCardView(user: user) {
-                    viewModel.accept(id: user.userId)
+                    viewModel.clickedGitUrl = user.gitUrl
+                    viewModel.isPresentGit = true
+                } action: {
+                    viewModel.clickedUserCell(user)
                 }
                 .onTapGesture {
                     viewModel.clickedUserCell(user)
                 }
+                .contentShape(Rectangle())
             }
         })
-        .padding(.top, 34)
-    }
-}
-
-private struct EmptyView: View {
-    var body: some View {
-        VStack {
-            Spacer()
-            Text("없음")
-            Spacer()
-        }
-        
+        .padding(.vertical, 34)
+        .padding(.bottom, 20)
     }
 }
 
