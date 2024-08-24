@@ -12,11 +12,14 @@ struct SettingView: View {
     
     var body: some View {
         ScrollView {
+            Spacer()
+                .frame(height: 88)
+                .padding(.bottom, 48)
+            
             SettingCellView(title: "개인정보 처리 방침") {
                 
             }
             .padding(.bottom, 4)
-            .padding(.top, 165)
             
             SettingCellView(title: "문의하기") {
                 
@@ -62,8 +65,8 @@ struct SettingView: View {
                     .foregroundStyle(Color.fixBk)
             }
         }
+        .toolbarColorScheme(.light, for: .navigationBar)
         .navigationBarBackButtonHidden()
-        
     }
 }
 

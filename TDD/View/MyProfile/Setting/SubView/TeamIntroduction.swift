@@ -11,13 +11,13 @@ struct TeamIntroduction: View {
     @EnvironmentObject private var container: DIContainer
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Spacer()
+        VStack(alignment: .leading, spacing: 0) {
             
             Text("About Us")
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundStyle(Color.fixBk)
                 .padding(.bottom, 24)
+                .padding(.top, 48)
             
             AvatarCell(name: "Anyong", 
                        gitHubUrl: "https://github.com/ChoiAnYong",
@@ -34,7 +34,7 @@ struct TeamIntroduction: View {
                        imageString: "junAvatar",
                        role: "BE")
             .padding(.bottom, 48)
-            AvatarCell(name: "Anyong",
+            AvatarCell(name: "NaNa",
                        gitHubUrl: "https://bit.ly/4a0cvCP",
                        email: "naongsiii@gmail.com",
                        stack: "Figma, Ai, Ps",
