@@ -13,22 +13,13 @@ struct UserInfoCardView: View {
     var action: () -> Void
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Spacer()
-                Image(.cardClose)
-                    .resizable()
-                    .frame(width: 8, height: 8)
-            }
-            .padding(.trailing, 8)
-            .padding(.top, 8)
-            .padding(.bottom, 6)
-            
+        VStack(spacing: 0) {            
             URLImageView(urlString: user.profileUrl)
                 .frame(width: 86, height: 86)
                 .background(Color.shadow)
                 .clipShape(Circle())
                 .padding(.bottom, 8)
+                .padding(.top, 22)
             
             Text("\(user.userName)")
                 .font(.system(size: 16, weight: .semibold))

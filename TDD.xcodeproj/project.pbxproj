@@ -68,6 +68,8 @@
 		AD5D72D72C54F2E1009FE208 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */; };
 		AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */; };
 		AD5DC7312C7B10EB0037AC41 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5DC7302C7B10EB0037AC41 /* PersonalInformationView.swift */; };
+		AD5DC7332C7B55510037AC41 /* NetworkErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5DC7322C7B55510037AC41 /* NetworkErrorAlert.swift */; };
+		AD5DC7352C7B66D90037AC41 /* SearchEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5DC7342C7B66D80037AC41 /* SearchEmptyView.swift */; };
 		AD60854A2C7097FB00D33143 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6085492C7097FB00D33143 /* UserDetailView.swift */; };
 		AD60854C2C709CCD00D33143 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60854B2C709CCD00D33143 /* UserDetailViewModel.swift */; };
 		AD60854E2C70A76A00D33143 /* ToolbarBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60854D2C70A76A00D33143 /* ToolbarBtn.swift */; };
@@ -196,6 +198,8 @@
 		AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		AD5DC7302C7B10EB0037AC41 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
+		AD5DC7322C7B55510037AC41 /* NetworkErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorAlert.swift; sourceTree = "<group>"; };
+		AD5DC7342C7B66D80037AC41 /* SearchEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEmptyView.swift; sourceTree = "<group>"; };
 		AD6085492C7097FB00D33143 /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		AD60854B2C709CCD00D33143 /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
 		AD60854D2C70A76A00D33143 /* ToolbarBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarBtn.swift; sourceTree = "<group>"; };
@@ -764,6 +768,8 @@
 				ADAAF2CF2C5F786800C292CA /* TodoInfoModifier.swift */,
 				ADEFB8EF2C65C9F400A03C26 /* TagBtn.swift */,
 				AD4296862C6B35350016A57A /* UserInfoView.swift */,
+				AD5DC7322C7B55510037AC41 /* NetworkErrorAlert.swift */,
+				AD5DC7342C7B66D80037AC41 /* SearchEmptyView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -878,6 +884,7 @@
 				AD4296A22C6C94F40016A57A /* FetchMyInfoResponse.swift in Sources */,
 				AD60854A2C7097FB00D33143 /* UserDetailView.swift in Sources */,
 				AD10DBC92C40234000785252 /* QuestView.swift in Sources */,
+				AD5DC7332C7B55510037AC41 /* NetworkErrorAlert.swift in Sources */,
 				AD10DBC72C40232400785252 /* MyProfileView.swift in Sources */,
 				AD4296A82C6C9B470016A57A /* FriendResponse.swift in Sources */,
 				AD241F542C4E2B1700DE8805 /* GitHubAPITarget.swift in Sources */,
@@ -887,6 +894,7 @@
 				AD42968E2C6B584A0016A57A /* MyProfileViewModel.swift in Sources */,
 				AD6353C82C6354E300CED65A /* DiskStorage.swift in Sources */,
 				AD4296912C6B58CE0016A57A /* FriendAPI.swift in Sources */,
+				AD5DC7352C7B66D90037AC41 /* SearchEmptyView.swift in Sources */,
 				AD46DDFE2C47954000DE940B /* TodoAPITarget.swift in Sources */,
 				ADAA4FF02C58EB3900EF30E0 /* TodoInputView.swift in Sources */,
 				AD42969D2C6C923B0016A57A /* MemberAPI.swift in Sources */,

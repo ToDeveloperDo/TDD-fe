@@ -10,35 +10,59 @@ import SwiftUI
 struct QuestView: View {
     @EnvironmentObject private var container: DIContainer
     @StateObject var viewModel: QuestViewModel
+    @FocusState private var isFocused: Bool
     
     var body: some View {
-        NavigationStack(path: $container.navigationRouter.questDestinations) {
-            ScrollView {
-                VStack(spacing: 0) {
-                    SearchBar(text: $viewModel.searchName) {
-                        
+        ZStack {
+            NavigationStack(path: $container.navigationRouter.questDestinations) {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        SearchBar(text: $viewModel.searchName) {
+                            viewModel.send(action: .searchUser)
+                        }
+                        .focused($isFocused)
+                        .padding(.top, 28)
+                        .padding(.horizontal, 24)
+                        if viewModel.isLoading {
+                            LoadingView()
+                                .padding(.top, 200)                    
+                        } else {
+                            MemberCardView(viewModel: viewModel)
+                        }
                     }
-                    .padding(.top, 28)
-                    .padding(.horizontal, 24)
-                    if viewModel.isLoading {
-                        LoadingView()
-                    } else {
-                        MemberCardView(viewModel: viewModel)
-                    }
+                    .background(Color.mainbg)
                 }
+                .scrollIndicators(.hidden)
                 .background(Color.mainbg)
+                .onAppear {
+                    viewModel.fetchMembers()
+                }
+                .navigationDestination(for: NavigationDestination.self) {
+                    NavigationRoutingView(destination: $0)
+                }
+                .sheet(isPresented: $viewModel.isPresentGit) {
+                    MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
+                        .ignoresSafeArea()
+                }
             }
-            .scrollIndicators(.hidden)
-            .background(Color.mainbg)
-            .onAppear {
-                viewModel.fetchMembers()
-            }
-            .navigationDestination(for: NavigationDestination.self) {
-                NavigationRoutingView(destination: $0)
-            }
-            .sheet(isPresented: $viewModel.isPresentGit) {
-                MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
-                    .ignoresSafeArea()
+            
+            Color.clear
+                .contentShape(Rectangle())
+                .edgesIgnoringSafeArea(.all)
+                .onTapGesture {
+                    isFocused = false
+                }
+        }
+        .overlay {
+            if viewModel.networkErr {
+                NetworkErrorAlert()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                            withAnimation {
+                                viewModel.networkErr = false
+                            }
+                        }
+                    }
             }
         }
     }
@@ -53,19 +77,45 @@ private struct MemberCardView: View {
     }
     
     fileprivate var body: some View {
-        LazyVGrid(columns: columns, content: {
-            ForEach(viewModel.users) { user in
-                UserInfoCardView(user: user) {
-                    viewModel.clickedGitUrl = user.gitUrl
-                    viewModel.isPresentGit = true
-                } action: {
-                    viewModel.send(action: .clickedInfoType(user: user))
+        Group {
+            switch viewModel.userListMode {
+            case .search:
+                if viewModel.searchUsers.isEmpty {
+                    VStack {
+                        SearchEmptyView()
+                            .padding(.top, 200)
+                    }
+                } else {
+                    LazyVGrid(columns: columns) {
+                        ForEach(viewModel.searchUsers) { user in
+                            UserInfoCardView(user: user) {
+                                viewModel.clickedGitUrl = user.gitUrl
+                                viewModel.isPresentGit = true
+                            } action: {
+                                viewModel.send(action: .clickedInfoType(user: user))
+                            }
+                            .onTapGesture {
+                                viewModel.clickedUserCell(user)
+                            }
+                        }
+                    }
                 }
-                .onTapGesture {
-                    viewModel.clickedUserCell(user)
+            case .normal:
+                LazyVGrid(columns: columns) {
+                    ForEach(viewModel.users) { user in
+                        UserInfoCardView(user: user) {
+                            viewModel.clickedGitUrl = user.gitUrl
+                            viewModel.isPresentGit = true
+                        } action: {
+                            viewModel.send(action: .clickedInfoType(user: user))
+                        }
+                        .onTapGesture {
+                            viewModel.clickedUserCell(user)
+                        }
+                    }
                 }
             }
-        })
+        }
         .padding(.vertical, 34)
         .padding(.bottom, 20)
     }

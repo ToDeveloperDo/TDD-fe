@@ -38,4 +38,12 @@ enum MyProfileBtnType {
         case .receive: return "receiveEmpty"
         }
     }
+    
+    var imageSize: (CGFloat, CGFloat) {
+        switch self {
+        case .friend: return (76, 75)
+        case .request: return (83, 83)
+        case .receive: return (84, 72)
+        }
+    }
 }

@@ -232,6 +232,9 @@ extension CalendarViewModel {
         if let index = currentDayIndex,
            let todoIndex = months[selection].days[index].todos.firstIndex(where: { $0.id == todo.id }),
            let todoId = months[selection].days[index].todos[todoIndex].todoListId {
+            if todo.status == .PROCEED {
+                months[selection].days[index].todosCount -= 1
+            }
             months[selection].days[index].todos.remove(at: todoIndex)
             
             container.services.todoService.deleteTodo(todoId: todoId)

@@ -9,30 +9,50 @@ import Foundation
 import Combine
 
 final class QuestViewModel: ObservableObject {
-    @Published var searchName: String
+    @Published var searchName: String {
+        didSet {
+            if searchName == "" {
+                userListMode = .normal
+            }
+        }
+    }
+    @Published var userListMode: Mode = .normal
     @Published var users: [UserInfo]
-    @Published var isLoading: Bool = false
+    @Published var searchUsers: [UserInfo]
+    @Published var isLoading: Bool = true
     @Published var isPresentGit: Bool = false
+    @Published var networkErr: Bool = false
     
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
     var clickedGitUrl: String = ""
     
-    init(searchName: String = "", users: [UserInfo] = [], container: DIContainer) {
+    init(searchName: String = "",
+         users: [UserInfo] = [],
+         searchUsers: [UserInfo] = [],
+         container: DIContainer) {
         self.searchName = searchName
         self.users = users
+        self.searchUsers = searchUsers
         self.container = container
+    }
+    
+    enum Mode {
+        case search
+        case normal
     }
     
     enum Action {
         case clickedInfoType(user: UserInfo)
+        case searchUser
     }
     
     func send(action: Action) {
         switch action {
         case .clickedInfoType(let user):
             clickedUserInfoBtn(user: user)
-            
+        case .searchUser:
+            searchUser()
         }
     }
 }
@@ -84,5 +104,22 @@ extension QuestViewModel {
                     self.users[index].status = .FOLLOWING
                 }.store(in: &subscriptions)
         }
+    }
+    
+    private func searchUser() {
+        isLoading = true
+        searchUsers = []
+        userListMode = .search
+        container.services.friendService.searchFriend(userName: searchName)
+            .sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.isLoading = false
+                }
+            } receiveValue: { [weak self] user in
+                guard let self = self else { return }
+                self.searchUsers.append(user)
+                self.isLoading = false
+            }.store(in: &subscriptions)
+
     }
 }

@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum AlertType {
+    case edit
+    case delete
+}
+
 final class TodoDetailViewModel: ObservableObject {
     @Published var todo: Todo
     @Published var changeDate: Date {
@@ -15,6 +20,8 @@ final class TodoDetailViewModel: ObservableObject {
         }
     }
     @Published var isPresent: Bool = false
+    
+    var alert: AlertType = .edit
     
     init(todo: Todo, date: Date) {
         self.todo = todo

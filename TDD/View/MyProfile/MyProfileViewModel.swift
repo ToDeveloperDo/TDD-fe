@@ -9,10 +9,18 @@ import Foundation
 import Combine
 
 final class MyProfileViewModel: ObservableObject {
-    @Published var searchName: String
+    @Published var searchName: String {
+        didSet {
+            if searchName == "" {
+                userListMode = .normal
+            }
+        }
+    }
+    @Published var userListMode: Mode = .normal
     @Published var myInfo: MyInfo?
     @Published var users: [UserInfo]
-    @Published var selectedMode: MyProfileBtnType = .friend 
+    @Published var searchUsers: [UserInfo]
+    @Published var selectedMode: MyProfileBtnType = .friend
     @Published var isPresentGit: Bool = false
     @Published var isLoading: Bool = false
      var clickedGitUrl: String = ""
@@ -20,18 +28,26 @@ final class MyProfileViewModel: ObservableObject {
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
     
+    enum Mode {
+        case search
+        case normal
+    }
+    
     enum Action {
         case clickedBtn(mode: MyProfileBtnType)
         case clickedUserCell(user: UserInfo)
         case clickedSetting
         case clickedUserInfoBtn(user: UserInfo)
+        case searchUser
     }
     
     init(searchName: String = "",
          users: [UserInfo] = [],
+         searchUsers: [UserInfo] = [],
          container: DIContainer) {
         self.searchName = searchName
         self.users = users
+        self.searchUsers = searchUsers
         self.container = container
         fetchMyInfo()
         clickedBtn(.friend)
@@ -47,6 +63,8 @@ final class MyProfileViewModel: ObservableObject {
             container.navigationRouter.push(to: .setting, on: .myProfile)
         case .clickedUserInfoBtn(let user):
             clickedUserInfoBtn(user: user)
+        case .searchUser:
+            searchUser()
         }
     }
     
@@ -83,7 +101,7 @@ extension MyProfileViewModel {
                     self.isLoading = false
                     self.users = users
                 }.store(in: &subscriptions)
-
+            
         case .request:
             container.services.friendService.fetchSendList()
                 .sink { completion in
@@ -130,5 +148,13 @@ extension MyProfileViewModel {
                     }.store(in: &subscriptions)
             }
         }
+    }
+    
+    private func searchUser() {
+        isLoading = true
+        searchUsers = []
+        userListMode = .search
+        searchUsers = users.filter({$0.userName == searchName})
+        isLoading = false
     }
 }

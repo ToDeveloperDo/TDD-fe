@@ -44,9 +44,11 @@ final class CreateRepoViewModel: ObservableObject {
         let request = CreateRepoRequest(repoName: name, description: description, isPrivate: isPrivate)
         
         container.services.githubService.createRepo(request: request)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self = self else { return }
                 if case .failure(let error) = completion {
-                    //Error
+                    self.isPresentAlert = true
+                    self.alert = .inputError
                     print(completion)
                 }
             } receiveValue: { [weak self] succeed in

@@ -25,17 +25,22 @@ struct TodoDetailView: View {
         .padding(.vertical, 38)
         .padding(.horizontal, 24)
         .background(Color.fixWh)
-        .alert("수정하시겠습니까?", isPresented: $todoDetailViewModel.isPresent) {
-            Button(role: .cancel) {
-                viewModel.send(action: .updateTodo(todoDetailViewModel.todo))
-                dismiss()
-            } label: {
-                Text("확인")
-            }
-            Button(role: .destructive) {
-                
-            } label: {
-                Text("취소")
+        .alert(isPresented: $todoDetailViewModel.isPresent) {
+            switch todoDetailViewModel.alert {
+            case .edit:
+                return Alert(title: Text("수정하시겠습니까?"),
+                             primaryButton: .cancel(Text("취소")),
+                             secondaryButton: .destructive(Text("확인")) {
+                    viewModel.send(action: .updateTodo(todoDetailViewModel.todo))
+                    viewModel.isPresent = false
+                })
+            case .delete:
+                return Alert(title: Text("삭제하시겠습니까?"),
+                             primaryButton: .cancel(Text("취소")),
+                             secondaryButton: .destructive(Text("확인")) {
+                    viewModel.send(action: .deleteTodo(todoDetailViewModel.todo))
+                    viewModel.isPresent = false
+                })
             }
         }
     }
@@ -57,6 +62,7 @@ private struct HeaderView: View {
             HStack(spacing: 12) {
                 Button(action: {
                     todoDetailViewModel.isPresent = true
+                    todoDetailViewModel.alert = .edit
                 }, label: {
                     Image(.editBtn)
                         .resizable()
@@ -65,6 +71,7 @@ private struct HeaderView: View {
                 })
                 Button(action: {
                     todoDetailViewModel.isPresent = true
+                    todoDetailViewModel.alert = .delete
                 }, label: {
                     Image(.deleteBtn)
                         .resizable()

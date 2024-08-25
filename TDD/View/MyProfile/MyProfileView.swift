@@ -24,24 +24,8 @@ struct MyProfileView: View {
                             
                             BtnView(viewModel: viewModel)
                             
-//                            HStack(spacing: 12) {
-//                                Image(.search)
-//                                TextField("계정 검색하기", text: $viewModel.searchName)
-//                                    .focused($isFocused)
-//                                    .submitLabel(.search)
-//                                    .onSubmit {
-//                                        
-//                                    }
-//                            }
-//                            .padding(.horizontal, 14)
-//                            .padding(.vertical, 10)
-//                            .background {
-//                                RoundedRectangle(cornerRadius: 14)
-//                                    .foregroundStyle(Color.fixWh)
-//                                    .shadow(radius: 1)
-//                            }
                             SearchBar(text: $viewModel.searchName, action: {
-                                
+                                viewModel.send(action: .searchUser)
                             })
                             .focused($isFocused)
                             .padding(.vertical, 1)
@@ -51,25 +35,10 @@ struct MyProfileView: View {
                             
                             if viewModel.isLoading {
                                 LoadingView()
+                                    .padding(.top, 65)
                             } else {
-                                if viewModel.users.isEmpty {
-                                    EmptyView(viewModel: viewModel)
-                                        .padding(.top, 82)
-                                } else {
-                                    LazyVGrid(columns: columns, spacing: 8) {
-                                        ForEach(viewModel.users) { user in
-                                            UserInfoCardView(user: user) {
-                                                viewModel.clickedGitUrl = user.gitUrl
-                                                viewModel.isPresentGit = true
-                                            } action: {
-                                                viewModel.send(action: .clickedUserInfoBtn(user: user))
-                                            }
-                                            .onTapGesture {
-                                                viewModel.send(action: .clickedUserCell(user: user))
-                                            }
-                                        }
-                                    }.padding(.bottom, 100)
-                                }
+                                MemberCardView(viewModel: viewModel)
+                                    .padding(.bottom, 100)
                             }
                         }
                     }
@@ -171,6 +140,8 @@ private struct BtnView: View {
 private struct EmptyView: View {
     @ObservedObject private var viewModel: MyProfileViewModel
     
+    
+    
     init(viewModel: MyProfileViewModel) {
         self.viewModel = viewModel
     }
@@ -179,10 +150,70 @@ private struct EmptyView: View {
         VStack(spacing: 12) {
             Image(viewModel.selectedMode.imageName)
                     .resizable()
-                    .frame(width: 40, height: 45)
+                    .frame(width: viewModel.selectedMode.imageSize.0,
+                           height: viewModel.selectedMode.imageSize.1)
+            
             Text(viewModel.selectedMode.emptyTitle)
                     .font(.system(size: 14, weight: .light))
                     .foregroundStyle(Color.serve)
+        }
+        .padding(.top, 65)
+    }
+}
+
+private struct MemberCardView: View {
+    @ObservedObject private var viewModel: MyProfileViewModel
+    private let columns = Array(repeating: GridItem(.fixed(170)), count: 2)
+    
+    fileprivate init(viewModel: MyProfileViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    fileprivate var body: some View {
+        VStack {
+            switch viewModel.userListMode {
+            case .search:
+                if viewModel.searchUsers.isEmpty {
+                    VStack {
+                        SearchEmptyView()
+                            .padding(.top, 65)
+                    }
+                } else {
+                    LazyVGrid(columns: columns) {
+                        ForEach(viewModel.searchUsers) { user in
+                            UserInfoCardView(user: user) {
+                                viewModel.clickedGitUrl = user.gitUrl
+                                viewModel.isPresentGit = true
+                            } action: {
+                                viewModel.send(action: .clickedUserInfoBtn(user: user))
+                            }
+                            .onTapGesture {
+                                viewModel.send(action: .clickedUserCell(user: user))
+                            }
+                        }
+                    }
+                }
+            case .normal:
+                if viewModel.users.isEmpty {
+                    VStack {
+                        EmptyView(viewModel: viewModel)
+                    }
+                } else {
+                    LazyVGrid(columns: columns) {
+                        ForEach(viewModel.users) { user in
+                            UserInfoCardView(user: user) {
+                                viewModel.clickedGitUrl = user.gitUrl
+                                viewModel.isPresentGit = true
+                            } action: {
+                                viewModel.send(action: .clickedUserInfoBtn(user: user))
+                            }
+                            .onTapGesture {
+                                viewModel.send(action: .clickedUserCell(user: user))
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

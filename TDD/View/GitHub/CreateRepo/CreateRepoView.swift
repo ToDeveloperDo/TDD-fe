@@ -46,11 +46,9 @@ struct CreateRepoView: View {
                              primaryButton: .cancel(Text("취소"), action: {}),
                              secondaryButton: .default(Text("확인")) {
                     viewModel.createRepo()
-                    //TODO: - 레포 생성 API 호출
                 })
             case .inputError:
                 return Alert(title: Text("입력 오류"),
-                             message: Text("Repository Name을 입력해야 합니다."),
                              dismissButton: .cancel(Text("확인"), action: {}))
             }
         }
