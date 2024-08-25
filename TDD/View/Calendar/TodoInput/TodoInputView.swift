@@ -125,10 +125,10 @@ private struct TodoTitleView: View {
     fileprivate var body: some View {
         TextField("", text: $todoInputViewModel.todo.content,
                   prompt: Text("어떤 일을 하시겠습니까?")
-            .font(.system(size: 14, weight: .light))
+            .font(.system(size: 14, weight: .thin))
             .foregroundStyle(.fixBk.opacity(0.2))
         )
-        .font(.system(size: 14, weight: .light))
+        .font(.system(size: 14, weight: .thin))
         .foregroundStyle(.fixBk)
         .padding(.horizontal, 3)
         .padding(.vertical, 8)
@@ -152,7 +152,7 @@ private struct TodoMemoView: View {
             
             if todoInputViewModel.todo.memo.isEmpty {
                 Text("설명을 입력해주세요")
-                    .font(.system(size: 14, weight: .light))
+                    .font(.system(size: 14, weight: .thin))
                     .foregroundStyle(.fixBk.opacity(0.2))
                     .allowsHitTesting(false)
                     .padding(.vertical, 8)
@@ -172,7 +172,7 @@ private struct TextViewWrapper: UIViewRepresentable {
         textView.isScrollEnabled = false  // 초기에는 스크롤 비활성화
         textView.isEditable = true
         textView.backgroundColor = .clear
-        textView.font = .systemFont(ofSize: 14, weight: .light)
+        textView.font = .systemFont(ofSize: 14, weight: .thin)
         textView.delegate = context.coordinator
         return textView
     }
@@ -231,10 +231,10 @@ private struct TagView: View {
                 TextField("",
                           text: $todoInputViewModel.todo.tag,
                           prompt: Text("태그를 입력해주세요")
-                    .font(.system(size: 14, weight: .light))
+                    .font(.system(size: 14, weight: .thin))
                     .foregroundStyle(.fixBk.opacity(0.2))
                 )
-                .font(.system(size: 14, weight: .light))
+                .font(.system(size: 14, weight: .thin))
                 .foregroundStyle(.fixBk)
                 .padding(.vertical, 8)
                 .onChange(of: focusedField.wrappedValue) { oldValue, newValue in

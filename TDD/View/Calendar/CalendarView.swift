@@ -22,13 +22,13 @@ struct CalendarView: View {
                         .padding(.top, 29)
                         .padding(.bottom, 8)
                     calendarBody
-                        .padding(.horizontal, 36) 
+                        .padding(.horizontal, 24)
+                        
                     if viewModel.isTodoLoading {
                         LoadingView()
                     } else {
                         TodoListView(viewModel: .init(todos: viewModel.currentTodos(),
                                                       todosCount: viewModel.currentTodosCount()))
-                        .environmentObject(viewModel)
                     }
                 }
                 .overlay {
@@ -36,8 +36,8 @@ struct CalendarView: View {
                         Color.gray.opacity(0.1)
                             .ignoresSafeArea()
                             .onTapGesture {
-                                viewModel.showTextField = false                            
-                            }                        
+                                viewModel.showTextField = false
+                            }
                     }
                 }
                 
@@ -48,33 +48,33 @@ struct CalendarView: View {
                     VStack {
                         Spacer()
                         if let date = viewModel.clickedCurrentMonthDates {
-                            TodoInputView(todoInputViewModel:
-                                            TodoInputViewModel(todo:
-                                                    .init(content: "",
-                                                          memo: "",
-                                                          tag: "",
-                                                          deadline: date.format("YYYY-MM-dd"),
-                                                          status: .PROCEED), date: date
-                                            )
-                            ).environmentObject(viewModel)
+                            TodoInputView(todoInputViewModel: .init(todo:  .init(content: "",
+                                                                                 memo: "",
+                                                                                 tag: "",
+                                                                                 deadline: date.format("YYYY-MM-dd"),
+                                                                                 status: .PROCEED), date: date))
                         }
                     }
                     .ignoresSafeArea()
                 }
             }
         }
+        .overlay {
+            if viewModel.isSlidingLoading {
+                Color.gray.opacity(0.1).ignoresSafeArea()
+            }
+        }
         .ignoresSafeArea(edges: .bottom)
         .background(Color.mainbg)
-        .ignoresSafeArea(.keyboard)
-        
+        .ignoresSafeArea(.keyboard)        
         .sheet(isPresented: $viewModel.isPresent) {
             if let todo = viewModel.detailTodo,
                let date = viewModel.clickedCurrentMonthDates {
                 TodoDetailView(todoDetailViewModel: .init(todo: todo, date: date))
                     .presentationDetents([.medium, .large])
-                    .environmentObject(viewModel)
             }
         }
+        .environmentObject(viewModel)
     }
     
     private var calendarHeader: some View {
@@ -106,7 +106,7 @@ struct CalendarView: View {
             LazyVGrid(columns: columns) {
                 ForEach(viewModel.dayOfWeek, id: \.self) { day in
                     Text("\(day)")
-                        .font(.system(size: 14, weight: .light))
+                        .font(.system(size: 14, weight: .thin))
                         .foregroundStyle(Color.calendarDayGray)
                 }
                 

@@ -28,6 +28,7 @@ struct QuestView: View {
                 }
                 .background(Color.mainbg)
             }
+            .scrollIndicators(.hidden)
             .background(Color.mainbg)
             .onAppear {
                 viewModel.fetchMembers()
@@ -58,12 +59,11 @@ private struct MemberCardView: View {
                     viewModel.clickedGitUrl = user.gitUrl
                     viewModel.isPresentGit = true
                 } action: {
-                    viewModel.clickedUserCell(user)
+                    viewModel.send(action: .clickedInfoType(user: user))
                 }
                 .onTapGesture {
                     viewModel.clickedUserCell(user)
                 }
-                .contentShape(Rectangle())
             }
         })
         .padding(.vertical, 34)

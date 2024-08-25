@@ -23,7 +23,7 @@ struct MyProfileBtn: View {
             action()
         }, label: {
             Text("\(type.title)")
-                .font(.system(size: 12, weight: .light))
+                .font(.system(size: 12, weight: .thin))
                 .foregroundStyle(Color(selected ? "fixWh" : "mainColor"))
                 .padding(.horizontal, 16)
                 .padding(.vertical, 9)

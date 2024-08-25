@@ -20,8 +20,7 @@ struct AuthenticationView: View {
                     LoginView()
                         .alert("로그인 오류", isPresented: $viewModel.isPresent) {
                             Button("OK", role: .cancel) {  }
-                        }
-                        .environmentObject(viewModel)
+                        }                        
                 case .authenticated:
                     MainTabView(viewModel: .init(container: container))
                 }

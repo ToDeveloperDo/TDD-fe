@@ -75,7 +75,7 @@ struct UserDetailView: View {
                 viewModel.isPresentGit = true
             }, label: {
                 Text("\(viewModel.user.gitUrl)")
-                    .font(.system(size: 14, weight: .light))
+                    .font(.system(size: 14, weight: .thin))
                     .tint(Color.fixBk)
             })
             .padding(.horizontal, 24)
@@ -160,7 +160,7 @@ private struct FriendTodoCellView: View {
                 .frame(width: 18, height: 18)
             
             Text("\(todo.content)")
-                .font(.system(size: 12, weight: .light))
+                .font(.system(size: 12, weight: .thin))
                 .foregroundStyle(Color.fixBk)
             Spacer()
         }

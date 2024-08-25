@@ -10,68 +10,99 @@ import SwiftUI
 struct MyProfileView: View {
     @StateObject var viewModel: MyProfileViewModel
     @EnvironmentObject private var container: DIContainer
-    @State private var isRefreshing = false
+    @FocusState private var isFocused: Bool
+    
     private let columns = Array(repeating: GridItem(.fixed(170)), count: 2)
     
     var body: some View {
-        NavigationStack(path: $container.navigationRouter.myProfileDestinations) {
-            VStack(spacing: 0) {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        MyProfileCell(viewModel: viewModel)
-                        
-                        BtnView(viewModel: viewModel)
-                        
-                        SearchBar(text: $viewModel.searchName) {
+        ZStack {
+            NavigationStack(path: $container.navigationRouter.myProfileDestinations) {
+                VStack(spacing: 0) {
+                    ScrollView {
+                        VStack(spacing: 0) {
+                            MyProfileCell(viewModel: viewModel)
                             
-                        }
-                        .padding(.bottom, 14)
-                        .padding(.horizontal, 24)
-                        
-                        
-                        if viewModel.users.isEmpty {
-                            EmptyView(viewModel: viewModel)
-                                .padding(.top, 82)
-                        } else {
-                            LazyVGrid(columns: columns, spacing: 8) {
-                                ForEach(viewModel.users) { user in
-                                    UserInfoCardView(user: user) {
-                                        viewModel.clickedGitUrl = user.gitUrl
-                                        viewModel.isPresentGit = true
-                                    } action: {
-                                        viewModel.send(action: .clickedUserInfoBtn(user: user))
-                                    }
-                                    .onTapGesture {
-                                        viewModel.send(action: .clickedUserCell(user: user))
-                                    }
-                                    .contentShape(Rectangle())
+                            BtnView(viewModel: viewModel)
+                            
+//                            HStack(spacing: 12) {
+//                                Image(.search)
+//                                TextField("계정 검색하기", text: $viewModel.searchName)
+//                                    .focused($isFocused)
+//                                    .submitLabel(.search)
+//                                    .onSubmit {
+//                                        
+//                                    }
+//                            }
+//                            .padding(.horizontal, 14)
+//                            .padding(.vertical, 10)
+//                            .background {
+//                                RoundedRectangle(cornerRadius: 14)
+//                                    .foregroundStyle(Color.fixWh)
+//                                    .shadow(radius: 1)
+//                            }
+                            SearchBar(text: $viewModel.searchName, action: {
+                                
+                            })
+                            .focused($isFocused)
+                            .padding(.vertical, 1)
+                            .padding(.bottom, 14)
+                            .padding(.horizontal, 24)
+                            
+                            
+                            if viewModel.isLoading {
+                                LoadingView()
+                            } else {
+                                if viewModel.users.isEmpty {
+                                    EmptyView(viewModel: viewModel)
+                                        .padding(.top, 82)
+                                } else {
+                                    LazyVGrid(columns: columns, spacing: 8) {
+                                        ForEach(viewModel.users) { user in
+                                            UserInfoCardView(user: user) {
+                                                viewModel.clickedGitUrl = user.gitUrl
+                                                viewModel.isPresentGit = true
+                                            } action: {
+                                                viewModel.send(action: .clickedUserInfoBtn(user: user))
+                                            }
+                                            .onTapGesture {
+                                                viewModel.send(action: .clickedUserCell(user: user))
+                                            }
+                                        }
+                                    }.padding(.bottom, 100)
                                 }
-                            }.padding(.bottom, 54)
+                            }
                         }
                     }
+                    .scrollIndicators(.hidden)
+                }
+                .ignoresSafeArea()
+                .background(Color.mainbg)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                            viewModel.send(action: .clickedSetting)
+                        }, label: {
+                            Image(.settingIcon)
+                        })
+                        
+                    }
+                }
+                .toolbarBackground(.hidden, for: .navigationBar)
+                .navigationBarBackButtonHidden()
+                .navigationDestination(for: NavigationDestination.self) {
+                    NavigationRoutingView(destination: $0)
+                }
+                .sheet(isPresented: $viewModel.isPresentGit) {
+                    MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
+                        .ignoresSafeArea()
                 }
             }
-            .ignoresSafeArea()
-            .background(Color.mainbg)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        viewModel.send(action: .clickedSetting)
-                    }, label: {
-                        Image(.settingIcon)
-                    })
-                    
+            Color.clear
+                .contentShape(Rectangle())
+                .edgesIgnoringSafeArea(.all)
+                .onTapGesture {                    
+                    isFocused = false
                 }
-            }
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .navigationBarBackButtonHidden()
-            .navigationDestination(for: NavigationDestination.self) {
-                NavigationRoutingView(destination: $0)
-            }
-            .sheet(isPresented: $viewModel.isPresentGit) {
-                MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
-                    .ignoresSafeArea()
-            }
         }
     }
 }
@@ -97,13 +128,12 @@ private struct MyProfileCell: View {
                 viewModel.isPresentGit = true
             }, label: {
                 Text("\(viewModel.myInfo?.gitUrl ?? "url")")
-                    .font(.system(size: 14, weight: .light))
+                    .font(.system(size: 14, weight: .thin))
                     .tint(Color.fixBk)
             })
             .padding(.horizontal, 24)
         }
         .padding(.bottom, 17)
-        .background(Color.mainbg)
     }
 }
 

@@ -33,7 +33,7 @@ final class LinkGitHubViewModel: ObservableObject {
             NotificationCenter.default.addObserver(forName: Notification.Name("GitHubLogin"), object: nil, queue: .main) { [weak self] notification in
                 guard let self = self else { return }
                 if let url = notification.object as? URL {
-                    if let token = self.extractToken(from: url) {
+                    if self.extractToken(from: url) != nil {
                         self.isPresent = false
                         self.mainTabViewModel.isPresentGitLink = false
                     }

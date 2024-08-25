@@ -29,8 +29,13 @@ final class CalendarViewModel: ObservableObject {
             clickedCurrentMonthDates = months[selection].selectedDay
             getTodosCount()
             pagingCalendar()
+            isSlidingLoading = true
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                self.isSlidingLoading = false
+            }
         }
     }
+    @Published var isSlidingLoading = false
     @Published var isPresent: Bool = false
     @Published var isTodoLoading: Bool = false
     
@@ -168,7 +173,7 @@ extension CalendarViewModel {
                         
                     } receiveValue: { [weak self] todos in
                         guard let self = self else { return }
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
                             self.months[self.selection].days[index].todos = todos
                             self.months[self.selection].days[index].request = true
                             self.isTodoLoading = false

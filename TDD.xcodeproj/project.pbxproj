@@ -67,6 +67,7 @@
 		AD5D72D42C54F291009FE208 /* AuthAPITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D32C54F291009FE208 /* AuthAPITarget.swift */; };
 		AD5D72D72C54F2E1009FE208 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */; };
 		AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */; };
+		AD5DC7312C7B10EB0037AC41 /* PersonalInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5DC7302C7B10EB0037AC41 /* PersonalInformationView.swift */; };
 		AD60854A2C7097FB00D33143 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6085492C7097FB00D33143 /* UserDetailView.swift */; };
 		AD60854C2C709CCD00D33143 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60854B2C709CCD00D33143 /* UserDetailViewModel.swift */; };
 		AD60854E2C70A76A00D33143 /* ToolbarBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60854D2C70A76A00D33143 /* ToolbarBtn.swift */; };
@@ -102,7 +103,7 @@
 		ADAAF2D22C5F796200C292CA /* TodoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAAF2D12C5F796200C292CA /* TodoInfo.swift */; };
 		ADAE4BA52C71E44A0046FF88 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BA42C71E44A0046FF88 /* UINavigationController+Extension.swift */; };
 		ADAE4BA82C71FB0C0046FF88 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BA72C71FB0C0046FF88 /* SettingView.swift */; };
-		ADAE4BAB2C71FDBB0046FF88 /* TeamIntroduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BAA2C71FDBB0046FF88 /* TeamIntroduction.swift */; };
+		ADAE4BAB2C71FDBB0046FF88 /* TeamIntroductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BAA2C71FDBB0046FF88 /* TeamIntroductionView.swift */; };
 		ADAE4BAD2C72645C0046FF88 /* FetchFrienTodoListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BAC2C72645C0046FF88 /* FetchFrienTodoListResponse.swift */; };
 		ADAE4BAF2C734ABB0046FF88 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BAE2C734ABB0046FF88 /* SplashView.swift */; };
 		ADAE4BB32C734EDE0046FF88 /* LanunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADAE4BB22C734EDE0046FF88 /* LanunchScreen.storyboard */; };
@@ -194,6 +195,7 @@
 		AD5D72D32C54F291009FE208 /* AuthAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPITarget.swift; sourceTree = "<group>"; };
 		AD5D72D62C54F2E1009FE208 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		AD5D72D82C54F2E9009FE208 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		AD5DC7302C7B10EB0037AC41 /* PersonalInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationView.swift; sourceTree = "<group>"; };
 		AD6085492C7097FB00D33143 /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		AD60854B2C709CCD00D33143 /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
 		AD60854D2C70A76A00D33143 /* ToolbarBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarBtn.swift; sourceTree = "<group>"; };
@@ -229,7 +231,7 @@
 		ADAAF2D12C5F796200C292CA /* TodoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInfo.swift; sourceTree = "<group>"; };
 		ADAE4BA42C71E44A0046FF88 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		ADAE4BA72C71FB0C0046FF88 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		ADAE4BAA2C71FDBB0046FF88 /* TeamIntroduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamIntroduction.swift; sourceTree = "<group>"; };
+		ADAE4BAA2C71FDBB0046FF88 /* TeamIntroductionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamIntroductionView.swift; sourceTree = "<group>"; };
 		ADAE4BAC2C72645C0046FF88 /* FetchFrienTodoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFrienTodoListResponse.swift; sourceTree = "<group>"; };
 		ADAE4BAE2C734ABB0046FF88 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		ADAE4BB22C734EDE0046FF88 /* LanunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LanunchScreen.storyboard; sourceTree = "<group>"; };
@@ -721,7 +723,8 @@
 		ADAE4BA92C71FDAC0046FF88 /* SubView */ = {
 			isa = PBXGroup;
 			children = (
-				ADAE4BAA2C71FDBB0046FF88 /* TeamIntroduction.swift */,
+				ADAE4BAA2C71FDBB0046FF88 /* TeamIntroductionView.swift */,
+				AD5DC7302C7B10EB0037AC41 /* PersonalInformationView.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -898,6 +901,7 @@
 				AD6E2A752C5CC279006783B9 /* Phase.swift in Sources */,
 				AD6E2A7B2C5CC734006783B9 /* ErrorView.swift in Sources */,
 				AD67DF322C47EF7D008971DB /* CreateRepoView.swift in Sources */,
+				AD5DC7312C7B10EB0037AC41 /* PersonalInformationView.swift in Sources */,
 				AD6E2A792C5CC6FF006783B9 /* LoadingView.swift in Sources */,
 				AD10DBB92C400F6F00785252 /* Services.swift in Sources */,
 				AD6353C02C633F1A00CED65A /* URLImageView.swift in Sources */,
@@ -924,7 +928,7 @@
 				AD5D72D92C54F2E9009FE208 /* LoginResponse.swift in Sources */,
 				AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */,
 				AD241F522C4E2B0B00DE8805 /* GitHubAPI.swift in Sources */,
-				ADAE4BAB2C71FDBB0046FF88 /* TeamIntroduction.swift in Sources */,
+				ADAE4BAB2C71FDBB0046FF88 /* TeamIntroductionView.swift in Sources */,
 				AD5D72C72C521FBC009FE208 /* GetTodoListResponse.swift in Sources */,
 				AD46DE032C47981E00DE940B /* TodoAPI.swift in Sources */,
 				AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */,

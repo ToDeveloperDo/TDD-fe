@@ -39,8 +39,9 @@ struct UserInfoCardView: View {
                 openGit()
             }, label: {
                 Text("\(user.gitUrl)")
-                    .font(.system(size: 8, weight: .light))
+                    .font(.system(size: 8, weight: .thin))
             })
+            .buttonStyle(.borderless)
             .tint(Color.fixBk)
             .padding(.bottom, 12)
             .contentShape(Rectangle())
@@ -67,6 +68,7 @@ struct UserInfoCardView: View {
                             .fill(Color(user.status.bgColor))
                     }
             })
+            .buttonStyle(.borderless)
             .disabled(user.status == .REQUEST)
             .padding(.bottom, 21)
             .contentShape(Rectangle())

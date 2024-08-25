@@ -51,7 +51,7 @@ struct CreateRepoView: View {
             case .inputError:
                 return Alert(title: Text("입력 오류"),
                              message: Text("Repository Name을 입력해야 합니다."),
-                             dismissButton: .cancel(Text("확이"), action: {}))
+                             dismissButton: .cancel(Text("확인"), action: {}))
             }
         }
         
@@ -79,7 +79,7 @@ struct CreateRepoView: View {
             .padding(.bottom, 4)
             
             TextField("텍스트 입력", text: $viewModel.name)
-                .font(.system(size: 16, weight: .light))
+                .font(.system(size: 16, weight: .thin))
                 .padding(.vertical, 11)
                 .focused($focusedField, equals: .name)
                 .submitLabel(.next)
@@ -97,7 +97,7 @@ struct CreateRepoView: View {
                 .padding(.bottom, 4)
             
             TextField("텍스트 입력", text: $viewModel.description)
-                .font(.system(size: 16, weight: .light))
+                .font(.system(size: 16, weight: .thin))
                 .padding(.vertical, 11)
                 .focused($focusedField, equals: .description)
                 .submitLabel(.done)
@@ -128,7 +128,7 @@ struct CreateRepoView: View {
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundStyle(Color.fixBk)
                     Text("인터넷에 있는 모든 사람이 이 저장소를 볼 수 있습니다.")
-                        .font(.system(size: 12, weight: .light))
+                        .font(.system(size: 12, weight: .thin))
                         .foregroundStyle(Color.serve)
                 }
             }

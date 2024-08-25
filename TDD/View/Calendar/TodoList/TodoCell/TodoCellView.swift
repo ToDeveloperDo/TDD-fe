@@ -32,14 +32,14 @@ struct TodoCellView: View {
             })
             
             Text("\(todo.content)")
-                .font(.system(size: 12, weight: .light))
+                .font(.system(size: 12, weight: .thin))
                 .foregroundStyle(.fixBk)
             Spacer()
             Button(action: {
                 calendarViewModel.send(action: .clickDetailBtn(todo))
             }, label: {
                 Text("더보기")
-                    .font(.system(size: 12, weight: .light))
+                    .font(.system(size: 12, weight: .thin))
                     .foregroundStyle(.textGray)
                     .underline()
             })

@@ -26,7 +26,7 @@ struct TagBtn: View {
                     .frame(width: 14, height: 14)
                     
                 Text("\(title)")
-                    .font(.system(size: 14, weight: .light))
+                    .font(.system(size: 14, weight: .thin))
                     .foregroundStyle(.fixBk)
             }
             .padding(.horizontal, 16)

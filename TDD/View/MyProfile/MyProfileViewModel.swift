@@ -14,7 +14,7 @@ final class MyProfileViewModel: ObservableObject {
     @Published var users: [UserInfo]
     @Published var selectedMode: MyProfileBtnType = .friend 
     @Published var isPresentGit: Bool = false
-    
+    @Published var isLoading: Bool = false
      var clickedGitUrl: String = ""
     
     private var container: DIContainer
@@ -72,7 +72,7 @@ extension MyProfileViewModel {
 extension MyProfileViewModel {
     private func clickedBtn(_ mode: MyProfileBtnType) {
         selectedMode = mode
-        
+        isLoading = true
         switch mode {
         case .friend:
             container.services.friendService.fetchFriendList()
@@ -80,6 +80,7 @@ extension MyProfileViewModel {
                     
                 } receiveValue: { [weak self] users in
                     guard let self = self else { return }
+                    self.isLoading = false
                     self.users = users
                 }.store(in: &subscriptions)
 
@@ -89,6 +90,7 @@ extension MyProfileViewModel {
                     
                 } receiveValue: { [weak self] users in
                     guard let self = self else { return }
+                    self.isLoading = false
                     self.users = users
                 }.store(in: &subscriptions)
         case .receive:
@@ -97,6 +99,7 @@ extension MyProfileViewModel {
                     
                 } receiveValue: { [weak self] users in
                     guard let self = self else { return }
+                    self.isLoading = false
                     self.users = users
                 }.store(in: &subscriptions)
         }

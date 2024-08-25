@@ -55,29 +55,33 @@ extension QuestViewModel {
     }
     
     private func clickedUserInfoBtn(user: UserInfo) {
+        guard let index = users.firstIndex(where: { $0.userId == user.userId }) else { return }
         switch user.status {
         case .FOLLOWING:
             container.services.friendService.deleteFriend(id: user.userId)
                 .sink { completion in
                     
-                } receiveValue: { succeed in
-                    
+                } receiveValue: { [weak self] succeed in
+                    guard let self = self else { return }
+                    self.users[index].status = .NOT_FRIEND
                 }.store(in: &subscriptions)
             
         case .NOT_FRIEND:
             container.services.friendService.addFriend(id: user.userId)
                 .sink { completion in
                     
-                } receiveValue: { succeed in
-                    
+                } receiveValue: { [weak self] succeed in
+                    guard let self = self else { return }
+                    self.users[index].status = .REQUEST
                 }.store(in: &subscriptions)
         case .REQUEST:break
         case .RECEIVE:
             container.services.friendService.acceptFriend(id: user.userId)
                 .sink { completion in
                     
-                } receiveValue: { succeed in
-                    
+                } receiveValue: { [weak self] succeed in
+                    guard let self = self else { return }
+                    self.users[index].status = .FOLLOWING
                 }.store(in: &subscriptions)
         }
     }

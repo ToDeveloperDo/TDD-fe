@@ -32,6 +32,7 @@ final class AuthInterceptor: RequestInterceptor {
             if succeed {
                 completion(.retry)
             } else {
+                
                 completion(.doNotRetryWithError(error))
             }
         }

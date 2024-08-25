@@ -17,7 +17,7 @@ struct SettingView: View {
                 .padding(.bottom, 48)
             
             SettingCellView(title: "개인정보 처리 방침") {
-                
+                viewModel.send(action: .personalInformation)
             }
             .padding(.bottom, 4)
             
@@ -27,7 +27,7 @@ struct SettingView: View {
             .padding(.bottom, 4)
             
             SettingCellView(title: "팀 소개") {
-                viewModel.push()
+                viewModel.send(action: .teamIntroduction)
             }
             .padding(.bottom, 4)
             
@@ -40,7 +40,7 @@ struct SettingView: View {
             }
             
             SettingCellView(title: "회원 탈퇴") {
-                viewModel.revoke()
+                viewModel.send(action: .clickedRevoke)
             }
             Spacer()
         }
@@ -52,7 +52,7 @@ struct SettingView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    viewModel.pop()
+                    viewModel.send(action: .pop)
                 } label: {
                     Image(.backBtn)
                 }
@@ -67,6 +67,19 @@ struct SettingView: View {
         }
         .toolbarColorScheme(.light, for: .navigationBar)
         .navigationBarBackButtonHidden()
+        .alert("정말로 탈퇴하시겠어요?", isPresented: $viewModel.isPresentAlert) {
+            Button(role: .destructive) {
+                viewModel.send(action: .checkRevoke)
+            } label: {
+                Text("확인")
+            }
+            Button(role: .cancel) {
+            } label: {
+                Text("취소")
+            }
+
+        }
+
     }
 }
 

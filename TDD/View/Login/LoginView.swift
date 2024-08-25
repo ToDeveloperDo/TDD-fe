@@ -12,19 +12,24 @@ struct LoginView: View {
     @EnvironmentObject var viewModel: AuthenticationViewModel
 
     var body: some View {
-        VStack {
-            Spacer()
+        ZStack {
+            Image(.appLogo)
+                .resizable()
+                .frame(width: 64, height: 66)
             
-            SignInWithAppleButton { request in
-                viewModel.send(action: .appleLogin(request))
-            } onCompletion: { completion in
-                viewModel.send(action: .appleLoginCompletion(completion))
+            VStack {
+                Spacer()
+                
+                SignInWithAppleButton { request in
+                    viewModel.send(action: .appleLogin(request))
+                } onCompletion: { completion in
+                    viewModel.send(action: .appleLoginCompletion(completion))
+                }
+                .frame(maxWidth: .infinity, maxHeight: 48)
+                .padding(.horizontal, 47)
+                .signInWithAppleButtonStyle(.black)
             }
-            .frame(maxWidth: .infinity, maxHeight: 50)
-            .padding(.horizontal, 30)
-            .signInWithAppleButtonStyle(.black)
-
-        }    
+        }
     }
 }
 

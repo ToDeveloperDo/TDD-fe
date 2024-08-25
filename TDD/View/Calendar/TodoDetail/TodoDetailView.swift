@@ -149,12 +149,12 @@ private struct todoEditView: View {
     fileprivate var body: some View {
         ZStack(alignment: .top) {
             TextEditor(text: $todoDetailViewModel.todo.memo)
-                .font(.system(size: 14, weight: .light))
+                .font(.system(size: 14, weight: .thin))
             
             if todoDetailViewModel.todo.memo.isEmpty {
                 HStack {
                     Text("설명 입력")
-                        .font(.system(size: 14, weight: .light))
+                        .font(.system(size: 14, weight: .thin))
                         .foregroundStyle(Color.serve)
                     Spacer()
                 }

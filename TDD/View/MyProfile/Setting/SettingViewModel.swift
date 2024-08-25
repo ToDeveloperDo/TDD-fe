@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 final class SettingViewModel: ObservableObject {
+    @Published var isPresentAlert = false
+    
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
     private var authViewModel: AuthenticationViewModel
@@ -18,15 +20,27 @@ final class SettingViewModel: ObservableObject {
         self.authViewModel = authViewModel
     }
     
-    func revoke() {
-        authViewModel.send(action: .revokeWithApple)
+    enum Action {
+        case clickedRevoke
+        case checkRevoke
+        case teamIntroduction
+        case personalInformation
+        case pop
     }
     
-    func push() {
-        container.navigationRouter.push(to: .teamIntroduction, on: .myProfile)
-    }
     
-    func pop() {
-        container.navigationRouter.pop(on: .myProfile)
+    func send(action: Action) {
+        switch action {
+        case .clickedRevoke:
+            isPresentAlert = true
+        case .checkRevoke:
+            authViewModel.send(action: .revokeWithApple)
+        case .teamIntroduction:
+            container.navigationRouter.push(to: .teamIntroduction, on: .myProfile)
+        case .personalInformation:
+            container.navigationRouter.push(to: .personalInformation, on: .myProfile)
+        case .pop:
+            container.navigationRouter.pop(on: .myProfile)
+        }
     }
 }
