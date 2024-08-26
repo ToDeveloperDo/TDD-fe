@@ -18,6 +18,7 @@ enum SaveType: String {
     case access = "accessToken"
     case refresh = "refreshToken"
     case userIdentifier = "userID"
+    case clientToken = "clientToken"
     
 }
 
@@ -45,6 +46,12 @@ final class KeychainManager {
             ]
 
         case .userIdentifier:
+            createQuery = [
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrType: type.rawValue,
+                kSecValueData: data
+            ]
+        case .clientToken:
             createQuery = [
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrType: type.rawValue,
@@ -84,6 +91,13 @@ final class KeychainManager {
             kSecReturnData: true
         ]
         case .userIdentifier:
+            searchQuery = [
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrType: type.rawValue,
+                kSecReturnAttributes: true,
+                kSecReturnData: true
+            ]
+        case .clientToken:
             searchQuery = [
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrType: type.rawValue,
@@ -135,6 +149,11 @@ final class KeychainManager {
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrType: type.rawValue
             ]
+        case .clientToken:
+            originalQuery = [
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrType: type.rawValue
+            ]
         }
         
         let updateQuery: [CFString: Any] = [
@@ -166,6 +185,11 @@ final class KeychainManager {
                 kSecAttrType: type.rawValue
             ]
         case .userIdentifier:
+            deleteQuery = [
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrType: type.rawValue
+            ]
+        case .clientToken:
             deleteQuery = [
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrType: type.rawValue

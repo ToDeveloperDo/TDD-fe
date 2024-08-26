@@ -36,11 +36,16 @@ final class AuthenticationService: AuthenticationServiceType {
             return Fail(error: ServiceError.authorizationFailed).eraseToAnyPublisher()
         }
         
-        let request = LoginRequest(code: codeStr)
-        return authAPI.signInWithApple(request: request)
-            .map { return ($0, credential.user) }
-            .mapError { ServiceError.error($0) }
-            .eraseToAnyPublisher()
+        do {
+            let clientToken = try KeychainManager.shared.getData(.clientToken)
+            let request = LoginRequest(code: codeStr, clientToken: clientToken)
+            return authAPI.signInWithApple(request: request)
+                .map { return ($0, credential.user) }
+                .mapError { ServiceError.error($0) }
+                .eraseToAnyPublisher()
+        } catch {
+            return Fail(error: ServiceError.authorizationFailed).eraseToAnyPublisher()
+        }
     }
     
     func revokeWithApple() -> AnyPublisher<Void, ServiceError> {

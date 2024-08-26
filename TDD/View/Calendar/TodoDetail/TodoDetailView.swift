@@ -20,6 +20,7 @@ struct TodoDetailView: View {
                 .frame(height: 1)
                 .foregroundStyle(Color.serve2)
             todoEditView(todoDetailViewModel: todoDetailViewModel)
+                
             Spacer()
         }
         .padding(.vertical, 38)
@@ -157,6 +158,9 @@ private struct todoEditView: View {
         ZStack(alignment: .top) {
             TextEditor(text: $todoDetailViewModel.todo.memo)
                 .font(.system(size: 14, weight: .thin))
+                .foregroundStyle(Color.fixBk)
+                .scrollContentBackground(.hidden)
+                .background(Color.fixWh)
             
             if todoDetailViewModel.todo.memo.isEmpty {
                 HStack {
@@ -167,6 +171,7 @@ private struct todoEditView: View {
                 }
                 .padding(.top, 8)
                 .padding(.horizontal, 6)
+                .background(Color.fixWh)
                 .allowsHitTesting(false)
             }
         }

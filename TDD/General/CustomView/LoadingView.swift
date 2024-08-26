@@ -12,6 +12,7 @@ struct LoadingView: View {
         VStack {
             Spacer()
             ProgressView()
+                .tint(.main)
             Spacer()
         }
     }

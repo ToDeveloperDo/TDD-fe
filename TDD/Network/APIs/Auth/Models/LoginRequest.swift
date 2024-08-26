@@ -9,4 +9,5 @@ import Foundation
 
 struct LoginRequest: Encodable {
     let code: String
+    let clientToken: String
 }

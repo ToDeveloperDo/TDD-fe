@@ -173,6 +173,7 @@ private struct TextViewWrapper: UIViewRepresentable {
         textView.isEditable = true
         textView.backgroundColor = .clear
         textView.font = .systemFont(ofSize: 14, weight: .thin)
+        textView.textColor = .fixBk
         textView.delegate = context.coordinator
         return textView
     }
