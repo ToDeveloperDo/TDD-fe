@@ -73,7 +73,6 @@ private struct TodoListBodyView: View {
                     })
                     .listRowBackground(Color.fixWh)
                 }
-                
                 .listRowSeparator(.hidden)
             }
             
@@ -106,6 +105,7 @@ private struct TodoListBodyView: View {
                 .listRowSeparator(.hidden)
             }
         }
+        .padding(.bottom, 80)
         .contentMargins(.top, 0)
         .listSectionSpacing(16)
         .background(Color.mainbg)

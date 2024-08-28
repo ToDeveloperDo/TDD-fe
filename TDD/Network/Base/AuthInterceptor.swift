@@ -32,7 +32,8 @@ final class AuthInterceptor: RequestInterceptor {
             if succeed {
                 completion(.retry)
             } else {
-                
+                // 로그인
+                NotificationCenter.default.post(name: .init("401Error"), object: nil)
                 completion(.doNotRetryWithError(error))
             }
         }

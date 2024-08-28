@@ -41,6 +41,7 @@ struct LinkGitHubView: View {
                 .padding(.horizontal, 47)
             }
         }
+        .background(Color.mainbg)
         .sheet(isPresented: $viewModel.isPresent, content: {
             MyWebView(urlToLoad: viewModel.url).ignoresSafeArea()
         })

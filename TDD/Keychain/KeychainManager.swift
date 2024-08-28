@@ -31,30 +31,17 @@ final class KeychainManager {
         let createQuery: [CFString: Any]
         
         switch type {
-        case .access:
-            createQuery = [
-                kSecClass: kSecClassKey,
-                kSecAttrType: type.rawValue,
-                kSecValueData: data
-            ]
-            
-        case .refresh:
+        case .access, .refresh:
             createQuery = [
                 kSecClass: kSecClassKey,
                 kSecAttrType: type.rawValue,
                 kSecValueData: data
             ]
 
-        case .userIdentifier:
+        case .userIdentifier, .clientToken:
             createQuery = [
                 kSecClass: kSecClassGenericPassword,
-                kSecAttrType: type.rawValue,
-                kSecValueData: data
-            ]
-        case .clientToken:
-            createQuery = [
-                kSecClass: kSecClassGenericPassword,
-                kSecAttrType: type.rawValue,
+                kSecAttrAccount: type.rawValue,
                 kSecValueData: data
             ]
         }
@@ -62,12 +49,12 @@ final class KeychainManager {
         let status = SecItemAdd(createQuery as CFDictionary, nil)
         
         if status == errSecSuccess {
-            print("키체인 생성 성공")
+            print("\(type.rawValue) 키체인 생성 성공")
         } else if status == errSecDuplicateItem {
-            print("키체인 업데이트")
+            print("\(type.rawValue) 키체인 업데이트")
             try update(type, value: data)
         } else {
-            print("키체인 생성 실패")
+            print("\(type.rawValue) 키체인 생성 실패")
             throw KeychainError.unHandleError(status: status)
         }
     }
@@ -76,31 +63,17 @@ final class KeychainManager {
         let searchQuery: [CFString: Any]
         
         switch type {
-        case .access:
-        searchQuery = [
-            kSecClass: kSecClassKey,
-            kSecAttrType: type.rawValue,
-            kSecReturnAttributes: true,
-            kSecReturnData: true
-        ]
-        case .refresh:
-        searchQuery = [
-            kSecClass: kSecClassKey,
-            kSecAttrType: type.rawValue,
-            kSecReturnAttributes: true,
-            kSecReturnData: true
-        ]
-        case .userIdentifier:
+        case .access, .refresh:
             searchQuery = [
-                kSecClass: kSecClassGenericPassword,
+                kSecClass: kSecClassKey,
                 kSecAttrType: type.rawValue,
                 kSecReturnAttributes: true,
                 kSecReturnData: true
             ]
-        case .clientToken:
+        case .userIdentifier, .clientToken:
             searchQuery = [
                 kSecClass: kSecClassGenericPassword,
-                kSecAttrType: type.rawValue,
+                kSecAttrAccount: type.rawValue,
                 kSecReturnAttributes: true,
                 kSecReturnData: true
             ]
@@ -112,10 +85,10 @@ final class KeychainManager {
         
         guard status == errSecSuccess else {
             if status == errSecItemNotFound {
-                print("키체인 항목을 찾을 수 없음")
+                print("\(type.rawValue) 키체인 항목을 찾을 수 없음")
                 throw KeychainError.notFound
             } else {
-                print("키체인 검색 실패")
+                print("\(type.rawValue) 키체인 검색 실패")
                 throw KeychainError.unHandleError(status: status)
             }
         }
@@ -134,25 +107,15 @@ final class KeychainManager {
         let originalQuery: [CFString: Any]
         
         switch type {
-        case .access:
+        case .access, .refresh:
             originalQuery = [
                 kSecClass: kSecClassKey,
                 kSecAttrType: type.rawValue
             ]
-        case .refresh:
-            originalQuery = [
-                kSecClass: kSecClassKey,
-                kSecAttrType: type.rawValue
-            ]
-        case .userIdentifier:
+        case .userIdentifier, .clientToken:
             originalQuery = [
                 kSecClass: kSecClassGenericPassword,
-                kSecAttrType: type.rawValue
-            ]
-        case .clientToken:
-            originalQuery = [
-                kSecClass: kSecClassGenericPassword,
-                kSecAttrType: type.rawValue
+                kSecAttrAccount: type.rawValue
             ]
         }
         
@@ -163,9 +126,9 @@ final class KeychainManager {
         let status = SecItemUpdate(originalQuery as CFDictionary, updateQuery as CFDictionary)
         
         if status == errSecSuccess {
-            print("키체인 업데이트 성공")
+            print("\(type.rawValue) 키체인 업데이트 성공")
         } else {
-            print("키체인 업데이트 실패")
+            print("\(type.rawValue) 키체인 업데이트 실패")
             throw KeychainError.unHandleError(status: status)
         }
     }
@@ -174,25 +137,15 @@ final class KeychainManager {
         let deleteQuery: [CFString: Any]
         
         switch type {
-        case .access:
+        case .access, .refresh:
             deleteQuery = [
                 kSecClass: kSecClassKey,
                 kSecAttrType: type.rawValue
             ]
-        case .refresh:
-            deleteQuery = [
-                kSecClass: kSecClassKey,
-                kSecAttrType: type.rawValue
-            ]
-        case .userIdentifier:
+        case .userIdentifier, .clientToken:
             deleteQuery = [
                 kSecClass: kSecClassGenericPassword,
-                kSecAttrType: type.rawValue
-            ]
-        case .clientToken:
-            deleteQuery = [
-                kSecClass: kSecClassGenericPassword,
-                kSecAttrType: type.rawValue
+                kSecAttrAccount: type.rawValue  
             ]
         }
         
@@ -202,6 +155,6 @@ final class KeychainManager {
             print("keychainError.unhandledError")
             throw KeychainError.unHandleError(status: status)
         }
-        print("키체인 삭제 성공")
+        print("\(type.rawValue) 키체인 삭제 성공")
     }
 }

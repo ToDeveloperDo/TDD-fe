@@ -28,6 +28,7 @@ struct CreateRepoView: View {
                 }
                 
             }
+            .background(Color.mainbg)
         }
         .ignoresSafeArea(.keyboard)
         .onTapGesture {
@@ -48,7 +49,7 @@ struct CreateRepoView: View {
                     viewModel.createRepo()
                 })
             case .inputError:
-                return Alert(title: Text("입력 오류"),
+                return Alert(title: Text("Repository 이름은 영문으로 입력해야합니다."),
                              dismissButton: .cancel(Text("확인"), action: {}))
             }
         }
@@ -78,6 +79,7 @@ struct CreateRepoView: View {
             
             TextField("텍스트 입력", text: $viewModel.name)
                 .font(.system(size: 16, weight: .thin))
+                .foregroundStyle(Color.fixBk)
                 .padding(.vertical, 11)
                 .focused($focusedField, equals: .name)
                 .submitLabel(.next)
@@ -96,6 +98,7 @@ struct CreateRepoView: View {
             
             TextField("텍스트 입력", text: $viewModel.description)
                 .font(.system(size: 16, weight: .thin))
+                .foregroundStyle(Color.fixBk)
                 .padding(.vertical, 11)
                 .focused($focusedField, equals: .description)
                 .submitLabel(.done)
@@ -143,10 +146,11 @@ struct CreateRepoView: View {
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Private")
-                        .font(.headline)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(Color.fixBk)
                     Text("다른 사람들이 이 저장소를 볼 수 없습니다.")
-                        .font(.caption)
-                        .foregroundStyle(.gray)
+                        .font(.system(size: 12, weight: .thin))
+                        .foregroundStyle(Color.serve)
                 }
             }
         }

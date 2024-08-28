@@ -24,6 +24,7 @@ final class AuthenticationViewModel: ObservableObject {
     
     init(container: DIContainer) {
         self.container = container
+        setupInvalidateHandling()
     }
     
     enum Action {
@@ -88,6 +89,7 @@ final class AuthenticationViewModel: ObservableObject {
                         try KeychainManager.shared.delete(.access)
                         try KeychainManager.shared.delete(.refresh)
                         try KeychainManager.shared.delete(.userIdentifier)
+                        try KeychainManager.shared.delete(.clientToken)
                         self?.authState = .unAuthenticated
                     } catch {
                         self?.authState = .authenticated
@@ -96,5 +98,13 @@ final class AuthenticationViewModel: ObservableObject {
                 }.store(in: &subscription)
 
         }
+    }
+    
+    private func setupInvalidateHandling() {
+        NotificationCenter.default.publisher(for: .init("401Error"))
+            .sink { [weak self] _ in
+                self?.authState = .unAuthenticated
+            }
+            .store(in: &subscription)
     }
 }

@@ -17,8 +17,10 @@ struct UserInfo: Identifiable, Hashable {
 }
 
 extension UserInfo {
-    static let stu1: UserInfo = .init(userId: 1, userName: "최안용", profileUrl: "", gitUrl: "https://github.com/ChoiAnYong", status: .RECEIVE)
-    static let stu2: UserInfo = .init(userId: 1, userName: "이준석", profileUrl: "", gitUrl: "https://github.com/ChoiAnYong", status: .NOT_FRIEND)
-    static let stu3: UserInfo = .init(userId: 1, userName: "이광혁", profileUrl: "", gitUrl: "https://github.com/ChoiAnYong", status: .FOLLOWING)
-    static let stu4: UserInfo = .init(userId: 1, userName: "김민욱", profileUrl: "", gitUrl: "https://github.com/ChoiAnYong", status: .REQUEST)
+    static let stu1: UserInfo = .init(userId: 1, userName: "Seogi", profileUrl: "", gitUrl: "https://github.com", status: .NOT_FRIEND)
+    static let stu2: UserInfo = .init(userId: 1, userName: "Anyong", profileUrl: "", gitUrl: "https://github.com", status: .REQUEST)
+    static let stu3: UserInfo = .init(userId: 1, userName: "Nana", profileUrl: "", gitUrl: "https://github.com", status: .FOLLOWING)
+    static let stu4: UserInfo = .init(userId: 1, userName: "David", profileUrl: "", gitUrl: "https://github.com", status: .RECEIVE)
+    static let stu5: UserInfo = .init(userId: 1, userName: "James", profileUrl: "", gitUrl: "https://github.com", status: .FOLLOWING)
+    static let stu6: UserInfo = .init(userId: 1, userName: "Paka", profileUrl: "", gitUrl: "https://github.com", status: .NOT_FRIEND)
 }

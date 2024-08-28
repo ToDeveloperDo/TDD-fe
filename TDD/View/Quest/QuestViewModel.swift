@@ -19,7 +19,7 @@ final class QuestViewModel: ObservableObject {
     @Published var userListMode: Mode = .normal
     @Published var users: [UserInfo]
     @Published var searchUsers: [UserInfo]
-    @Published var isLoading: Bool = true
+    @Published var isLoading: Bool = false
     @Published var isPresentGit: Bool = false
     @Published var networkErr: Bool = false
     
@@ -112,7 +112,7 @@ extension QuestViewModel {
         userListMode = .search
         container.services.friendService.searchFriend(userName: searchName)
             .sink { [weak self] completion in
-                if case .failure(let error) = completion {
+                if case .failure(_) = completion {
                     self?.isLoading = false
                 }
             } receiveValue: { [weak self] user in

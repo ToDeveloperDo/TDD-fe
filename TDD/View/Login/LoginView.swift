@@ -30,6 +30,7 @@ struct LoginView: View {
                 .signInWithAppleButtonStyle(.black)
             }
         }
+        .background(Color.mainbg)
     }
 }
 

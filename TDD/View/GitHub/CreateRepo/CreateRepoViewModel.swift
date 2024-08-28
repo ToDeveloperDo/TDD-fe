@@ -27,7 +27,7 @@ final class CreateRepoViewModel: ObservableObject {
     
     init(name: String = "",
          description: String = "",
-         isPrivate: Bool = true,
+         isPrivate: Bool = false,
          isPresentAlert: Bool =  false,
          mainTabViewModel: MainTabViewModel,
          container: DIContainer) {
@@ -46,7 +46,8 @@ final class CreateRepoViewModel: ObservableObject {
         container.services.githubService.createRepo(request: request)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                if case .failure(let error) = completion {
+                if case .failure(_) = completion {
+                    self.isLoading = false
                     self.isPresentAlert = true
                     self.alert = .inputError
                     print(completion)
@@ -58,7 +59,8 @@ final class CreateRepoViewModel: ObservableObject {
                     self.mainTabViewModel.phase = .success
                 } else {
                     self.isLoading = false
-                    self.mainTabViewModel.phase = .fail
+                    self.isPresentAlert = true
+                    self.alert = .inputError
                 }
             }.store(in: &subscription)
     }

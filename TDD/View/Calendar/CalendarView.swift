@@ -227,12 +227,18 @@ private struct DateCell: View {
         .overlay {
             if day.isCurrentMonthDay && day.todosCount != 0 {
                 HStack(spacing: 2) {
-                    ForEach(0..<day.todosCount, id: \.self) {_ in
-                        Circle().frame(width: 2, height: 2)
-                            .foregroundStyle(todoCountColor)                        
+                    if day.todosCount < 4 {
+                        ForEach(0..<day.todosCount, id: \.self) {_ in
+                            Circle().frame(width: 2, height: 2)
+                                .foregroundStyle(todoCountColor)
+                        }
+                    } else {
+                        Text("+\(day.todosCount)")
+                            .font(.system(size: 8, weight: .thin))
+                            .foregroundStyle(todoCountColor)
                     }
-                    .offset(y: 15)
                 }
+                .offset(y: 15)
             }
         }
     }

@@ -21,11 +21,6 @@ struct SettingView: View {
             }
             .padding(.bottom, 4)
             
-            SettingCellView(title: "문의하기") {
-                
-            }
-            .padding(.bottom, 4)
-            
             SettingCellView(title: "팀 소개") {
                 viewModel.send(action: .teamIntroduction)
             }
@@ -35,10 +30,7 @@ struct SettingView: View {
                 .frame(height: 1)
                 .foregroundStyle(Color.linegray)
             
-            SettingCellView(title: "로그아웃") {
-                
-            }
-            
+
             SettingCellView(title: "회원 탈퇴") {
                 viewModel.send(action: .clickedRevoke)
             }

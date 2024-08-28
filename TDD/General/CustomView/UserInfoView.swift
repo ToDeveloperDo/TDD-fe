@@ -14,6 +14,8 @@ struct UserInfoView: View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
                 Image(.profileBg)
+                    .resizable()
+                    .frame(width: .infinity)
                 Color.mainbg
                     .frame(height: 65)
             }

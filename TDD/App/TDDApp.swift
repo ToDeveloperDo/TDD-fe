@@ -69,9 +69,9 @@ extension AppDelegate: MessagingDelegate {
     //fcm 등록 토큰을 받았을 때
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("AppDelegate - firebase 토큰을 받음.")
-        print("AppDelegate - firebase registation token: \(String(describing: fcmToken))")
+        print("AppDelegate - firebase registation token: \(fcmToken ?? "")")
         do {
-            try KeychainManager.shared.create(.clientToken, input: "\(String(describing: fcmToken))")
+            try KeychainManager.shared.create(.clientToken, input: fcmToken ?? "")
         } catch {
             print("Error fetching FCM registration token: \(error)")
         }

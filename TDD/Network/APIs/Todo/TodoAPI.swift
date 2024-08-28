@@ -14,12 +14,9 @@ final class TodoAPI {
     func createTodo(request: CreateTodoRequest) -> AnyPublisher<Int64, Error> {
         return API.session.request(TodoAPITarget.createTodo(request), interceptor: AuthInterceptor.shared)
             .validate(statusCode: 200..<300)
-            .publishString()
+            .publishDecodable(type: Int64.self)
             .value()
-            .map { Int64(Int($0) ?? -1) }
-            .mapError({ error in
-                return error
-            })
+            .mapError { $0 }
             .eraseToAnyPublisher()
     }
     

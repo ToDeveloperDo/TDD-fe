@@ -25,7 +25,7 @@ struct QuestView: View {
                         .padding(.horizontal, 24)
                         if viewModel.isLoading {
                             LoadingView()
-                                .padding(.top, 200)                    
+                                .padding(.top, 200)
                         } else {
                             MemberCardView(viewModel: viewModel)
                         }
@@ -35,7 +35,7 @@ struct QuestView: View {
                 .scrollIndicators(.hidden)
                 .background(Color.mainbg)
                 .onAppear {
-                    viewModel.fetchMembers()
+                    viewModel.fetchMembers()    
                 }
                 .navigationDestination(for: NavigationDestination.self) {
                     NavigationRoutingView(destination: $0)
