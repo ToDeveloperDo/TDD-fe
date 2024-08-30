@@ -45,6 +45,7 @@ final class AuthenticationViewModel: ObservableObject {
                         if case .failure(let error) = completion {
                             print("Error during sign-in completion: \(error)")
                             self?.authState = .unAuthenticated
+                            self?.isPresent = true
                         }
                     } receiveValue: { [weak self] result in
                         guard let self = self else { return }
@@ -88,8 +89,7 @@ final class AuthenticationViewModel: ObservableObject {
                     do {
                         try KeychainManager.shared.delete(.access)
                         try KeychainManager.shared.delete(.refresh)
-                        try KeychainManager.shared.delete(.userIdentifier)
-                        try KeychainManager.shared.delete(.clientToken)
+                        try KeychainManager.shared.delete(.userIdentifier)                        
                         self?.authState = .unAuthenticated
                     } catch {
                         self?.authState = .authenticated

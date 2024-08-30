@@ -86,7 +86,7 @@ struct TodoInputView: View {
                 Text("취소")
             }
         } message: {
-            Text("GitHub에 업로드 하시겠습니까?")
+            Text("업로드 하시겠습니까?")
         }
         .onAppear {
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification,

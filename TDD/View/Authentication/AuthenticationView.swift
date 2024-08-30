@@ -18,9 +18,11 @@ struct AuthenticationView: View {
                 switch viewModel.authState {
                 case .unAuthenticated:
                     LoginView()
-                        .alert("로그인 오류", isPresented: $viewModel.isPresent) {
-                            Button("OK", role: .cancel) {  }
-                        }                        
+                        .alert("로그인 오류", isPresented: $viewModel.isPresent, actions: {
+                            Button("확인", role: .cancel) {  }
+                        }, message: {
+                            Text("다시 시도해주세요!")
+                        })                                           
                 case .authenticated:
                     MainTabView(viewModel: .init(container: container))
                 }
