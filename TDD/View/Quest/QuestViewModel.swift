@@ -21,7 +21,7 @@ final class QuestViewModel: ObservableObject {
     @Published var searchUsers: [UserInfo]
     @Published var isLoading: Bool = false
     @Published var isPresentGit: Bool = false
-    @Published var networkErr: Bool = false
+    @Published var networkErr: Bool = true
     
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()

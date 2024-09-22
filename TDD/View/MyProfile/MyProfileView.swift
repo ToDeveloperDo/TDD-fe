@@ -186,6 +186,8 @@ private struct MemberCardView: View {
                                 viewModel.isPresentGit = true
                             } action: {
                                 viewModel.send(action: .clickedUserInfoBtn(user: user))
+                            } deleteAction: {
+                                // TODO: 삭제 액션 추가
                             }
                             .onTapGesture {
                                 viewModel.send(action: .clickedUserCell(user: user))
@@ -206,6 +208,8 @@ private struct MemberCardView: View {
                                 viewModel.isPresentGit = true
                             } action: {
                                 viewModel.send(action: .clickedUserInfoBtn(user: user))
+                            } deleteAction: {
+                                // TODO: 삭제 액션 추가
                             }
                             .onTapGesture {
                                 viewModel.send(action: .clickedUserCell(user: user))

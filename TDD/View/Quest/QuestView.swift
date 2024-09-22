@@ -88,12 +88,14 @@ private struct MemberCardView: View {
                 } else {
                     LazyVGrid(columns: columns) {
                         ForEach(viewModel.searchUsers) { user in
-                            UserInfoCardView(user: user) {
+                            UserInfoCardView(user: user, openGit: {
                                 viewModel.clickedGitUrl = user.gitUrl
                                 viewModel.isPresentGit = true
-                            } action: {
+                            }, action: {
                                 viewModel.send(action: .clickedInfoType(user: user))
-                            }
+                            }, deleteAction: {
+                                // TODO: 삭제 액션 추가
+                            })
                             .onTapGesture {
                                 viewModel.clickedUserCell(user)
                             }
@@ -103,12 +105,14 @@ private struct MemberCardView: View {
             case .normal:
                 LazyVGrid(columns: columns) {
                     ForEach(viewModel.users) { user in
-                        UserInfoCardView(user: user) {
+                        UserInfoCardView(user: user, openGit: {
                             viewModel.clickedGitUrl = user.gitUrl
                             viewModel.isPresentGit = true
-                        } action: {
+                        }, action: {
                             viewModel.send(action: .clickedInfoType(user: user))
-                        }
+                        }, deleteAction: {
+                            // TODO: 삭제 액션 추가
+                        })
                         .onTapGesture {
                             viewModel.clickedUserCell(user)
                         }
