@@ -30,12 +30,12 @@ final class LinkGitHubViewModel: ObservableObject {
     }
     
         func check() {
-            NotificationCenter.default.addObserver(forName: Notification.Name("GitHubLogin"), object: nil, queue: .main) { [weak self] notification in
+            NotificationCenter.default.addObserver(forName: .gitHubLogin, object: nil, queue: .main) { [weak self] notification in
                 guard let self = self else { return }
                 if let url = notification.object as? URL {
                     if self.extractToken(from: url) != nil {
                         self.isPresent = false
-                        self.mainTabViewModel.isPresentGitLink = false
+                        self.mainTabViewModel.phase = .success
                     }
                 }
             }

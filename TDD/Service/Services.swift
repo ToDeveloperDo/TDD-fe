@@ -26,7 +26,7 @@ final class Services: ServiceType {
     
     init() {
         self.todoService = TodoService()
-        self.authService = AuthenticationService(authAPI: AuthAPI())
+        self.authService = AuthenticationService()
         self.githubService = GitHubService()
         self.imageCacheService = ImageCacheService(memoryStorage: MemoryStorage(), diskStorage: DiskStorage())
         self.memberService = MemberService()

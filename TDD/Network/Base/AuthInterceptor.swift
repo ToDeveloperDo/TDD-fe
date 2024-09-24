@@ -28,14 +28,45 @@ final class AuthInterceptor: RequestInterceptor {
             return
         }
         
-        AuthAPI.refreshToken { succeed in
+        AuthInterceptor.refreshToken { succeed in
             if succeed {
                 completion(.retry)
             } else {
                 // 로그인
-                NotificationCenter.default.post(name: .init("401Error"), object: nil)
+                NotificationCenter.default.post(name: .expiredToken, object: nil)
                 completion(.doNotRetryWithError(error))
             }
         }
     }
+}
+
+extension AuthInterceptor {
+    static func refreshToken(completion: @escaping (Bool) -> Void) {
+        do {
+            let refreshToken = try KeychainManager.shared.getData(.refresh)
+            let request = RefreshRequest(refreshToken: refreshToken)
+            
+            API.session.request(AuthAPITarget.refreshToken(request))
+                .response { response in
+                    switch response.result {
+                    case let .success(data):
+                        do {
+                            guard let data = data else { return }
+                            let result = try JSONDecoder().decode(RefreshResponse.self, from: data)
+                            try KeychainManager.shared.create(.access, input: result.idToken)
+                            completion(true)
+                        } catch {
+                            completion(false)
+                        }
+                    case let .failure(error):
+                        print(error.localizedDescription)
+                        completion(false)
+                    }
+                }
+            
+        } catch {
+            completion(false)
+        }
+    }
+
 }

@@ -24,7 +24,7 @@ final class AuthenticationViewModel: ObservableObject {
     
     init(container: DIContainer) {
         self.container = container
-        setupInvalidateHandling()
+        bindingNotification()
     }
     
     enum Action {
@@ -100,8 +100,9 @@ final class AuthenticationViewModel: ObservableObject {
         }
     }
     
-    private func setupInvalidateHandling() {
-        NotificationCenter.default.publisher(for: .init("401Error"))
+    private func bindingNotification() {
+        NotificationCenter.default.publisher(for: .expiredToken)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.authState = .unAuthenticated
             }

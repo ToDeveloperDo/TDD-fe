@@ -10,6 +10,7 @@ import Foundation
 enum Phase {
     case notRequest
     case loading
+    case notLink
     case success
     case fail
 }

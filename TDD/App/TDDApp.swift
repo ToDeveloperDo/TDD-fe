@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        NotificationCenter.default.post(name: Notification.Name("GitHubLogin"), object: url)
+        NotificationCenter.default.post(name: .gitHubLogin, object: url)
         return true
     }
     

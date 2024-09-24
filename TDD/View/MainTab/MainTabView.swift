@@ -15,6 +15,9 @@ struct MainTabView: View {
     
     var body: some View {
         contentView
+            .fullScreenCover(isPresented: $viewModel.isPresentCreateRepo) {
+                CreateRepoView(viewModel: .init(mainTabViewModel: viewModel, container: container))
+            }
     }
     
     @ViewBuilder
@@ -23,7 +26,7 @@ struct MainTabView: View {
         case .notRequest:
             PlaceholderView()
                .onAppear {
-                    viewModel.send(action: .checkRepoCreate)
+                    viewModel.send(action: .checkGitLink)
                 }
         case .loading:
             LoadingView()
@@ -31,14 +34,8 @@ struct MainTabView: View {
             loadedView
         case .fail:
             ErrorView()
-//        case .notCreateRepo:
-//            CreateRepoView(viewModel: CreateRepoViewModel(mainTabViewModel: viewModel, container: container))
-//                .fullScreenCover(isPresented: $viewModel.isPresentGitLink) {
-//                    LinkGitHubView(viewModel: .init(container: container, mainTabViewModel: viewModel))
-//                }
-//                .onAppear {
-//                    viewModel.send(action: .checkGitLink)
-//                }
+        case .notLink:
+            LinkGitHubView(viewModel: .init(container: container, mainTabViewModel: viewModel))
         }
     }
 }

@@ -39,6 +39,7 @@ final class MyProfileViewModel: ObservableObject {
         case clickedSetting
         case clickedUserInfoBtn(user: UserInfo)
         case searchUser
+        case clickedCloseBtn(user: UserInfo)
     }
     
     init(searchName: String = "",
@@ -65,6 +66,8 @@ final class MyProfileViewModel: ObservableObject {
             clickedUserInfoBtn(user: user)
         case .searchUser:
             searchUser()
+        case .clickedCloseBtn(let user):
+            clickedCloseBtn(user: user)
         }
     }
     
@@ -95,7 +98,9 @@ extension MyProfileViewModel {
         case .friend:
             container.services.friendService.fetchFriendList()
                 .sink { completion in
-                    
+                    if case .failure(let error) = completion {
+                       
+                    }
                 } receiveValue: { [weak self] users in
                     guard let self = self else { return }
                     self.isLoading = false
@@ -124,29 +129,15 @@ extension MyProfileViewModel {
     }
     
     private func clickedUserInfoBtn(user: UserInfo) {
-        switch user.status {
-        case .FOLLOWING:
-            if let userIndex = users.firstIndex(where: { $0.userId == user.userId }) {
-                users.remove(at: userIndex)
-                container.services.friendService.deleteFriend(id: user.userId)
-                    .sink { completion in
-                        
-                    } receiveValue: { succeed in
-                        
-                    }.store(in: &subscriptions)
-            }
-        case .NOT_FRIEND, .REQUEST:break
-        case .RECEIVE:
-            if let userIndex = users.firstIndex(where: { $0.userId == user.userId }) {
-                users.remove(at: userIndex)
-                
-                container.services.friendService.acceptFriend(id: user.userId)
-                    .sink { completion in
-                        
-                    } receiveValue: { succeed in
-                        
-                    }.store(in: &subscriptions)
-            }
+        if let userIndex = users.firstIndex(where: { $0.userId == user.userId }) {
+            users.remove(at: userIndex)
+            
+            container.services.friendService.acceptFriend(id: user.userId)
+                .sink { completion in
+                    
+                } receiveValue: { succeed in
+                    
+                }.store(in: &subscriptions)
         }
     }
     
@@ -156,5 +147,11 @@ extension MyProfileViewModel {
         userListMode = .search
         searchUsers = users.filter({$0.userName == searchName})
         isLoading = false
+    }
+    
+    private func clickedCloseBtn(user: UserInfo) {
+        if let userIndex = users.firstIndex(where: { $0.userId == user.userId }) {
+            
+        }
     }
 }

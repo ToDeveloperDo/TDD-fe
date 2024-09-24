@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+extension Notification.Name {
+    static let noRepository = Notification.Name("noRepository")
+    static let expiredToken = Notification.Name("expiredToken")
+    static let gitHubLogin = Notification.Name("gitHubLogin")
+}

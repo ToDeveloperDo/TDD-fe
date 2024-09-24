@@ -28,11 +28,17 @@ final class NetworkingManager {
                             throw NetworkError.serverError("Unknown Error")
                                             }
                     case 404:
+                        self.sendNotification()
                         throw NetworkError.notRepository
                     default:
                         break
                     }
                 }
+                
+                if (response.data == nil || response.data?.isEmpty == true), T.self == EmptyResponse.self {
+                    return EmptyResponse() as! T
+                }
+                
                 guard let value = response.value else {
                     throw NetworkError.serverError("Invalid response data")
                 }
@@ -59,6 +65,7 @@ final class NetworkingManager {
                             throw NetworkError.serverError("Unknown Error")
                         }
                     case 404:
+                        self.sendNotification()
                         throw NetworkError.notRepository
                     default:
                         break
@@ -73,5 +80,9 @@ final class NetworkingManager {
                 return error as? NetworkError ?? NetworkError.error(error)
             }
             .eraseToAnyPublisher()
+    }
+    
+    func sendNotification() {
+        NotificationCenter.default.post(name: .noRepository, object: nil)
     }
 }

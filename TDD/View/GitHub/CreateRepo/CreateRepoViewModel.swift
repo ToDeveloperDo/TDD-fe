@@ -50,18 +50,12 @@ final class CreateRepoViewModel: ObservableObject {
                     self.isLoading = false
                     self.isPresentAlert = true
                     self.alert = .inputError
-                    print(completion)
                 }
-            } receiveValue: { [weak self] succeed in
+            } receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                if succeed {
-                    self.isLoading = false
-                    self.mainTabViewModel.phase = .success
-                } else {
-                    self.isLoading = false
-                    self.isPresentAlert = true
-                    self.alert = .inputError
-                }
+                self.isLoading = false
+                self.mainTabViewModel.phase = .success
+                self.mainTabViewModel.isPresentCreateRepo = false
             }.store(in: &subscription)
     }
 }

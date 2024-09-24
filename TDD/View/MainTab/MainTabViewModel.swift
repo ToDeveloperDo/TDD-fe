@@ -10,25 +10,23 @@ import Combine
 
 final class MainTabViewModel: ObservableObject {
     
-    @Published var phase: Phase = .success
-    @Published var isPresentGitLink = false
+    @Published var phase: Phase = .notRequest
+    @Published var isPresentCreateRepo = false
     
     private var container: DIContainer
     private var subscription = Set<AnyCancellable>()
     
     init(container: DIContainer) {
         self.container = container
+        bindingNotification()
     }
     
     enum Action {
-        case checkRepoCreate
         case checkGitLink
     }
     
     func send(action: Action) {
         switch action {
-        case .checkRepoCreate:
-            checkRepoCreate()
         case .checkGitLink:
             checkGitLink()
         }
@@ -36,37 +34,34 @@ final class MainTabViewModel: ObservableObject {
 }
 
 extension MainTabViewModel {
-    private func checkRepoCreate() {
-        phase = .loading
-        container.services.githubService.isRepoCreated()
-            .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    print("\(error)")
-                    self?.phase = .fail
-                }
-            } receiveValue: { [weak self] succeed in
-                guard let self = self else { return }
-                if succeed {
-                    self.phase = .success
-                } else {
-                    self.phase = .notCreateRepo
-                }
-            }
-            .store(in: &subscription)
+    private func bindingNotification() {
+        NotificationCenter.default.publisher(for: .noRepository)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.isPresentCreateRepo = true
+            }.store(in: &subscription)
+
     }
     
     private func checkGitLink() {
         container.services.githubService.isGitLink()
             .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    print("\(error)")
-                    self?.phase = .fail
+                switch completion {
+                case .finished:
+                    self?.phase = .success
+                case .failure(let error):
+                    switch error {
+                    case .notRepository:
+                        break
+                    case .serverError(let message):
+                        print(message)
+                        self?.phase = .fail
+                    default:
+                        self?.phase = .fail
+                    }
                 }
-            } receiveValue: { [weak self] succeed in
-                guard let self = self else { return }
-                if !succeed {
-                    self.isPresentGitLink = true
-                }
+            } receiveValue: { [weak self] _ in
+                self?.phase = .success
             }
             .store(in: &subscription)
     }
