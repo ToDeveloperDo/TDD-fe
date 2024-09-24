@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct FetchFrienTodoListResponse: Decodable {
+struct FetchFriendTodoListResponse: Decodable {
     let deadline: String
     let todoResponse: [GetTodoListResponse]
 }
 
-extension FetchFrienTodoListResponse {
+extension FetchFriendTodoListResponse {
     func toModel() -> FriendTodoList {
         .init(deadline: deadline, todos: todoResponse.map { $0.toModel() })
     }

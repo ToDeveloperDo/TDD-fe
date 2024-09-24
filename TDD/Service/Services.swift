@@ -25,12 +25,12 @@ final class Services: ServiceType {
     var friendService: FriendServiceType
     
     init() {
-        self.todoService = TodoService(todoAPI: TodoAPI())
+        self.todoService = TodoService()
         self.authService = AuthenticationService(authAPI: AuthAPI())
-        self.githubService = GitHubService(githubAPI: GitHubAPI())
+        self.githubService = GitHubService()
         self.imageCacheService = ImageCacheService(memoryStorage: MemoryStorage(), diskStorage: DiskStorage())
-        self.memberService = MemberService(memberAPI: MemberAPI())
-        self.friendService = FriendService(friendAPI: FriendAPI())
+        self.memberService = MemberService()
+        self.friendService = FriendService()
     }
 }
 

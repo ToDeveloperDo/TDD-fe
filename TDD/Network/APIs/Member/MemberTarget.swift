@@ -15,7 +15,11 @@ enum MemberTarget {
 
 extension MemberTarget: TargetType {
     var baseURL: String {
+        // 서비스
         return "https://api.todeveloperdo.shop"
+        
+        // 개발
+//        return "https://dev.todeveloperdo.shop"
     }
     
     var method: Alamofire.HTTPMethod {

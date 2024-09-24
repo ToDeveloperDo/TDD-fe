@@ -14,23 +14,35 @@ protocol MemberServiceType {
 }
 
 final class MemberService: MemberServiceType {
-    private var memberAPI: MemberAPI
-    
-    init(memberAPI: MemberAPI) {
-        self.memberAPI = memberAPI
-    }
-    
     func fetchMyInfo() -> AnyPublisher<MyInfo, ServiceError> {
-        return memberAPI.fetchMyInfo()
+        return NetworkingManager.shared.requestWithAuth(MemberTarget.fetchMyInfo, type: FetchMyInfoResponse.self)
             .map { $0.toModel() }
-            .mapError { ServiceError.error($0) }
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
     
     func fetchAllMember() -> AnyPublisher<[UserInfo], ServiceError> {
-        return memberAPI.fetchAllMember()
+        return NetworkingManager.shared.requestWithAuth(MemberTarget.fetchAllMember, type: [FriendResponse].self)
             .map { $0.map { $0.toModel() } }
-            .mapError { ServiceError.error($0) }
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
 }

@@ -45,7 +45,7 @@ struct QuestView: View {
                         .ignoresSafeArea()
                 }
             }
-            
+
             Color.clear
                 .contentShape(Rectangle())
                 .edgesIgnoringSafeArea(.all)

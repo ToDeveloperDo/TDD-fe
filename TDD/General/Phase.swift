@@ -12,5 +12,4 @@ enum Phase {
     case loading
     case success
     case fail
-    case notCreateRepo
 }

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+enum NetworkError: Error {
+    case error(Error)
+    case serverError(String)
+    case notRepository
+}

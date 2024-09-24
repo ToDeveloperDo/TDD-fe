@@ -64,6 +64,8 @@ final class UserDetailViewModel: ObservableObject {
                     } receiveValue: { succeed in
                         
                     }.store(in: &subscriptions)
+                
+                
             }
         }
         

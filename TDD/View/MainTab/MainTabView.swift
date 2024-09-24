@@ -31,14 +31,14 @@ struct MainTabView: View {
             loadedView
         case .fail:
             ErrorView()
-        case .notCreateRepo:
-            CreateRepoView(viewModel: CreateRepoViewModel(mainTabViewModel: viewModel, container: container))
-                .fullScreenCover(isPresented: $viewModel.isPresentGitLink) {
-                    LinkGitHubView(viewModel: .init(container: container, mainTabViewModel: viewModel))
-                }
-                .onAppear {
-                    viewModel.send(action: .checkGitLink)
-                }
+//        case .notCreateRepo:
+//            CreateRepoView(viewModel: CreateRepoViewModel(mainTabViewModel: viewModel, container: container))
+//                .fullScreenCover(isPresented: $viewModel.isPresentGitLink) {
+//                    LinkGitHubView(viewModel: .init(container: container, mainTabViewModel: viewModel))
+//                }
+//                .onAppear {
+//                    viewModel.send(action: .checkGitLink)
+//                }
         }
     }
 }

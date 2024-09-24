@@ -87,8 +87,7 @@ private struct HiddenView: View {
     var body: some View {
         VStack {
             Image(.hiddenTodo)
-                .resizable()
-                .frame(width: .infinity, height: .infinity)
+                .resizable()                
         }
     }
 }

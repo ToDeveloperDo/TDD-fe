@@ -112,7 +112,15 @@ extension QuestViewModel {
         userListMode = .search
         container.services.friendService.searchFriend(userName: searchName)
             .sink { [weak self] completion in
-                if case .failure(_) = completion {
+                if case .failure(let error) = completion {
+                    switch error {
+                    case ServiceError.notRepository:
+                        print("repo없음!!!!")
+                    case ServiceError.serverError(let message):
+                        print("\(message)!!!!!!!!!!!!!")
+                    default:
+                        return
+                    }
                     self?.isLoading = false
                 }
             } receiveValue: { [weak self] user in

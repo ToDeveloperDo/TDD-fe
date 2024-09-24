@@ -16,12 +16,6 @@ protocol AuthenticationServiceType {
 }
 
 final class AuthenticationService: AuthenticationServiceType {
-    private var authAPI: AuthAPI
-    
-    init(authAPI: AuthAPI) {
-        self.authAPI = authAPI
-    }
-    
     func signInWithAppleRequest(_ reqeust: ASAuthorizationAppleIDRequest) -> Void {
         reqeust.requestedScopes = [.email, .fullName]
     }
@@ -39,9 +33,18 @@ final class AuthenticationService: AuthenticationServiceType {
         do {
             let clientToken = try KeychainManager.shared.getData(.clientToken)
             let request = LoginRequest(code: codeStr, clientToken: clientToken)
-            return authAPI.signInWithApple(request: request)
-                .map { return ($0, credential.user) }
-                .mapError { ServiceError.error($0) }
+            return NetworkingManager.shared.requestNoAuth(AuthAPITarget.signInWithApple(request), type: LoginResponse.self)
+                .map { return ($0, credential.user)}
+                .mapError { error in
+                    switch error {
+                    case .notRepository:
+                        return ServiceError.notRepository
+                    case .serverError(let message):
+                        return ServiceError.serverError(message)
+                    case .error(let error):
+                        return ServiceError.error(error)
+                    }
+                }
                 .eraseToAnyPublisher()
         } catch {
             return Fail(error: ServiceError.authorizationFailed).eraseToAnyPublisher()
@@ -49,8 +52,18 @@ final class AuthenticationService: AuthenticationServiceType {
     }
     
     func revokeWithApple() -> AnyPublisher<Void, ServiceError> {
-        return authAPI.revokeWithApple()
-            .mapError { ServiceError.error($0) }
+        return NetworkingManager.shared.requestWithAuth(AuthAPITarget.revokeWithApple, type: EmptyResponse.self)
+            .map { _ in () }
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
 }

@@ -8,8 +8,9 @@
 import Foundation
 import Combine
 
-final class MainTabViewModel: ObservableObject {    
-    @Published var phase: Phase = .notRequest
+final class MainTabViewModel: ObservableObject {
+    
+    @Published var phase: Phase = .success
     @Published var isPresentGitLink = false
     
     private var container: DIContainer

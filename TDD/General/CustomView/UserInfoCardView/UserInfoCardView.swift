@@ -73,7 +73,7 @@ struct UserInfoCardView: View {
                     }
             })
             .buttonStyle(.borderless)
-            .disabled(user.status == .REQUEST)
+            .disabled(user.status == .REQUEST || user.status == .FOLLOWING)
             .padding(.bottom, 21)
             .contentShape(Rectangle())
         }

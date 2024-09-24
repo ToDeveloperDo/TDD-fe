@@ -12,31 +12,43 @@ protocol TodoServiceType {
     func createTodo(todo: Todo) -> AnyPublisher<Int64, ServiceError>
     func getTodoList(date: String) -> AnyPublisher<[Todo], ServiceError>
     func getTodoCount(year: String, month: String) -> AnyPublisher<[(Int, Int)], ServiceError>
-    func reverseTodo(todoId: Int64) -> AnyPublisher<Bool, ServiceError>
-    func doneTodo(todoId: Int64) -> AnyPublisher<Bool, ServiceError>
-    func editTodo(todo: Todo) -> AnyPublisher<Bool, ServiceError>
-    func deleteTodo(todoId: Int64) -> AnyPublisher<Bool, ServiceError>
+    func reverseTodo(todoId: Int64) -> AnyPublisher<Void, ServiceError>
+    func doneTodo(todoId: Int64) -> AnyPublisher<Void, ServiceError>
+    func editTodo(todo: Todo) -> AnyPublisher<Void, ServiceError>
+    func deleteTodo(todoId: Int64) -> AnyPublisher<Void, ServiceError>
 }
 
 final class TodoService: TodoServiceType {
-    private var todoAPI: TodoAPI
-    
-    init(todoAPI: TodoAPI) {
-        self.todoAPI = todoAPI
-    }
-    
     func createTodo(todo: Todo) -> AnyPublisher<Int64, ServiceError> {
         let request = CreateTodoRequest(content: todo.content, memo: todo.memo, tag: todo.tag, deadline: todo.deadline)
-        return todoAPI.createTodo(request: request)
-            .mapError { ServiceError.error($0) }
+        return NetworkingManager.shared.requestWithAuth(TodoAPITarget.createTodo(request), type: Int64.self)
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
     
     func getTodoList(date: String) -> AnyPublisher<[Todo], ServiceError> {
         let request = GetTodoListRequest(deadline: date)
-        return todoAPI.getTodoList(request: request)
+        return NetworkingManager.shared.requestWithAuth(TodoAPITarget.getTodoList(request), type: [GetTodoListResponse].self)
             .map { $0.map { $0.toModel() } }
-            .mapError { ServiceError.error($0) }
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
     
@@ -44,7 +56,8 @@ final class TodoService: TodoServiceType {
         let Iyear = Int(year) ?? -1
         let Imonth = Int(month) ?? -1
         let request = GetTodoCountRequest(year: Iyear, month: Imonth)
-        return todoAPI.getTodoCount(request: request)
+        
+        return NetworkingManager.shared.requestWithAuth(TodoAPITarget.getTodoCount(request), type: [GetTodoCountResponse].self)
             .map {
                 $0.map {
                     var day = -1
@@ -55,33 +68,82 @@ final class TodoService: TodoServiceType {
                     return (day, $0.count)
                 }
             }
-            .mapError { ServiceError.error($0) }
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
     
-    func reverseTodo(todoId: Int64) -> AnyPublisher<Bool, ServiceError> {
-        return todoAPI.reverseTodo(request: todoId)
-            .mapError { ServiceError.error($0) }
+    func reverseTodo(todoId: Int64) -> AnyPublisher<Void, ServiceError> {
+        return NetworkingManager.shared.requestWithAuth(TodoAPITarget.reverseTodo(todoId), type: EmptyResponse.self)
+            .map { _ in () }
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
     
-    func doneTodo(todoId: Int64) -> AnyPublisher<Bool, ServiceError> {
-        return todoAPI.doneTodo(request: todoId)
-            .mapError { ServiceError.error($0) }
+    func doneTodo(todoId: Int64) -> AnyPublisher<Void, ServiceError> {
+        return NetworkingManager.shared.requestWithAuth(TodoAPITarget.doneTodo(todoId), type: EmptyResponse.self)
+            .map { _ in () }
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
     
-    func editTodo(todo: Todo) -> AnyPublisher<Bool, ServiceError> {
+    func editTodo(todo: Todo) -> AnyPublisher<Void, ServiceError> {
         let request = CreateTodoRequest(content: todo.content, memo: todo.memo, tag: todo.memo, deadline: todo.deadline)
-        guard let id = todo.todoListId else { return Just(false).setFailureType(to: ServiceError.self).eraseToAnyPublisher() }
-        return todoAPI.editTodo(id: id, request: request)
-            .mapError { ServiceError.error($0) }
+        guard let id = todo.todoListId else { return Just(()).setFailureType(to: ServiceError.self).eraseToAnyPublisher() }
+        return NetworkingManager.shared.requestWithAuth(TodoAPITarget.editTodo(id, request), type: EmptyResponse.self)
+            .map { _ in () }
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
     
-    func deleteTodo(todoId: Int64) -> AnyPublisher<Bool, ServiceError> {
-        return todoAPI.deleteTodo(id: todoId)
-            .mapError { ServiceError.error($0) }
+    func deleteTodo(todoId: Int64) -> AnyPublisher<Void, ServiceError> {
+        return NetworkingManager.shared.requestWithAuth(TodoAPITarget.deleteTodo(todoId), type: EmptyResponse.self)
+            .map { _ in () }
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
             .eraseToAnyPublisher()
     }
 }
@@ -99,20 +161,20 @@ final class StubTodoService: TodoServiceType {
         Just([(27, 2)]).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     
-    func reverseTodo(todoId: Int64) -> AnyPublisher<Bool, ServiceError> {
+    func reverseTodo(todoId: Int64) -> AnyPublisher<Void, ServiceError> {
         Empty().eraseToAnyPublisher()
     }
     
-    func doneTodo(todoId: Int64) -> AnyPublisher<Bool, ServiceError> {
-        Just(true).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
+    func doneTodo(todoId: Int64) -> AnyPublisher<Void, ServiceError> {
+        Just(()).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
 
     }
     
-    func editTodo(todo: Todo) -> AnyPublisher<Bool, ServiceError> {
-        Just(true).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
+    func editTodo(todo: Todo) -> AnyPublisher<Void, ServiceError> {
+        Just(()).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     
-    func deleteTodo(todoId: Int64) -> AnyPublisher<Bool, ServiceError> {
-        Just(true).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
+    func deleteTodo(todoId: Int64) -> AnyPublisher<Void, ServiceError> {
+        Just(()).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
 }

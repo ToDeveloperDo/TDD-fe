@@ -10,13 +10,13 @@ import Combine
 import Alamofire
 
 final class AuthAPI {
-    func signInWithApple(request: LoginRequest) -> AnyPublisher<LoginResponse, Error> {
-        return API.session.request(AuthAPITarget.signInWithApple(request))
-            .publishDecodable(type: LoginResponse.self)
-            .value()
-            .mapError { $0 }
-            .eraseToAnyPublisher()
-    }
+//    func signInWithApple(request: LoginRequest) -> AnyPublisher<LoginResponse, Error> {
+//        return API.session.request(AuthAPITarget.signInWithApple(request))
+//            .publishDecodable(type: LoginResponse.self)
+//            .value()
+//            .mapError { $0 }
+//            .eraseToAnyPublisher()
+//    }
     
     static func refreshToken(completion: @escaping (Bool) -> Void) {
         do {
@@ -45,15 +45,15 @@ final class AuthAPI {
             completion(false)
         }
     }
-    
-    func revokeWithApple() -> AnyPublisher<Void, Error> {
-        return API.session.request(AuthAPITarget.revokeWithApple, interceptor: AuthInterceptor.shared)
-            .validate(statusCode: 200..<300)
-            .publishData()
-            .tryMap { response in
-                return ()
-            }
-            .eraseToAnyPublisher()
-    }
+//    
+//    func revokeWithApple() -> AnyPublisher<Void, Error> {
+//        return API.session.request(AuthAPITarget.revokeWithApple, interceptor: AuthInterceptor.shared)
+//            .validate(statusCode: 200..<300)
+//            .publishData()
+//            .tryMap { response in
+//                return ()
+//            }
+//            .eraseToAnyPublisher()
+//    }
 }
 

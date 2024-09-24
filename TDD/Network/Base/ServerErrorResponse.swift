@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct ServerErrorResponse: Decodable {
+    let message: String
+    let code: String
+}

@@ -10,19 +10,21 @@ import Alamofire
 
 enum GitHubAPITarget {
     case isGitLink
-    case isRepoCreated
     case createRepo(CreateRepoRequest)
 }
 
 extension GitHubAPITarget: TargetType {
     var baseURL: String {
+        // 서비스
         return "https://api.todeveloperdo.shop"
+        
+        // 개발
+//        return "https://dev.todeveloperdo.shop"
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
         case .isGitLink: return .get
-        case .isRepoCreated: return .get
         case .createRepo: return .post
         }
     }
@@ -30,7 +32,6 @@ extension GitHubAPITarget: TargetType {
     var path: String {
         switch self {
         case .isGitLink: return "/api/github/check"
-        case .isRepoCreated: return "/api/github/check/repo"
         case .createRepo: return "/api/github/create/repo"
         }
     }
@@ -38,7 +39,6 @@ extension GitHubAPITarget: TargetType {
     var parameters: RequestParams {
         switch self {
         case .isGitLink: return .empty
-        case .isRepoCreated: return .empty
         case .createRepo(let request): return .body(request)
         }
     }
