@@ -51,4 +51,17 @@ enum InfoType: String, Codable {
             return "mainColor"
         }
     }
+    
+    var deleteString: String {
+        switch self {
+        case .FOLLOWING:
+            return "following"
+        case .NOT_FRIEND:
+            return "notFriend"
+        case .REQUEST:
+            return "request"
+        case .RECEIVE:
+            return "receive"
+        }
+    }
 }

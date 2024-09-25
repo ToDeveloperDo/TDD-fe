@@ -17,7 +17,7 @@ protocol FriendServiceType {
     func fetchFriendTodoList(id: Int64) -> AnyPublisher<[FriendTodoList], ServiceError>
     func addFriend(id: Int64) -> AnyPublisher<Void, ServiceError>
     func acceptFriend(id: Int64) -> AnyPublisher<Void, ServiceError>
-    func deleteFriend(id: Int64) -> AnyPublisher<Void, ServiceError>
+    func deleteFriend(id: Int64, type: InfoType) -> AnyPublisher<Void, ServiceError>
 }
 
 final class FriendService: FriendServiceType {
@@ -151,8 +151,10 @@ final class FriendService: FriendServiceType {
             .eraseToAnyPublisher()
     }
     
-    func deleteFriend(id: Int64) -> AnyPublisher<Void, ServiceError> {
-        return NetworkingManager.shared.requestWithAuth(FriendTarget.deleteFriend(id), type: EmptyResponse.self)
+    func deleteFriend(id: Int64, type: InfoType) -> AnyPublisher<Void, ServiceError> {
+        let request = DeleteRequest(type: type.rawValue)
+        
+        return NetworkingManager.shared.requestWithAuth(FriendTarget.deleteFriend(id, request), type: EmptyResponse.self)
             .map { _ in () }
             .mapError { error in
                 switch error {
@@ -201,7 +203,7 @@ final class StubFriendService: FriendServiceType {
         Just(()).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     
-    func deleteFriend(id: Int64) -> AnyPublisher<Void, ServiceError> {
+    func deleteFriend(id: Int64, type: InfoType) -> AnyPublisher<Void, ServiceError>  {
         Just(()).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     

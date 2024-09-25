@@ -73,6 +73,30 @@ struct MyProfileView: View {
                     isFocused = false
                 }
         }
+        .alert(isPresented: $viewModel.isShowingAlert) {
+            switch viewModel.showAlert {
+            case .FOLLOWING:
+                return Alert(title: Text("친구 목록에서 삭제하시겠습니까?"),
+                             primaryButton: .cancel(Text("취소")),
+                             secondaryButton: .destructive(Text("확인"), action: {
+                    viewModel.send(action: .deleteAction)
+                }))
+            case .REQUEST:
+                return Alert(title: Text("보낸 요청을 삭제하시겠습니까?"),
+                             primaryButton: .cancel(Text("취소")),
+                             secondaryButton: .destructive(Text("확인"), action: {
+                    viewModel.send(action: .deleteAction)
+                }))
+            case .RECEIVE:
+                return Alert(title: Text("받은 요청을 삭제하시겠습니까?"),
+                             primaryButton: .cancel(Text("취소")),
+                             secondaryButton: .destructive(Text("확인"), action: {
+                    viewModel.send(action: .deleteAction)
+                }))
+            case .NOT_FRIEND:
+                return Alert(title: Text("잘못된 요청입니다."), dismissButton: .cancel(Text("확인")))
+            }
+        }
     }
 }
 
@@ -187,7 +211,7 @@ private struct MemberCardView: View {
                             } action: {
                                 viewModel.send(action: .clickedUserInfoBtn(user: user))
                             } deleteAction: {
-                                // TODO: 삭제 액션 추가
+                                viewModel.send(action: .clickedCloseBtn(user: user))
                             }
                             .onTapGesture {
                                 viewModel.send(action: .clickedUserCell(user: user))
@@ -209,7 +233,7 @@ private struct MemberCardView: View {
                             } action: {
                                 viewModel.send(action: .clickedUserInfoBtn(user: user))
                             } deleteAction: {
-                                // TODO: 삭제 액션 추가
+                                viewModel.send(action: .clickedCloseBtn(user: user))
                             }
                             .onTapGesture {
                                 viewModel.send(action: .clickedUserCell(user: user))

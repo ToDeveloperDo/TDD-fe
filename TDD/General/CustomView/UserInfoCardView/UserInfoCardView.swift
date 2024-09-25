@@ -18,7 +18,7 @@ struct UserInfoCardView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    
+                    deleteAction()
                 }, label: {
                     Image(.cardClose)
                 })
@@ -53,11 +53,10 @@ struct UserInfoCardView: View {
             Button(action: {
                 action()
                 switch user.status {
-                case .FOLLOWING:
-                    user.status = .NOT_FRIEND
+                case .FOLLOWING, .REQUEST:
+                    break
                 case .NOT_FRIEND:
                     user.status = .REQUEST
-                case .REQUEST: break
                 case .RECEIVE:
                     user.status = .FOLLOWING
                 }

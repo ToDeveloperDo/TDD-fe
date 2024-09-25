@@ -38,15 +38,7 @@ final class UserDetailViewModel: ObservableObject {
             container.navigationRouter.pop(on: parent)
         case .infoTypeBtnClicked:
             switch user.status {
-            case .FOLLOWING:
-                user.status = .NOT_FRIEND
-                container.services.friendService.deleteFriend(id: user.userId)
-                    .sink { completion in
-                        
-                    } receiveValue: { succeed in
-                        
-                    }.store(in: &subscriptions)
-
+            case .FOLLOWING, .REQUEST: break
             case .NOT_FRIEND:
                 user.status = .REQUEST
                 container.services.friendService.addFriend(id: user.userId)
@@ -55,7 +47,6 @@ final class UserDetailViewModel: ObservableObject {
                     } receiveValue: { succeed in
                         
                     }.store(in: &subscriptions)
-            case .REQUEST: break
             case .RECEIVE:
                 user.status = .FOLLOWING
                 container.services.friendService.acceptFriend(id: user.userId)
@@ -64,8 +55,6 @@ final class UserDetailViewModel: ObservableObject {
                     } receiveValue: { succeed in
                         
                     }.store(in: &subscriptions)
-                
-                
             }
         }
         

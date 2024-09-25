@@ -21,7 +21,7 @@ final class QuestViewModel: ObservableObject {
     @Published var searchUsers: [UserInfo]
     @Published var isLoading: Bool = false
     @Published var isPresentGit: Bool = false
-    @Published var networkErr: Bool = true
+    @Published var networkErr: Bool = false
     
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
@@ -77,14 +77,8 @@ extension QuestViewModel {
     private func clickedUserInfoBtn(user: UserInfo) {
         guard let index = users.firstIndex(where: { $0.userId == user.userId }) else { return }
         switch user.status {
-        case .FOLLOWING:
-            container.services.friendService.deleteFriend(id: user.userId)
-                .sink { completion in
-                    
-                } receiveValue: { [weak self] succeed in
-                    guard let self = self else { return }
-                    self.users[index].status = .NOT_FRIEND
-                }.store(in: &subscriptions)
+        case .FOLLOWING, .REQUEST:
+            break
             
         case .NOT_FRIEND:
             container.services.friendService.addFriend(id: user.userId)
@@ -94,7 +88,6 @@ extension QuestViewModel {
                     guard let self = self else { return }
                     self.users[index].status = .REQUEST
                 }.store(in: &subscriptions)
-        case .REQUEST:break
         case .RECEIVE:
             container.services.friendService.acceptFriend(id: user.userId)
                 .sink { completion in

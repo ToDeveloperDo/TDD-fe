@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct DeleteRequest: Encodable {
+    let type: String
+}

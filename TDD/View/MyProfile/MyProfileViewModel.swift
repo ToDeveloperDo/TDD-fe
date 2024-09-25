@@ -23,8 +23,12 @@ final class MyProfileViewModel: ObservableObject {
     @Published var selectedMode: MyProfileBtnType = .friend
     @Published var isPresentGit: Bool = false
     @Published var isLoading: Bool = false
-     var clickedGitUrl: String = ""
+    @Published var isShowingAlert: Bool = false
+    @Published var showAlert: InfoType = .FOLLOWING
     
+    var clickedGitUrl: String = ""
+    
+    private var deleteMember: UserInfo?
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
     
@@ -40,6 +44,7 @@ final class MyProfileViewModel: ObservableObject {
         case clickedUserInfoBtn(user: UserInfo)
         case searchUser
         case clickedCloseBtn(user: UserInfo)
+        case deleteAction
     }
     
     init(searchName: String = "",
@@ -67,7 +72,11 @@ final class MyProfileViewModel: ObservableObject {
         case .searchUser:
             searchUser()
         case .clickedCloseBtn(let user):
-            clickedCloseBtn(user: user)
+            deleteMember = user
+            showAlert = user.status
+            isShowingAlert = true
+        case .deleteAction:
+            deleteAction()
         }
     }
     
@@ -149,9 +158,14 @@ extension MyProfileViewModel {
         isLoading = false
     }
     
-    private func clickedCloseBtn(user: UserInfo) {
-        if let userIndex = users.firstIndex(where: { $0.userId == user.userId }) {
-            
-        }
+    private func deleteAction() {
+        guard let member = deleteMember else { return }
+        container.services.friendService.deleteFriend(id: member.userId, type: member.status)
+            .sink { completion in
+                
+            } receiveValue: { _ in
+                
+            }.store(in: &subscriptions)
+
     }
 }

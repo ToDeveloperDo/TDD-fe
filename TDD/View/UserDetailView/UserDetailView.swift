@@ -45,7 +45,7 @@ struct UserDetailView: View {
                 }, label: {
                     Image(.backBtn)
                 })
-                
+                .disabled(viewModel.user.status == .FOLLOWING || viewModel.user.status == .REQUEST)
             }
             
             ToolbarItem(placement: .topBarTrailing) {
@@ -169,6 +169,7 @@ private struct FriendTodoCellView: View {
 }
 
 #Preview {
+    
     NavigationStack {
         UserDetailView(viewModel: .init(user: .stu3, parent: .quest, container: .stub))
     }

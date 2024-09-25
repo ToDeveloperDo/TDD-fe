@@ -17,7 +17,7 @@ enum FriendTarget {
     case fetchFriendTodoList(Int64)
     case addFriend(Int64)
     case acceptFriend(Int64)
-    case deleteFriend(Int64)
+    case deleteFriend(Int64, DeleteRequest)
 }
 
 extension FriendTarget: TargetType {
@@ -53,7 +53,7 @@ extension FriendTarget: TargetType {
         case .fetchFriendTodoList(let id): return "/api/member-friend/lookup/todolist/\(id)"
         case .addFriend(let id): return "/api/member-friend/add/\(id)"
         case .acceptFriend(let id): return "/api/member-friend/accept/\(id)"
-        case .deleteFriend(let id): return "/api/member-friend/\(id)"
+        case .deleteFriend(let id, _): return "/api/member-friend/\(id)"
         }
     }
     
@@ -67,7 +67,7 @@ extension FriendTarget: TargetType {
         case .fetchFriendTodoList: return .empty
         case .addFriend: return .empty
         case .acceptFriend: return .empty
-        case .deleteFriend: return .empty
+        case .deleteFriend(_, let request): return .query(request)
         }
     }
 }
