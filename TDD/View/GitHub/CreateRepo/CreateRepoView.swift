@@ -36,7 +36,7 @@ struct CreateRepoView: View {
         }
         .overlay {
             if viewModel.isLoading {
-                ProgressView()
+                LoadingView()
             }
         }
         .alert(isPresented: $viewModel.isPresentAlert) {

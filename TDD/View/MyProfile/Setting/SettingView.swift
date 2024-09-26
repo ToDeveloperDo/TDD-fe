@@ -69,7 +69,11 @@ struct SettingView: View {
             } label: {
                 Text("취소")
             }
-
+        }
+        .overlay {
+            if viewModel.isLoading {
+                LoadingView()
+            }
         }
 
     }

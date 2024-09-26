@@ -10,6 +10,7 @@ import Combine
 
 final class SettingViewModel: ObservableObject {
     @Published var isPresentAlert = false
+    @Published var isLoading = false
     
     private var container: DIContainer
     private var subscriptions = Set<AnyCancellable>()
@@ -34,6 +35,7 @@ final class SettingViewModel: ObservableObject {
         case .clickedRevoke:
             isPresentAlert = true
         case .checkRevoke:
+            isLoading = true
             authViewModel.send(action: .revokeWithApple)
         case .teamIntroduction:
             container.navigationRouter.push(to: .teamIntroduction, on: .myProfile)

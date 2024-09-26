@@ -12,8 +12,6 @@ struct MyProfileView: View {
     @EnvironmentObject private var container: DIContainer
     @FocusState private var isFocused: Bool
     
-    private let columns = Array(repeating: GridItem(.fixed(170)), count: 2)
-    
     var body: some View {
         ZStack {
             NavigationStack(path: $container.navigationRouter.myProfileDestinations) {
@@ -111,7 +109,7 @@ private struct MyProfileCell: View {
         VStack(alignment: .leading, spacing: 0) {
             UserInfoView(url: viewModel.myInfo?.profileUrl ?? "")
                 .padding(.bottom, 28)
-            Text("\(viewModel.myInfo?.name ?? "이름")")
+            Text("\(viewModel.myInfo?.name ?? "")")
                 .font(.system(size: 28, weight: .semibold))
                 .foregroundStyle(Color.fixBk)
                 .padding(.bottom, 8)
@@ -120,7 +118,7 @@ private struct MyProfileCell: View {
                 viewModel.clickedGitUrl = viewModel.myInfo?.gitUrl ?? ""
                 viewModel.isPresentGit = true
             }, label: {
-                Text("\(viewModel.myInfo?.gitUrl ?? "url")")
+                Text("\(viewModel.myInfo?.gitUrl ?? "")")
                     .font(.system(size: 14, weight: .thin))
                     .tint(Color.fixBk)
             })
@@ -203,9 +201,9 @@ private struct MemberCardView: View {
                             .padding(.top, 65)
                     }
                 } else {
-                    LazyVGrid(columns: columns) {
+                    LazyVGrid(columns: columns, spacing: 15) {
                         ForEach(viewModel.searchUsers) { user in
-                            UserInfoCardView(user: user) {
+                            UserInfoCardView(user: user, isPresentCloseBtn: true) {
                                 viewModel.clickedGitUrl = user.gitUrl
                                 viewModel.isPresentGit = true
                             } action: {
@@ -218,6 +216,7 @@ private struct MemberCardView: View {
                             }
                         }
                     }
+                    .padding(.horizontal, 24)
                 }
             case .normal:
                 if viewModel.users.isEmpty {
@@ -225,9 +224,9 @@ private struct MemberCardView: View {
                         EmptyView(viewModel: viewModel)
                     }
                 } else {
-                    LazyVGrid(columns: columns) {
+                    LazyVGrid(columns: columns, spacing: 15) {
                         ForEach(viewModel.users) { user in
-                            UserInfoCardView(user: user) {
+                            UserInfoCardView(user: user, isPresentCloseBtn: true) {
                                 viewModel.clickedGitUrl = user.gitUrl
                                 viewModel.isPresentGit = true
                             } action: {
@@ -239,7 +238,7 @@ private struct MemberCardView: View {
                                 viewModel.send(action: .clickedUserCell(user: user))
                             }
                         }
-                    }
+                    }.padding(.horizontal, 24)
                 }
             }
         }

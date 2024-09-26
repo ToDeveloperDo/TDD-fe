@@ -63,6 +63,16 @@ struct CalendarView: View {
             if viewModel.isSlidingLoading {
                 Color.gray.opacity(0.1).ignoresSafeArea()
             }
+            if viewModel.isError {
+                NetworkErrorAlert(title: "네트워크 통신 에러")
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                            withAnimation {
+                                viewModel.isError = false
+                            }
+                        }
+                    }
+            }
         }
         .ignoresSafeArea(edges: .bottom)
         .background(Color.mainbg)

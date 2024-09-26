@@ -55,7 +55,7 @@ struct QuestView: View {
         }
         .overlay {
             if viewModel.networkErr {
-                NetworkErrorAlert()
+                NetworkErrorAlert(title: "네트워크 통신 에러")
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
                             withAnimation {
@@ -86,9 +86,9 @@ private struct MemberCardView: View {
                             .padding(.top, 200)
                     }
                 } else {
-                    LazyVGrid(columns: columns) {
+                    LazyVGrid(columns: columns, spacing: 15) {
                         ForEach(viewModel.searchUsers) { user in
-                            UserInfoCardView(user: user, openGit: {
+                            UserInfoCardView(user: user, isPresentCloseBtn: false, openGit: {
                                 viewModel.clickedGitUrl = user.gitUrl
                                 viewModel.isPresentGit = true
                             }, action: {
@@ -101,11 +101,12 @@ private struct MemberCardView: View {
                             }
                         }
                     }
+                    .padding(.horizontal, 24)
                 }
             case .normal:
-                LazyVGrid(columns: columns) {
+                LazyVGrid(columns: columns, spacing: 15) {
                     ForEach(viewModel.users) { user in
-                        UserInfoCardView(user: user, openGit: {
+                        UserInfoCardView(user: user, isPresentCloseBtn: false, openGit: {
                             viewModel.clickedGitUrl = user.gitUrl
                             viewModel.isPresentGit = true
                         }, action: {
@@ -118,6 +119,7 @@ private struct MemberCardView: View {
                         }
                     }
                 }
+                .padding(.horizontal, 24)
             }
         }
         .padding(.vertical, 34)

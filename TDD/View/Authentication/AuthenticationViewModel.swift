@@ -94,7 +94,9 @@ final class AuthenticationViewModel: ObservableObject {
                     } catch {
                         self?.authState = .authenticated
                     }
-                } receiveValue: { _ in
+                } receiveValue: { [weak self] _ in
+                    self?.container.navigationRouter.popToRootView(on: .myProfile)
+                    self?.container.navigationRouter.popToRootView(on: .quest)
                 }.store(in: &subscription)
 
         }

@@ -9,30 +9,37 @@ import SwiftUI
 
 struct UserInfoCardView: View {
     @State var user: UserInfo
+    
+    var isPresentCloseBtn: Bool
     var openGit: () -> Void
     var action: () -> Void
     var deleteAction: () -> Void
     
     var body: some View {
         VStack(spacing: 0) {  
-            HStack {
-                Spacer()
-                Button(action: {
-                    deleteAction()
-                }, label: {
-                    Image(.cardClose)
-                })
-                .buttonStyle(.borderless)
+            if isPresentCloseBtn {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        deleteAction()
+                    }, label: {
+                        Image(.cardClose)
+                    })
+                    .buttonStyle(.borderless)
+                }
+                .padding(.horizontal, 8)
+                .padding(.top, 8)
+            } else {
+                HStack { Spacer() }
+                    .padding(.horizontal, 8)
+                    .padding(.top, 24)
             }
-            .padding(.horizontal, 8)
-            .padding(.top, 8)
-            
+                       
             URLImageView(urlString: user.profileUrl)
                 .frame(width: 86, height: 86)
                 .background(Color.shadow)
                 .clipShape(Circle())
                 .padding(.bottom, 8)
-                .padding(.top, 6)
             
             Text("\(user.userName)")
                 .font(.system(size: 16, weight: .semibold))
@@ -87,7 +94,7 @@ struct UserInfoCardView: View {
 }
 
 #Preview {
-    UserInfoCardView(user: .stu1) {
+    UserInfoCardView(user: .stu1, isPresentCloseBtn: true) {
         
     } action: {} deleteAction: {}
 }

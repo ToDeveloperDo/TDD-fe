@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct NetworkErrorAlert: View {
+    let title: String
+    
+    init(title: String) {
+        self.title = title
+    }
+    
     var body: some View {
-        Text("네트워크 통신 오류")
+        Text("\(title)")
             .font(.system(size: 18, weight: .medium))
             .foregroundStyle(Color.fixWh)
             .padding(.vertical, 8)
@@ -22,5 +28,5 @@ struct NetworkErrorAlert: View {
 }
 
 #Preview {
-    NetworkErrorAlert()
+    NetworkErrorAlert(title: "네트워크 통신 에러")
 }

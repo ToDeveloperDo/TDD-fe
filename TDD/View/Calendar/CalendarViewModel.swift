@@ -38,7 +38,7 @@ final class CalendarViewModel: ObservableObject {
     @Published var isSlidingLoading = false
     @Published var isPresent: Bool = false
     @Published var isTodoLoading: Bool = false
-    
+    @Published var isError: Bool = false
     @Published var detailTodo: Todo?
     
     enum Action {
@@ -169,8 +169,10 @@ extension CalendarViewModel {
             if !months[selection].days[index].request {
                 isTodoLoading = true
                 container.services.todoService.getTodoList(date: date)
-                    .sink { completion in
-                        
+                    .sink { [weak self] completion in
+                        if case .failure(let error) = completion {
+                            self?.isTodoLoading = false
+                        }
                     } receiveValue: { [weak self] todos in
                         guard let self = self else { return }
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
@@ -187,23 +189,32 @@ extension CalendarViewModel {
         if let dayIndex = currentDayIndex,
            let todoIndex = months[selection].days[dayIndex].todos.firstIndex(where: { $0.id == todo.id }),
            let todoId = months[selection].days[dayIndex].todos[todoIndex].todoListId {
+            let currentSelection = selection
             switch mode {
             case .done:
-                months[selection].days[dayIndex].todos[todoIndex].status = .PROCEED
-                months[selection].days[dayIndex].todosCount += 1
+                months[currentSelection].days[dayIndex].todos[todoIndex].status = .PROCEED
+                months[currentSelection].days[dayIndex].todosCount += 1
                 container.services.todoService.reverseTodo(todoId: todoId)
-                    .sink { completion in
-                        
-                    } receiveValue: { succeed in
+                    .sink { [weak self] completion in
+                        if case .failure(let error) = completion {
+                            self?.isError = true
+                            self?.months[currentSelection].days[dayIndex].todos[todoIndex].status = .DONE
+                            self?.months[currentSelection].days[dayIndex].todosCount -= 1
+                        }
+                    } receiveValue: { _ in
                         
                     }.store(in: &subscriptions)
 
             case .proceed:
-                months[selection].days[dayIndex].todos[todoIndex].status = .DONE
-                months[selection].days[dayIndex].todosCount -= 1
+                months[currentSelection].days[dayIndex].todos[todoIndex].status = .DONE
+                months[currentSelection].days[dayIndex].todosCount -= 1
                 container.services.todoService.doneTodo(todoId: todoId)
-                    .sink { completion in
-                        
+                    .sink { [weak self] completion in
+                        if case .failure(let error) = completion {
+                            self?.isError = true
+                            self?.months[currentSelection].days[dayIndex].todos[todoIndex].status = .PROCEED
+                            self?.months[currentSelection].days[dayIndex].todosCount += 1
+                        }
                     } receiveValue: { succeed in
                         
                     }.store(in: &subscriptions)
@@ -215,13 +226,21 @@ extension CalendarViewModel {
         if let index = currentDayIndex,
            let todoIndex = indexSet.first,
            let todoId = months[selection].days[index].todos[todoIndex].todoListId {
-            if months[selection].days[index].todos[todoIndex].status == .PROCEED {
-                months[selection].days[index].todosCount -= 1
+            let currentSelection = selection
+            let deleteTodo = months[currentSelection].days[index].todos[todoIndex]
+            if months[currentSelection].days[index].todos[todoIndex].status == .PROCEED {
+                months[currentSelection].days[index].todosCount -= 1
             }
-            months[selection].days[index].todos.remove(atOffsets: indexSet)
+            months[currentSelection].days[index].todos.remove(atOffsets: indexSet)
             container.services.todoService.deleteTodo(todoId: todoId)
-                .sink { completion in
-                    
+                .sink { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        self?.isError = true
+                        if deleteTodo.status == .PROCEED {
+                            self?.months[currentSelection].days[index].todosCount += 1
+                        }
+                        self?.months[currentSelection].days[index].todos.append(deleteTodo)
+                    }
                 } receiveValue: { succeed in
                     
                 }.store(in: &subscriptions)
@@ -232,14 +251,21 @@ extension CalendarViewModel {
         if let index = currentDayIndex,
            let todoIndex = months[selection].days[index].todos.firstIndex(where: { $0.id == todo.id }),
            let todoId = months[selection].days[index].todos[todoIndex].todoListId {
+            let currentSelection = selection
             if todo.status == .PROCEED {
-                months[selection].days[index].todosCount -= 1
+                months[currentSelection].days[index].todosCount -= 1
             }
-            months[selection].days[index].todos.remove(at: todoIndex)
+            months[currentSelection].days[index].todos.remove(at: todoIndex)
             
             container.services.todoService.deleteTodo(todoId: todoId)
-                .sink { completion in
-                    
+                .sink { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        self?.isError = true
+                        if todo.status == .PROCEED {
+                            self?.months[currentSelection].days[index].todosCount += 1
+                        }
+                        self?.months[currentSelection].days[index].todos.append(todo)
+                    }
                 } receiveValue: { succeed in
                     
                 }.store(in: &subscriptions)
@@ -248,16 +274,22 @@ extension CalendarViewModel {
     
     private func createTodo(_ todo: Todo) {
         if let index = currentDayIndex {
-            months[selection].days[index].todos.append(todo)
-            months[selection].days[index].todosCount += 1
+            let currentSelection = selection
+            months[currentSelection].days[index].todos.append(todo)
+            months[currentSelection].days[index].todosCount += 1
             showTextField = false
             container.services.todoService.createTodo(todo: todo)
-                .sink { completion in
-                    
+                .sink { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        self?.isError = true
+                        guard let deleteIndex = self?.months[currentSelection].days[index].todos.firstIndex(where: { $0.id == todo.id} ) else { return }
+                        self?.months[currentSelection].days[index].todos.remove(at: deleteIndex)
+                        self?.months[currentSelection].days[index].todosCount -= 1
+                    }
                 } receiveValue: { [weak self] id in
                     guard let self = self else { return }
-                    guard let todoIndex = self.months[self.selection].days[index].todos.firstIndex(where: { $0.id == todo.id }) else { return }
-                    self.months[self.selection].days[index].todos[todoIndex].todoListId = id
+                    guard let todoIndex = self.months[currentSelection].days[index].todos.firstIndex(where: { $0.id == todo.id }) else { return }
+                    self.months[currentSelection].days[index].todos[todoIndex].todoListId = id
                 }.store(in: &subscriptions)
         }
     }
