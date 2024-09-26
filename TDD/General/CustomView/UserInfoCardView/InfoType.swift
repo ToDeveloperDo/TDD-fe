@@ -56,12 +56,8 @@ enum InfoType: String, Codable {
         switch self {
         case .FOLLOWING:
             return "following"
-        case .NOT_FRIEND:
-            return "notFriend"
-        case .REQUEST:
-            return "request"
-        case .RECEIVE:
-            return "receive"
+        case .NOT_FRIEND, .RECEIVE, .REQUEST:
+            return "NOT_FRIEND"
         }
     }
 }

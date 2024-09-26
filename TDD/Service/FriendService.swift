@@ -152,7 +152,7 @@ final class FriendService: FriendServiceType {
     }
     
     func deleteFriend(id: Int64, type: InfoType) -> AnyPublisher<Void, ServiceError> {
-        let request = DeleteRequest(type: type.rawValue)
+        let request = DeleteRequest(type: type.deleteString)
         
         return NetworkingManager.shared.requestWithAuth(FriendTarget.deleteFriend(id, request), type: EmptyResponse.self)
             .map { _ in () }

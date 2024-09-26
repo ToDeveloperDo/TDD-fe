@@ -36,6 +36,9 @@ final class LinkGitHubViewModel: ObservableObject {
                     if self.extractToken(from: url) != nil {
                         self.isPresent = false
                         self.mainTabViewModel.phase = .success
+                    } else {
+                        self.isPresent = false
+                        self.mainTabViewModel.phase = .fail
                     }
                 }
             }

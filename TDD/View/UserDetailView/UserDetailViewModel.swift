@@ -52,8 +52,9 @@ final class UserDetailViewModel: ObservableObject {
                 container.services.friendService.acceptFriend(id: user.userId)
                     .sink { completion in
                         
-                    } receiveValue: { succeed in
-                        
+                    } receiveValue: { [weak self] _ in
+                        self?.fetchTodo()
+                        self?.isLoading = true
                     }.store(in: &subscriptions)
             }
         }

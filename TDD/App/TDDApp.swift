@@ -111,7 +111,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        NotificationCenter.default.post(name: Notification.Name("GitHubLogin"), object: url)
+        NotificationCenter.default.post(name: .gitHubLogin , object: url)
     }
 }
 

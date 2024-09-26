@@ -52,11 +52,8 @@ extension MainTabViewModel {
                     switch error {
                     case .notRepository:
                         break
-                    case .serverError(let message):
-                        print(message)
-                        self?.phase = .fail
                     default:
-                        self?.phase = .fail
+                        self?.phase = .notLink
                     }
                 }
             } receiveValue: { [weak self] _ in

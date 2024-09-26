@@ -161,10 +161,12 @@ extension MyProfileViewModel {
     private func deleteAction() {
         guard let member = deleteMember else { return }
         container.services.friendService.deleteFriend(id: member.userId, type: member.status)
-            .sink { completion in
+            .sink {  completion in
                 
-            } receiveValue: { _ in
-                
+            } receiveValue: { [weak self] _ in
+                if let userIndex = self?.users.firstIndex(where: {$0.userId == member.userId}) {
+                    self?.users.remove(at: userIndex)
+                }
             }.store(in: &subscriptions)
 
     }
