@@ -70,7 +70,7 @@ struct QuestView: View {
 
 private struct MemberCardView: View {
     @ObservedObject private var viewModel: QuestViewModel
-    private let columns = Array(repeating: GridItem(.fixed(170)), count: 2)
+    private let columns = Array(repeating: GridItem(.fixed(168)), count: 2)
     
     fileprivate init(viewModel: QuestViewModel) {
         self.viewModel = viewModel
@@ -86,7 +86,7 @@ private struct MemberCardView: View {
                             .padding(.top, 200)
                     }
                 } else {
-                    LazyVGrid(columns: columns, spacing: 15) {
+                    LazyVGrid(columns: columns, spacing: 13) {
                         ForEach(viewModel.searchUsers) { user in
                             UserInfoCardView(user: user, isPresentCloseBtn: false, openGit: {
                                 viewModel.clickedGitUrl = user.gitUrl
@@ -101,10 +101,9 @@ private struct MemberCardView: View {
                             }
                         }
                     }
-                    .padding(.horizontal, 24)
                 }
             case .normal:
-                LazyVGrid(columns: columns, spacing: 15) {
+                LazyVGrid(columns: columns, spacing: 13) {
                     ForEach(viewModel.users) { user in
                         UserInfoCardView(user: user, isPresentCloseBtn: false, openGit: {
                             viewModel.clickedGitUrl = user.gitUrl
@@ -119,7 +118,6 @@ private struct MemberCardView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 24)
             }
         }
         .padding(.vertical, 34)

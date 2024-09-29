@@ -185,7 +185,7 @@ private struct EmptyView: View {
 
 private struct MemberCardView: View {
     @ObservedObject private var viewModel: MyProfileViewModel
-    private let columns = Array(repeating: GridItem(.fixed(170)), count: 2)
+    private let columns = Array(repeating: GridItem(.fixed(168)), count: 2)
     
     fileprivate init(viewModel: MyProfileViewModel) {
         self.viewModel = viewModel
@@ -201,7 +201,7 @@ private struct MemberCardView: View {
                             .padding(.top, 65)
                     }
                 } else {
-                    LazyVGrid(columns: columns, spacing: 15) {
+                    LazyVGrid(columns: columns, spacing: 13) {
                         ForEach(viewModel.searchUsers) { user in
                             UserInfoCardView(user: user, isPresentCloseBtn: true) {
                                 viewModel.clickedGitUrl = user.gitUrl
@@ -216,7 +216,6 @@ private struct MemberCardView: View {
                             }
                         }
                     }
-                    .padding(.horizontal, 24)
                 }
             case .normal:
                 if viewModel.users.isEmpty {
@@ -224,7 +223,7 @@ private struct MemberCardView: View {
                         EmptyView(viewModel: viewModel)
                     }
                 } else {
-                    LazyVGrid(columns: columns, spacing: 15) {
+                    LazyVGrid(columns: columns, spacing: 13) {
                         ForEach(viewModel.users) { user in
                             UserInfoCardView(user: user, isPresentCloseBtn: true) {
                                 viewModel.clickedGitUrl = user.gitUrl
@@ -238,7 +237,7 @@ private struct MemberCardView: View {
                                 viewModel.send(action: .clickedUserCell(user: user))
                             }
                         }
-                    }.padding(.horizontal, 24)
+                    }
                 }
             }
         }

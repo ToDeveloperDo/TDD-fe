@@ -207,6 +207,11 @@
 		AD8ECD762CA2A1D200BDABFA /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8ECD752CA2A1D200BDABFA /* EmptyResponse.swift */; };
 		AD8ECD782CA2F05C00BDABFA /* ServerErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8ECD772CA2F05C00BDABFA /* ServerErrorResponse.swift */; };
 		AD8ECD7A2CA2F95300BDABFA /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8ECD792CA2F95300BDABFA /* NotificationCenter+Extension.swift */; };
+		AD90F9422CA9582F005023B4 /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8ECD792CA2F95300BDABFA /* NotificationCenter+Extension.swift */; };
+		AD90F9452CA9585A005023B4 /* DeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAF9FE02CA418FF008E177A /* DeleteRequest.swift */; };
+		AD90F9462CA95862005023B4 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8ECD752CA2A1D200BDABFA /* EmptyResponse.swift */; };
+		AD90F9472CA95864005023B4 /* ServerErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8ECD772CA2F05C00BDABFA /* ServerErrorResponse.swift */; };
+		AD90F9482CA95868005023B4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8411C52CA19BFD007919CE /* NetworkError.swift */; };
 		ADAA4FE92C58BD7100EF30E0 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA4FE82C58BD7100EF30E0 /* KeychainManager.swift */; };
 		ADAA4FEE2C58EA3B00EF30E0 /* TodoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA4FED2C58EA3B00EF30E0 /* TodoCellView.swift */; };
 		ADAA4FF02C58EB3900EF30E0 /* TodoInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA4FEF2C58EB3900EF30E0 /* TodoInputView.swift */; };
@@ -1156,6 +1161,8 @@
 			files = (
 				AD84114A2CA18BC8007919CE /* SearchReqeust.swift in Sources */,
 				AD84114B2CA18BC8007919CE /* ServiceError.swift in Sources */,
+				AD90F9452CA9585A005023B4 /* DeleteRequest.swift in Sources */,
+				AD90F9482CA95868005023B4 /* NetworkError.swift in Sources */,
 				AD84114C2CA18BC8007919CE /* LinkGitHubView.swift in Sources */,
 				AD84114D2CA18BC8007919CE /* API.swift in Sources */,
 				AD84114E2CA18BC8007919CE /* TodoInfoModifier.swift in Sources */,
@@ -1181,6 +1188,7 @@
 				AD8411622CA18BC8007919CE /* FriendResponse.swift in Sources */,
 				AD8411632CA18BC8007919CE /* GitHubAPITarget.swift in Sources */,
 				AD8411642CA18BC8007919CE /* TodoInfo.swift in Sources */,
+				AD90F9422CA9582F005023B4 /* NotificationCenter+Extension.swift in Sources */,
 				AD8411652CA18BC8007919CE /* URLImageViewModel.swift in Sources */,
 				AD8411662CA18BC8007919CE /* AuthenticationService.swift in Sources */,
 				AD8411672CA18BC8007919CE /* MyProfileViewModel.swift in Sources */,
@@ -1230,6 +1238,7 @@
 				AD8411982CA18BC8007919CE /* NavigationDestination.swift in Sources */,
 				AD84119A2CA18BC8007919CE /* RefreshRequest.swift in Sources */,
 				AD84119B2CA18BC8007919CE /* NavigationRoutingView.swift in Sources */,
+				AD90F9462CA95862005023B4 /* EmptyResponse.swift in Sources */,
 				AD84119C2CA18BC8007919CE /* TodoService.swift in Sources */,
 				AD84119D2CA18BC8007919CE /* TodoDetailViewModel.swift in Sources */,
 				AD84119E2CA18BC8007919CE /* TabBarAccessor.swift in Sources */,
@@ -1239,6 +1248,7 @@
 				AD8411A22CA18BC8007919CE /* FriendTodoList.swift in Sources */,
 				AD8411A32CA18BC8007919CE /* SettingView.swift in Sources */,
 				AD8411A42CA18BC8007919CE /* UserDetailViewModel.swift in Sources */,
+				AD90F9472CA95864005023B4 /* ServerErrorResponse.swift in Sources */,
 				AD8411A52CA18BC8007919CE /* GetTodoCountResponse.swift in Sources */,
 				AD8411A62CA18BC8007919CE /* SplashView.swift in Sources */,
 				AD8411A72CA18BC8007919CE /* Date+Extension.swift in Sources */,
@@ -1390,7 +1400,7 @@
 				CODE_SIGN_ENTITLEMENTS = TDD/TDDDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"TDD/Preview Content\"";
 				DEVELOPMENT_TEAM = 63K349422G;
 				ENABLE_PREVIEWS = YES;
@@ -1408,7 +1418,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anyong.TDD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1431,7 +1441,7 @@
 				CODE_SIGN_ENTITLEMENTS = TDD/TDD.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"TDD/Preview Content\"";
 				DEVELOPMENT_TEAM = 63K349422G;
 				ENABLE_PREVIEWS = YES;
@@ -1449,7 +1459,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anyong.TDD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
