@@ -25,6 +25,7 @@ final class MyProfileViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var isShowingAlert: Bool = false
     @Published var showAlert: InfoType = .FOLLOWING
+    @Published var isError: Bool = false
     
     var clickedGitUrl: String = ""
     
@@ -161,8 +162,10 @@ extension MyProfileViewModel {
     private func deleteAction() {
         guard let member = deleteMember else { return }
         container.services.friendService.deleteFriend(id: member.userId, type: member.status)
-            .sink {  completion in
-                
+            .sink {  [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.isError = true
+                }
             } receiveValue: { [weak self] _ in
                 if let userIndex = self?.users.firstIndex(where: {$0.userId == member.userId}) {
                     self?.users.remove(at: userIndex)

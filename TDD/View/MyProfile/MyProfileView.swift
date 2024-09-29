@@ -95,6 +95,18 @@ struct MyProfileView: View {
                 return Alert(title: Text("잘못된 요청입니다."), dismissButton: .cancel(Text("확인")))
             }
         }
+        .overlay {
+            if viewModel.isError {
+                NetworkErrorAlert(title: "네트워크 통신 에러")
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+                            withAnimation {
+                                viewModel.isError = false
+                            }
+                        }
+                    }
+            }
+        }
     }
 }
 
