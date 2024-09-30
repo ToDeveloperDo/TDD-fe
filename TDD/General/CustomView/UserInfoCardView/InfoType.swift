@@ -55,7 +55,7 @@ enum InfoType: String, Codable {
     var deleteString: String {
         switch self {
         case .FOLLOWING:
-            return "following"
+            return "FOLLOWING"
         case .NOT_FRIEND, .RECEIVE, .REQUEST:
             return "NOT_FRIEND"
         }
