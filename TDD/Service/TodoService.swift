@@ -114,7 +114,7 @@ final class TodoService: TodoServiceType {
     }
     
     func editTodo(todo: Todo) -> AnyPublisher<Void, ServiceError> {
-        let request = CreateTodoRequest(content: todo.content, memo: todo.memo, tag: todo.memo, deadline: todo.deadline)
+        let request = CreateTodoRequest(content: todo.content, memo: todo.memo, tag: todo.tag, deadline: todo.deadline)
         guard let id = todo.todoListId else { return Just(()).setFailureType(to: ServiceError.self).eraseToAnyPublisher() }
         return NetworkingManager.shared.requestWithAuth(TodoAPITarget.editTodo(id, request), type: EmptyResponse.self)
             .map { _ in () }
