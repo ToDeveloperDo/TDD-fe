@@ -45,13 +45,14 @@ struct QuestView: View {
                         .ignoresSafeArea()
                 }
             }
-
-            Color.clear
-                .contentShape(Rectangle())
-                .edgesIgnoringSafeArea(.all)
-                .onTapGesture {
-                    isFocused = false
-                }
+            if isFocused {
+                Color.clear
+                    .contentShape(Rectangle())
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        isFocused = false
+                    }
+            }
         }
         .overlay {
             if viewModel.networkErr {

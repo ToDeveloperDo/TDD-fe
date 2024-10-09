@@ -64,12 +64,14 @@ struct MyProfileView: View {
                         .ignoresSafeArea()
                 }
             }
-            Color.clear
-                .contentShape(Rectangle())
-                .edgesIgnoringSafeArea(.all)
-                .onTapGesture {                    
-                    isFocused = false
-                }
+            if isFocused {
+                Color.clear
+                    .contentShape(Rectangle())
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {                    
+                        isFocused = false
+                    }
+            }
         }
         .alert(isPresented: $viewModel.isShowingAlert) {
             switch viewModel.showAlert {

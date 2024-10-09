@@ -45,13 +45,13 @@ struct UserDetailView: View {
                 }, label: {
                     Image(.backBtn)
                 })
-                .disabled(viewModel.user.status == .FOLLOWING || viewModel.user.status == .REQUEST)
             }
             
             ToolbarItem(placement: .topBarTrailing) {
                 ToolbarBtn(infoType: viewModel.user.status) {
                     viewModel.send(action: .infoTypeBtnClicked)
                 }
+                .disabled(viewModel.user.status == .FOLLOWING || viewModel.user.status == .REQUEST)
             }
         }
         .toolbarBackground(.hidden, for: .navigationBar)
