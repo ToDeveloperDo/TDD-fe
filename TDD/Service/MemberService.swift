@@ -11,6 +11,7 @@ import Combine
 protocol MemberServiceType {
     func fetchMyInfo() -> AnyPublisher<MyInfo, ServiceError>
     func fetchAllMember() -> AnyPublisher<[UserInfo], ServiceError>
+    func updateFcmToken(token: String) -> AnyPublisher<Void, ServiceError>
 }
 
 final class MemberService: MemberServiceType {
@@ -45,9 +46,30 @@ final class MemberService: MemberServiceType {
             }
             .eraseToAnyPublisher()
     }
+    
+    func updateFcmToken(token: String) -> AnyPublisher<Void, ServiceError> {
+        let request = FCMTokenRequest(fcmToken: token)
+        return NetworkingManager.shared.requestWithAuth(MemberTarget.updateFcmToken(token: request), type: EmptyResponse.self)
+            .map { _ in () }
+            .mapError { error in
+                switch error {
+                case .notRepository:
+                    return ServiceError.notRepository
+                case .serverError(let message):
+                    return ServiceError.serverError(message)
+                case .error(let error):
+                    return ServiceError.error(error)
+                }
+            }
+            .eraseToAnyPublisher()
+    }
 }
 
 final class StubMemberService: MemberServiceType {
+    func updateFcmToken(token: String) -> AnyPublisher<Void, ServiceError> {
+        Empty().eraseToAnyPublisher()
+    }
+    
     func fetchMyInfo() -> AnyPublisher<MyInfo, ServiceError> {
         Just(.stub)
             .setFailureType(to: ServiceError.self)

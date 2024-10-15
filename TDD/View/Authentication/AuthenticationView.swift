@@ -39,6 +39,7 @@ struct AuthenticationView: View {
             viewModel.send(action: .checkLoginState)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
                 withAnimation { isLaunch.toggle() }
+                viewModel.send(action: .updateFcmToken)
             })
         }
     }

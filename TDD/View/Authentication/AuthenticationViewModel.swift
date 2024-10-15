@@ -32,6 +32,7 @@ final class AuthenticationViewModel: ObservableObject {
         case appleLoginCompletion(Result<ASAuthorization, Error>)
         case checkLoginState
         case revokeWithApple
+        case updateFcmToken
     }
       
     func send(action: Action) {
@@ -99,6 +100,19 @@ final class AuthenticationViewModel: ObservableObject {
                     self?.container.navigationRouter.popToRootView(on: .quest)
                 }.store(in: &subscription)
 
+        case .updateFcmToken:
+            do {
+                let fcmToken = try KeychainManager.shared.getData(.clientToken)
+                container.services.memberService.updateFcmToken(token: fcmToken)
+                    .sink { completion in
+                        
+                    } receiveValue: { _ in
+                        
+                    }.store(in: &subscription)
+
+            } catch {
+                
+            }
         }
     }
     

@@ -11,6 +11,7 @@ import Alamofire
 enum MemberTarget {
     case fetchMyInfo
     case fetchAllMember
+    case updateFcmToken(token: FCMTokenRequest)
 }
 
 extension MemberTarget: TargetType {
@@ -26,6 +27,7 @@ extension MemberTarget: TargetType {
         switch self {
         case .fetchMyInfo: return .get
         case .fetchAllMember: return .get
+        case .updateFcmToken: return .post
         }
     }
     
@@ -33,6 +35,7 @@ extension MemberTarget: TargetType {
         switch self {
         case .fetchMyInfo: return "/api/member"
         case .fetchAllMember: return "api/member/all"
+        case .updateFcmToken: return "/api/member/fcm"
         }
     }
     
@@ -40,6 +43,7 @@ extension MemberTarget: TargetType {
         switch self {
         case .fetchMyInfo: .empty
         case .fetchAllMember: .empty
+        case .updateFcmToken(let request): .body(request)
         }
     }
 }

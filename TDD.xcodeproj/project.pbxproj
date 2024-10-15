@@ -89,6 +89,8 @@
 		AD6E2A772C5CC6DA006783B9 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A762C5CC6DA006783B9 /* PlaceholderView.swift */; };
 		AD6E2A792C5CC6FF006783B9 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A782C5CC6FF006783B9 /* LoadingView.swift */; };
 		AD6E2A7B2C5CC734006783B9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6E2A7A2C5CC734006783B9 /* ErrorView.swift */; };
+		AD7AD67E2CBEAA9300E64944 /* FCMTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7AD67D2CBEAA9300E64944 /* FCMTokenRequest.swift */; };
+		AD7AD67F2CBEAA9300E64944 /* FCMTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7AD67D2CBEAA9300E64944 /* FCMTokenRequest.swift */; };
 		AD80C8102C510CF900FB71A9 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD80C80F2C510CF900FB71A9 /* TodoDetailView.swift */; };
 		AD8411412CA15178007919CE /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8411402CA15178007919CE /* NetworkingManager.swift */; };
 		AD84114A2CA18BC8007919CE /* SearchReqeust.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4296AB2C6CA2270016A57A /* SearchReqeust.swift */; };
@@ -345,6 +347,7 @@
 		AD6E2A762C5CC6DA006783B9 /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		AD6E2A782C5CC6FF006783B9 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		AD6E2A7A2C5CC734006783B9 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		AD7AD67D2CBEAA9300E64944 /* FCMTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenRequest.swift; sourceTree = "<group>"; };
 		AD80C80F2C510CF900FB71A9 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
 		AD8411402CA15178007919CE /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		AD8411C32CA18BC8007919CE /* DEV_TDD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DEV_TDD.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -635,6 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				AD4296A12C6C94F40016A57A /* FetchMyInfoResponse.swift */,
+				AD7AD67D2CBEAA9300E64944 /* FCMTokenRequest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -982,7 +986,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					AD10D4B52C3D1034008481FF = {
 						CreatedOnToolsVersion = 15.4;
@@ -994,8 +998,6 @@
 			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
-				Base,
 				ko,
 			);
 			mainGroup = AD10D4AD2C3D1034008481FF;
@@ -1073,6 +1075,7 @@
 				AD4296A82C6C9B470016A57A /* FriendResponse.swift in Sources */,
 				AD241F542C4E2B1700DE8805 /* GitHubAPITarget.swift in Sources */,
 				ADAAF2D22C5F796200C292CA /* TodoInfo.swift in Sources */,
+				AD7AD67F2CBEAA9300E64944 /* FCMTokenRequest.swift in Sources */,
 				AD6353C32C634B8400CED65A /* URLImageViewModel.swift in Sources */,
 				AD5D72CF2C54E3E7009FE208 /* AuthenticationService.swift in Sources */,
 				AD8ECD7A2CA2F95300BDABFA /* NotificationCenter+Extension.swift in Sources */,
@@ -1187,6 +1190,7 @@
 				AD8411612CA18BC8007919CE /* MyProfileView.swift in Sources */,
 				AD8411622CA18BC8007919CE /* FriendResponse.swift in Sources */,
 				AD8411632CA18BC8007919CE /* GitHubAPITarget.swift in Sources */,
+				AD7AD67E2CBEAA9300E64944 /* FCMTokenRequest.swift in Sources */,
 				AD8411642CA18BC8007919CE /* TodoInfo.swift in Sources */,
 				AD90F9422CA9582F005023B4 /* NotificationCenter+Extension.swift in Sources */,
 				AD8411652CA18BC8007919CE /* URLImageViewModel.swift in Sources */,
@@ -1400,7 +1404,7 @@
 				CODE_SIGN_ENTITLEMENTS = TDD/TDDDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"TDD/Preview Content\"";
 				DEVELOPMENT_TEAM = 63K349422G;
 				ENABLE_PREVIEWS = YES;
@@ -1418,7 +1422,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anyong.TDD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1441,7 +1445,7 @@
 				CODE_SIGN_ENTITLEMENTS = TDD/TDD.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"TDD/Preview Content\"";
 				DEVELOPMENT_TEAM = 63K349422G;
 				ENABLE_PREVIEWS = YES;
@@ -1459,7 +1463,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anyong.TDD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1565,7 +1569,7 @@
 				AD10D4C32C3D1035008481FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		AD10D4C42C3D1035008481FF /* Build configuration list for PBXNativeTarget "TDD" */ = {
 			isa = XCConfigurationList;
@@ -1574,7 +1578,7 @@
 				AD10D4C62C3D1035008481FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		AD8411C02CA18BC8007919CE /* Build configuration list for PBXNativeTarget "DEV_TDD" */ = {
 			isa = XCConfigurationList;
@@ -1583,7 +1587,7 @@
 				AD8411C22CA18BC8007919CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
