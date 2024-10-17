@@ -20,6 +20,7 @@ struct SearchBar: View {
         HStack(spacing: 12) {
             Image(.search)
             TextField("계정 검색하기", text: $text)
+                .clearButton(text: $text)
                 .submitLabel(.search)
                 .onSubmit {
                     action()
@@ -34,6 +35,32 @@ struct SearchBar: View {
         }
         .padding(.vertical, 1)
         .background(Color.mainbg)
+    }
+}
+
+struct ClearButton: ViewModifier {
+    @Binding var text: String
+    
+    func body(content: Content) -> some View {
+        HStack {
+            content
+            
+            if !text.isEmpty {
+                Button {
+                    text = ""
+                } label: {
+                    Image(systemName: "xmark.circle")
+                }
+                .padding(.trailing, 10)
+
+            }
+        }
+    }
+}
+
+extension View {
+    func clearButton(text: Binding<String>) -> some View {
+        modifier(ClearButton(text: text))
     }
 }
 
