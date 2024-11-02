@@ -60,14 +60,14 @@ private struct HeaderView: View {
                 .font(.system(size: 24, weight: .semibold))
                 .foregroundStyle(Color.fixBk)
             Spacer()
-            HStack(spacing: 12) {
+            HStack(spacing: 20) {
                 Button(action: {
                     todoDetailViewModel.isPresent = true
                     todoDetailViewModel.alert = .edit
                 }, label: {
                     Image(.editBtn)
                         .resizable()
-                        .frame(width: 18, height: 18)
+                        .frame(width: 20, height: 20)
                     
                 })
                 Button(action: {
@@ -76,7 +76,7 @@ private struct HeaderView: View {
                 }, label: {
                     Image(.deleteBtn)
                         .resizable()
-                        .frame(width: 18, height: 18)
+                        .frame(width: 20, height: 20)
                     
                 })
             }
