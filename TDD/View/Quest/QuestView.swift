@@ -23,6 +23,7 @@ struct QuestView: View {
                         .focused($isFocused)
                         .padding(.top, 28)
                         .padding(.horizontal, 24)
+                        
                         if viewModel.isLoading {
                             LoadingView()
                                 .padding(.top, 200)
@@ -34,6 +35,9 @@ struct QuestView: View {
                 }
                 .scrollIndicators(.hidden)
                 .background(Color.mainbg)
+                .onTapGesture {
+                    isFocused = false
+                }
                 .onAppear {
                     viewModel.fetchMembers()    
                 }
@@ -44,14 +48,6 @@ struct QuestView: View {
                     MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
                         .ignoresSafeArea()
                 }
-            }
-            if isFocused {
-                Color.clear
-                    .contentShape(Rectangle())
-                    .edgesIgnoringSafeArea(.all)
-                    .onTapGesture {
-                        isFocused = false
-                    }
             }
         }
         .overlay {

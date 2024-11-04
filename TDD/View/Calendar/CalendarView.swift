@@ -23,12 +23,16 @@ struct CalendarView: View {
                         .padding(.bottom, 8)
                     calendarBody
                         .padding(.horizontal, 24)
-                        
+                    
                     if viewModel.isTodoLoading {
                         LoadingView()
                     } else {
-                        TodoListView(viewModel: .init(todos: viewModel.currentTodos(),
-                                                      todosCount: viewModel.currentTodosCount()))
+                        TodoListView(
+                            viewModel: .init(
+                                todos: viewModel.currentTodos(),
+                                todosCount: viewModel.currentTodosCount()
+                            )
+                        )
                     }
                 }
                 .overlay {
@@ -42,17 +46,18 @@ struct CalendarView: View {
                 }
                 
                 plusBtnView
-                    
                 
                 if viewModel.showTextField {
                     VStack {
                         Spacer()
                         if let date = viewModel.clickedCurrentMonthDates {
-                            TodoInputView(todoInputViewModel: .init(todo:  .init(content: "",
-                                                                                 memo: "",
-                                                                                 tag: "",
-                                                                                 deadline: date.format("YYYY-MM-dd"),
-                                                                                 status: .PROCEED), date: date))
+                            TodoInputView(
+                                todoInputViewModel: .init(
+                                    todo:  .init(content: "",
+                                                 memo: "",
+                                                 tag: "",
+                                                 deadline: date.format("YYYY-MM-dd"),
+                                                 status: .PROCEED), date: date))
                         }
                     }
                     .ignoresSafeArea()

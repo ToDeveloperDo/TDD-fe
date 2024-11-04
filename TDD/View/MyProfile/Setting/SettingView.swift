@@ -21,10 +21,10 @@ struct SettingView: View {
             }
             .padding(.bottom, 4)
             
-            SettingCellView(title: "팀 소개") {
-                viewModel.send(action: .teamIntroduction)
-            }
-            .padding(.bottom, 4)
+//            SettingCellView(title: "팀 소개") {
+//                viewModel.send(action: .teamIntroduction)
+//            }
+//            .padding(.bottom, 4)
             
             Rectangle()
                 .frame(height: 1)

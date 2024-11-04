@@ -44,6 +44,9 @@ struct MyProfileView: View {
                 }
                 .ignoresSafeArea()
                 .background(Color.mainbg)
+                .onTapGesture {
+                    isFocused = false
+                }
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button(action: {
@@ -63,14 +66,6 @@ struct MyProfileView: View {
                     MyWebView(urlToLoad: URL(string: viewModel.clickedGitUrl)!)
                         .ignoresSafeArea()
                 }
-            }
-            if isFocused {
-                Color.clear
-                    .contentShape(Rectangle())
-                    .edgesIgnoringSafeArea(.all)
-                    .onTapGesture {                    
-                        isFocused = false
-                    }
             }
         }
         .alert(isPresented: $viewModel.isShowingAlert) {

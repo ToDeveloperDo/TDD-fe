@@ -108,7 +108,7 @@ extension MyProfileViewModel {
         case .friend:
             container.services.friendService.fetchFriendList()
                 .sink { completion in
-                    if case .failure(let error) = completion {
+                    if case .failure(_) = completion {
                        
                     }
                 } receiveValue: { [weak self] users in
@@ -163,7 +163,7 @@ extension MyProfileViewModel {
         guard let member = deleteMember else { return }
         container.services.friendService.deleteFriend(id: member.userId, type: member.status)
             .sink {  [weak self] completion in
-                if case .failure(let error) = completion {
+                if case .failure(_) = completion {
                     self?.isError = true
                 }
             } receiveValue: { [weak self] _ in

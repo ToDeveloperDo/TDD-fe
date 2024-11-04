@@ -50,6 +50,7 @@ struct ClearButton: ViewModifier {
                     text = ""
                 } label: {
                     Image(systemName: "xmark.circle")
+                        .foregroundStyle(.daycellGray2)
                 }
                 .padding(.trailing, 10)
 
