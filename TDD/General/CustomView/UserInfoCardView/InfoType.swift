@@ -29,11 +29,11 @@ enum InfoType: String, Codable {
     var titleColor: String {
         switch self {
         case .FOLLOWING:
-            return "mainColor"
+            return "primary100"
         case .NOT_FRIEND:
-            return "fixWh"
+            return "fixBk"
         case .REQUEST:
-            return "cardBtnTextGray"
+            return "fixWh"
         case .RECEIVE:
             return "fixWh"
         }
@@ -44,11 +44,11 @@ enum InfoType: String, Codable {
         case .FOLLOWING:
             return "mainbg"
         case .NOT_FRIEND:
-            return "mainColor"
+            return "primary50"
         case .REQUEST:
-            return "serve2"
+            return "primary100"
         case .RECEIVE:
-            return "mainColor"
+            return "black50"
         }
     }
     

@@ -90,6 +90,10 @@ struct CalendarView: View {
             }
         }
         .environmentObject(viewModel)
+        .onAppear {
+            viewModel.getTodosCount()
+            viewModel.onappearFetchTodo()
+        }
     }
     
     private var calendarHeader: some View {
@@ -200,9 +204,9 @@ private struct DateCell: View {
     }
     private var backgroundColor: Color {
         if clicked {
-            return Color.main
+            return Color.primary100
         } else if isToday {
-            return Color.main.opacity(0.5)
+            return Color.primary100.opacity(0.5)
         } else {
             return Color.mainbg
         }

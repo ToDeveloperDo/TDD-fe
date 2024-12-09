@@ -24,12 +24,12 @@ struct MyProfileBtn: View {
         }, label: {
             Text("\(type.title)")
                 .font(.system(size: 12, weight: .thin))
-                .foregroundStyle(Color(selected ? "fixWh" : "mainColor"))
+                .foregroundStyle(Color(selected ? "fixWh" : "black70"))
                 .padding(.horizontal, 16)
                 .padding(.vertical, 9)
                 .background {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(selected ? "mainColor" : "fixWh"))
+                        .fill(Color(selected ? "black50" : "fixWh"))
                         .shadow(radius: 1)
                 }
         })

@@ -10,6 +10,7 @@ import Foundation
 enum MainTabType: String, CaseIterable {
     case calendar
     case quest
+    case curriculum
     case myInfo
     
     var title: String {
@@ -18,6 +19,8 @@ enum MainTabType: String, CaseIterable {
             return "캘린더"
         case .quest:
             return "탐색"
+        case .curriculum:
+            return "목표 생성"
         case .myInfo:
             return "내 정보"
         }
@@ -28,6 +31,6 @@ enum MainTabType: String, CaseIterable {
     }
     
     func colorName(selected: Bool) -> String {
-        selected ? "mainColor" : "serve"
+        selected ? "primary100" : "serve"
     }
 }

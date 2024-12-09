@@ -94,7 +94,7 @@ struct UserInfoCardView: View {
 }
 
 #Preview {
-    UserInfoCardView(user: .stu1, isPresentCloseBtn: true) {
+    UserInfoCardView(user: .stu4, isPresentCloseBtn: true) {
         
     } action: {} deleteAction: {}
 }

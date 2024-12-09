@@ -140,7 +140,7 @@ extension CalendarViewModel {
         }
     }
     
-    private func getTodosCount() {
+    func getTodosCount() {
         guard let year = clickedCurrentMonthDates?.format("YYYY"),
               let month = clickedCurrentMonthDates?.format("MM"),
               let monthIndex = months.firstIndex(where: { $0.selectedDay.format("MM") == month }),
@@ -159,6 +159,26 @@ extension CalendarViewModel {
             }
             .store(in: &subscriptions)
 
+    }
+    
+    func onappearFetchTodo() {
+        if let index = months[selection].days.firstIndex(where: { $0.date == clickedCurrentMonthDates }),
+           let date = clickedCurrentMonthDates?.format("YYYY-MM-dd") {
+            isTodoLoading = true
+            container.services.todoService.getTodoList(date: date)
+                .sink { [weak self] completion in
+                    if case .failure(_) = completion {
+                        self?.isTodoLoading = false
+                    }
+                } receiveValue: { [weak self] todos in
+                    guard let self = self else { return }
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+                        self.months[self.selection].days[index].todos = todos
+                        self.months[self.selection].days[index].request = true
+                        self.isTodoLoading = false
+                    }
+                }.store(in: &subscriptions)
+        }
     }
     
     private func fetchTodos() {
@@ -325,6 +345,7 @@ extension CalendarViewModel {
                 } else {
                     if let newDayIndex = months[selection].days.firstIndex(where: {$0.date.format("YYYY-MM-dd") == todo.deadline}) {
                         months[selection].days[newDayIndex].todos.append(todo)
+                        months[selection].days[newDayIndex].todosCount += 1
                     }
                 }
                 

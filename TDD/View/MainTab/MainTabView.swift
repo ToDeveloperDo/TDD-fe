@@ -59,6 +59,8 @@ extension MainTabView {
                             .setTabBarVisibility(isHidden: true)
                     case .quest:
                         QuestView(viewModel: .init(container: container))
+                    case .curriculum:
+                        CurriculumView(viewModel: .init(container: container))
                     case .myInfo:
                         MyProfileView(viewModel: .init(container: container))
                     }
@@ -71,7 +73,7 @@ extension MainTabView {
     var bottomTabs: some View {
         HStack(alignment: .top) {
             Spacer()
-            HStack(alignment: .top, spacing: 92) {
+            HStack(alignment: .top, spacing: 55) {
                 ForEach(MainTabType.allCases, id: \.self) { tab in
                     VStack(spacing: 8) {
                         Image(tab.imageName(selected: selectedTab == tab))
@@ -80,7 +82,7 @@ extension MainTabView {
                             .font(.system(size: 11, weight: .regular))
                             .foregroundStyle(Color(tab.colorName(selected: selectedTab == tab)))
                     }
-                    .frame(width: 32, height: 50)
+                    .frame(width: 45, height: 50)
                     .onTapGesture {
                         selectedTab = tab
                     }

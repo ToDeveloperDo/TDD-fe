@@ -1,0 +1,11 @@
+<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="1" y="1" width="24" height="24" rx="4" fill="#DADADA" stroke="#DADADA" stroke-width="1.5"/>
+<g clip-path="url(#clip0_659_485)">
+<path d="M20.6283 6.41959C20.1333 5.85996 19.3292 5.86031 18.8336 6.41959L10.7567 15.5403L7.16672 11.4866C6.67109 10.927 5.86734 10.927 5.37172 11.4866C4.87609 12.0463 4.87609 12.9538 5.37172 13.5135L9.85891 18.5801C10.1067 18.86 10.4314 19 10.7561 19C11.0808 19 11.4061 18.8603 11.6536 18.5801L20.6283 8.44641C21.1239 7.88713 21.1239 6.97923 20.6283 6.41959Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_659_485">
+<rect width="16" height="13" fill="white" transform="translate(5 6)"/>
+</clipPath>
+</defs>
+</svg>

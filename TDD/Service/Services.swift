@@ -14,6 +14,7 @@ protocol ServiceType {
     var imageCacheService: ImageCacheServiceType { get set }
     var memberService: MemberServiceType { get set }
     var friendService: FriendServiceType { get set }
+    var curriculumService: CurriculumServiceType { get set }
 }
 
 final class Services: ServiceType {
@@ -23,6 +24,7 @@ final class Services: ServiceType {
     var imageCacheService: ImageCacheServiceType
     var memberService: MemberServiceType
     var friendService: FriendServiceType
+    var curriculumService: CurriculumServiceType
     
     init() {
         self.todoService = TodoService()
@@ -31,6 +33,7 @@ final class Services: ServiceType {
         self.imageCacheService = ImageCacheService(memoryStorage: MemoryStorage(), diskStorage: DiskStorage())
         self.memberService = MemberService()
         self.friendService = FriendService()
+        self.curriculumService = CurriculumService()
     }
 }
 
@@ -42,4 +45,5 @@ final class StubService: ServiceType {
     var imageCacheService: ImageCacheServiceType = StubImageCacheService()
     var memberService: MemberServiceType = StubMemberService()
     var friendService: FriendServiceType = StubFriendService()
+    var curriculumService: CurriculumServiceType = StubCurriculumService()
 }

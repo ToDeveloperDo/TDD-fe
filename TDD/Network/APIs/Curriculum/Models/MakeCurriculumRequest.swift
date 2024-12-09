@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct MakeCurriculumRequest: Encodable {
+    let position: String
+    let stack: String
+    let experienceLevel: String
+    let targetPeriod: Int
+}

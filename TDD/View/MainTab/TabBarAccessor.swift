@@ -19,7 +19,6 @@ struct TabBarAccessor: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<TabBarAccessor>) {
-        
     }
     
     private class ProxyViewController: UIViewController {

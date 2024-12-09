@@ -124,7 +124,7 @@ private struct TodoTitleView: View {
     
     fileprivate var body: some View {
         TextField("", text: $todoInputViewModel.todo.content,
-                  prompt: Text("어떤 일을 하시겠습니까?")
+                  prompt: Text("어떤 일을 하시겠습니까? *")
             .font(.system(size: 14, weight: .thin))
             .foregroundStyle(.fixBk.opacity(0.2))
         )
@@ -231,7 +231,7 @@ private struct TagView: View {
             if todoInputViewModel.todo.tag.isEmpty || isEdit {
                 TextField("",
                           text: $todoInputViewModel.todo.tag,
-                          prompt: Text("태그를 입력해주세요")
+                          prompt: Text("태그를 입력해주세요 *")
                     .font(.system(size: 14, weight: .thin))
                     .foregroundStyle(.fixBk.opacity(0.2))
                 )

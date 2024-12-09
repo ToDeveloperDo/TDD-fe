@@ -19,7 +19,7 @@ enum TodoInfo: String {
         case .isDone:
             return "ic_checkBox"
         case .tag:
-            return "ic_tag"
+            return "ic_tagTitle"
         }
     }
 }
