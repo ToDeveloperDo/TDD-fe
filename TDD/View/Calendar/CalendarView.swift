@@ -179,11 +179,13 @@ struct CalendarView: View {
                     viewModel.showTextField = true                    
                 }, label: {
                     Image(.plusBtn)
+                        
                 })
+                .frame(width: 64, height: 64)
             }
         }
-        .padding(.horizontal, 24)
-        .padding(.bottom, 113)
+        .padding(.horizontal, 14)
+        .padding(.bottom, 110)
     }
 }
 

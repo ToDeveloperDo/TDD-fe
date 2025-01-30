@@ -20,7 +20,7 @@ protocol TodoServiceType {
 
 final class TodoService: TodoServiceType {
     func createTodo(todo: Todo) -> AnyPublisher<Int64, ServiceError> {
-        let request = CreateTodoRequest(content: todo.content, memo: todo.memo, tag: todo.tag, deadline: todo.deadline)
+        let request = CreateTodoRequest(todos: [.init(content: todo.content, memo: todo.memo, tag: todo.tag, deadline: todo.deadline)])
         return NetworkingManager.shared.requestWithAuth(TodoAPITarget.createTodo(request), type: Int64.self)
             .mapError { error in
                 switch error {
@@ -114,7 +114,7 @@ final class TodoService: TodoServiceType {
     }
     
     func editTodo(todo: Todo) -> AnyPublisher<Void, ServiceError> {
-        let request = CreateTodoRequest(content: todo.content, memo: todo.memo, tag: todo.tag, deadline: todo.deadline)
+        let request = CreateTodoRequest(todos: [.init(content: todo.content, memo: todo.memo, tag: todo.tag, deadline: todo.deadline)])
         guard let id = todo.todoListId else { return Just(()).setFailureType(to: ServiceError.self).eraseToAnyPublisher() }
         return NetworkingManager.shared.requestWithAuth(TodoAPITarget.editTodo(id, request), type: EmptyResponse.self)
             .map { _ in () }

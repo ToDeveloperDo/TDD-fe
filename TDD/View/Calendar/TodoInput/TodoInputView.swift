@@ -93,11 +93,12 @@ struct TodoInputView: View {
                                                    object: nil,
                                                    queue: .main) { notification in
                 if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                    keyboardHeight = keyboardFrame.height
+                    withAnimation(.smooth) {
+                        keyboardHeight = keyboardFrame.height
+                    }
                 }
             }
         }
-        .animation(.linear, value: keyboardHeight)
     }
 }
 
@@ -123,10 +124,15 @@ private struct TodoTitleView: View {
     }
     
     fileprivate var body: some View {
-        TextField("", text: $todoInputViewModel.todo.content,
-                  prompt: Text("어떤 일을 하시겠습니까? *")
-            .font(.system(size: 14, weight: .thin))
-            .foregroundStyle(.fixBk.opacity(0.2))
+        TextField(
+            "",
+            text: $todoInputViewModel.todo.content,
+            prompt: Text("어떤 일을 하시겠습니까? ")
+                .font(.system(size: 14, weight: .thin))
+                .foregroundStyle(.fixBk.opacity(0.2))
+            +
+            Text("*")
+                .foregroundStyle(.primary100)
         )
         .font(.system(size: 14, weight: .thin))
         .foregroundStyle(.fixBk)
@@ -229,11 +235,15 @@ private struct TagView: View {
     var body: some View {
         Group {
             if todoInputViewModel.todo.tag.isEmpty || isEdit {
-                TextField("",
-                          text: $todoInputViewModel.todo.tag,
-                          prompt: Text("태그를 입력해주세요 *")
-                    .font(.system(size: 14, weight: .thin))
-                    .foregroundStyle(.fixBk.opacity(0.2))
+                TextField(
+                    "",
+                    text: $todoInputViewModel.todo.tag,
+                    prompt: Text("태그를 입력해주세요 ")
+                        .font(.system(size: 14, weight: .thin))
+                        .foregroundStyle(.fixBk.opacity(0.2))
+                    +
+                    Text("*")
+                        .foregroundStyle(.primary100)
                 )
                 .font(.system(size: 14, weight: .thin))
                 .foregroundStyle(.fixBk)

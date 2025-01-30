@@ -15,7 +15,6 @@ protocol ObservableObjectSettable: AnyObject {
 }
 
 extension ObservableObjectSettable {
-    
     func setObjectWillChange(_ objectWillChange: ObservableObjectPublisher) {
         self.objectWillChange = objectWillChange
     }

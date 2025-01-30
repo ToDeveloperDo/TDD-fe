@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD0E27C62D0ADA79002DF322 /* CurriculumMakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0E27C52D0ADA79002DF322 /* CurriculumMakeView.swift */; };
+		AD0E27C72D0ADA79002DF322 /* CurriculumMakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0E27C52D0ADA79002DF322 /* CurriculumMakeView.swift */; };
+		AD0E27C92D0D1548002DF322 /* CurriculumMakeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0E27C82D0D1548002DF322 /* CurriculumMakeViewModel.swift */; };
+		AD0E27CA2D0D1548002DF322 /* CurriculumMakeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0E27C82D0D1548002DF322 /* CurriculumMakeViewModel.swift */; };
+		AD0E27CC2D0D2996002DF322 /* CurriculumMakeStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0E27CB2D0D2996002DF322 /* CurriculumMakeStep.swift */; };
+		AD0E27CD2D0D2996002DF322 /* CurriculumMakeStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0E27CB2D0D2996002DF322 /* CurriculumMakeStep.swift */; };
+		AD0E27D02D0EC14D002DF322 /* CurriculumListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0E27CF2D0EC14D002DF322 /* CurriculumListViewModel.swift */; };
+		AD0E27D12D0EC14D002DF322 /* CurriculumListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0E27CF2D0EC14D002DF322 /* CurriculumListViewModel.swift */; };
 		AD10D4BA2C3D1034008481FF /* TDDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10D4B92C3D1034008481FF /* TDDApp.swift */; };
 		AD10D4BE2C3D1035008481FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD10D4BD2C3D1035008481FF /* Assets.xcassets */; };
 		AD10D4C12C3D1035008481FF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD10D4C02C3D1035008481FF /* Preview Assets.xcassets */; };
@@ -23,6 +31,16 @@
 		AD10DBCB2C40C4C600785252 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCA2C40C4C600785252 /* CalendarViewModel.swift */; };
 		AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCD2C40CA0E00785252 /* Date+Extension.swift */; };
 		AD10DBD02C40D3DB00785252 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10DBCF2C40D3DB00785252 /* Month.swift */; };
+		AD1D571B2D17E80100DF2E32 /* LoadedCurriculumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D571A2D17E80100DF2E32 /* LoadedCurriculumViewModel.swift */; };
+		AD1D571C2D17E80100DF2E32 /* LoadedCurriculumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D571A2D17E80100DF2E32 /* LoadedCurriculumViewModel.swift */; };
+		AD1D57222D17F76C00DF2E32 /* CurriculumListReqeust.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D57212D17F76C00DF2E32 /* CurriculumListReqeust.swift */; };
+		AD1D57232D17F76C00DF2E32 /* CurriculumListReqeust.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D57212D17F76C00DF2E32 /* CurriculumListReqeust.swift */; };
+		AD1D57252D17F80F00DF2E32 /* RegisterReqeust.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D57242D17F80F00DF2E32 /* RegisterReqeust.swift */; };
+		AD1D57262D17F80F00DF2E32 /* RegisterReqeust.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D57242D17F80F00DF2E32 /* RegisterReqeust.swift */; };
+		AD1D57282D19367F00DF2E32 /* PlanResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D57272D19367F00DF2E32 /* PlanResponse.swift */; };
+		AD1D57292D19367F00DF2E32 /* PlanResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D57272D19367F00DF2E32 /* PlanResponse.swift */; };
+		AD1D572B2D1936F900DF2E32 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D572A2D1936F900DF2E32 /* Plan.swift */; };
+		AD1D572C2D1936F900DF2E32 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1D572A2D1936F900DF2E32 /* Plan.swift */; };
 		AD1F5ED52C71CD0600CBCACE /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1F5ED42C71CD0600CBCACE /* View+Extension.swift */; };
 		AD1F5ED72C71CE2D00CBCACE /* TabBarAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1F5ED62C71CE2D00CBCACE /* TabBarAccessor.swift */; };
 		AD241F4F2C4E2AA700DE8805 /* GetTodoListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F4E2C4E2AA700DE8805 /* GetTodoListRequest.swift */; };
@@ -30,20 +48,14 @@
 		AD241F572C4E2B6800DE8805 /* CreateRepoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD241F562C4E2B6800DE8805 /* CreateRepoRequest.swift */; };
 		AD31522A2CE4A0610040A73B /* Curriculums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3152292CE4A0610040A73B /* Curriculums.swift */; };
 		AD31522B2CE4A0610040A73B /* Curriculums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3152292CE4A0610040A73B /* Curriculums.swift */; };
-		AD349CF22CE1E84E00ED6864 /* SectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349CF12CE1E84E00ED6864 /* SectionInfo.swift */; };
-		AD349CF32CE1E84E00ED6864 /* SectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349CF12CE1E84E00ED6864 /* SectionInfo.swift */; };
-		AD349CF52CE1EE7300ED6864 /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349CF42CE1EE7300ED6864 /* SectionTitle.swift */; };
-		AD349CF62CE1EE7300ED6864 /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349CF42CE1EE7300ED6864 /* SectionTitle.swift */; };
 		AD349CF82CE1F68900ED6864 /* SectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349CF72CE1F68900ED6864 /* SectionButton.swift */; };
 		AD349CF92CE1F68900ED6864 /* SectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349CF72CE1F68900ED6864 /* SectionButton.swift */; };
 		AD349CFB2CE344CE00ED6864 /* CurriculumResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349CFA2CE344CE00ED6864 /* CurriculumResponse.swift */; };
 		AD349CFC2CE344CE00ED6864 /* CurriculumResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349CFA2CE344CE00ED6864 /* CurriculumResponse.swift */; };
 		AD349D012CE3459300ED6864 /* CurriculumService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349D002CE3459300ED6864 /* CurriculumService.swift */; };
 		AD349D022CE3459300ED6864 /* CurriculumService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349D002CE3459300ED6864 /* CurriculumService.swift */; };
-		AD349D072CE36E5C00ED6864 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349D062CE36E5C00ED6864 /* SelectView.swift */; };
-		AD349D082CE36E5C00ED6864 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349D062CE36E5C00ED6864 /* SelectView.swift */; };
-		AD349D0A2CE36EB700ED6864 /* CurriculumLoadedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349D092CE36EB700ED6864 /* CurriculumLoadedView.swift */; };
-		AD349D0B2CE36EB700ED6864 /* CurriculumLoadedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349D092CE36EB700ED6864 /* CurriculumLoadedView.swift */; };
+		AD349D0A2CE36EB700ED6864 /* LoadedCurriculumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349D092CE36EB700ED6864 /* LoadedCurriculumView.swift */; };
+		AD349D0B2CE36EB700ED6864 /* LoadedCurriculumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD349D092CE36EB700ED6864 /* LoadedCurriculumView.swift */; };
 		AD4296872C6B35350016A57A /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4296862C6B35350016A57A /* UserInfoView.swift */; };
 		AD4296892C6B42FA0016A57A /* MyProfileBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4296882C6B42FA0016A57A /* MyProfileBtn.swift */; };
 		AD42968C2C6B49400016A57A /* MyProfileBtnType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD42968B2C6B49400016A57A /* MyProfileBtnType.swift */; };
@@ -229,15 +241,15 @@
 		AD907C912CE09F7C001D4C06 /* CurriculumTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD907C8F2CE09F7C001D4C06 /* CurriculumTarget.swift */; };
 		AD907C932CE0A262001D4C06 /* MakeCurriculumRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD907C922CE0A262001D4C06 /* MakeCurriculumRequest.swift */; };
 		AD907C942CE0A262001D4C06 /* MakeCurriculumRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD907C922CE0A262001D4C06 /* MakeCurriculumRequest.swift */; };
-		AD907C972CE0A374001D4C06 /* CurriculumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD907C962CE0A374001D4C06 /* CurriculumView.swift */; };
-		AD907C982CE0A374001D4C06 /* CurriculumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD907C962CE0A374001D4C06 /* CurriculumView.swift */; };
-		AD907C9A2CE0ABF0001D4C06 /* CurriculumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD907C992CE0ABF0001D4C06 /* CurriculumViewModel.swift */; };
-		AD907C9B2CE0ABF0001D4C06 /* CurriculumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD907C992CE0ABF0001D4C06 /* CurriculumViewModel.swift */; };
 		AD90F9422CA9582F005023B4 /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8ECD792CA2F95300BDABFA /* NotificationCenter+Extension.swift */; };
 		AD90F9452CA9585A005023B4 /* DeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAF9FE02CA418FF008E177A /* DeleteRequest.swift */; };
 		AD90F9462CA95862005023B4 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8ECD752CA2A1D200BDABFA /* EmptyResponse.swift */; };
 		AD90F9472CA95864005023B4 /* ServerErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8ECD772CA2F05C00BDABFA /* ServerErrorResponse.swift */; };
 		AD90F9482CA95868005023B4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8411C52CA19BFD007919CE /* NetworkError.swift */; };
+		AD914CA52D0994BA009F701B /* CurriculumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD914CA42D0994BA009F701B /* CurriculumListView.swift */; };
+		AD914CA62D0994BA009F701B /* CurriculumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD914CA42D0994BA009F701B /* CurriculumListView.swift */; };
+		AD914CA92D099F9F009F701B /* CurriculumButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD914CA82D099F9F009F701B /* CurriculumButton.swift */; };
+		AD914CAA2D099F9F009F701B /* CurriculumButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD914CA82D099F9F009F701B /* CurriculumButton.swift */; };
 		ADAA4FE92C58BD7100EF30E0 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA4FE82C58BD7100EF30E0 /* KeychainManager.swift */; };
 		ADAA4FEE2C58EA3B00EF30E0 /* TodoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA4FED2C58EA3B00EF30E0 /* TodoCellView.swift */; };
 		ADAA4FF02C58EB3900EF30E0 /* TodoInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA4FEF2C58EB3900EF30E0 /* TodoInputView.swift */; };
@@ -252,6 +264,8 @@
 		ADAE4BAF2C734ABB0046FF88 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAE4BAE2C734ABB0046FF88 /* SplashView.swift */; };
 		ADAE4BB32C734EDE0046FF88 /* LanunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADAE4BB22C734EDE0046FF88 /* LanunchScreen.storyboard */; };
 		ADAF9FE12CA418FF008E177A /* DeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAF9FE02CA418FF008E177A /* DeleteRequest.swift */; };
+		ADB114FD2D4B59230094036D /* FetchCurriculumResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB114FC2D4B59230094036D /* FetchCurriculumResponse.swift */; };
+		ADB114FE2D4B59230094036D /* FetchCurriculumResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB114FC2D4B59230094036D /* FetchCurriculumResponse.swift */; };
 		ADE2C2902C6768C3002BF3A6 /* UserInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */; };
 		ADE2C2932C679DA1002BF3A6 /* InfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C2922C679DA1002BF3A6 /* InfoType.swift */; };
 		ADE2C2952C67A14A002BF3A6 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */; };
@@ -287,6 +301,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AD0E27C52D0ADA79002DF322 /* CurriculumMakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumMakeView.swift; sourceTree = "<group>"; };
+		AD0E27C82D0D1548002DF322 /* CurriculumMakeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumMakeViewModel.swift; sourceTree = "<group>"; };
+		AD0E27CB2D0D2996002DF322 /* CurriculumMakeStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumMakeStep.swift; sourceTree = "<group>"; };
+		AD0E27CF2D0EC14D002DF322 /* CurriculumListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumListViewModel.swift; sourceTree = "<group>"; };
 		AD10D4B62C3D1034008481FF /* TDD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TDD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD10D4B92C3D1034008481FF /* TDDApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDDApp.swift; sourceTree = "<group>"; };
 		AD10D4BD2C3D1035008481FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -304,19 +322,21 @@
 		AD10DBCA2C40C4C600785252 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		AD10DBCD2C40CA0E00785252 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		AD10DBCF2C40D3DB00785252 /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
+		AD1D571A2D17E80100DF2E32 /* LoadedCurriculumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadedCurriculumViewModel.swift; sourceTree = "<group>"; };
+		AD1D57212D17F76C00DF2E32 /* CurriculumListReqeust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumListReqeust.swift; sourceTree = "<group>"; };
+		AD1D57242D17F80F00DF2E32 /* RegisterReqeust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReqeust.swift; sourceTree = "<group>"; };
+		AD1D57272D19367F00DF2E32 /* PlanResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanResponse.swift; sourceTree = "<group>"; };
+		AD1D572A2D1936F900DF2E32 /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		AD1F5ED42C71CD0600CBCACE /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		AD1F5ED62C71CE2D00CBCACE /* TabBarAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAccessor.swift; sourceTree = "<group>"; };
 		AD241F4E2C4E2AA700DE8805 /* GetTodoListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodoListRequest.swift; sourceTree = "<group>"; };
 		AD241F532C4E2B1700DE8805 /* GitHubAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPITarget.swift; sourceTree = "<group>"; };
 		AD241F562C4E2B6800DE8805 /* CreateRepoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepoRequest.swift; sourceTree = "<group>"; };
 		AD3152292CE4A0610040A73B /* Curriculums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Curriculums.swift; sourceTree = "<group>"; };
-		AD349CF12CE1E84E00ED6864 /* SectionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionInfo.swift; sourceTree = "<group>"; };
-		AD349CF42CE1EE7300ED6864 /* SectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitle.swift; sourceTree = "<group>"; };
 		AD349CF72CE1F68900ED6864 /* SectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionButton.swift; sourceTree = "<group>"; };
 		AD349CFA2CE344CE00ED6864 /* CurriculumResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumResponse.swift; sourceTree = "<group>"; };
 		AD349D002CE3459300ED6864 /* CurriculumService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumService.swift; sourceTree = "<group>"; };
-		AD349D062CE36E5C00ED6864 /* SelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectView.swift; sourceTree = "<group>"; };
-		AD349D092CE36EB700ED6864 /* CurriculumLoadedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumLoadedView.swift; sourceTree = "<group>"; };
+		AD349D092CE36EB700ED6864 /* LoadedCurriculumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadedCurriculumView.swift; sourceTree = "<group>"; };
 		AD4296862C6B35350016A57A /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		AD4296882C6B42FA0016A57A /* MyProfileBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileBtn.swift; sourceTree = "<group>"; };
 		AD42968B2C6B49400016A57A /* MyProfileBtnType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileBtnType.swift; sourceTree = "<group>"; };
@@ -393,8 +413,8 @@
 		AD8ECD792CA2F95300BDABFA /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		AD907C8F2CE09F7C001D4C06 /* CurriculumTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumTarget.swift; sourceTree = "<group>"; };
 		AD907C922CE0A262001D4C06 /* MakeCurriculumRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeCurriculumRequest.swift; sourceTree = "<group>"; };
-		AD907C962CE0A374001D4C06 /* CurriculumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumView.swift; sourceTree = "<group>"; };
-		AD907C992CE0ABF0001D4C06 /* CurriculumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumViewModel.swift; sourceTree = "<group>"; };
+		AD914CA42D0994BA009F701B /* CurriculumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumListView.swift; sourceTree = "<group>"; };
+		AD914CA82D099F9F009F701B /* CurriculumButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumButton.swift; sourceTree = "<group>"; };
 		ADAA4FE82C58BD7100EF30E0 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		ADAA4FED2C58EA3B00EF30E0 /* TodoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCellView.swift; sourceTree = "<group>"; };
 		ADAA4FEF2C58EB3900EF30E0 /* TodoInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoInputView.swift; sourceTree = "<group>"; };
@@ -409,6 +429,7 @@
 		ADAE4BAE2C734ABB0046FF88 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		ADAE4BB22C734EDE0046FF88 /* LanunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LanunchScreen.storyboard; sourceTree = "<group>"; };
 		ADAF9FE02CA418FF008E177A /* DeleteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRequest.swift; sourceTree = "<group>"; };
+		ADB114FC2D4B59230094036D /* FetchCurriculumResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCurriculumResponse.swift; sourceTree = "<group>"; };
 		ADE2C28F2C6768C3002BF3A6 /* UserInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCardView.swift; sourceTree = "<group>"; };
 		ADE2C2922C679DA1002BF3A6 /* InfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoType.swift; sourceTree = "<group>"; };
 		ADE2C2942C67A14A002BF3A6 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -442,6 +463,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD0E27C42D0AD641002DF322 /* CurriculumMake */ = {
+			isa = PBXGroup;
+			children = (
+				AD0E27C52D0ADA79002DF322 /* CurriculumMakeView.swift */,
+				AD0E27C82D0D1548002DF322 /* CurriculumMakeViewModel.swift */,
+			);
+			path = CurriculumMake;
+			sourceTree = "<group>";
+		};
+		AD0E27CE2D0EBD86002DF322 /* LoadedCurriculum */ = {
+			isa = PBXGroup;
+			children = (
+				AD349D092CE36EB700ED6864 /* LoadedCurriculumView.swift */,
+				AD1D571A2D17E80100DF2E32 /* LoadedCurriculumViewModel.swift */,
+			);
+			path = LoadedCurriculum;
+			sourceTree = "<group>";
+		};
 		AD10D4AD2C3D1034008481FF = {
 			isa = PBXGroup;
 			children = (
@@ -537,6 +576,7 @@
 				AD4296982C6C901B0016A57A /* MyInfo.swift */,
 				AD6085522C70F4BC00D33143 /* FriendTodoList.swift */,
 				AD3152292CE4A0610040A73B /* Curriculums.swift */,
+				AD1D572A2D1936F900DF2E32 /* Plan.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -615,6 +655,15 @@
 				AD8ECD792CA2F95300BDABFA /* NotificationCenter+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		AD1D57202D17F0AC00DF2E32 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				AD349CF72CE1F68900ED6864 /* SectionButton.swift */,
+				AD0E27CB2D0D2996002DF322 /* CurriculumMakeStep.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		AD241F502C4E2AFA00DE8805 /* GitHub */ = {
@@ -882,6 +931,10 @@
 			children = (
 				AD907C922CE0A262001D4C06 /* MakeCurriculumRequest.swift */,
 				AD349CFA2CE344CE00ED6864 /* CurriculumResponse.swift */,
+				AD1D57212D17F76C00DF2E32 /* CurriculumListReqeust.swift */,
+				AD1D57242D17F80F00DF2E32 /* RegisterReqeust.swift */,
+				AD1D57272D19367F00DF2E32 /* PlanResponse.swift */,
+				ADB114FC2D4B59230094036D /* FetchCurriculumResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -889,13 +942,19 @@
 		AD907C952CE0A357001D4C06 /* Curriculum */ = {
 			isa = PBXGroup;
 			children = (
-				AD907C962CE0A374001D4C06 /* CurriculumView.swift */,
-				AD907C992CE0ABF0001D4C06 /* CurriculumViewModel.swift */,
-				AD349CF12CE1E84E00ED6864 /* SectionInfo.swift */,
-				AD349CF42CE1EE7300ED6864 /* SectionTitle.swift */,
-				AD349CF72CE1F68900ED6864 /* SectionButton.swift */,
-				AD349D062CE36E5C00ED6864 /* SelectView.swift */,
-				AD349D092CE36EB700ED6864 /* CurriculumLoadedView.swift */,
+				AD914CA42D0994BA009F701B /* CurriculumListView.swift */,
+				AD0E27CF2D0EC14D002DF322 /* CurriculumListViewModel.swift */,
+				AD0E27C42D0AD641002DF322 /* CurriculumMake */,
+				AD0E27CE2D0EBD86002DF322 /* LoadedCurriculum */,
+				AD1D57202D17F0AC00DF2E32 /* Component */,
+			);
+			path = Curriculum;
+			sourceTree = "<group>";
+		};
+		AD914CA72D099F55009F701B /* Curriculum */ = {
+			isa = PBXGroup;
+			children = (
+				AD914CA82D099F9F009F701B /* CurriculumButton.swift */,
 			);
 			path = Curriculum;
 			sourceTree = "<group>";
@@ -977,6 +1036,7 @@
 		ADEA4B602C48A8E300C10B9C /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				AD914CA72D099F55009F701B /* Curriculum */,
 				AD60854F2C70A7A200D33143 /* ToolbarBtn */,
 				ADE2C2912C679D88002BF3A6 /* UserInfoCardView */,
 				AD6353C12C634B6E00CED65A /* URLImage */,
@@ -1126,6 +1186,7 @@
 				ADAAF2D02C5F786800C292CA /* TodoInfoModifier.swift in Sources */,
 				ADEA4B5E2C48A72700C10B9C /* MainTabViewModel.swift in Sources */,
 				AD1F5ED52C71CD0600CBCACE /* View+Extension.swift in Sources */,
+				AD0E27CC2D0D2996002DF322 /* CurriculumMakeStep.swift in Sources */,
 				AD10DBBE2C401F2700785252 /* MainTabView.swift in Sources */,
 				AD6E2A732C5CBC7D006783B9 /* GitHubService.swift in Sources */,
 				AD10DBAF2C3ED77400785252 /* AuthenticationViewModel.swift in Sources */,
@@ -1137,6 +1198,7 @@
 				AD4296992C6C901B0016A57A /* MyInfo.swift in Sources */,
 				AD67DF342C47EF88008971DB /* CreateRepoViewModel.swift in Sources */,
 				ADAA4FEE2C58EA3B00EF30E0 /* TodoCellView.swift in Sources */,
+				AD1D57262D17F80F00DF2E32 /* RegisterReqeust.swift in Sources */,
 				AD46DDF82C47906E00DE940B /* TargetType.swift in Sources */,
 				AD42968C2C6B49400016A57A /* MyProfileBtnType.swift in Sources */,
 				AD4296A22C6C94F40016A57A /* FetchMyInfoResponse.swift in Sources */,
@@ -1163,12 +1225,12 @@
 				AD10DBC32C401F7A00785252 /* MainTabType.swift in Sources */,
 				AD8ECD762CA2A1D200BDABFA /* EmptyResponse.swift in Sources */,
 				AD42969F2C6C924A0016A57A /* MemberTarget.swift in Sources */,
-				AD349CF62CE1EE7300ED6864 /* SectionTitle.swift in Sources */,
 				AD10DBD02C40D3DB00785252 /* Month.swift in Sources */,
 				ADAA4FE92C58BD7100EF30E0 /* KeychainManager.swift in Sources */,
 				AD6E2A752C5CC279006783B9 /* Phase.swift in Sources */,
 				AD6E2A7B2C5CC734006783B9 /* ErrorView.swift in Sources */,
 				AD67DF322C47EF7D008971DB /* CreateRepoView.swift in Sources */,
+				AD1D57232D17F76C00DF2E32 /* CurriculumListReqeust.swift in Sources */,
 				AD5DC7312C7B10EB0037AC41 /* PersonalInformationView.swift in Sources */,
 				AD6E2A792C5CC6FF006783B9 /* LoadingView.swift in Sources */,
 				AD10DBB92C400F6F00785252 /* Services.swift in Sources */,
@@ -1179,15 +1241,16 @@
 				AD4296AA2C6CA21F0016A57A /* FriendNotStateResponse.swift in Sources */,
 				ADE2C2932C679DA1002BF3A6 /* InfoType.swift in Sources */,
 				AD46DDFA2C4792C500DE940B /* HTTPHeaderField.swift in Sources */,
-				AD349CF32CE1E84E00ED6864 /* SectionInfo.swift in Sources */,
-				AD349D0B2CE36EB700ED6864 /* CurriculumLoadedView.swift in Sources */,
+				AD349D0B2CE36EB700ED6864 /* LoadedCurriculumView.swift in Sources */,
 				AD5D72C32C5213F4009FE208 /* GetTodoCountRequest.swift in Sources */,
 				AD4296872C6B35350016A57A /* UserInfoView.swift in Sources */,
 				AD67DF3C2C47F449008971DB /* ObservableObjectSettable.swift in Sources */,
 				AD4919052C738EBE00D20976 /* SettingViewModel.swift in Sources */,
 				ADAE4BAD2C72645C0046FF88 /* FetchFrienTodoListResponse.swift in Sources */,
+				AD1D57282D19367F00DF2E32 /* PlanResponse.swift in Sources */,
 				AD10DBBB2C401A9B00785252 /* DIContainer.swift in Sources */,
 				AD349CF82CE1F68900ED6864 /* SectionButton.swift in Sources */,
+				AD1D571C2D17E80100DF2E32 /* LoadedCurriculumViewModel.swift in Sources */,
 				AD6E2A712C5CA51C006783B9 /* RefreshResponse.swift in Sources */,
 				ADE2C2902C6768C3002BF3A6 /* UserInfoCardView.swift in Sources */,
 				AD46DE052C479AF300DE940B /* APIEventLogger.swift in Sources */,
@@ -1195,6 +1258,7 @@
 				AD907C912CE09F7C001D4C06 /* CurriculumTarget.swift in Sources */,
 				AD241F4F2C4E2AA700DE8805 /* GetTodoListRequest.swift in Sources */,
 				AD349CFC2CE344CE00ED6864 /* CurriculumResponse.swift in Sources */,
+				AD914CA52D0994BA009F701B /* CurriculumListView.swift in Sources */,
 				ADFBF5E62C6098B50022ED2A /* TodoPatchRequest.swift in Sources */,
 				AD43C85D2C64C391000BC6ED /* TodoListViewModel.swift in Sources */,
 				AD10D4BA2C3D1034008481FF /* TDDApp.swift in Sources */,
@@ -1203,8 +1267,8 @@
 				AD46DE092C47AFAF00DE940B /* AuthInterceptor.swift in Sources */,
 				ADAE4BAB2C71FDBB0046FF88 /* TeamIntroductionView.swift in Sources */,
 				AD5D72C72C521FBC009FE208 /* GetTodoListResponse.swift in Sources */,
-				AD907C972CE0A374001D4C06 /* CurriculumView.swift in Sources */,
 				AD67DF372C47F3BA008971DB /* NavigationDestination.swift in Sources */,
+				AD1D572C2D1936F900DF2E32 /* Plan.swift in Sources */,
 				AD8411C62CA19BFD007919CE /* NetworkError.swift in Sources */,
 				AD6E2A6F2C5CA4EC006783B9 /* RefreshRequest.swift in Sources */,
 				ADEA4B622C48A8F700C10B9C /* NavigationRoutingView.swift in Sources */,
@@ -1215,20 +1279,22 @@
 				AD8411412CA15178007919CE /* NetworkingManager.swift in Sources */,
 				AD4296A42C6C963A0016A57A /* MemberService.swift in Sources */,
 				AD6085532C70F4BC00D33143 /* FriendTodoList.swift in Sources */,
-				AD349D082CE36E5C00ED6864 /* SelectView.swift in Sources */,
 				ADAE4BA82C71FB0C0046FF88 /* SettingView.swift in Sources */,
-				AD907C9A2CE0ABF0001D4C06 /* CurriculumViewModel.swift in Sources */,
 				AD907C932CE0A262001D4C06 /* MakeCurriculumRequest.swift in Sources */,
+				AD0E27C62D0ADA79002DF322 /* CurriculumMakeView.swift in Sources */,
 				AD60854C2C709CCD00D33143 /* UserDetailViewModel.swift in Sources */,
 				AD8ECD782CA2F05C00BDABFA /* ServerErrorResponse.swift in Sources */,
 				AD5D72C52C521A95009FE208 /* GetTodoCountResponse.swift in Sources */,
 				ADAE4BAF2C734ABB0046FF88 /* SplashView.swift in Sources */,
 				AD10DBCE2C40CA0E00785252 /* Date+Extension.swift in Sources */,
 				AD4296952C6C87FA0016A57A /* SearchBar.swift in Sources */,
+				AD914CAA2D099F9F009F701B /* CurriculumButton.swift in Sources */,
 				AD4296972C6C8A590016A57A /* QuestViewModel.swift in Sources */,
+				AD0E27D12D0EC14D002DF322 /* CurriculumListViewModel.swift in Sources */,
 				ADF2AB7F2C3EA0BF00B5AD60 /* MyWebView.swift in Sources */,
 				AD6E2A772C5CC6DA006783B9 /* PlaceholderView.swift in Sources */,
 				AD6353CB2C6358A000CED65A /* SHA256.swift in Sources */,
+				ADB114FD2D4B59230094036D /* FetchCurriculumResponse.swift in Sources */,
 				AD10DBAD2C3ED76B00785252 /* AuthenticationView.swift in Sources */,
 				AD67DF392C47F400008971DB /* NavigationRouter.swift in Sources */,
 				ADE2C2952C67A14A002BF3A6 /* UserInfo.swift in Sources */,
@@ -1237,6 +1303,7 @@
 				AD349D012CE3459300ED6864 /* CurriculumService.swift in Sources */,
 				AD4296932C6B58DA0016A57A /* FriendTarget.swift in Sources */,
 				AD5D72D42C54F291009FE208 /* AuthAPITarget.swift in Sources */,
+				AD0E27CA2D0D1548002DF322 /* CurriculumMakeViewModel.swift in Sources */,
 				AD6353CD2C635A2400CED65A /* MemoryStorage.swift in Sources */,
 				AD5D72D72C54F2E1009FE208 /* LoginRequest.swift in Sources */,
 			);
@@ -1253,6 +1320,7 @@
 				AD84114C2CA18BC8007919CE /* LinkGitHubView.swift in Sources */,
 				AD84114D2CA18BC8007919CE /* API.swift in Sources */,
 				AD84114E2CA18BC8007919CE /* TodoInfoModifier.swift in Sources */,
+				AD0E27CD2D0D2996002DF322 /* CurriculumMakeStep.swift in Sources */,
 				AD84114F2CA18BC8007919CE /* MainTabViewModel.swift in Sources */,
 				AD8411502CA18BC8007919CE /* View+Extension.swift in Sources */,
 				AD8411512CA18BC8007919CE /* MainTabView.swift in Sources */,
@@ -1264,6 +1332,7 @@
 				AD8411572CA18BC8007919CE /* CalendarViewModel.swift in Sources */,
 				AD8411582CA18BC8007919CE /* MyInfo.swift in Sources */,
 				AD8411592CA18BC8007919CE /* CreateRepoViewModel.swift in Sources */,
+				AD1D57252D17F80F00DF2E32 /* RegisterReqeust.swift in Sources */,
 				AD84115A2CA18BC8007919CE /* TodoCellView.swift in Sources */,
 				AD84115B2CA18BC8007919CE /* TargetType.swift in Sources */,
 				AD84115C2CA18BC8007919CE /* MyProfileBtnType.swift in Sources */,
@@ -1290,12 +1359,12 @@
 				AD8411712CA18BC8007919CE /* LoginView.swift in Sources */,
 				AD8411722CA18BC8007919CE /* MainTabType.swift in Sources */,
 				AD8411732CA18BC8007919CE /* MemberTarget.swift in Sources */,
-				AD349CF52CE1EE7300ED6864 /* SectionTitle.swift in Sources */,
 				AD8411742CA18BC8007919CE /* Month.swift in Sources */,
 				AD8411752CA18BC8007919CE /* KeychainManager.swift in Sources */,
 				AD8411762CA18BC8007919CE /* Phase.swift in Sources */,
 				AD8411772CA18BC8007919CE /* ErrorView.swift in Sources */,
 				AD8411782CA18BC8007919CE /* CreateRepoView.swift in Sources */,
+				AD1D57222D17F76C00DF2E32 /* CurriculumListReqeust.swift in Sources */,
 				AD8411792CA18BC8007919CE /* PersonalInformationView.swift in Sources */,
 				AD84117A2CA18BC8007919CE /* LoadingView.swift in Sources */,
 				AD84117B2CA18BC8007919CE /* Services.swift in Sources */,
@@ -1306,15 +1375,16 @@
 				AD84117F2CA18BC8007919CE /* FriendNotStateResponse.swift in Sources */,
 				AD8411802CA18BC8007919CE /* InfoType.swift in Sources */,
 				AD8411812CA18BC8007919CE /* HTTPHeaderField.swift in Sources */,
-				AD349CF22CE1E84E00ED6864 /* SectionInfo.swift in Sources */,
-				AD349D0A2CE36EB700ED6864 /* CurriculumLoadedView.swift in Sources */,
+				AD349D0A2CE36EB700ED6864 /* LoadedCurriculumView.swift in Sources */,
 				AD8411822CA18BC8007919CE /* GetTodoCountRequest.swift in Sources */,
 				AD8411832CA18BC8007919CE /* UserInfoView.swift in Sources */,
 				AD8411842CA18BC8007919CE /* ObservableObjectSettable.swift in Sources */,
 				AD8411852CA18BC8007919CE /* SettingViewModel.swift in Sources */,
 				AD8411862CA18BC8007919CE /* FetchFrienTodoListResponse.swift in Sources */,
+				AD1D57292D19367F00DF2E32 /* PlanResponse.swift in Sources */,
 				AD8411872CA18BC8007919CE /* DIContainer.swift in Sources */,
 				AD349CF92CE1F68900ED6864 /* SectionButton.swift in Sources */,
+				AD1D571B2D17E80100DF2E32 /* LoadedCurriculumViewModel.swift in Sources */,
 				AD8411882CA18BC8007919CE /* RefreshResponse.swift in Sources */,
 				AD8411892CA18BC8007919CE /* UserInfoCardView.swift in Sources */,
 				AD84118A2CA18BC8007919CE /* APIEventLogger.swift in Sources */,
@@ -1322,6 +1392,7 @@
 				AD907C902CE09F7C001D4C06 /* CurriculumTarget.swift in Sources */,
 				AD84118C2CA18BC8007919CE /* GetTodoListRequest.swift in Sources */,
 				AD349CFB2CE344CE00ED6864 /* CurriculumResponse.swift in Sources */,
+				AD914CA62D0994BA009F701B /* CurriculumListView.swift in Sources */,
 				AD84118D2CA18BC8007919CE /* TodoPatchRequest.swift in Sources */,
 				AD84118E2CA18BC8007919CE /* TodoListViewModel.swift in Sources */,
 				AD84118F2CA18BC8007919CE /* TDDApp.swift in Sources */,
@@ -1330,8 +1401,8 @@
 				AD8411922CA18BC8007919CE /* AuthInterceptor.swift in Sources */,
 				AD8411952CA18BC8007919CE /* TeamIntroductionView.swift in Sources */,
 				AD8411962CA18BC8007919CE /* GetTodoListResponse.swift in Sources */,
-				AD907C982CE0A374001D4C06 /* CurriculumView.swift in Sources */,
 				AD8411982CA18BC8007919CE /* NavigationDestination.swift in Sources */,
+				AD1D572B2D1936F900DF2E32 /* Plan.swift in Sources */,
 				AD84119A2CA18BC8007919CE /* RefreshRequest.swift in Sources */,
 				AD84119B2CA18BC8007919CE /* NavigationRoutingView.swift in Sources */,
 				AD90F9462CA95862005023B4 /* EmptyResponse.swift in Sources */,
@@ -1342,20 +1413,22 @@
 				AD8411A02CA18BC8007919CE /* NetworkingManager.swift in Sources */,
 				AD8411A12CA18BC8007919CE /* MemberService.swift in Sources */,
 				AD8411A22CA18BC8007919CE /* FriendTodoList.swift in Sources */,
-				AD349D072CE36E5C00ED6864 /* SelectView.swift in Sources */,
 				AD8411A32CA18BC8007919CE /* SettingView.swift in Sources */,
-				AD907C9B2CE0ABF0001D4C06 /* CurriculumViewModel.swift in Sources */,
 				AD907C942CE0A262001D4C06 /* MakeCurriculumRequest.swift in Sources */,
+				AD0E27C72D0ADA79002DF322 /* CurriculumMakeView.swift in Sources */,
 				AD8411A42CA18BC8007919CE /* UserDetailViewModel.swift in Sources */,
 				AD90F9472CA95864005023B4 /* ServerErrorResponse.swift in Sources */,
 				AD8411A52CA18BC8007919CE /* GetTodoCountResponse.swift in Sources */,
 				AD8411A62CA18BC8007919CE /* SplashView.swift in Sources */,
 				AD8411A72CA18BC8007919CE /* Date+Extension.swift in Sources */,
 				AD8411A82CA18BC8007919CE /* SearchBar.swift in Sources */,
+				AD914CA92D099F9F009F701B /* CurriculumButton.swift in Sources */,
 				AD8411A92CA18BC8007919CE /* QuestViewModel.swift in Sources */,
+				AD0E27D02D0EC14D002DF322 /* CurriculumListViewModel.swift in Sources */,
 				AD8411AA2CA18BC8007919CE /* MyWebView.swift in Sources */,
 				AD8411AB2CA18BC8007919CE /* PlaceholderView.swift in Sources */,
 				AD8411AC2CA18BC8007919CE /* SHA256.swift in Sources */,
+				ADB114FE2D4B59230094036D /* FetchCurriculumResponse.swift in Sources */,
 				AD8411AD2CA18BC8007919CE /* AuthenticationView.swift in Sources */,
 				AD8411AE2CA18BC8007919CE /* NavigationRouter.swift in Sources */,
 				AD8411AF2CA18BC8007919CE /* UserInfo.swift in Sources */,
@@ -1364,6 +1437,7 @@
 				AD349D022CE3459300ED6864 /* CurriculumService.swift in Sources */,
 				AD8411B22CA18BC8007919CE /* FriendTarget.swift in Sources */,
 				AD8411B32CA18BC8007919CE /* AuthAPITarget.swift in Sources */,
+				AD0E27C92D0D1548002DF322 /* CurriculumMakeViewModel.swift in Sources */,
 				AD8411B42CA18BC8007919CE /* MemoryStorage.swift in Sources */,
 				AD8411B52CA18BC8007919CE /* LoginRequest.swift in Sources */,
 			);

@@ -19,19 +19,18 @@ struct SectionButton: View {
             HStack {
                 Spacer()
                 Text(title)
-                    .font(.system(size: 14, weight: .thin))
+                    .font(.system(size: 14, weight: .medium))
                     .foregroundStyle(isSelected ? .fixWh : .sectionTitleGray)
                 Spacer()
             }
             .padding(.vertical, 8.5)
-            .background(isSelected ? .main : .fixWh)
+            .background(isSelected ? .black50 : .fixWh)
             .cornerRadius(10, corners: .allCorners)
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(isSelected ? .clear : .sectionBorder)
+                    .stroke(isSelected ? .clear : .black50)
             }
         }
-
     }
 }
 

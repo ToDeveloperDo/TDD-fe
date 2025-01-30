@@ -11,7 +11,9 @@ import Combine
 protocol NavigationRoutable {
     var myProfileDestinations: [NavigationDestination] { get set }
     var questDestinations: [NavigationDestination] { get set }
+    var curriculumDestinations: [NavigationDestination] { get set }
     func push(to view: NavigationDestination, on type: NavigationRouterType)
+    func popAndPush(to view: NavigationDestination, on type: NavigationRouterType)
     func pop(on type: NavigationRouterType)
     func popToRootView(on type: NavigationRouterType)
 }
@@ -19,6 +21,7 @@ protocol NavigationRoutable {
 enum NavigationRouterType {
     case myProfile
     case quest
+    case curriculum
 }
 
 class NavigationRouter: NavigationRoutable, ObservableObjectSettable {
@@ -37,12 +40,20 @@ class NavigationRouter: NavigationRoutable, ObservableObjectSettable {
         }
     }
     
+    var curriculumDestinations: [NavigationDestination] = [] {
+        didSet {
+            objectWillChange?.send()
+        }
+    }
+    
     func push(to view: NavigationDestination, on type: NavigationRouterType) {
         switch type {
         case .myProfile:
             myProfileDestinations.append(view)
         case .quest:
             questDestinations.append(view)
+        case .curriculum:
+            curriculumDestinations.append(view)
         }
     }
     
@@ -52,6 +63,8 @@ class NavigationRouter: NavigationRoutable, ObservableObjectSettable {
             _ = myProfileDestinations.popLast()
         case .quest:
             _ = questDestinations.popLast()
+        case .curriculum:
+            _ = curriculumDestinations.popLast()
         }
     }
     
@@ -61,6 +74,35 @@ class NavigationRouter: NavigationRoutable, ObservableObjectSettable {
             myProfileDestinations = []
         case .quest:
             questDestinations = []
+        case .curriculum:
+            curriculumDestinations = []
         }
+    }
+    
+    func popAndPush(to view: NavigationDestination, on type: NavigationRouterType) {
+        switch type {
+        case .myProfile:
+            if !self.myProfileDestinations.isEmpty {
+                _ = self.myProfileDestinations.popLast()
+            }
+            DispatchQueue.main.async {
+                self.myProfileDestinations.append(view)
+            }
+        case .quest:
+            if !self.questDestinations.isEmpty {
+                _ = self.questDestinations.popLast()
+            }
+            DispatchQueue.main.async {
+                self.questDestinations.append(view)
+            }
+        case .curriculum:
+            if !self.curriculumDestinations.isEmpty {
+                _ = self.curriculumDestinations.popLast()
+            }
+            DispatchQueue.main.async {
+                self.curriculumDestinations.append(view) 
+            }
+        }
+        
     }
 }

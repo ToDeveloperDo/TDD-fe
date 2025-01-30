@@ -60,7 +60,7 @@ extension MainTabView {
                     case .quest:
                         QuestView(viewModel: .init(container: container))
                     case .curriculum:
-                        CurriculumView(viewModel: .init(container: container))
+                        CurriculumListView(viewModel: .init(container: container))
                     case .myInfo:
                         MyProfileView(viewModel: .init(container: container))
                     }
@@ -73,38 +73,37 @@ extension MainTabView {
     var bottomTabs: some View {
         HStack(alignment: .top) {
             Spacer()
-            HStack(alignment: .top, spacing: 55) {
+            HStack(alignment: .top, spacing: 65) {
                 ForEach(MainTabType.allCases, id: \.self) { tab in
                     VStack(spacing: 8) {
                         Image(tab.imageName(selected: selectedTab == tab))
+                            .resizable()
+                            .frame(width: 26, height: 26)
                         
                         Text("\(tab.title)")
                             .font(.system(size: 11, weight: .regular))
                             .foregroundStyle(Color(tab.colorName(selected: selectedTab == tab)))
                     }
-                    .frame(width: 45, height: 50)
                     .onTapGesture {
                         selectedTab = tab
                     }
                 }
             }
-            .padding(.bottom, 20)
+            .padding(.top, 15)
+            .padding(.bottom, 21)
             Spacer()
         }
-        .frame(height: 80)
         .background {
             Color.fixWh
                 .cornerRadius(20, corners: [.topLeft, .topRight])
                 .shadow(radius: 1)
                 
         }
-        
     }
 }
 
 struct MainTabView_Previews: PreviewProvider {
     static let container: DIContainer = .init(services: StubService())
-    static let navigationRouter: NavigationRouter = .init()
     
     static var previews: some View {
         MainTabView(viewModel: .init(container: container))

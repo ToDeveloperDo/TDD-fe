@@ -19,6 +19,10 @@ struct NavigationRoutingView: View {
         case .setting: SettingView(viewModel: .init(container: container, authViewModel: authViewModel))
         case .teamIntroduction: TeamIntroductionView()
         case .personalInformation: PersonalInformationView()
+        case .createCurriculum: CurriculumMakeView(viewModel: .init(container: container))
+        case let .fetchedCurriculum(curriculums, id, selectedStep): LoadedCurriculumView(
+            viewModel: .init(container: container, curriculums: curriculums, id: id, selectedStep: selectedStep)
+        )
         }
     }
 }

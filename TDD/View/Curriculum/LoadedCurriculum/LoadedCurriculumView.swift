@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct CurriculumLoadedView: View {
-    @ObservedObject private var viewModel: CurriculumViewModel
+struct LoadedCurriculumView: View {
+    @ObservedObject private var viewModel: LoadedCurriculumViewModel
     
-    init(viewModel: CurriculumViewModel) {
+    init(viewModel: LoadedCurriculumViewModel) {
         self.viewModel = viewModel
     }
     
@@ -24,13 +24,28 @@ struct CurriculumLoadedView: View {
             }
         }
         .background(.fixWh)
+        .onAppear {
+            viewModel.send(action: .fetchCurriculum)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    viewModel.send(action: .backButtonTapped)
+                } label: {
+                    Image(.icWestArrow)
+                }
+                
+            }
+        }
+        .toolbarColorScheme(.light, for: .navigationBar)
+        .navigationBarBackButtonHidden()
     }
 }
 
 private struct PeriodView: View {
-    @ObservedObject private var viewModel: CurriculumViewModel
+    @ObservedObject private var viewModel: LoadedCurriculumViewModel
     
-    fileprivate init(viewModel: CurriculumViewModel) {
+    fileprivate init(viewModel: LoadedCurriculumViewModel) {
         self.viewModel = viewModel
     }
     
@@ -39,19 +54,19 @@ private struct PeriodView: View {
             HStack(spacing: 5) {
                 ForEach(0..<viewModel.curriculums.count, id: \.self) { index in
                     Button {
-                        viewModel.selectedWeek = index
+                        viewModel.send(action: .tappedWeek(week: index))
                     } label: {
                         Text("\(index+1)주차")
-                            .font(.system(size: 12, weight: .thin))
-                            .foregroundStyle(viewModel.selectedWeek == index ? .fixWh : .main)
+                            .font(.system(size: 12, weight: .regular))
+                            .foregroundStyle(viewModel.selectedWeek == index ? .fixWh : .fixBk)
                             .padding(.horizontal, 22)
                             .padding(.vertical, 9.5)
                     }
-                    .background(viewModel.selectedWeek == index ? .main : .fixWh)
+                    .background(viewModel.selectedWeek == index ? .primary100 : .fixWh)
                     .cornerRadius(10, corners: .allCorners)
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(viewModel.selectedWeek == index ? .clear : .sectionBorder)
+                            .stroke(viewModel.selectedWeek == index ? .clear : .primary50)
                     }
                 }
             }
@@ -63,9 +78,9 @@ private struct PeriodView: View {
 }
 
 private struct HeaderView: View {
-    @ObservedObject private var viewModel: CurriculumViewModel
+    @ObservedObject private var viewModel: LoadedCurriculumViewModel
     
-    fileprivate init(viewModel: CurriculumViewModel) {
+    fileprivate init(viewModel: LoadedCurriculumViewModel) {
         self.viewModel = viewModel
     }
     
@@ -83,9 +98,9 @@ private struct HeaderView: View {
 }
 
 private struct ContentsView: View {
-    @ObservedObject private var viewModel: CurriculumViewModel
+    @ObservedObject private var viewModel: LoadedCurriculumViewModel
     
-    fileprivate init(viewModel: CurriculumViewModel) {
+    fileprivate init(viewModel: LoadedCurriculumViewModel) {
         self.viewModel = viewModel
     }
     
@@ -93,7 +108,7 @@ private struct ContentsView: View {
         VStack(spacing: 12) {
             ForEach(viewModel.curriculums[viewModel.selectedWeek].contents) { content in
                 ContentButton(subject: content) {
-                    viewModel.tappedSubject(subject: content)
+                    viewModel.send(action: .tappedCurriculum(curriculum: content))
                 }
                 .disabled(viewModel.curriculums[viewModel.selectedWeek].isRegistration)
             }
@@ -120,20 +135,20 @@ private struct ContentButton: View {
         } label: {
             HStack {
                 Text("\(subject.title)")
-                    .font(.system(size: 12, weight: .thin))
-                    .foregroundStyle(subject.isSelected ? .fixWh : .black)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(.fixBk)
                 Spacer()
                 Image(subject.isSelected ? .contentSelectedCheckBox : .contentCheckBox)
             }
             .padding(.leading, 22)
             .padding(.trailing, 11)
             .padding(.vertical, 11)
-            .background(subject.isSelected ? .main : .fixWh)
+            .background(subject.isSelected ? .primary50 : .fixWh)
             .cornerRadius(10, corners: .allCorners)
             .overlay {
                 if !subject.isSelected {
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(.sectionBorder)
+                        .stroke(.primary50)
                 }
             }
         }
@@ -142,35 +157,35 @@ private struct ContentButton: View {
 }
 
 private struct AddButtonView: View {
-    @ObservedObject private var viewModel: CurriculumViewModel
+    @ObservedObject private var viewModel: LoadedCurriculumViewModel
     
-    fileprivate init(viewModel: CurriculumViewModel) {
+    fileprivate init(viewModel: LoadedCurriculumViewModel) {
         self.viewModel = viewModel
     }
     
     fileprivate var body: some View {
         Button(action: {
-            viewModel.addButtonTapped()
-            viewModel.curriculums[viewModel.selectedWeek].isRegistration = true
+            viewModel.send(action: .tappedRegistration)
+//            viewModel.curriculums[viewModel.selectedWeek].isRegistration = true
         }) {
             HStack {
                 Spacer()
                 Text("등록하기")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(viewModel.addButtonValidation() ? .fixBk : .fixWh)
+                    .foregroundStyle(/*viewModel.addButtonValidation() ? .fixBk :*/ .fixWh)
                     .padding(.vertical, 20)
                 Spacer()
             }
-            .background(viewModel.addButtonValidation() ? .serve2 : .main)
+            .background(/*viewModel.addButtonValidation() ? .serve2 :*/ .primary100)
             .cornerRadius(10, corners: .allCorners)
             .padding(.horizontal, 24)
         }
-        .disabled(viewModel.addButtonValidation())
+//        .disabled(viewModel.addButtonValidation())
         .padding(.top, 74)
         .padding(.bottom, 60)
     }
 }
 
 #Preview {
-    CurriculumLoadedView(viewModel: .init(container: .stub))
+    LoadedCurriculumView(viewModel: .init(container: .stub, selectedStep: [:]))
 }

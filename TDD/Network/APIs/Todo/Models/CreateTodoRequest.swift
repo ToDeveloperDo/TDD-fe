@@ -8,6 +8,10 @@
 import Foundation
 
 struct CreateTodoRequest: Encodable {
+    let todos: [TodoRequest]
+}
+
+struct TodoRequest: Encodable {
     let content: String
     let memo: String?
     let tag: String

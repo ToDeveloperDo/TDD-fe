@@ -9,7 +9,9 @@ import Foundation
 
 enum NavigationDestination: Hashable {
     case userDetail(user: UserInfo, parent: NavigationRouterType)
+    case fetchedCurriculum(curriculums: [Curriculum]?, id: Int?, selectedStep: [CurriculumMakeStep : String])
     case setting
     case teamIntroduction
     case personalInformation
+    case createCurriculum
 }
