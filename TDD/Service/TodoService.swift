@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol TodoServiceType {
-    func createTodo(todo: Todo) -> AnyPublisher<Int64, ServiceError>
+    func createTodo(todos: [Todo]) -> AnyPublisher<Int64, ServiceError>
     func getTodoList(date: String) -> AnyPublisher<[Todo], ServiceError>
     func getTodoCount(year: String, month: String) -> AnyPublisher<[(Int, Int)], ServiceError>
     func reverseTodo(todoId: Int64) -> AnyPublisher<Void, ServiceError>
@@ -19,8 +19,10 @@ protocol TodoServiceType {
 }
 
 final class TodoService: TodoServiceType {
-    func createTodo(todo: Todo) -> AnyPublisher<Int64, ServiceError> {
-        let request = CreateTodoRequest(todos: [.init(content: todo.content, memo: todo.memo, tag: todo.tag, deadline: todo.deadline)])
+    func createTodo(todos: [Todo]) -> AnyPublisher<Int64, ServiceError> {
+        let request = CreateTodoRequest(
+            todos: todos.map { .init(content: $0.content, memo: $0.memo, tag: $0.tag, deadline: $0.deadline) }
+        )
         return NetworkingManager.shared.requestWithAuth(TodoAPITarget.createTodo(request), type: Int64.self)
             .mapError { error in
                 switch error {
@@ -149,7 +151,7 @@ final class TodoService: TodoServiceType {
 }
 
 final class StubTodoService: TodoServiceType {
-    func createTodo(todo: Todo) -> AnyPublisher<Int64, ServiceError> {
+    func createTodo(todos: [Todo]) -> AnyPublisher<Int64, ServiceError> {
         Just(1).setFailureType(to: ServiceError.self).eraseToAnyPublisher()
     }
     

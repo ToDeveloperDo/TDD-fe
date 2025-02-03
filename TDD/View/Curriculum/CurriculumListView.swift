@@ -102,6 +102,7 @@ private struct CurriculumView: View {
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, 198)
+                .padding(.bottom, 124)
             }
         }
     }

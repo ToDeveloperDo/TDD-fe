@@ -296,7 +296,7 @@ extension CalendarViewModel {
             months[currentSelection].days[index].todos.append(todo)
             months[currentSelection].days[index].todosCount += 1
             showTextField = false
-            container.services.todoService.createTodo(todo: todo)
+            container.services.todoService.createTodo(todos: [todo])
                 .sink { [weak self] completion in
                     if case .failure(_) = completion {
                         self?.isError = true

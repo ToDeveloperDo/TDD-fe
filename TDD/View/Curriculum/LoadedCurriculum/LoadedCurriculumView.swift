@@ -24,6 +24,22 @@ struct LoadedCurriculumView: View {
             }
         }
         .background(.fixWh)
+        .disabled(viewModel.isLoading)
+        .overlay {
+            if viewModel.isLoading {
+                VStack {
+                    ProgressView("커리큘럼 저장중...")
+                        .foregroundStyle(.fixWh)
+                        .font(.system(size: 18, weight: .bold))
+                        .controlSize(.large)
+                        .tint(.main)
+                }
+                .padding(.horizontal, 40)
+                .padding(.vertical, 40)
+                .background(Color.calendarDayGray.opacity(0.8))
+                .cornerRadius(20, corners: .allCorners)
+            }
+        }
         .onAppear {
             viewModel.send(action: .fetchCurriculum)
         }
@@ -166,21 +182,20 @@ private struct AddButtonView: View {
     fileprivate var body: some View {
         Button(action: {
             viewModel.send(action: .tappedRegistration)
-//            viewModel.curriculums[viewModel.selectedWeek].isRegistration = true
         }) {
             HStack {
                 Spacer()
                 Text("등록하기")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(/*viewModel.addButtonValidation() ? .fixBk :*/ .fixWh)
+                    .foregroundStyle(.fixWh)
                     .padding(.vertical, 20)
                 Spacer()
             }
-            .background(/*viewModel.addButtonValidation() ? .serve2 :*/ .primary100)
+            .background(viewModel.addButtonValidation() ? .black50 : .primary100)
             .cornerRadius(10, corners: .allCorners)
             .padding(.horizontal, 24)
         }
-//        .disabled(viewModel.addButtonValidation())
+        .disabled(viewModel.addButtonValidation())
         .padding(.top, 74)
         .padding(.bottom, 60)
     }

@@ -12,6 +12,7 @@ final class LoadedCurriculumViewModel: ObservableObject {
     @Published var curriculums: [Curriculum] = []
     @Published var id: Int?
     @Published var selectedWeek: Int = 0
+    @Published var isLoading = false    
     private var selectedStep: [CurriculumMakeStep : String] = [:]
     
     private var container: DIContainer
@@ -65,6 +66,8 @@ extension LoadedCurriculumViewModel {
               let periodString = selectedStep[.period],
         let period = Int(periodString.split(separator: "개월").first ?? "1") else { return }
         
+        isLoading = true
+        
         var week = 1
         
         var request = RegisterReqeust(
@@ -78,13 +81,56 @@ extension LoadedCurriculumViewModel {
         }
         
         container.services.curriculumService.saveCurriculum(request: request)
-            .sink { _ in
-                
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.createTodos()
+                case .failure(let error):
+                    self?.isLoading = false
+                    print(error)
+                }
             } receiveValue: { _ in
                 
             }
             .store(in: &subscriptions)
+    }
+    
+    private func createTodos() {
+        let calendar = Calendar.current
+        let currentDate = Date()
         
+        let selectedSubjects = curriculums.map { $0.contents.filter({ $0.isSelected })}
+        
+        let todos = selectedSubjects.enumerated().map { iIndex, todos in
+            todos.enumerated().map { jIndex, todo in
+                let weekadjustedDate = calendar.date(
+                    byAdding: .weekOfYear,
+                    value: iIndex,
+                    to: currentDate
+                ) ?? currentDate
+                
+                let adjustedDate = calendar.date(byAdding: .day, value: jIndex * 2 + jIndex, to: weekadjustedDate)
+                let stringDate = adjustedDate?.format("yyyy-MM-dd") ?? ""
+                return Todo(
+                    content: todo.title,
+                    memo: "",
+                    tag: "커리큘럼",
+                    deadline: stringDate,
+                    status: .PROCEED
+                )
+            }
+        }
+        
+        container.services.todoService.createTodo(todos: todos.flatMap { $0 })
+            .sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    print("Failed to create todos: \(error)")
+                } else {
+                    self?.isLoading = false
+                    self?.container.navigationRouter.pop(on: .curriculum)
+                }
+            } receiveValue: { _ in }
+            .store(in: &subscriptions)
     }
     
     private func backButtonTapped() {
@@ -100,5 +146,9 @@ extension LoadedCurriculumViewModel {
                 self?.curriculums = result
             }
             .store(in: &subscriptions)
+    }
+    
+    func addButtonValidation() -> Bool {
+        return id != nil ? true : false
     }
 }
