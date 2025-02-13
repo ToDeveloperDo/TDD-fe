@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/014e4f07-352b-4b9e-a627-b66304cbfd3e)<img src="https://github.com/user-attachments/assets/056a63f2-b755-4255-92c9-c96cc19a5a13" width="100%" height="380" alt="Thumbnail" />
+<img src="https://github.com/user-attachments/assets/056a63f2-b755-4255-92c9-c96cc19a5a13" width="100%" height="380" alt="Thumbnail" />
 
 # 서비스 소개
 
