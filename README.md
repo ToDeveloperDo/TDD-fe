@@ -33,10 +33,9 @@
 
 
 # **🍎 iOS Developer**
-
-|최안용</br>[@ChoiAnYong](https://github.com/ChoiAnYong)|
-|:---:|
-</br>
+| **최안용** |
+| :------: | 
+| [<img src="https://github.com/user-attachments/assets/f5a46295-cf54-4058-beaa-597e451d3639" height=150 width=150> <br/> @ChoiAnYong](//github.com/ChoiAnYong) |
 
 # **⚒️** Tech stack & Architecture
 <img src="https://img.shields.io/badge/SwiftUI-2C68B5?&style=flat-square&logo=Swift&logoColor=white"/> <img src="https://img.shields.io/badge/Xcode_16-147EFB?style=flat-square&logo=Xcode&logoColor=white"/> <img src="https://img.shields.io/badge/Combine-FF3E00?style=flat-square&logo=Swift&logoColor=white"/>
