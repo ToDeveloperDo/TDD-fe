@@ -1,4 +1,4 @@
-<img src="https://github.com/user-attachments/assets/056a63f2-b755-4255-92c9-c96cc19a5a13" width="100%" height="380" alt="Thumbnail" />
+![image](https://github.com/user-attachments/assets/014e4f07-352b-4b9e-a627-b66304cbfd3e)<img src="https://github.com/user-attachments/assets/056a63f2-b755-4255-92c9-c96cc19a5a13" width="100%" height="380" alt="Thumbnail" />
 
 # 서비스 소개
 
@@ -30,12 +30,14 @@
 <br>
 <br>
 
-
-
 # **🍎 iOS Developer**
+<div align="center">
+  
 | **최안용** |
 | :------: | 
-| [<img src="https://github.com/user-attachments/assets/f5a46295-cf54-4058-beaa-597e451d3639" height=150 width=150> <br/> @ChoiAnYong](//github.com/ChoiAnYong) |
+| [<img src="https://github.com/user-attachments/assets/92c00ebf-d82d-408a-88d0-1f3f0e612f71" height=150 width=150> <br/> @ChoiAnYong](https://github.com/ChoiAnYong) |
+
+</div>
 
 # **⚒️** Tech stack & Architecture
 <img src="https://img.shields.io/badge/SwiftUI-2C68B5?&style=flat-square&logo=Swift&logoColor=white"/> <img src="https://img.shields.io/badge/Xcode_16-147EFB?style=flat-square&logo=Xcode&logoColor=white"/> <img src="https://img.shields.io/badge/Combine-FF3E00?style=flat-square&logo=Swift&logoColor=white"/>
