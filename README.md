@@ -46,21 +46,29 @@
 
 # 시연영상 
 # TDD
-| 지도 | 장소검색 |
+| 로그인 | 깃허브 연동 |
 |:-:|:-:|
 | <img src="" width="180"/> | <img src="" width="180"/> |
 
-| 떠먹기 | 네이버 길찾기 |
-|:-:|:-:|
-| <img src="" width="180"/> | <img src="" width="180"/> |
+| TODO 생성 | TODO 완료 | TODO 진행중 |
+|:-:|:-:|:-:|
+| <img src="" width="180"/> | <img src="" width="180"/> | <img src="" width="180"/> |
 
-| 탐색 리스트 조회 | 지도 리스트 떠먹기 | 신고하기 |
+| TODO 내용 변경 | TODO 날짜 변경 | TODO 삭제 |
 |:-:|:-:|:-:|
 | <img src="" width="180"/> | <img src="" width="180"/> | <img src="" width="180"/> | 
 
-| 등록 1단계 | 등록 2단계 |  
+| 친구 탐색 | 친구 프로필(팔로우) | 친구 프로필(언팔로우) |  
+|:-:|:-:|:-:|
+| <img src="" width="180"/> | <img src="" width="180"/> | <img src="" width="180"/> | 
+
+| 목표 생성 | 목표 리스트 |   
 |:-:|:-:|
-| <img src="" width="180"/> | <img src="" width="180"/> | 
+| <img src="" width="180"/> | <img src="" width="180"/> |
+
+| 내 정보 | 탈퇴 |   
+|:-:|:-:|
+| <img src="" width="180"/> | <img src="" width="180"/> |
 
 # **🌀 Library**
 
