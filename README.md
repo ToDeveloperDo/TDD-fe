@@ -46,9 +46,9 @@
 
 # 시연영상 
 # TDD
-| 로그인 | 깃허브 연동 |
+| 로그인 및 깃허브 연동 | Repository 생성 |
 |:-:|:-:|
-| <img src="" width="180"/> | <img src="" width="180"/> |
+| <img src="https://github.com/user-attachments/assets/d0507240-e579-449b-a4dd-de4d64360886" width="180"/> | <img src="https://github.com/user-attachments/assets/191825a9-110d-4d88-a3ff-cc07c3ce26c6" width="180"/> |
 
 | TODO 생성 | TODO 완료 | TODO 진행중 |
 |:-:|:-:|:-:|
@@ -68,7 +68,7 @@
 
 | 내 정보 | 탈퇴 |   
 |:-:|:-:|
-| <img src="" width="180"/> | <img src="" width="180"/> |
+| <img src="" width="180"/> | <img src="https://github.com/user-attachments/assets/61d865e7-6dce-4ef8-9264-e17b57ebe8e5" width="180"/> |
 
 # **🌀 Library**
 
