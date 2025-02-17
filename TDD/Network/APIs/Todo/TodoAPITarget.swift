@@ -14,7 +14,7 @@ enum TodoAPITarget {
     case getTodoCount(GetTodoCountRequest)
     case reverseTodo(Int64)
     case doneTodo(Int64)
-    case editTodo(Int64, CreateTodoRequest)
+    case editTodo(Int64, TodoRequest)
     case deleteTodo(Int64)
 }
 
