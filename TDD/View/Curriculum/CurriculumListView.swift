@@ -26,6 +26,11 @@ struct CurriculumListView: View {
         .onAppear {
             viewModel.send(action: .fetchCurriculumList)
         }
+        .onChange(of: viewModel.container.navigationRouter.curriculumDestinations) { oldValue, newValue in
+            if newValue.isEmpty {
+                viewModel.send(action: .fetchCurriculumList)
+            }
+        }
     }
 }
 
