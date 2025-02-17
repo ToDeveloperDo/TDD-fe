@@ -24,7 +24,6 @@
 <img src="https://github.com/user-attachments/assets/dae6a804-80a1-42a4-b382-b30680fecb10" width="100%" height="250" alt="Thumbnail"/>
 
 # 시연영상 
-# TDD
 | 로그인 및 깃허브 연동 | Repository 생성 |
 |:-:|:-:|
 | <img src="https://github.com/user-attachments/assets/d0507240-e579-449b-a4dd-de4d64360886" width="180"/> | <img src="https://github.com/user-attachments/assets/191825a9-110d-4d88-a3ff-cc07c3ce26c6" width="180"/> |
@@ -43,11 +42,11 @@
 
 | 목표 생성 | 목표 리스트 |   
 |:-:|:-:|
-| <img src="" width="180"/> | <img src="" width="180"/> |
+| <img src="https://github.com/user-attachments/assets/e299da2d-ed91-4c02-8284-4239a348547e" width="180"/> | <img src="https://github.com/user-attachments/assets/d1ebac5d-3593-4a03-83f5-f8a90c6a42a8" width="180"/> |
 
 | 내 정보 | 탈퇴 |   
 |:-:|:-:|
-| <img src="" width="180"/> | <img src="https://github.com/user-attachments/assets/61d865e7-6dce-4ef8-9264-e17b57ebe8e5" width="180"/> |
+| <img src="https://github.com/user-attachments/assets/300d2f4c-d7a5-41d0-949e-b24ad769e7f7" width="180"/> | <img src="https://github.com/user-attachments/assets/61d865e7-6dce-4ef8-9264-e17b57ebe8e5" width="180"/> |
 
 # **🌀 Library**
 
