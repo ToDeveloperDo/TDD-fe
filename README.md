@@ -39,7 +39,7 @@
 
 | 친구 탐색 | 친구 프로필(팔로우) | 친구 프로필(언팔로우) |  
 |:-:|:-:|:-:|
-| <img src="" width="180"/> | <img src="" width="180"/> | <img src="" width="180"/> | 
+| <img src="https://github.com/user-attachments/assets/7aa4c1db-8654-49d7-a921-538f3cda69aa" width="180"/> | <img src="https://github.com/user-attachments/assets/e8a38a63-3d05-43f1-b6c8-ff5649a9da0c" width="180"/> | <img src="https://github.com/user-attachments/assets/9f813148-3d4b-4c76-9493-b952749b593b" width="180"/> | 
 
 | 목표 생성 | 목표 리스트 |   
 |:-:|:-:|
