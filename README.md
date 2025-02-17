@@ -1,4 +1,4 @@
-<img src="https://github.com/user-attachments/assets/056a63f2-b755-4255-92c9-c96cc19a5a13" width="100%" height="380" alt="Thumbnail" />
+![KakaoTalk_Video_2025-02-17-18-38-25](https://github.com/user-attachments/assets/aea9b3a4-d561-48b3-9b68-90f2311eb3e3)<img src="https://github.com/user-attachments/assets/056a63f2-b755-4255-92c9-c96cc19a5a13" width="100%" height="380" alt="Thumbnail" />
 
 # 서비스 소개
 
@@ -35,7 +35,7 @@
 
 | TODO 내용 변경 | TODO 날짜 변경 | TODO 삭제 |
 |:-:|:-:|:-:|
-| <img src="https://github.com/user-attachments/assets/1df9c1e1-10ea-4cb1-83f7-d9d7225ec1ea" width="180"/> | <img src="" width="180"/> | <img src="" width="180"/> | 
+| <img src="https://github.com/user-attachments/assets/1df9c1e1-10ea-4cb1-83f7-d9d7225ec1ea" width="180"/> | <img src="https://github.com/user-attachments/assets/738c916f-fc46-4500-bd2a-acce1caf821b" width="180"/> | <img src="https://github.com/user-attachments/assets/b49fe43c-e5aa-4e5a-b130-8c50ff2fe3e1" width="180"/> | 
 
 | 친구 탐색 | 친구 프로필(팔로우) | 친구 프로필(언팔로우) |  
 |:-:|:-:|:-:|
