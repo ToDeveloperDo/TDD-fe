@@ -1,4 +1,4 @@
-![KakaoTalk_Video_2025-02-17-18-38-25](https://github.com/user-attachments/assets/aea9b3a4-d561-48b3-9b68-90f2311eb3e3)<img src="https://github.com/user-attachments/assets/056a63f2-b755-4255-92c9-c96cc19a5a13" width="100%" height="380" alt="Thumbnail" />
+<img src="https://github.com/user-attachments/assets/056a63f2-b755-4255-92c9-c96cc19a5a13" width="100%" height="380" alt="Thumbnail" />
 
 # 서비스 소개
 
